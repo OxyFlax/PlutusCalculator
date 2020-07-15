@@ -1,26 +1,31 @@
 <div class="navbar">
-  <a href="#home">Home</a>
+  <p>Random stuff</p>
+  <div class="verticalSeperator"></div>
+  <a href="#home"><span class="underline">Home</span></a>
+  <a href="#news"><span class="underline">About</span></a>
   <div class="dropdown">
-    <button class="dropbtn" (click)="showDropDown($event, 'games')">Games
-      <i class="fa fa-caret-down"></i>
+    <button class="dropbtn" (click)="showDropDown($event, 'games')">
+      <span class="underline">
+        Games
+        <i class="fa fa-caret-down"></i>
+      </span>
     </button>
     <div class="dropdown-content" *ngIf="showGamesDropDown" (clickOutside)="hideDropDown('games')">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+      <a href="#maplestory"><span class="underline">Maplestory</span></a>
+      <a href="#ark"><span class="underline">ARK: Survival Evolved</span></a>
+      <a href="#overwatch"><span class="underline">Overwatch</span></a>
     </div>
   </div>
-  <a href="#news">About</a>
 
-  <div class="dropdown">
+  <div class="dropdown settings">
     <button class="dropbtn" (click)="showDropDown($event, 'settings')">
       <i class="fa fa-cog fa-lg"></i>
       <i class="fa fa-caret-down"></i>
     </button>
-    <div class="dropdown-content" *ngIf="showSettingsDropDown" (clickOutside)="hideDropDown('settings')">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+    <div class="dropdown-content settings-content" *ngIf="showSettingsDropDown" (clickOutside)="hideDropDown('settings')">
+      <p class="settingsp">
+        Dark Mode <input type="checkbox" id="switch" [(ngModel)]="darkMode" (change)="toggleTheme($event)"/><label for="switch"></label>
+      </p>
     </div>
   </div>
 </div>

@@ -8,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class NavigationComponent implements OnInit {
   showGamesDropDown: boolean = false;
   showSettingsDropDown: boolean = false;
+  darkMode: boolean = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleTheme(){
+    alert("Not yet implemented");
+    console.log("yes");
   }
 
   showDropDown(event, type) {
