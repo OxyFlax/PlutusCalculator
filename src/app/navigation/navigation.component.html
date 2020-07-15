@@ -1,0 +1,26 @@
+<div class="navbar">
+  <a href="#home">Home</a>
+  <div class="dropdown">
+    <button class="dropbtn" (click)="showDropDown($event, 'games')">Games
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" *ngIf="showGamesDropDown" (clickOutside)="hideDropDown('games')">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div>
+  <a href="#news">About</a>
+
+  <div class="dropdown">
+    <button class="dropbtn" (click)="showDropDown($event, 'settings')">
+      <i class="fa fa-cog fa-lg"></i>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" *ngIf="showSettingsDropDown" (clickOutside)="hideDropDown('settings')">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </div>
+</div>
