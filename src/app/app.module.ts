@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
+import { SideNavigationComponent } from './side-navigation/side-navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    SideNavigationComponent
   ],
   imports: [
     BrowserModule,

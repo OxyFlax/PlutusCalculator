@@ -4,6 +4,10 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
+.title {
+  width: 203px;
+}
+
   .verticalSeperator {
     margin-top: 9px;
     float: left;
