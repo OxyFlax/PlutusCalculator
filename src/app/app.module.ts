@@ -7,14 +7,24 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
-import { SideNavigationComponent } from './side-navigation/side-navigation.component';
+import { MaplestoryHomeComponent } from './Games/Maplestory/Pages/maplestory-home/maplestory-home.component';
+import { MaplestorySideNavigationComponent } from './Games/Maplestory/side-navigation/maplestoryside-navigation.component';
+import { ArkHomeComponent } from './Games/Ark/Pages/ark-home/ark-home.component';
+import { OverwatchHomeComponent } from './Games/Overwatch/Pages/overwatch-home/overwatch-home.component';
+import { ArkSideNavigationComponent } from './Games/Ark/side-navigation/ark-side-navigation.component';
+import { OverwatchSideNavigationComponent } from './Games/Overwatch/side-navigation/overwatch-side-navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     ClickOutsideDirective,
-    SideNavigationComponent
+    MaplestoryHomeComponent,
+    MaplestorySideNavigationComponent,
+    ArkHomeComponent,
+    ArkSideNavigationComponent,
+    OverwatchHomeComponent,
+    OverwatchSideNavigationComponent
   ],
   imports: [
     BrowserModule,
