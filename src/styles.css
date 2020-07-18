@@ -1,31 +1,53 @@
 :root {
     --font-color: #FFFFFF;
-    --separator-color: #808080;
-    --dropdown-color: #474747;
-    --navigation-color: #333333;
-    --navigation-font-color: #FFFFFF;
-    --border-color: #222222;
-    --background-color-3: #181818;
-    --background-color-2: #181818;
-    --background-color-1: #121212;
-    --accent-color: #FF9F34;
+    --background-color: #121212;
+
+    --navigation-bar-background-color: #333333;
+    --navigation-bar-separator-color: #808080;
+    --navigation-bar-font-color: #FFFFFF;
+    --navigation-bar-dropdown-color: #474747;
+    --navigation-bar-settings-font-color: #FFFFFF;
+    --navigation-bar-accent-color: #FF9F34;
+
+    --toggleswitch-off-background-color: #D3D3D3;
+    --toggleswitch-on-background-color: #808080;
+    --toggleswitch-slider-color: #FFFFFF;
+
+    --sidenavbar-background-color: #181818;
+    --sidenavbar-border-color: #222222;
+    --sidenavbar-font-color: #FFFFFF;
+    --sidenavbar-title-font-color: #FFFFFF;
+    --sidenavbar-title-background-color: #333333;
+    --sidenavbar-separator-color: #808080;
+    --sidenavbar-accent-color: #FF9F34;
 }
 
 [data-theme="light"] {
     --font-color: #000000;
-    --separator-color: #808080;
-    --dropdown-color: #474747;
-    --navigation-color: #333333;
-    --navigation-font-color: #FFFFFF;
-    --border-color: #808080;
-    --background-color-3: #DDDDDD;
-    --background-color-2: #E7E7E7;
-    --background-color-1: #FFFFFF;
-    --accent-color: #FF9F34;
+    --background-color: #FFFFFF;
+
+    --navigation-bar-background-color: #333333;
+    --navigation-bar-separator-color: #808080;
+    --navigation-bar-font-color: #FFFFFF;
+    --navigation-bar-dropdown-color: #474747;
+    --navigation-bar-settings-font-color: #FFFFFF;
+    --navigation-bar-accent-color: #FF9F34;
+
+    --toggleswitch-off-background-color: #D3D3D3;
+    --toggleswitch-on-background-color: #808080;
+    --toggleswitch-slider-color: #FFFFFF;
+
+    --sidenavbar-background-color: #DDDDDD;
+    --sidenavbar-border-color: #808080;
+    --sidenavbar-font-color: #000000;
+    --sidenavbar-title-font-color: #FFFFFF;
+    --sidenavbar-title-background-color: #333333;
+    --sidenavbar-separator-color: #808080;
+    --sidenavbar-accent-color: #FF9F34;
 }
 
 body {
-    background-color: var(--background-color-1);
+    background-color: var(--background-color);
     color:  var(--font-color);
     margin: 0px;
 }
@@ -37,24 +59,24 @@ body {
     width: 225px;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--sidenavbar-border-color);
     float: left;
     padding-bottom: 2px;
-    background-color: var(--background-color-3);
+    background-color: var(--sidenavbar-background-color);
 }
 
 .sidenavbartitle {
     padding: 13px 0px 15px 0px;
-    color: var(--navigation-font-color);
+    color: var(--sidenavbar-title-font-color);
     text-align: center;
-    background-color: var(--navigation-color);
-    border: 1px solid var(--border-color);
-    border-bottom: 2px solid var(--border-color);
+    background-color: var(--sidenavbar-title-background-color);
+    border: 1px solid var(--sidenavbar-border-color);
+    border-bottom: 2px solid var(--sidenavbar-border-color);
 }
 
 .sidenavbar a {
     float: none;
-    color: var(--font-color);
+    color: var(--sidenavbar-font-color);
     padding: 4px 12px;
     text-decoration: none;
     display: block;
@@ -64,7 +86,7 @@ body {
 .sidenavbar p {
     font-weight: bold;
     float: none;
-    color: var(--font-color);
+    color: var(--sidenavbar-font-color);
     padding: 8px 12px 4px 12px;
     display: block;
     text-align: left;
@@ -74,15 +96,15 @@ body {
 .horizontalSeparator {
     margin: 5px 7px 11px 7px;
     float: left;
-    border-bottom:1px solid var(--separator-color);
+    border-bottom:1px solid var(--sidenavbar-separator-color);
     width: 211px;
   }
 
 .sidenavbar a:hover span{
-    color: var(--accent-color);
+    color: var(--sidenavbar-accent-color);
 }
 
 .sidenavbaractivelink {
-    border-bottom: 3px solid var(--accent-color);
+    border-bottom: 3px solid var(--sidenavbar-accent-color);
 }
 /* End of side navigation bar css */

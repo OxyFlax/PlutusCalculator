@@ -1,6 +1,6 @@
 .navbar {
   overflow: hidden;
-  background-color: var(--navigation-color);
+  background-color: var(--navigation-bar-background-color);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -11,14 +11,14 @@
 .verticalSeparator {
   margin-top: 9px;
   float: left;
-  border-left:1px solid var(--separator-color);
+  border-left:1px solid var(--navigation-bar-separator-color);
   height:36px
 }
   
 .navbar a {
   float: left;
   font-size: 16px;
-  color: var(--navigation-font-color);
+  color: var(--navigation-bar-font-color);
   text-align: center;
   padding: 18px 20px;
   text-decoration: none;
@@ -27,7 +27,7 @@
 .navbar p {
   float: left;
   font-size: 20px;
-  color: var(--navigation-font-color);
+  color: var(--navigation-bar-font-color);
   text-align: center;
   margin: 0px;
   padding: 15px 20px;
@@ -44,7 +44,7 @@
   font-size: 16px;  
   border: none;
   outline: none;
-  color: var(--navigation-font-color);
+  color: var(--navigation-bar-font-color);
   padding: 18px 20px;
   background-color: inherit;
   font-family: inherit;
@@ -56,16 +56,16 @@
 }
   
 .navbar a:hover span, .dropdown:hover .dropbtn span {
-  color: var(--accent-color);
+  color: var(--navigation-bar-accent-color);
 }
 
 .underline {
-  border-bottom: 3px solid var(--accent-color);
+  border-bottom: 3px solid var(--navigation-bar-accent-color);
 }
 
 .dropdown-content {
   position: absolute;
-  background-color: var(--dropdown-color);
+  background-color: var(--navigation-bar-dropdown-color);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -73,7 +73,7 @@
   
 .dropdown-content a {
   float: none;
-  color: var(--navigation-font-color);
+  color: var(--navigation-bar-font-color);
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -82,7 +82,7 @@
 
 .dropdown-content p {
   float: none;
-  color: var(--navigation-font-color);
+  color: var(--navigation-bar-font-color);
   margin: 0px;
   padding: 12px 16px;
   text-decoration: none;
@@ -102,6 +102,10 @@
   right: 0;
 }
 
+.settings .dropbtn {
+  color: var(--navigation-bar-settings-font-color);
+}
+
 /* Start of toggle switch css */
 input[type=checkbox]{
   height: 0;
@@ -114,7 +118,7 @@ label {
   text-indent: -9999px;
   width: 35px;
   height: 17px;
-  background: #D3D3D3;
+  background: var(--toggleswitch-off-background-color);
   display: block;
   border-radius: 3px;
   position: relative;
@@ -128,13 +132,13 @@ label:after {
   left: 2px;
   width: 13px;
   height: 13px;
-  background: #FFFFFF;
+  background: var(--toggleswitch-slider-color);
   border-radius: 3px;
   transition: 0.3s;
 }
   
 input:checked + label {
-  background: #808080;
+  background: var(--toggleswitch-on-background-color);
 }
   
 input:checked + label:after {
