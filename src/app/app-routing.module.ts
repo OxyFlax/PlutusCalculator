@@ -6,7 +6,7 @@ import { OverwatchHomeComponent } from './Pages/Games/Overwatch/Pages/overwatch-
 import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { MaplestoryArcaneSymbolsComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './Pages/not-found/not-found.component';
 import { MaplestoryAfkExperienceEventComponent } from './Pages/Games/Maplestory/Pages/maplestory-afk-experience-event/maplestory-afk-experience-event.component';
 import { MaplestoryDailiesComponent } from './Pages/Games/Maplestory/Pages/maplestory-dailies/maplestory-dailies.component';
 import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/maplestory-weeklies/maplestory-weeklies.component';

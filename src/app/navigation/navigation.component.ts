@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,15 +6,34 @@ import { Router } from '@angular/router';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   showGamesDropDown: boolean = false;
   showSettingsDropDown: boolean = false;
-  darkMode: boolean = false;
+  darkMode: boolean = true;
   
   constructor(private router: Router) { }
 
+  ngOnInit() {
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+  
+      if (currentTheme === 'light') {
+        this.darkMode = false;
+      }
+  }
+  }
+
   toggleTheme() {
-    alert("Not yet implemented");
+    if(this.darkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+    //alert("Not yet implemented");
     console.log("yes");
   }
 
