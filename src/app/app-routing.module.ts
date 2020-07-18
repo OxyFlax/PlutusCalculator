@@ -1,0 +1,82 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ArkHomeComponent } from './Pages/Games/Ark/Pages/ark-home/ark-home.component';
+import { MaplestoryHomeComponent } from './Pages/Games/Maplestory/Pages/maplestory-home/maplestory-home.component';
+import { OverwatchHomeComponent } from './Pages/Games/Overwatch/Pages/overwatch-home/overwatch-home.component';
+import { HomeComponent } from './Pages/home/home.component';
+import { AboutComponent } from './Pages/about/about.component';
+import { MaplestoryArcaneSymbolsComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { MaplestoryAfkExperienceEventComponent } from './Pages/Games/Maplestory/Pages/maplestory-afk-experience-event/maplestory-afk-experience-event.component';
+import { MaplestoryDailiesComponent } from './Pages/Games/Maplestory/Pages/maplestory-dailies/maplestory-dailies.component';
+import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/maplestory-weeklies/maplestory-weeklies.component';
+import { MaplestoryClassPickerComponent } from './Pages/Games/Maplestory/Pages/maplestory-class-picker/maplestory-class-picker.component';
+import { ArkTamingCalculatorComponent } from './Pages/Games/Ark/Pages/ark-taming-calculator/ark-taming-calculator.component';
+import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.component';
+
+const routes: Routes = [
+    {
+        path: '', 
+        redirectTo: 'home',
+        pathMatch: 'full'
+    },
+    {
+        path: 'home',
+        component: HomeComponent
+    },
+    {
+        path: 'about', 
+        component: AboutComponent
+    },
+    {
+        path: 'games/ark/home', 
+        component: ArkHomeComponent
+    },
+    {
+        path: 'games/ark/taming-calculator', 
+        component: ArkTamingCalculatorComponent
+    },
+    {
+        path: 'games/maplestory/home', 
+        component: MaplestoryHomeComponent
+    },
+    {
+        path: 'games/maplestory/arcane-symbols', 
+        component: MaplestoryArcaneSymbolsComponent
+    },
+    {
+        path: 'games/maplestory/afk-experience-event', 
+        component: MaplestoryAfkExperienceEventComponent
+    },
+    {
+        path: 'games/maplestory/dailies', 
+        component: MaplestoryDailiesComponent
+    },
+    {
+        path: 'games/maplestory/weeklies', 
+        component: MaplestoryWeekliesComponent
+    },
+    {
+        path: 'games/maplestory/class-picker', 
+        component: MaplestoryClassPickerComponent
+    },
+    {
+        path: 'games/overwatch/home', 
+        component: OverwatchHomeComponent
+    },
+    {
+        path: 'games/overwatch/random-hero-selector', 
+        component: OverwatchRandomHeroSelectorComponent
+    },
+    {
+        path        : '**',
+        pathMatch   : 'full',
+        component   : NotFoundComponent
+    }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

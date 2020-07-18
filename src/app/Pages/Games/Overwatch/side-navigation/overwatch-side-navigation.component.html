@@ -1,0 +1,8 @@
+<div class="sidenavbar">
+  <div class="sidenavbartitle">Overwatch</div>
+  <p>General</p>
+  <a [routerLink]="'/games/overwatch/home'"><span [class.sidenavbaractivelink]="router.isActive('/games/overwatch/home')">Home</span></a>
+  <div class="horizontalSeparator"></div>
+  <p>Misc</p>
+  <a [routerLink]="'/games/overwatch/random-hero-selector'"><span [class.sidenavbaractivelink]="router.isActive('/games/overwatch/random-hero-selector')">Random hero selector</span></a>
+</div>

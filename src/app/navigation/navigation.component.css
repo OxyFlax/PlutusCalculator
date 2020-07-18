@@ -51,16 +51,12 @@
   margin: 0;
 }
 
-.underline {
+.navbar a span, .dropbtn span{
   padding: 0px 3px 0px 3px;
 }
   
-.navbar a:hover .underline, .dropdown:hover .dropbtn .underline{
+.navbar a:hover span, .dropdown:hover .dropbtn span {
   color: #ff9f34 ;
-}
-
-.navbar a:hover .underline, .dropdown:hover .dropbtn .underline{
-  border-bottom: 3px solid #ff9f34;
 }
 
 .dropdown-content {
@@ -144,4 +140,8 @@ input:checked + label:after {
   
 label:active:after {
   width: 35px;
+}
+
+.underline {
+  border-bottom: 3px solid #ff9f34;
 }

@@ -1,19 +1,19 @@
 <div class="navbar">
   <p class="navbartitle">Random stuff</p>
   <div class="verticalSeperator"></div>
-  <a href="#home"><span class="underline">Home</span></a>
-  <a href="#news"><span class="underline">About</span></a>
+  <a [routerLink]="'home'"><span [class.underline]="router.isActive('/home')">Home</span></a>
+  <a [routerLink]="'about'"><span [class.underline]="router.isActive('/about')">About</span></a>
   <div class="dropdown">
     <button class="dropbtn" (click)="showDropDown($event, 'games')">
-      <span class="underline">
+      <span [class.underline]="router.isActive('/games')">
         Games
         <i class="fa fa-caret-down"></i>
       </span>
     </button>
     <div class="dropdown-content" *ngIf="showGamesDropDown" (clickOutside)="hideDropDown('games')">
-      <a href="#ark"><span class="underline">ARK: Survival Evolved</span></a>
-      <a href="#maplestory"><span class="underline">Maplestory</span></a>
-      <a href="#overwatch"><span class="underline">Overwatch</span></a>
+      <a [routerLink]="'games/ark/home'"><span [class.underline]="router.isActive('/games/ark')">ARK: Survival Evolved</span></a>
+      <a [routerLink]="'games/maplestory/home'"><span [class.underline]="router.isActive('/games/maplestory')">Maplestory</span></a>
+      <a [routerLink]="'games/overwatch/home'"><span [class.underline]="router.isActive('/games/overwatch')">Overwatch</span></a>
     </div>
   </div>
 
