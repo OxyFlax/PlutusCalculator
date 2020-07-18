@@ -103,7 +103,7 @@
 }
 
 .settings .dropbtn {
-  color: var(--navigation-bar-settings-font-color);
+  color: var(--navigation-bar-settings-icon-font-color);
 }
 
 /* Start of toggle switch css */

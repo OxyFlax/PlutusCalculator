@@ -6,7 +6,7 @@
     --navigation-bar-separator-color: #808080;
     --navigation-bar-font-color: #FFFFFF;
     --navigation-bar-dropdown-color: #474747;
-    --navigation-bar-settings-font-color: #FFFFFF;
+    --navigation-bar-settings-icon-font-color: #FFFFFF;
     --navigation-bar-accent-color: #FF9F34;
 
     --toggleswitch-off-background-color: #D3D3D3;
@@ -24,24 +24,24 @@
 
 [data-theme="light"] {
     --font-color: #000000;
-    --background-color: #FFFFFF;
+    --background-color: #e5e9ee;
 
-    --navigation-bar-background-color: #333333;
+    --navigation-bar-background-color: #FFFFFF;
     --navigation-bar-separator-color: #808080;
-    --navigation-bar-font-color: #FFFFFF;
-    --navigation-bar-dropdown-color: #474747;
-    --navigation-bar-settings-font-color: #FFFFFF;
+    --navigation-bar-font-color: #000000;
+    --navigation-bar-dropdown-color: #FFFFFF;
+    --navigation-bar-settings-icon-font-color: #878A8C;
     --navigation-bar-accent-color: #FF9F34;
 
     --toggleswitch-off-background-color: #D3D3D3;
     --toggleswitch-on-background-color: #808080;
     --toggleswitch-slider-color: #FFFFFF;
 
-    --sidenavbar-background-color: #DDDDDD;
-    --sidenavbar-border-color: #808080;
+    --sidenavbar-background-color: #FFFFFF;
+    --sidenavbar-border-color: #d9d9d9;
     --sidenavbar-font-color: #000000;
-    --sidenavbar-title-font-color: #FFFFFF;
-    --sidenavbar-title-background-color: #333333;
+    --sidenavbar-title-font-color: #000000;
+    --sidenavbar-title-background-color: #f7f8fa;
     --sidenavbar-separator-color: #808080;
     --sidenavbar-accent-color: #FF9F34;
 }
