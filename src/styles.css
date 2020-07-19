@@ -20,6 +20,10 @@
     --sidenavbar-title-background-color: #333333;
     --sidenavbar-separator-color: #808080;
     --sidenavbar-accent-color: #FF9F34;
+
+    --scrollbar-track--color: #21201e;
+    --scrollbar-thumb--color: #4d4d4b;
+    --scrollbar-thumb-hover-color: #5f5f5d;
 }
 
 [data-theme="light"] {
@@ -44,6 +48,10 @@
     --sidenavbar-title-background-color: #f7f8fa;
     --sidenavbar-separator-color: #808080;
     --sidenavbar-accent-color: #FF9F34;
+
+    --scrollbar-track--color: #f1f1f1;
+    --scrollbar-thumb--color: #CCCCCC;
+    --scrollbar-thumb-hover-color: #BBBBBB;
 }
 
 body {
@@ -52,8 +60,7 @@ body {
     margin: 0px;
 }
 
-
-/* Start of side navigation bar css */
+/* start of side navigation bar css */
 .sidenavbar {
     margin: 8px;
     width: 225px;
@@ -107,4 +114,76 @@ body {
 .sidenavbaractivelink {
     border-bottom: 3px solid var(--sidenavbar-accent-color);
 }
-/* End of side navigation bar css */
+/* end of side navigation bar css */
+
+/* start of game page content css */
+.gamePageContent {
+    float: left;
+    width: calc(100% - 262px);
+    min-height: calc(100vh - 72px);
+    background-color: var(--sidenavbar-background-color);
+    border: 1px solid var(--sidenavbar-border-color);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 9px;
+}
+/* end of game page content css */
+
+@media only screen and (max-width: 720px) {
+    /* start of side navigation bar css */
+    .horizontalSeparator {
+        display: none;
+      }
+
+    .sidenavbar {
+        margin: 0px;
+        width: calc(100% - 11px);
+        padding-bottom: 0px;
+        padding-left: 11px;
+        border: none;
+        border-top: 1px solid var(--sidenavbar-border-color);
+        border-bottom: 1px solid var(--sidenavbar-border-color);
+    }
+    
+    .sidenavbartitle {
+        display: none;
+    }
+    
+    .sidenavbar a {
+        float: left;
+    }
+    
+    .sidenavbar p {
+        display: none;
+    }
+    /* end of side navigation bar css */
+
+        /* start of game page content css */
+        .gamePageContent {
+            margin-left: 8px;
+            margin-right: 8px;
+            width: calc(100% - 18px);
+        }
+        /* end of game page content css */
+}
+
+/* start of scrollbar styling */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track--color);
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb--color);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover-color);
+  }
+/* end of scrollbar styling */
