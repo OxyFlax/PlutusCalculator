@@ -158,13 +158,14 @@ body {
     }
     /* end of side navigation bar css */
 
-        /* start of game page content css */
-        .gamePageContent {
-            margin-left: 8px;
-            margin-right: 8px;
-            width: calc(100% - 18px);
-        }
-        /* end of game page content css */
+    /* start of game page content css */
+    .gamePageContent {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-height: calc(100vh - 100px);
+        width: calc(100% - 18px);
+    }
+    /* end of game page content css */
 }
 
 /* start of scrollbar styling */
