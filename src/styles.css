@@ -24,6 +24,12 @@
     --scrollbar-track--color: #21201e;
     --scrollbar-thumb--color: #4d4d4b;
     --scrollbar-thumb-hover-color: #5f5f5d;
+
+    --game-page-background-color: #181818;
+    --game-page-border-color: #222222;
+
+    --content-page-background-color: #181818;
+    --content-page-border-color: #222222;
 }
 
 [data-theme="light"] {
@@ -52,12 +58,19 @@
     --scrollbar-track--color: #f1f1f1;
     --scrollbar-thumb--color: #CCCCCC;
     --scrollbar-thumb-hover-color: #BBBBBB;
+
+    --game-page-background-color: #FFFFFF;
+    --game-page-border-color: #d9d9d9;
+
+    --content-page-background-color: #FFFFFF;
+    --content-page-border-color: #d9d9d9;
 }
 
 body {
     background-color: var(--background-color);
     color:  var(--font-color);
     margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* start of side navigation bar css */
@@ -118,18 +131,69 @@ body {
 
 /* start of game page content css */
 .gamePageContent {
-    float: left;
-    width: calc(100% - 262px);
+    width: 1130px;
+    margin: 0 auto;
+    background-color: var(--game-page-background-color);
+    border: 1px solid var(--game-page-border-color);
     min-height: calc(100vh - 72px);
-    background-color: var(--sidenavbar-background-color);
-    border: 1px solid var(--sidenavbar-border-color);
     margin-top: 8px;
-    margin-bottom: 8px;
-    margin-left: 9px;
 }
 /* end of game page content css */
 
-@media only screen and (max-width: 720px) {
+/* start of content page content css */
+.contentPage {
+    width: 800px;
+    background-color: var(--content-page-background-color);
+    border: 1px solid var(--content-page-border-color);
+    min-height: calc(100vh - 72px);
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.contentPage h2 {
+    text-align: center;
+}
+
+.contentPage p {
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 18px;
+}
+
+.contentPage .invisible {
+    margin: 0px;
+    color: var(--sidenavbar-background-color);
+}
+/* end of content page content css */
+
+@media only screen and (max-width: 1635px) {
+    /* start of game page content css */
+    .gamePageContent {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+    /* end of game page content css */
+}
+
+@media only screen and (max-width: 1391px) {
+    /* start of game page content css */
+    .gamePageContent {
+        width: calc(100% - 262px);
+    }
+    /* end of game page content css */
+}
+
+@media only screen and (max-width: 900px) {
+    /* start of content page content css */
+    .contentPage {
+        width: 89%;
+    }
+    /* end of content page content css */
+}
+
+@media only screen and (max-width: 800px) {
     /* start of side navigation bar css */
     .horizontalSeparator {
         display: none;
