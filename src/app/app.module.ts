@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
 
@@ -51,7 +50,6 @@ import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pa
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
     AppRoutingModule
   ],
   providers: [],

@@ -11,7 +11,7 @@ export class NavigationComponent implements OnInit {
   showSettingsDropDown: boolean = false;
   darkMode: boolean = true;
   
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
     const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;

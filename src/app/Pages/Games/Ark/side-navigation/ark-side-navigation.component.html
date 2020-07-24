@@ -1,8 +1,8 @@
 <div class="sidenavbar">
   <div class="sidenavbartitle">ARK: Survival Evolved</div>
   <p>General</p>
-  <a [routerLink]="'/games/ark/home'"><span [class.sidenavbaractivelink]="router.isActive('/games/ark/home')">Home</span></a>
+  <a [routerLink]="'/games/ark/home'"><span [class.sidenavbaractivelink]="router.isActive('/games/ark/home', false)">Home</span></a>
   <div class="horizontalSeparator"></div>
   <p>Calculators</p>
-  <a [routerLink]="'/games/ark/taming-calculator'"><span [class.sidenavbaractivelink]="router.isActive('/games/ark/taming-calculator')">Taming</span></a>
+  <a [routerLink]="'/games/ark/taming-calculator'"><span [class.sidenavbaractivelink]="router.isActive('/games/ark/taming-calculator', false)">Taming</span></a>
 </div>
