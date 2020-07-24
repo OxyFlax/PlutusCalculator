@@ -1,6 +1,12 @@
+.heroWrapper {
+    float: left;
+    width: calc(100% - 252px);
+    margin-left: 9px;
+}
+
 .hero {
     width: 180px;
-    height: 310px;
+    height: 400px;
     margin: 30px auto 0px auto;
 }
 .hero img {
@@ -33,4 +39,10 @@
     width: 100%;
     margin: 1px;
     outline:none;
+}
+
+@media only screen and (max-width: 800px) {
+    .heroWrapper {
+        width: 100%;
+    }
 }
