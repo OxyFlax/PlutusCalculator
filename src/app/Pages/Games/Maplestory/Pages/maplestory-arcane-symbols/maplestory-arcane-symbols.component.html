@@ -1,2 +1,15 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
-<div class="gamePageContent"><p>Maplestory arcanesymbols page is still under construction.</p></div>
+<div class="gamePageContent">
+    <p>Maplestory arcanesymbols page is still under construction.</p>
+
+    <form (ngSubmit)="submit()">
+        <div>
+            <label for="currentLevel">currentLevel</label>
+            <input name="currentLevel" id="currentLevel" type="number" min="0" [(ngModel)]="currentLevel" (input)="currentLevelInput($event)">
+
+            <label for="number">currentXp</label>
+            <input name="currentXp" id="currentXp" type="text" [(ngModel)]="currentXp" (input)="currentExpInput($event)">
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!currentLevel || !currentXp">Submit</button>
+    </form>
+</div>

@@ -9,9 +9,9 @@ import { Hero } from '../../Models/hero';
 })
 export class OverwatchRandomHeroSelectorComponent implements OnInit {
   heroesList: Hero[] = HeroesJson.heroes;
-  selectedHero: Hero = { name: "Unknown", image: ""}
-  
-  constructor() { 
+  selectedHero: Hero = { name: "Unknown", image: "" }
+
+  constructor() {
   }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class OverwatchRandomHeroSelectorComponent implements OnInit {
 
   selectRandomHero() {
     var newHero: Hero = this.heroesList[this.getRandomArrayIndex(this.heroesList.length)];
-    while(this.selectedHero.name === newHero.name) {
+    while (this.selectedHero.name === newHero.name) {
       newHero = this.heroesList[this.getRandomArrayIndex(this.heroesList.length)];
     }
     this.selectedHero = newHero;
@@ -27,6 +27,6 @@ export class OverwatchRandomHeroSelectorComponent implements OnInit {
 
   getRandomArrayIndex(arrayLength) {
     return Math.floor(Math.random() * (arrayLength));
-}
+  }
 
 }
