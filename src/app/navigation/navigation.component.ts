@@ -10,7 +10,7 @@ export class NavigationComponent implements OnInit {
   showGamesDropDown: boolean = false;
   showSettingsDropDown: boolean = false;
   darkMode: boolean = true;
-  
+
   constructor(public router: Router) { }
 
   ngOnInit() {
@@ -18,23 +18,21 @@ export class NavigationComponent implements OnInit {
 
     if (currentTheme) {
       document.documentElement.setAttribute('data-theme', currentTheme);
-  
+
       if (currentTheme === 'light') {
         this.darkMode = false;
       }
-  }
+    }
   }
 
   toggleTheme() {
-    if(this.darkMode) {
+    if (this.darkMode) {
       document.documentElement.setAttribute('data-theme', 'dark');
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.setAttribute('data-theme', 'light');
       localStorage.setItem('theme', 'light');
     }
-    //alert("Not yet implemented");
-    console.log("yes");
   }
 
   showDropDown(event, type) {
@@ -64,6 +62,4 @@ export class NavigationComponent implements OnInit {
       this.showSettingsDropDown = false;
     }
   }
-
-
 }

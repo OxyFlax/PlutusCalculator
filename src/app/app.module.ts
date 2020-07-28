@@ -24,6 +24,12 @@ import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/mapl
 import { MaplestoryClassPickerComponent } from './Pages/Games/Maplestory/Pages/maplestory-class-picker/maplestory-class-picker.component';
 import { ArkTamingCalculatorComponent } from './Pages/Games/Ark/Pages/ark-taming-calculator/ark-taming-calculator.component';
 import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.component';
+import { VanishingJourneyComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/vanishing-journey/vanishing-journey.component';
+import { ChuChuComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/chu-chu/chu-chu.component';
+import { LacheleinComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/lachelein/lachelein.component';
+import { ArcanaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/arcana/arcana.component';
+import { MorassComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/morass/morass.component';
+import { EsferaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/esfera/esfera.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +51,13 @@ import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pa
     MaplestoryWeekliesComponent,
     MaplestoryClassPickerComponent,
     ArkTamingCalculatorComponent,
-    OverwatchRandomHeroSelectorComponent
+    OverwatchRandomHeroSelectorComponent,
+    VanishingJourneyComponent,
+    ChuChuComponent,
+    LacheleinComponent,
+    ArcanaComponent,
+    MorassComponent,
+    EsferaComponent
   ],
   imports: [
     BrowserModule,

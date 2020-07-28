@@ -1,0 +1,85 @@
+.symbolNavigationBar {
+    text-align: center;
+    height: 57px;
+}
+
+.symbolTitle {
+    text-align: center;
+    font-size: 30px;
+    margin: 8px 0px 8px 0px;
+}
+
+.selected {
+    border: 2px solid var(--game-page-accent-color);
+}
+
+.symbolNavigationBar a {
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    background-color: var(--background-color);
+    margin: 5px;
+    padding: 5px;
+}
+
+.notSelected {
+    border: 2px solid var(--game-page-border-color);
+}
+
+.selected {
+    border: 2px solid var(--game-page-accent-color);
+}
+
+.symbolNavigationBar a:hover {
+    background: var(--radial-color-1);
+    background: -moz-radial-gradient(center, ellipse cover, var(--radial-color-1) 0%,  var(--radial-color-2) 38%, var(--radial-color-3) 70%, var(--radial-color-4) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, var(--radial-color-1) 0%,  var(--radial-color-2) 38%, var(--radial-color-3) 70%, var(--radial-color-4) 100%);
+    background: -o-radial-gradient(center, ellipse cover, var(--radial-color-1) 0%,  var(--radial-color-2) 38%, var(--radial-color-3) 70%, var(--radial-color-4) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, var(--radial-color-1) 0%,  var(--radial-color-2) 38%, var(--radial-color-3) 70%, var(--radial-color-4) 100%);
+    background: radial-gradient(ellipse at center, var(--radial-color-1) 0%,  var(--radial-color-2) 38%, var(--radial-color-3) 70%, var(--radial-color-4) 100%);
+}
+
+.symbolDailyTitle {
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 18px;
+    margin: 10px 0px 2px 0px;
+}
+
+.outputWrapper {
+    margin-top: 20px;
+}
+
+.editedGamePageContent {
+    width: 600px;
+    margin: 0 auto;
+    background-color: var(--game-page-background-color);
+    border: 1px solid var(--game-page-border-color);
+    min-height: calc(100vh - 72px);
+    margin-top: 8px;
+}
+
+@media only screen and (max-width: 1104px) {
+    .editedGamePageContent {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 862px) {
+    .editedGamePageContent {
+        width: calc(100% - 262px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .editedGamePageContent {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-height: calc(100vh - 100px);
+        width: calc(100% - 18px);
+    }
+}
