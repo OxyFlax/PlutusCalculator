@@ -202,14 +202,14 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
     var resultDate = new Date(Date.UTC(currentDay.getUTCFullYear(), currentDay.getUTCMonth(), currentDay.getUTCDate(), 0, 0, 0, 0));
 
-    resultDate.setDate(currentDay.getDate() + (7 + dayOfWeek - currentDay.getDay() - 1) % 7 + 1);
+    resultDate.setDate(currentDay.getUTCDate() + (7 + dayOfWeek - currentDay.getUTCDay() - 1) % 7 + 1);
 
     return resultDate;
   }
 
   getPreviousDayOfWeek(dayOfWeek) {
     var resultDate = this.getNextDayOfWeek(dayOfWeek);
-    resultDate.setDate(resultDate.getDate() - 7);
+    resultDate.setDate(resultDate.getUTCDate() - 7);
     return resultDate;
   }
 }
