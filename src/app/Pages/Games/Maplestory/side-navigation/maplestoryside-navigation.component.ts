@@ -12,5 +12,4 @@ export class MaplestorySideNavigationComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
