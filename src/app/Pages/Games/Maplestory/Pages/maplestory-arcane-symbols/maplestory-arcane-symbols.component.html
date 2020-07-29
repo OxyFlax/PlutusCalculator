@@ -2,8 +2,7 @@
 <div class="editedGamePageContent">
     <div class="symbolNavigationBar">
         <a (click)="changeActiveSymbolIndex(0)" [ngClass]="(activeSymbolIndex == 0)?'selected':'notSelected'">
-            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/VanishingJourney.png"
-                    alt="vanishingJourney"></div>
+            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/VanishingJourney.png" alt="vanishingJourney"></div>
         </a>
         <a (click)="changeActiveSymbolIndex(1)" [ngClass]="(activeSymbolIndex == 1)?'selected':'notSelected'">
             <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/ChuChu.png" alt="chuchu"></div>
@@ -71,8 +70,8 @@
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
-                <label for="xenonStatGain">Remaining Stat to Gain (Xenon)</label>
-                <input name="xenonStatGain" id="currexenonStatGainntXp" type="text" value="{{ xenonStatGain | number:'0.0-0'}} AS" disabled>
+                <label for="xenonStatGain">Remaining All Stat to Gain (Xenon)</label>
+                <input name="xenonStatGain" id="xenonStatGain" type="text" value="{{ xenonStatGain | number:'0.0-0'}} AS" disabled>
             </div>
         </div>
         <div class="symbolInput">

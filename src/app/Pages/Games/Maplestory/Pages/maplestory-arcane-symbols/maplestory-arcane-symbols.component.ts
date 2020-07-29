@@ -21,7 +21,7 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   @ViewChild(MorassComponent) morassChild: MorassComponent;
   @ViewChild(EsferaComponent) esferaChild: EsferaComponent;
 
-  arcaneSymbolList: ArcaneSymbol[] = ArcaneSymbolsJson.ArcaneSymbols;
+  arcaneSymbolList: ArcaneSymbol[] = ArcaneSymbolsJson.arcaneSymbols;
   arcaneSymbolNames: string[] = ['Vanishing Journey', 'Chu Chu', 'Lachelein', 'Arcana', 'Morass', 'Esfera'];
   currentLevel: number = 1;
   currentXp: number = 1;

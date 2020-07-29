@@ -29,7 +29,6 @@ export class ChuChuComponent implements OnInit {
   }
 
   hungryMutoInput(event: any) {    
-    console.log(event);
     // set value to 0 and exit out the method since there is no value given
     if (event.data == null && event.target.value == "") {
       this.emitClearOutput();

@@ -1,2 +1,61 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
-<div class="gamePageContent"><p>Maplestory dailies page is still under construction.</p></div>
+<div class="gamePageContent">
+    <div class="characterNavigationBar">
+        <p class="timer">Reset in <br> {{ timerString }}</p>
+        <p class="title">Daily Tracker</p>
+        <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
+    </div>
+    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, right click on dailies to disable them (this
+        will prevent them from showing up outside of the edit mode)</p>
+    <div class="dailyGroups">
+        <div class="taskGroupWrapper">
+            <p>Daily Bosses</p>
+            <ng-container *ngFor="let item of dailyBosses; let i = index">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
+                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyBoss($event, i)">
+                    <div class="imgWrapper">
+                        <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
+                    </div>
+                    <label for="dailyQuest{{i}}">{{ item.name }}</label>
+                    <div class="inputWrapper">
+                        <input name="dailyQuest{{i}}" id="dailyQuest{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailyBossChangeHandler()" />
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="taskGroupWrapper">
+            <p>Daily Tasks</p>
+            <ng-container *ngFor="let item of dailyTasks; let i = index">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
+                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)">
+                    <div class="imgWrapper">
+                        <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
+                    </div>
+                    <label for="dailyTask{{i}}">{{ item.name }}</label>
+                    <div class="inputWrapper">
+                        <input name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailyTaskChangeHandler()" />
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="taskGroupWrapper">
+            <p>Arcane River Dailies</p>
+            <ng-container *ngFor="let item of dailyArcaneRiver; let i = index">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
+                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyArcaneRiver($event, i)">
+                    <div class="imgWrapper">
+                        <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
+                    </div>
+                    <label for="dailyArcaneRiver{{i}}">{{ item.name }}</label>
+                    <div class="inputWrapper">
+                        <input name="dailyArcaneRiver{{i}}" id="dailyArcaneRiver{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailyArcaneRiverChangeHandler()" />
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+
+<!-- <input name="dailyQuest" id="dailyQuest" type="checkbox" (change)="dailyQuestChangeHandler()" [(ngModel)]="dailyQuest" [ngModelOptions]="{standalone: true}"/>
+<label for="dailyQuest">Daily Quest (8)</label> -->

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ClickOutsideDirective } from './Directives/click-outside.directive';
+import { MiddleclickDirective } from './Directives/middle-click.directive';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -36,6 +37,7 @@ import { EsferaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcan
     AppComponent,
     NavigationComponent,
     ClickOutsideDirective,
+    MiddleclickDirective,
     MaplestoryHomeComponent,
     MaplestorySideNavigationComponent,
     ArkHomeComponent,
