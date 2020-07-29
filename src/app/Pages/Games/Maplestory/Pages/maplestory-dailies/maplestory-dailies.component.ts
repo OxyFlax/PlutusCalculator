@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../assets/Games/Maplestory/Dailies.json';
-import { Dailies } from '../../Models/dailies';
-import { InvokeFunctionExpr } from '@angular/compiler';
+import { Task } from '../../Models/task';
 
 @Component({
   selector: 'app-maplestory-dailies',
@@ -13,9 +12,9 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   timerString: string;
 
   editModeActive: boolean = false;
-  dailyBosses: Dailies[];
-  dailyTasks: Dailies[];
-  dailyArcaneRiver: Dailies[];
+  dailyBosses: Task[];
+  dailyTasks: Task[];
+  dailyArcaneRiver: Task[];
   editButtonMessage: string = "Edit Dailies";
 
   constructor() { }
@@ -124,7 +123,6 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     this.calculateAndOutPutTime(endTime - new Date().getTime());
 
     this.timer = setInterval(() => {
-      // Find the distance between the current time and the count down date
       var distance = endTime - new Date().getTime();
       this.calculateAndOutPutTime(distance);
 
@@ -166,21 +164,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   }
 
   liveReset() {
-    this.dailyBosses.forEach(item => {
-      item.completed = false;
-    });
-    this.dailyBossChangeHandler();
-
-    this.dailyTasks.forEach(item => {
-      item.completed = false;
-    });
-    this.dailyTaskChangeHandler();
-
-    this.dailyArcaneRiver.forEach(item => {
-      item.completed = false;
-    });
-    this.dailyArcaneRiverChangeHandler();
-
+    this.resetCompletedValues();
     this.startTimer();
     localStorage.setItem("lastMapleDailyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
   }

@@ -1,0 +1,114 @@
+.taskWrapper {
+    width: 250px;
+    height: 54px;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.taskWrapper .imgWrapper {
+    position: relative;
+    float: left;
+    width: 52px;
+    height: 52px;
+}
+
+.taskWrapper img {
+    position:absolute;
+    max-width: 50px;
+    max-height: 50px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.taskWrapper label {
+    display: flex;
+    float: left;
+    width: 165px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskWrapper .inputWrapper {
+    float: left;
+    display: flex;
+    width: 25px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.disableMode {
+    width: 100px;
+    height: 50px;
+}
+
+.enabledTask {
+    border: 1px solid var(--navigation-bar-settings-icon-font-color);
+}
+
+.disabledTask {
+    border: 1px solid red;
+}
+
+.taskGroupWrapper {
+    display: inline-block;
+    margin: 0px 7px 0px 7px;
+}
+
+.taskGroupWrapper .groupTitle{
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    font-size: 22px;
+}
+
+.dailyGroups {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.topBar {
+    width: 100%;
+    height: 60px;
+    position: relative;
+}
+
+.topBar .title {
+    margin: 0px;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    margin-top: 5px;
+}
+
+.topBar .editButton {
+    background-color: var(--game-page-accent-color);
+    border: none;
+    color: #FFFFFF;
+    padding: 5px 8px 5px 8px;
+    text-align: center;
+    font-size: 16px;
+    margin: 3px 8px 0px 0px;
+    outline:none;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.editModeMessage {
+    color: red;
+    margin: 0px 0px 20px 0px;
+    text-align: center;
+}
+
+.timer {
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    font-size: 14px;
+}

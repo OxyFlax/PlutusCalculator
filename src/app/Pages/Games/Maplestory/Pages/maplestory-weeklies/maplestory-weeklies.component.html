@@ -1,2 +1,43 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
-<div class="gamePageContent"><p>Maplestory weeklies page is still under construction.</p></div>
+<div class="gamePageContent">
+    <div class="topBar">
+        <p class="title">Weekly Tracker</p>
+        <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
+    </div>
+    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, right click on dailies to disable them (this
+        will prevent them from showing up outside of the edit mode)</p>
+    <div class="dailyGroups">
+        <div class="taskGroupWrapper">
+            <p class="groupTitle">Weekly Bosses</p>
+            <p class="timer">{{ timerWeeklyBossesString }}</p>
+            <ng-container *ngFor="let item of weeklyBosses; let i = index">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
+                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableWeeklyBoss($event, i)">
+                    <div class="imgWrapper">
+                        <img src="assets/Games/Maplestory/Weeklies/{{item.image}}" alt="{{item.name}}">
+                    </div>
+                    <label for="weeklyBosses{{i}}">{{ item.name }}</label>
+                    <div class="inputWrapper">
+                        <input name="weeklyBosses{{i}}" id="weeklyBosses{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weeklyBossChangeHandler()" />
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="taskGroupWrapper">
+            <p class="groupTitle">Weekly Tasks</p>
+            <p class="timer">{{ timerWeeklyTasksString }}</p>
+            <ng-container *ngFor="let item of weeklyTasks; let i = index">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
+                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableWeeklyTask($event, i)">
+                    <div class="imgWrapper">
+                        <img src="assets/Games/Maplestory/Weeklies/{{item.image}}" alt="{{item.name}}">
+                    </div>
+                    <label for="weeklyTask{{i}}">{{ item.name }}</label>
+                    <div class="inputWrapper">
+                        <input name="weeklyTask{{i}}" id="weeklyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weeklyTaskChangeHandler()" />
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

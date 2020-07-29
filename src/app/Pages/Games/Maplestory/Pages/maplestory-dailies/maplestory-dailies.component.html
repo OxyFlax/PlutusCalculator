@@ -1,6 +1,6 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="gamePageContent">
-    <div class="characterNavigationBar">
+    <div class="topBar">
         <p class="timer">Reset in <br> {{ timerString }}</p>
         <p class="title">Daily Tracker</p>
         <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
@@ -55,7 +55,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <input name="dailyQuest" id="dailyQuest" type="checkbox" (change)="dailyQuestChangeHandler()" [(ngModel)]="dailyQuest" [ngModelOptions]="{standalone: true}"/>
-<label for="dailyQuest">Daily Quest (8)</label> -->

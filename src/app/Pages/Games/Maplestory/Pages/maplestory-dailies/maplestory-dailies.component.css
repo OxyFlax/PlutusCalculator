@@ -63,6 +63,7 @@
 .taskGroupWrapper p{
     text-align: center;
     margin: 0px 0px 5px 0px;
+    font-size: 20px;
 }
 
 .dailyGroups {
@@ -72,13 +73,13 @@
     text-align: center;
 }
 
-.characterNavigationBar {
+.topBar {
     width: 100%;
     height: 60px;
     position: relative;
 }
 
-.characterNavigationBar .title {
+.topBar .title {
     margin: 0px;
     text-align: center;
     font-size: 25px;
@@ -86,7 +87,7 @@
     margin-top: 5px;
 }
 
-.characterNavigationBar .editButton {
+.topBar .editButton {
     background-color: var(--game-page-accent-color);
     border: none;
     color: #FFFFFF;
