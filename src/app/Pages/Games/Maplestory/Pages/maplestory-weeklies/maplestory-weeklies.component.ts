@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../assets/Games/Maplestory/Weeklies.json';
 import { Task } from '../../Models/task';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-maplestory-weeklies',
@@ -18,9 +20,10 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   weeklyTasks: Task[];
   editButtonMessage: string = "Edit Weeklies";
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.checkForUpdate();
     this.weeklyBosses = localStorage.getItem("weeklyBosses") ? JSON.parse(localStorage.getItem("weeklyBosses")) : WeekliesJson.weeklyBosses;
     this.weeklyTasks = localStorage.getItem("weeklyTasks") ? JSON.parse(localStorage.getItem("weeklyTasks")) : WeekliesJson.weeklyTasks;
     this.startWeeklyBossesTimer();
@@ -36,6 +39,40 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     }
     if (this.timerWeeklyTasks) {
       clearInterval(this.timerWeeklyTasks);
+    }
+  }
+
+  checkForUpdate() {
+    if(localStorage.getItem("weekliesVersion")) {
+      if(localStorage.getItem("weekliesVersion") == WeekliesJson.version) {
+        // if the current version is the same nothing needs to happen
+        return;
+      } else {
+        if(!localStorage.getItem("weeklyBosses") && !localStorage.getItem("weeklyTasks")) {
+          // if there is no pre existing weekly data there is no need for a reset
+          localStorage.setItem("weekliesVersion", WeekliesJson.version);
+        } else {
+          localStorage.setItem("weekliesVersion", WeekliesJson.version);
+          localStorage.removeItem("weeklyBosses");
+          localStorage.removeItem("weeklyTasks");
+  
+          // notify the user of the change
+          this.toastr.warning('An update for the weekly tracker has been applied', '', { closeButton: true, timeOut: 10000, progressBar: true, positionClass: 'toast-top-center'});
+        } 
+      }
+    } else {
+      if(!localStorage.getItem("weeklyBosses") && !localStorage.getItem("weeklyTasks")) {
+        // if there is no pre existing weekly data there is no need for a reset
+        localStorage.setItem("weekliesVersion", WeekliesJson.version);
+      } else {
+        // if no version is found save the version and remove stored weekly data
+        localStorage.setItem("weekliesVersion", WeekliesJson.version);
+        localStorage.removeItem("weeklyBosses");
+        localStorage.removeItem("weeklyTasks");
+
+        // notify the user of the change
+        this.toastr.warning('An update for the weekly tracker has been applied', '', { closeButton: true, timeOut: 10000, progressBar: true, positionClass: 'toast-top-center'});
+      }
     }
   }
 
