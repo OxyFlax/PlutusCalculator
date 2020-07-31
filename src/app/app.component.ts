@@ -11,11 +11,11 @@ declare let gtag: Function;
 })
 export class AppComponent {
   constructor(public router: Router) {
-    this.router.events.subscribe(event => {
-      if(event instanceof NavigationEnd){
-        gtag('config', 'UA-174027920-1', {'page_path': event.urlAfterRedirects});
-      }
-    })
+    // this.router.events.subscribe(event => {
+    //   if(event instanceof NavigationEnd){
+    //     gtag('config', 'UA-174027920-1', {'page_path': event.urlAfterRedirects});
+    //   }
+    // })
 
     
     // redirects if sessionstorage contains a redirect entry, this is done to give support to github.io

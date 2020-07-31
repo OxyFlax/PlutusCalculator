@@ -23,7 +23,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   constructor(private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.checkForUpdate();
+    this.updateChecker();
+    //this.checkForUpdate();
     this.weeklyBosses = localStorage.getItem("weeklyBosses") ? JSON.parse(localStorage.getItem("weeklyBosses")) : WeekliesJson.weeklyBosses;
     this.weeklyTasks = localStorage.getItem("weeklyTasks") ? JSON.parse(localStorage.getItem("weeklyTasks")) : WeekliesJson.weeklyTasks;
     this.startWeeklyBossesTimer();
@@ -42,37 +43,52 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkForUpdate() {
-    if(localStorage.getItem("weekliesVersion")) {
-      if(localStorage.getItem("weekliesVersion") == WeekliesJson.version) {
-        // if the current version is the same nothing needs to happen
-        return;
-      } else {
-        if(!localStorage.getItem("weeklyBosses") && !localStorage.getItem("weeklyTasks")) {
-          // if there is no pre existing weekly data there is no need for a reset
-          localStorage.setItem("weekliesVersion", WeekliesJson.version);
-        } else {
-          localStorage.setItem("weekliesVersion", WeekliesJson.version);
-          localStorage.removeItem("weeklyBosses");
-          localStorage.removeItem("weeklyTasks");
-  
-          // notify the user of the change
-          this.toastr.warning('An update for the weekly tracker has been applied', '', { closeButton: true, timeOut: 10000, progressBar: true, positionClass: 'toast-top-center'});
-        } 
+  updateChecker() {
+    if (localStorage.getItem("weekliesVersion") != WeekliesJson.version) {
+      // check if weekly boss data is present if so update it
+      if (localStorage.getItem("weeklyBosses")) {
+        var oldWeeklyBosses: Task[] = JSON.parse(localStorage.getItem("weeklyBosses"));
+        this.weeklyBosses = WeekliesJson.weeklyBosses;
+        for (let i = 0; i < this.weeklyBosses.length; i++) {
+          for (let j = 0; j < oldWeeklyBosses.length; j++) {
+            if (this.weeklyBosses[i].name == oldWeeklyBosses[j].name) {
+              this.weeklyBosses[i].completed = oldWeeklyBosses[j].completed;
+              this.weeklyBosses[i].enabled = oldWeeklyBosses[j].enabled;
+              // remove the matched item to prevent unneeded iterations in the future
+              oldWeeklyBosses.splice(j, 1);
+              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
+              break;
+            }
+          }
+        }
+        // update the stored weekly boss data
+        this.weeklyBossChangeHandler();
       }
-    } else {
-      if(!localStorage.getItem("weeklyBosses") && !localStorage.getItem("weeklyTasks")) {
-        // if there is no pre existing weekly data there is no need for a reset
-        localStorage.setItem("weekliesVersion", WeekliesJson.version);
-      } else {
-        // if no version is found save the version and remove stored weekly data
-        localStorage.setItem("weekliesVersion", WeekliesJson.version);
-        localStorage.removeItem("weeklyBosses");
-        localStorage.removeItem("weeklyTasks");
 
-        // notify the user of the change
-        this.toastr.warning('An update for the weekly tracker has been applied', '', { closeButton: true, timeOut: 10000, progressBar: true, positionClass: 'toast-top-center'});
+      // check if weekly task data is present if so update it
+      if (localStorage.getItem("weeklyTasks")) {
+        var oldWeeklyTasks: Task[] = JSON.parse(localStorage.getItem("weeklyTasks"));
+        this.weeklyTasks = WeekliesJson.weeklyTasks;
+        for (let i = 0; i < this.weeklyTasks.length; i++) {
+          for (let j = 0; j < oldWeeklyTasks.length; j++) {
+            if (this.weeklyTasks[i].name == oldWeeklyTasks[j].name) {
+              this.weeklyTasks[i].completed = oldWeeklyTasks[j].completed;
+              this.weeklyTasks[i].enabled = oldWeeklyTasks[j].enabled;
+              // remove the matched item to prevent unneeded iterations in the future
+              oldWeeklyTasks.splice(j, 1);
+              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
+              break;
+            }
+          }
+        }
+        // update the stored weekly task data
+        this.weeklyTaskChangeHandler();
       }
+
+      // update the saved version to the current one
+      localStorage.setItem("weekliesVersion", WeekliesJson.version);
+      // notify the user of the changes
+      this.toastr.success('An update for the weekly tracker has been applied', '', { closeButton: true, timeOut: 10000, positionClass: 'toast-top-center' });
     }
   }
 
@@ -132,16 +148,6 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     }
 
     localStorage.setItem("weeklyTasks", JSON.stringify(this.weeklyTasks));
-  }
-
-  toggleEditMode() {
-    if (this.editModeActive) {
-      this.editModeActive = false;
-      this.editButtonMessage = "Edit Weekies";
-    } else {
-      this.editModeActive = true;
-      this.editButtonMessage = "Exit Edit Mode";
-    }
   }
 
   startWeeklyBossesTimer() {
@@ -232,6 +238,16 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
     this.startWeeklyTasksTimer();
     localStorage.setItem("lastMapleWeeklyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
+  }
+
+  toggleEditMode() {
+    if (this.editModeActive) {
+      this.editModeActive = false;
+      this.editButtonMessage = "Edit Weekies";
+    } else {
+      this.editModeActive = true;
+      this.editButtonMessage = "Exit Edit Mode";
+    }
   }
 
   getNextDayOfWeek(dayOfWeek) {

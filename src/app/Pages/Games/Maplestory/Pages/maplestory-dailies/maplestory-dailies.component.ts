@@ -21,7 +21,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   constructor(private toastr: ToastrService) { }
 
   ngOnInit() {
-    this.checkForUpdate();
+    this.updateChecker();
+    //this.checkForUpdate();
     this.dailyBosses = localStorage.getItem("dailyBosses") ? JSON.parse(localStorage.getItem("dailyBosses")) : DailiesJson.dailyBosses;
     this.dailyTasks = localStorage.getItem("dailyTasks") ? JSON.parse(localStorage.getItem("dailyTasks")) : DailiesJson.dailyTasks;
     this.dailyArcaneRiver = localStorage.getItem("dailyArcaneRiver") ? JSON.parse(localStorage.getItem("dailyArcaneRiver")) : DailiesJson.dailyArcaneRiver;
@@ -32,6 +33,75 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.timer) {
       clearInterval(this.timer);
+    }
+  }
+
+  updateChecker() {
+    if (localStorage.getItem("dailiesVersion") != DailiesJson.version) {
+      // check if daily boss data is present if so update it
+      if (localStorage.getItem("dailyBosses")) {
+        var oldDailyBosses: Task[] = JSON.parse(localStorage.getItem("dailyBosses"));
+        this.dailyBosses = DailiesJson.dailyBosses;
+        for (let i = 0; i < this.dailyBosses.length; i++) {
+          for (let j = 0; j < oldDailyBosses.length; j++) {
+            if (this.dailyBosses[i].name == oldDailyBosses[j].name) {
+              this.dailyBosses[i].completed = oldDailyBosses[j].completed;
+              this.dailyBosses[i].enabled = oldDailyBosses[j].enabled;
+              // remove the matched item to prevent unneeded iterations in the future
+              oldDailyBosses.splice(j, 1);
+              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
+              break;
+            }
+          }
+        }
+        // update the stored daily boss data
+        this.dailyBossChangeHandler();
+      }
+
+      // check if daily task data is present if so update it
+      if (localStorage.getItem("dailyTasks")) {
+        var oldDailyTasks: Task[] = JSON.parse(localStorage.getItem("dailyTasks"));
+        this.dailyTasks = DailiesJson.dailyTasks;
+        for (let i = 0; i < this.dailyTasks.length; i++) {
+          for (let j = 0; j < oldDailyTasks.length; j++) {
+            if (this.dailyTasks[i].name == oldDailyTasks[j].name) {
+              this.dailyTasks[i].completed = oldDailyTasks[j].completed;
+              this.dailyTasks[i].enabled = oldDailyTasks[j].enabled;
+              // remove the matched item to prevent unneeded iterations in the future
+              oldDailyTasks.splice(j, 1);
+              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
+              break;
+            }
+          }
+        }
+        // update the stored daily task data
+        this.dailyTaskChangeHandler();
+      }
+
+      // check if daily arcane river data is present if so update it
+      if (localStorage.getItem("dailyArcaneRiver")) {
+        var oldDailyArcaneRiver: Task[] = JSON.parse(localStorage.getItem("dailyArcaneRiver"));
+        this.dailyArcaneRiver = DailiesJson.dailyArcaneRiver;
+        for (let i = 0; i < this.dailyArcaneRiver.length; i++) {
+          for (let j = 0; j < oldDailyArcaneRiver.length; j++) {
+            if (this.dailyArcaneRiver[i].name == oldDailyArcaneRiver[j].name) {
+              this.dailyArcaneRiver[i].completed = oldDailyArcaneRiver[j].completed;
+              this.dailyArcaneRiver[i].enabled = oldDailyArcaneRiver[j].enabled;
+              // remove the matched item to prevent unneeded iterations in the future
+              oldDailyArcaneRiver.splice(j, 1);
+              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
+              break;
+            }
+          }
+        }
+        // update the stored daily arcane river data
+        this.dailyArcaneRiverChangeHandler();
+      }
+
+      // update the saved version to the current one
+      localStorage.setItem("dailiesVersion", DailiesJson.version);
+      // notify the user of the changes
+      this.toastr.success('An update for the daily tracker has been applied', '', { closeButton: true, timeOut: 10000, positionClass: 'toast-top-center' });
     }
   }
 
