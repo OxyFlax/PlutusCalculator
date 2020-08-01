@@ -100,45 +100,6 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
       // update the saved version to the current one
       localStorage.setItem("dailiesVersion", DailiesJson.version);
-      // notify the user of the changes
-      this.toastr.success('An update for the daily tracker has been applied', '', { closeButton: true, timeOut: 10000, positionClass: 'toast-top-center' });
-    }
-  }
-
-  checkForUpdate() {
-    if(localStorage.getItem("dailiesVersion")) {
-      if(localStorage.getItem("dailiesVersion") == DailiesJson.version) {
-        // if the current version is the same nothing needs to happen
-        return;
-      } else {
-        if(!localStorage.getItem("dailyBosses") && !localStorage.getItem("dailyTasks") && !localStorage.getItem("dailyArcaneRiver")) {
-          // if there is no pre existing daily data there is no need for a reset
-          localStorage.setItem("dailiesVersion", DailiesJson.version);
-        } else {
-        // update the version and remove stored daily data
-        localStorage.setItem("dailiesVersion", DailiesJson.version);
-        localStorage.removeItem("dailyBosses");
-        localStorage.removeItem("dailyTasks");
-        localStorage.removeItem("dailyArcaneRiver");
-
-        // notify the user of the change
-        this.toastr.warning('An update for the daily tracker has been applied', '', { closeButton: true, timeOut: 10000, progressBar: true, positionClass: 'toast-top-center'});
-        }
-      }
-    } else {
-      if(!localStorage.getItem("dailyBosses") && !localStorage.getItem("dailyTasks") && !localStorage.getItem("dailyArcaneRiver")) {
-        // if there is no pre existing daily data there is no need for a reset
-        localStorage.setItem("dailiesVersion", DailiesJson.version);
-      } else {
-        // if no version is found save the version and remove stored daily data
-        localStorage.setItem("dailiesVersion", DailiesJson.version);
-        localStorage.removeItem("dailyBosses");
-        localStorage.removeItem("dailyTasks");
-        localStorage.removeItem("dailyArcaneRiver");
-
-        // notify the user of the change
-        this.toastr.warning('An update for the daily tracker has been applied', '', { closeButton: true, timeOut: 10000, progressBar: true, positionClass: 'toast-top-center'});
-      }
     }
   }
 

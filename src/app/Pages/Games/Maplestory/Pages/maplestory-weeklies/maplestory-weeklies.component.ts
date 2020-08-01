@@ -87,8 +87,6 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
       // update the saved version to the current one
       localStorage.setItem("weekliesVersion", WeekliesJson.version);
-      // notify the user of the changes
-      this.toastr.success('An update for the weekly tracker has been applied', '', { closeButton: true, timeOut: 10000, positionClass: 'toast-top-center' });
     }
   }
 
@@ -252,11 +250,11 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
   getNextDayOfWeek(dayOfWeek) {
     var currentDay = new Date();
-
     var resultDate = new Date(Date.UTC(currentDay.getUTCFullYear(), currentDay.getUTCMonth(), currentDay.getUTCDate(), 0, 0, 0, 0));
+    
+    resultDate.setTime(resultDate.getTime() + (((7 + dayOfWeek - resultDate.getUTCDay() - 1) % 7 + 1) * 24 * 60 * 60 * 1000));
 
-    resultDate.setDate(currentDay.getUTCDate() + (7 + dayOfWeek - currentDay.getUTCDay() - 1) % 7 + 1);
-
+    //resultDate.setDate(currentDay.getUTCDate() + (7 + dayOfWeek - currentDay.getUTCDay() - 1) % 7 + 1);
     return resultDate;
   }
 
