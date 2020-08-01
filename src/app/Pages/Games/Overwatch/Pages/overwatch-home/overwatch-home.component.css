@@ -1,0 +1,72 @@
+.contentPageOverride .title {
+    margin: 0px;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    margin-top: 5px;
+}
+
+.contentPageOverride {
+    width: 800px;
+    background-color: var(--content-page-background-color);
+    border: 1px solid var(--content-page-border-color);
+    min-height: calc(100vh - 72px);
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.contentPageOverride h2 {
+    text-align: center;
+}
+
+.contentPageOverride .intro {
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 18px;
+}
+
+.changeLog {
+    margin-top: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 16px;
+}
+
+.changeLog .changeLogTitle {
+    margin: 0px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.individualLog {
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.individualLog p{
+    margin: 0px 0px 0px 10px;
+}
+
+@media only screen and (max-width: 1305px) {
+    .contentPageOverride {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 1061px) {
+    .contentPageOverride {
+        width: calc(100% - 262px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .contentPageOverride {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-height: calc(100vh - 100px);
+        width: calc(100% - 18px);
+    }
+}
