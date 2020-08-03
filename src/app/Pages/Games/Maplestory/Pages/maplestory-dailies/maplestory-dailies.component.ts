@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../assets/Games/Maplestory/Dailies.json';
-import { Task } from '../../Models/task';
-import { ToastrService } from 'ngx-toastr';
+import { Dailies } from '../../Models/dailies';
 
 @Component({
   selector: 'app-maplestory-dailies',
@@ -12,22 +11,15 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   timer: any;
   timerString: string;
 
+  characterIndex: number = 0;
   editModeActive: boolean = false;
-  dailyBosses: Task[];
-  dailyTasks: Task[];
-  dailyArcaneRiver: Task[];
+  dailies: Dailies[] = [];
   editButtonMessage: string = "Edit Dailies";
 
-  constructor(private toastr: ToastrService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.updateChecker();
-    //this.checkForUpdate();
-    this.dailyBosses = localStorage.getItem("dailyBosses") ? JSON.parse(localStorage.getItem("dailyBosses")) : DailiesJson.dailyBosses;
-    this.dailyTasks = localStorage.getItem("dailyTasks") ? JSON.parse(localStorage.getItem("dailyTasks")) : DailiesJson.dailyTasks;
-    this.dailyArcaneRiver = localStorage.getItem("dailyArcaneRiver") ? JSON.parse(localStorage.getItem("dailyArcaneRiver")) : DailiesJson.dailyArcaneRiver;
-    this.startTimer();
-    this.checkIfDataIsFromPreviousDay();
+    this.initialise();
   }
 
   ngOnDestroy() {
@@ -36,68 +28,79 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }
   }
 
+  initialise() {
+    if (localStorage.getItem("dailies")) {
+      this.dailies = JSON.parse(localStorage.getItem("dailies"));
+      this.checkIfDataIsFromPreviousDay();
+      this.updateChecker();
+    } else {
+      // initiate a dataset
+      this.initiateData();
+    }
+    this.startTimer();
+  }
+
+  initiateData() {
+    var newDailiesList: Dailies = {
+      characterName: "",
+      dailyBosses: DailiesJson.dailyBosses,
+      dailyTasks: DailiesJson.dailyTasks,
+      dailyArcaneRiver: DailiesJson.dailyArcaneRiver
+    };
+
+    for (let i = 0; i < 4; i++) {
+      newDailiesList.characterName = "Char" + (i + 1);
+      this.dailies[i] = JSON.parse(JSON.stringify(newDailiesList));
+    }
+
+    this.dailiesChangeHandler();
+  }
+
   updateChecker() {
+    // if the current version doesn't match the new version update the data
     if (localStorage.getItem("dailiesVersion") != DailiesJson.version) {
-      // check if daily boss data is present if so update it
-      if (localStorage.getItem("dailyBosses")) {
-        var oldDailyBosses: Task[] = JSON.parse(localStorage.getItem("dailyBosses"));
-        this.dailyBosses = DailiesJson.dailyBosses;
-        for (let i = 0; i < this.dailyBosses.length; i++) {
-          for (let j = 0; j < oldDailyBosses.length; j++) {
-            if (this.dailyBosses[i].name == oldDailyBosses[j].name) {
-              this.dailyBosses[i].completed = oldDailyBosses[j].completed;
-              this.dailyBosses[i].enabled = oldDailyBosses[j].enabled;
-              // remove the matched item to prevent unneeded iterations in the future
-              oldDailyBosses.splice(j, 1);
-              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
-              break;
+      var oldDailies: Dailies[] = JSON.parse(localStorage.getItem("dailies"));
+      // set the data to the new structure
+      this.initiateData();
+      for (let i = 0; i < this.dailies.length; i++) {
+        // move over the name
+        this.dailies[i].characterName = oldDailies[i].characterName;
+
+        // update daily boss data
+        for (let j = 0; j < this.dailies[i].dailyBosses.length; j++) {
+          for (let k = 0; k < oldDailies[i].dailyBosses.length; k++) {
+            if (this.dailies[i].dailyBosses[j].name == oldDailies[i].dailyBosses[k].name) {
+              this.dailies[i].dailyBosses[j].completed = oldDailies[i].dailyBosses[k].completed;
+              this.dailies[i].dailyBosses[j].enabled = oldDailies[i].dailyBosses[k].enabled;
+              oldDailies[i].dailyBosses.splice(k, 1);
             }
           }
         }
-        // update the stored daily boss data
-        this.dailyBossChangeHandler();
-      }
 
-      // check if daily task data is present if so update it
-      if (localStorage.getItem("dailyTasks")) {
-        var oldDailyTasks: Task[] = JSON.parse(localStorage.getItem("dailyTasks"));
-        this.dailyTasks = DailiesJson.dailyTasks;
-        for (let i = 0; i < this.dailyTasks.length; i++) {
-          for (let j = 0; j < oldDailyTasks.length; j++) {
-            if (this.dailyTasks[i].name == oldDailyTasks[j].name) {
-              this.dailyTasks[i].completed = oldDailyTasks[j].completed;
-              this.dailyTasks[i].enabled = oldDailyTasks[j].enabled;
-              // remove the matched item to prevent unneeded iterations in the future
-              oldDailyTasks.splice(j, 1);
-              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
-              break;
+        // update daily task data
+        for (let j = 0; j < this.dailies[i].dailyTasks.length; j++) {
+          for (let k = 0; k < oldDailies[i].dailyTasks.length; k++) {
+            if (this.dailies[i].dailyTasks[j].name == oldDailies[i].dailyTasks[k].name) {
+              this.dailies[i].dailyTasks[j].completed = oldDailies[i].dailyTasks[k].completed;
+              this.dailies[i].dailyTasks[j].enabled = oldDailies[i].dailyTasks[k].enabled;
+              oldDailies[i].dailyTasks.splice(k, 1);
             }
           }
         }
-        // update the stored daily task data
-        this.dailyTaskChangeHandler();
-      }
 
-      // check if daily arcane river data is present if so update it
-      if (localStorage.getItem("dailyArcaneRiver")) {
-        var oldDailyArcaneRiver: Task[] = JSON.parse(localStorage.getItem("dailyArcaneRiver"));
-        this.dailyArcaneRiver = DailiesJson.dailyArcaneRiver;
-        for (let i = 0; i < this.dailyArcaneRiver.length; i++) {
-          for (let j = 0; j < oldDailyArcaneRiver.length; j++) {
-            if (this.dailyArcaneRiver[i].name == oldDailyArcaneRiver[j].name) {
-              this.dailyArcaneRiver[i].completed = oldDailyArcaneRiver[j].completed;
-              this.dailyArcaneRiver[i].enabled = oldDailyArcaneRiver[j].enabled;
-              // remove the matched item to prevent unneeded iterations in the future
-              oldDailyArcaneRiver.splice(j, 1);
-              // if an old item was matched with a new item exit for loop to prevent unneeded iterations
-              break;
+        // update daily arcane river data
+        for (let j = 0; j < this.dailies[i].dailyArcaneRiver.length; j++) {
+          for (let k = 0; k < oldDailies[i].dailyArcaneRiver.length; k++) {
+            if (this.dailies[i].dailyArcaneRiver[j].name == oldDailies[i].dailyArcaneRiver[k].name) {
+              this.dailies[i].dailyArcaneRiver[j].completed = oldDailies[i].dailyArcaneRiver[k].completed;
+              this.dailies[i].dailyArcaneRiver[j].enabled = oldDailies[i].dailyArcaneRiver[k].enabled;
+              oldDailies[i].dailyArcaneRiver.splice(k, 1);
             }
           }
         }
-        // update the stored daily arcane river data
-        this.dailyArcaneRiverChangeHandler();
       }
-
+      // save the updated data
+      this.dailiesChangeHandler();
       // update the saved version to the current one
       localStorage.setItem("dailiesVersion", DailiesJson.version);
     }
@@ -107,27 +110,22 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     var date = new Date();
     var currentUtcDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0);
 
-    var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
+    var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisitTest") ? localStorage.getItem("lastMapleDailyTrackerVisitTest") : 0;
 
     if (lastVisit < currentUtcDay) {
       this.resetCompletedValues();
     }
 
     // reset last visit to the current time
-    localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
+    localStorage.setItem("lastMapleDailyTrackerVisitTest", Date.now().toString());
   }
 
-
-  dailyBossChangeHandler() {
-    localStorage.setItem("dailyBosses", JSON.stringify(this.dailyBosses));
+  dailiesChangeHandler() {
+    localStorage.setItem("dailies", JSON.stringify(this.dailies));
   }
 
-  dailyTaskChangeHandler() {
-    localStorage.setItem("dailyTasks", JSON.stringify(this.dailyTasks));
-  }
-
-  dailyArcaneRiverChangeHandler() {
-    localStorage.setItem("dailyArcaneRiver", JSON.stringify(this.dailyArcaneRiver));
+  changeCharacter(characterIndex: number) {
+    this.characterIndex = characterIndex;
   }
 
   disableDailyBoss(event: any, taskIndex: number) {
@@ -136,13 +134,11 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.dailyBosses[taskIndex].enabled) {
-      this.dailyBosses[taskIndex].enabled = false;
+    if (this.dailies[this.characterIndex].dailyBosses[taskIndex].enabled) {
+      this.dailies[this.characterIndex].dailyBosses[taskIndex].enabled = false;
     } else {
-      this.dailyBosses[taskIndex].enabled = true;
+      this.dailies[this.characterIndex].dailyBosses[taskIndex].enabled = true;
     }
-
-    localStorage.setItem("dailyBosses", JSON.stringify(this.dailyBosses));
   }
 
   disableDailyTask(event: any, taskIndex: number) {
@@ -151,13 +147,11 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.dailyTasks[taskIndex].enabled) {
-      this.dailyTasks[taskIndex].enabled = false;
+    if (this.dailies[this.characterIndex].dailyTasks[taskIndex].enabled) {
+      this.dailies[this.characterIndex].dailyTasks[taskIndex].enabled = false;
     } else {
-      this.dailyTasks[taskIndex].enabled = true;
+      this.dailies[this.characterIndex].dailyTasks[taskIndex].enabled = true;
     }
-
-    localStorage.setItem("dailyTasks", JSON.stringify(this.dailyTasks));
   }
 
   disableDailyArcaneRiver(event: any, taskIndex: number) {
@@ -166,19 +160,18 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.dailyArcaneRiver[taskIndex].enabled) {
-      this.dailyArcaneRiver[taskIndex].enabled = false;
+    if (this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].enabled) {
+      this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].enabled = false;
     } else {
-      this.dailyArcaneRiver[taskIndex].enabled = true;
+      this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].enabled = true;
     }
-
-    localStorage.setItem("dailyArcaneRiver", JSON.stringify(this.dailyArcaneRiver));
   }
 
   toggleEditMode() {
     if (this.editModeActive) {
       this.editModeActive = false;
       this.editButtonMessage = "Edit Dailies";
+      this.dailiesChangeHandler();
     } else {
       this.editModeActive = true;
       this.editButtonMessage = "Exit Edit Mode";
@@ -217,25 +210,23 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   }
 
   resetCompletedValues() {
-    this.dailyBosses.forEach(item => {
-      item.completed = false;
+    this.dailies.forEach(item => {
+      item.dailyBosses.forEach(item => {
+        item.completed = false;
+      });
+      item.dailyTasks.forEach(item => {
+        item.completed = false;
+      });
+      item.dailyArcaneRiver.forEach(item => {
+        item.completed = false;
+      });
     });
-    this.dailyBossChangeHandler();
-
-    this.dailyTasks.forEach(item => {
-      item.completed = false;
-    });
-    this.dailyTaskChangeHandler();
-
-    this.dailyArcaneRiver.forEach(item => {
-      item.completed = false;
-    });
-    this.dailyArcaneRiverChangeHandler();
+    this.dailiesChangeHandler();
   }
 
   liveReset() {
     this.resetCompletedValues();
     this.startTimer();
-    localStorage.setItem("lastMapleDailyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
+    localStorage.setItem("lastMapleDailyTrackerVisitTest", (parseInt(Date.now().toString()) + 5000).toString());
   }
 }

@@ -1,16 +1,28 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="gamePageContent">
     <div class="topBar">
-        <p class="title">Weekly Tracker</p>
+        <p class="title">Weekly Tracker {{ weeklies[characterIndex].characterName }}</p>
         <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
     </div>
-    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, right click on dailies to disable them (this
+    <div class="characterNavigationBar">
+        <a (click)="changeCharacter(0)" [ngClass]="(characterIndex == 0)?'selected':'notSelected'">{{ weeklies[0].characterName }}</a>
+        <a (click)="changeCharacter(1)" [ngClass]="(characterIndex == 1)?'selected':'notSelected'">{{ weeklies[1].characterName }}</a>
+        <a (click)="changeCharacter(2)" [ngClass]="(characterIndex == 2)?'selected':'notSelected'">{{ weeklies[2].characterName }}</a>
+        <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ weeklies[3].characterName }}</a>
+    </div>
+    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, right click on weeklies to disable them (this
         will prevent them from showing up outside of the edit mode)</p>
-    <div class="dailyGroups">
+    <div class="inputWrapper" *ngIf="editModeActive">
+        <div class="characterNameInput">
+            <label for="characterName">Character Name</label>
+            <input type="text" id="characterName" name="characterName" maxlength="12" [(ngModel)]="weeklies[characterIndex].characterName">
+        </div>
+    </div>
+    <div class="weeklyGroups">
         <div class="taskGroupWrapper">
             <p class="groupTitle">Weekly Bosses</p>
             <p class="timer">{{ timerWeeklyBossesString }}</p>
-            <ng-container *ngFor="let item of weeklyBosses; let i = index">
+            <ng-container *ngFor="let item of weeklies[characterIndex].weeklyBosses; let i = index">
                 <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
                     *ngIf="item.enabled || editModeActive" (contextmenu)="disableWeeklyBoss($event, i)">
                     <div class="imgWrapper">
@@ -18,7 +30,7 @@
                     </div>
                     <label for="weeklyBosses{{i}}">{{ item.name }}</label>
                     <div class="inputWrapper">
-                        <input name="weeklyBosses{{i}}" id="weeklyBosses{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weeklyBossChangeHandler()" />
+                        <input name="weeklyBosses{{i}}" id="weeklyBosses{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
                     </div>
                 </div>
             </ng-container>
@@ -26,7 +38,7 @@
         <div class="taskGroupWrapper">
             <p class="groupTitle">Weekly Tasks</p>
             <p class="timer">{{ timerWeeklyTasksString }}</p>
-            <ng-container *ngFor="let item of weeklyTasks; let i = index">
+            <ng-container *ngFor="let item of weeklies[characterIndex].weeklyTasks; let i = index">
                 <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
                     *ngIf="item.enabled || editModeActive" (contextmenu)="disableWeeklyTask($event, i)">
                     <div class="imgWrapper">
@@ -34,7 +46,7 @@
                     </div>
                     <label for="weeklyTask{{i}}">{{ item.name }}</label>
                     <div class="inputWrapper">
-                        <input name="weeklyTask{{i}}" id="weeklyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weeklyTaskChangeHandler()" />
+                        <input name="weeklyTask{{i}}" id="weeklyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
                     </div>
                 </div>
             </ng-container>

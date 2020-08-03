@@ -66,7 +66,7 @@
     font-size: 22px;
 }
 
-.dailyGroups {
+.weeklyGroups {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -75,7 +75,7 @@
 
 .topBar {
     width: 100%;
-    height: 60px;
+    height: 50px;
     position: relative;
 }
 
@@ -103,7 +103,7 @@
 
 .editModeMessage {
     color: red;
-    margin: 0px 0px 20px 0px;
+    margin: 0px 0px 10px 0px;
     text-align: center;
 }
 
@@ -111,4 +111,64 @@
     text-align: center;
     margin: 0px 0px 0px 0px;
     font-size: 14px;
+}
+
+.characterNavigationBar {
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+.characterNavigationBar a {
+    width: 50px;
+    padding: 2px 4px 2px 4px;
+    margin: 0px 4px 0px 4px;
+    font-size: 18px;
+}
+
+.characterNavigationBar a:hover {
+    cursor: pointer;
+}
+
+.notSelected {
+    border: 2px solid var(--game-page-border-color);
+}
+
+.selected {
+    border: 2px solid var(--game-page-accent-color);
+}
+
+.inputWrapper {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.characterNameInput {
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.characterNameInput label {
+    display:block;
+    text-align: center;
+    font-size: 15px;
+}
+
+.characterNameInput input{
+    display:block;
+    margin-top: 3px;
+    text-align: center;
+    width: 180px;
+}
+
+@media only screen and (max-width: 550px) {
+    .topBar {
+        height: 83px;
+    }
+
+    .topBar .title {
+        padding-top: 48px;
+    }
 }
