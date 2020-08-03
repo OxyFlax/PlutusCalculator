@@ -36,6 +36,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     } else {
       // initiate a dataset
       this.initiateData();
+      // set last visit 
+      localStorage.setItem("lastMapleDailyTrackerVisitTest", Date.now().toString());
     }
     this.startTimer();
   }
@@ -53,6 +55,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailies[i] = JSON.parse(JSON.stringify(newDailiesList));
     }
 
+    localStorage.setItem("dailiesVersion", DailiesJson.version);
     this.dailiesChangeHandler();
   }
 

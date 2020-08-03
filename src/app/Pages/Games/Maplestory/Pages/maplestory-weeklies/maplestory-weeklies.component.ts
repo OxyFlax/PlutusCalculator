@@ -43,6 +43,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     } else {
       // initiate a dataset
       this.initiateData();
+      // set last visit 
+      localStorage.setItem("lastMapleWeeklyTrackerVisitTest", Date.now().toString());
     }
     this.startWeeklyBossesTimer();
     this.startWeeklyTasksTimer();
@@ -59,7 +61,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       newWeekliesList.characterName = "Char" + (i + 1);
       this.weeklies[i] = JSON.parse(JSON.stringify(newWeekliesList));
     }
-
+    
+    localStorage.setItem("weekliesVersion", WeekliesJson.version);
     this.weekliesChangeHandler();
   }
 
