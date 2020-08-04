@@ -69,7 +69,7 @@
     }
 }
 
-@media only screen and (max-width: 862px) {
+@media only screen and (max-width: 872px) {
     .editedGamePageContent {
         width: calc(100% - 262px);
     }

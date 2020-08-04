@@ -84,6 +84,10 @@
     --input-box-border-color: #4d4d4b;
 }
 
+html {
+    overflow-y: scroll;
+}
+
 body {
     background-color: var(--background-color);
     color:  var(--font-color);
@@ -155,6 +159,7 @@ body {
     border: 1px solid var(--game-page-border-color);
     min-height: calc(100vh - 72px);
     margin-top: 8px;
+    margin-bottom: 8px;
 }
 /* end of game page content css */
 
@@ -289,7 +294,7 @@ input::-webkit-inner-spin-button {
     /* end of game page content css */
 }
 
-@media only screen and (max-width: 1391px) {
+@media only screen and (max-width: 1401px) {
     /* start of game page content css */
     .gamePageContent {
         width: calc(100% - 262px);
