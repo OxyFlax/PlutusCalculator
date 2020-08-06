@@ -37,7 +37,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       // initiate a dataset
       this.initiateData();
       // set last visit 
-      localStorage.setItem("lastMapleDailyTrackerVisitTest", Date.now().toString());
+      localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
     }
     this.startTimer();
   }
@@ -113,14 +113,14 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     var date = new Date();
     var currentUtcDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0);
 
-    var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisitTest") ? localStorage.getItem("lastMapleDailyTrackerVisitTest") : 0;
+    var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
 
     if (lastVisit < currentUtcDay) {
       this.resetCompletedValues();
     }
 
     // reset last visit to the current time
-    localStorage.setItem("lastMapleDailyTrackerVisitTest", Date.now().toString());
+    localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
   }
 
   dailiesChangeHandler() {
@@ -230,6 +230,6 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   liveReset() {
     this.resetCompletedValues();
     this.startTimer();
-    localStorage.setItem("lastMapleDailyTrackerVisitTest", (parseInt(Date.now().toString()) + 5000).toString());
+    localStorage.setItem("lastMapleDailyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
   }
 }

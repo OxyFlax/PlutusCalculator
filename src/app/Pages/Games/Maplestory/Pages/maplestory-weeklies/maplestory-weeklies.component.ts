@@ -40,11 +40,13 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.weeklyBossDataChecker();
       this.weeklyTaskDataChecker();
       this.updateChecker();
+      // set last visit
+      localStorage.setItem("lastMapleWeeklyTrackerVisit", Date.now().toString());
     } else {
       // initiate a dataset
       this.initiateData();
       // set last visit 
-      localStorage.setItem("lastMapleWeeklyTrackerVisitTest", Date.now().toString());
+      localStorage.setItem("lastMapleWeeklyTrackerVisit", Date.now().toString());
     }
     this.startWeeklyBossesTimer();
     this.startWeeklyTasksTimer();
