@@ -295,4 +295,64 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     this.startTimer();
     localStorage.setItem("lastMapleDailyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
   }
+
+  moveDailyBoss(index: number, direction: string){
+    if(direction == "up") {
+      if(index == 0) {
+        return;
+      }
+      var temp = this.dailies[this.characterIndex].dailyBosses[index - 1];
+      this.dailies[this.characterIndex].dailyBosses[index - 1] = this.dailies[this.characterIndex].dailyBosses[index];
+      this.dailies[this.characterIndex].dailyBosses[index] = temp;
+    }
+
+    if(direction == "down") {
+      if(index + 1 == this.dailies[this.characterIndex].dailyBosses.length){
+        return;
+      }
+      var temp = this.dailies[this.characterIndex].dailyBosses[index + 1];
+      this.dailies[this.characterIndex].dailyBosses[index + 1] = this.dailies[this.characterIndex].dailyBosses[index];
+      this.dailies[this.characterIndex].dailyBosses[index] = temp;
+    }
+  }
+
+  moveDailyTask(index: number, direction: string){
+    if(direction == "up") {
+      if(index == 0) {
+        return;
+      }
+      var temp = this.dailies[this.characterIndex].dailyTasks[index - 1];
+      this.dailies[this.characterIndex].dailyTasks[index - 1] = this.dailies[this.characterIndex].dailyTasks[index];
+      this.dailies[this.characterIndex].dailyTasks[index] = temp;
+    }
+
+    if(direction == "down") {
+      if(index + 1 == this.dailies[this.characterIndex].dailyTasks.length){
+        return;
+      }
+      var temp = this.dailies[this.characterIndex].dailyTasks[index + 1];
+      this.dailies[this.characterIndex].dailyTasks[index + 1] = this.dailies[this.characterIndex].dailyTasks[index];
+      this.dailies[this.characterIndex].dailyTasks[index] = temp;
+    }
+  }
+
+  moveDailyArcaneRiver(index: number, direction: string){
+    if(direction == "up") {
+      if(index == 0) {
+        return;
+      }
+      var temp = this.dailies[this.characterIndex].dailyArcaneRiver[index - 1];
+      this.dailies[this.characterIndex].dailyArcaneRiver[index - 1] = this.dailies[this.characterIndex].dailyArcaneRiver[index];
+      this.dailies[this.characterIndex].dailyArcaneRiver[index] = temp;
+    }
+
+    if(direction == "down") {
+      if(index + 1 == this.dailies[this.characterIndex].dailyArcaneRiver.length){
+        return;
+      }
+      var temp = this.dailies[this.characterIndex].dailyArcaneRiver[index + 1];
+      this.dailies[this.characterIndex].dailyArcaneRiver[index + 1] = this.dailies[this.characterIndex].dailyArcaneRiver[index];
+      this.dailies[this.characterIndex].dailyArcaneRiver[index] = temp;
+    }
+  }
 }

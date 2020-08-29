@@ -278,4 +278,44 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     resultDate.setTime(resultDate.getTime() - (24 * 60 * 60 * 1000 * 7));
     return resultDate;
   }
+
+  moveWeeklyBoss(index: number, direction: string){
+    if(direction == "up") {
+      if(index == 0) {
+        return;
+      }
+      var temp = this.weeklies[this.characterIndex].weeklyBosses[index - 1];
+      this.weeklies[this.characterIndex].weeklyBosses[index - 1] = this.weeklies[this.characterIndex].weeklyBosses[index];
+      this.weeklies[this.characterIndex].weeklyBosses[index] = temp;
+    }
+
+    if(direction == "down") {
+      if(index + 1 == this.weeklies[this.characterIndex].weeklyBosses.length){
+        return;
+      }
+      var temp = this.weeklies[this.characterIndex].weeklyBosses[index + 1];
+      this.weeklies[this.characterIndex].weeklyBosses[index + 1] = this.weeklies[this.characterIndex].weeklyBosses[index];
+      this.weeklies[this.characterIndex].weeklyBosses[index] = temp;
+    }
+  }
+
+  moveWeeklyTask(index: number, direction: string){
+    if(direction == "up") {
+      if(index == 0) {
+        return;
+      }
+      var temp = this.weeklies[this.characterIndex].weeklyTasks[index - 1];
+      this.weeklies[this.characterIndex].weeklyTasks[index - 1] = this.weeklies[this.characterIndex].weeklyTasks[index];
+      this.weeklies[this.characterIndex].weeklyTasks[index] = temp;
+    }
+
+    if(direction == "down") {
+      if(index + 1 == this.weeklies[this.characterIndex].weeklyTasks.length){
+        return;
+      }
+      var temp = this.weeklies[this.characterIndex].weeklyTasks[index + 1];
+      this.weeklies[this.characterIndex].weeklyTasks[index + 1] = this.weeklies[this.characterIndex].weeklyTasks[index];
+      this.weeklies[this.characterIndex].weeklyTasks[index] = temp;
+    }
+  }
 }

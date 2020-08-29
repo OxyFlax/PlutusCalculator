@@ -30,7 +30,11 @@
                     </div>
                     <label for="weeklyBosses{{i}}">{{ item.name }}</label>
                     <div class="inputWrapper">
-                        <input name="weeklyBosses{{i}}" id="weeklyBosses{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
+                        <input *ngIf="!editModeActive" name="weeklyBosses{{i}}" id="weeklyBosses{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
+                        <div *ngIf="editModeActive" class="test">
+                            <i class="fa fa-caret-up fa-2x" (click)="moveWeeklyBoss(i, 'up')"></i>
+                            <i class="fa fa-caret-down fa-2x" (click)="moveWeeklyBoss(i, 'down')"></i>
+                        </div>
                     </div>
                 </div>
             </ng-container>
@@ -46,7 +50,11 @@
                     </div>
                     <label for="weeklyTask{{i}}">{{ item.name }}</label>
                     <div class="inputWrapper">
-                        <input name="weeklyTask{{i}}" id="weeklyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
+                        <input *ngIf="!editModeActive" name="weeklyTask{{i}}" id="weeklyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
+                        <div *ngIf="editModeActive" class="test">
+                            <i class="fa fa-caret-up fa-2x" (click)="moveWeeklyTask(i, 'up')"></i>
+                            <i class="fa fa-caret-down fa-2x" (click)="moveWeeklyTask(i, 'down')"></i>
+                        </div>
                     </div>
                 </div>
             </ng-container>

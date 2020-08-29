@@ -29,7 +29,11 @@
                     </div>
                     <label for="dailyQuest{{i}}">{{ item.name }}</label>
                     <div class="inputWrapper">
-                        <input name="dailyQuest{{i}}" id="dailyQuest{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
+                        <input *ngIf="!editModeActive" name="dailyQuest{{i}}" id="dailyQuest{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
+                        <div *ngIf="editModeActive" class="test">
+                            <i class="fa fa-caret-up fa-2x" (click)="moveDailyBoss(i, 'up')"></i>
+                            <i class="fa fa-caret-down fa-2x" (click)="moveDailyBoss(i, 'down')"></i>
+                        </div>
                     </div>
                 </div>
             </ng-container>
@@ -38,14 +42,17 @@
             <p>Daily Tasks</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
                 <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus'}" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)">
-                <!-- <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)"> -->
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
                     <label for="dailyTask{{i}}">{{ item.name }}</label>
-                    <span class="ursusCountdown" *ngIf="item.name == 'Ursus'">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
+                    <span class="ursusCountdown" *ngIf="item.name == 'Ursus'" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
                     <div class="inputWrapper">
-                        <input name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
+                        <input *ngIf="!editModeActive" name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
+                        <div *ngIf="editModeActive" class="test">
+                            <i class="fa fa-caret-up fa-2x" (click)="moveDailyTask(i, 'up')"></i>
+                            <i class="fa fa-caret-down fa-2x" (click)="moveDailyTask(i, 'down')"></i>
+                        </div>
                     </div>
                 </div>
             </ng-container>
@@ -59,7 +66,11 @@
                     </div>
                     <label for="dailyArcaneRiver{{i}}">{{ item.name }}</label>
                     <div class="inputWrapper">
-                        <input name="dailyArcaneRiver{{i}}" id="dailyArcaneRiver{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
+                        <input *ngIf="!editModeActive" name="dailyArcaneRiver{{i}}" id="dailyArcaneRiver{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
+                        <div *ngIf="editModeActive" class="test">
+                            <i class="fa fa-caret-up fa-2x" (click)="moveDailyArcaneRiver(i, 'up')"></i>
+                            <i class="fa fa-caret-down fa-2x" (click)="moveDailyArcaneRiver(i, 'down')"></i>
+                        </div>
                     </div>
                 </div>
             </ng-container>
