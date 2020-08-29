@@ -237,7 +237,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
     if(date.getUTCHours() >= 3 && date.getUTCHours() < 18) {
       // count down to ursus slot 2 start
-      this.ursusTimerPrefix = "Golden Time ending in";
+      this.ursusTimerPrefix = "Golden Time in";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 18, 0, 0, 0);
     }
 
