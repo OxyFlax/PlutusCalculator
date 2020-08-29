@@ -23,8 +23,7 @@
         <div class="taskGroupWrapper">
             <p>Daily Bosses</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyBosses; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
-                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyBoss($event, i)">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyBoss($event, i)">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
@@ -38,12 +37,13 @@
         <div class="taskGroupWrapper">
             <p>Daily Tasks</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
-                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)">
+                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus'}" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)">
+                <!-- <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)"> -->
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
                     <label for="dailyTask{{i}}">{{ item.name }}</label>
+                    <span class="ursusCountdown" *ngIf="item.name == 'Ursus'">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
                     <div class="inputWrapper">
                         <input name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
                     </div>
@@ -53,8 +53,7 @@
         <div class="taskGroupWrapper">
             <p>Arcane River Dailies</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyArcaneRiver; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
-                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyArcaneRiver($event, i)">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyArcaneRiver($event, i)">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>

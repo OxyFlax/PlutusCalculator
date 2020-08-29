@@ -10,6 +10,9 @@ import { Dailies } from '../../Models/dailies';
 export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   timer: any;
   timerString: string;
+  ursusTimer: any;
+  ursusTimerString: string;
+  ursusTimerPrefix: string;
 
   characterIndex: number = 0;
   editModeActive: boolean = false;
@@ -40,6 +43,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
     }
     this.startTimer();
+    this.startUrsusTimer();
   }
 
   initiateData() {
@@ -199,6 +203,57 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  startUrsusTimer() {
+    clearInterval(this.ursusTimer);
+    var endTime = this.determineUrsusEndTime();
+
+    this.calculateAndOutPutUrsusTime(endTime - new Date().getTime());
+
+    this.ursusTimer = setInterval(() => {
+      var distance = endTime - new Date().getTime();
+      this.calculateAndOutPutUrsusTime(distance);
+
+      if (distance < 0) {
+        clearInterval(this.timer);
+        this.startUrsusTimer();
+      }
+    }, 1000);
+  }
+
+  determineUrsusEndTime() : number {
+    var date = new Date();
+
+    if(date.getUTCHours() < 1) {
+      // count down to ursus slot 1 start which is the current day at 1am
+      this.ursusTimerPrefix = "Golden Time in ";
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 1, 0, 0, 0);
+    }
+
+    if(date.getUTCHours() >= 1 && date.getUTCHours() < 3) {
+      // count down to ursus slot 1 ending
+      this.ursusTimerPrefix = "Golden Time ending in";
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 3, 0, 0, 0);
+    }
+
+    if(date.getUTCHours() >= 3 && date.getUTCHours() < 18) {
+      // count down to ursus slot 2 start
+      this.ursusTimerPrefix = "Golden Time ending in";
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 18, 0, 0, 0);
+    }
+
+    if(date.getUTCHours() >= 18 && date.getUTCHours() < 20) {
+      // count down to ursus slot 2 ending
+      this.ursusTimerPrefix = "Golden Time ending in";
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 20, 0, 0, 0);
+    }
+
+    if(date.getUTCHours() >= 20) {
+      // count down to ursus slot 1 start which is next utc day at 1am
+      this.ursusTimerPrefix = "Golden Time in ";
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 1, 0, 0, 0);
+    }
+  }
+
   calculateAndOutPutTime(distance: number) {
     if (distance < 0) {
       this.timerString = "RESET!";
@@ -210,6 +265,14 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     this.timerString = hours + "h " + minutes + "m " + ("00" + seconds).slice(-2) + "s ";
+  }
+
+  calculateAndOutPutUrsusTime(distance: number) {
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    this.ursusTimerString = hours + "h " + minutes + "m " + ("00" + seconds).slice(-2) + "s ";
   }
 
   resetCompletedValues() {
