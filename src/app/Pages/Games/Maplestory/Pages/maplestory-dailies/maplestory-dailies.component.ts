@@ -135,8 +135,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     this.characterIndex = characterIndex;
   }
 
-  disableDailyBoss(event: any, taskIndex: number) {
-    event.preventDefault();
+  disableDailyBoss(taskIndex: number) {
     if (!this.editModeActive) {
       return;
     }
@@ -148,8 +147,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }
   }
 
-  disableDailyTask(event: any, taskIndex: number) {
-    event.preventDefault();
+  disableDailyTask(taskIndex: number) {
     if (!this.editModeActive) {
       return;
     }
@@ -161,8 +159,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }
   }
 
-  disableDailyArcaneRiver(event: any, taskIndex: number) {
-    event.preventDefault();
+  disableDailyArcaneRiver(taskIndex: number) {
     if (!this.editModeActive) {
       return;
     }

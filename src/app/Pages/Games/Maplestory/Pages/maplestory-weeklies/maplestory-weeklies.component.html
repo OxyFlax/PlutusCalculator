@@ -10,7 +10,7 @@
         <a (click)="changeCharacter(2)" [ngClass]="(characterIndex == 2)?'selected':'notSelected'">{{ weeklies[2].characterName }}</a>
         <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ weeklies[3].characterName }}</a>
     </div>
-    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, right click on weeklies to disable them (this
+    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, click on the names of weeklies to disable them (this
         will prevent them from showing up outside of the edit mode)</p>
     <div class="inputWrapper" *ngIf="editModeActive">
         <div class="characterNameInput">
@@ -23,12 +23,11 @@
             <p class="groupTitle">Weekly Bosses</p>
             <p class="timer">{{ timerWeeklyBossesString }}</p>
             <ng-container *ngFor="let item of weeklies[characterIndex].weeklyBosses; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
-                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableWeeklyBoss($event, i)">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Weeklies/{{item.image}}" alt="{{item.name}}">
                     </div>
-                    <label for="weeklyBosses{{i}}">{{ item.name }}</label>
+                    <label for="weeklyBosses{{i}}" (click)="disableWeeklyBoss(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="weeklyBosses{{i}}" id="weeklyBosses{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
                         <div *ngIf="editModeActive" class="test">
@@ -43,12 +42,11 @@
             <p class="groupTitle">Weekly Tasks</p>
             <p class="timer">{{ timerWeeklyTasksString }}</p>
             <ng-container *ngFor="let item of weeklies[characterIndex].weeklyTasks; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'"
-                    *ngIf="item.enabled || editModeActive" (contextmenu)="disableWeeklyTask($event, i)">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Weeklies/{{item.image}}" alt="{{item.name}}">
                     </div>
-                    <label for="weeklyTask{{i}}">{{ item.name }}</label>
+                    <label for="weeklyTask{{i}}" (click)="disableWeeklyTask(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="weeklyTask{{i}}" id="weeklyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="weekliesChangeHandler()" />
                         <div *ngIf="editModeActive" class="test">

@@ -11,7 +11,7 @@
         <a (click)="changeCharacter(2)" [ngClass]="(characterIndex == 2)?'selected':'notSelected'">{{ dailies[2].characterName }}</a>
         <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ dailies[3].characterName }}</a>
     </div>
-    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, right click on dailies to disable them (this
+    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, click on the names of dailies to disable them (this
         will prevent them from showing up outside of the edit mode)</p>
     <div class="inputWrapper" *ngIf="editModeActive">
         <div class="characterNameInput">
@@ -23,11 +23,11 @@
         <div class="taskGroupWrapper">
             <p>Daily Bosses</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyBosses; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyBoss($event, i)">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
-                    <label for="dailyQuest{{i}}">{{ item.name }}</label>
+                    <label for="dailyQuest{{i}}" (click)="disableDailyBoss(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyQuest{{i}}" id="dailyQuest{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
                         <div *ngIf="editModeActive" class="test">
@@ -41,11 +41,11 @@
         <div class="taskGroupWrapper">
             <p>Daily Tasks</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
-                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus'}" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyTask($event, i)">
+                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus'}" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
-                    <label for="dailyTask{{i}}">{{ item.name }}</label>
+                    <label for="dailyTask{{i}}" (click)="disableDailyTask(i)">{{ item.name }}</label>
                     <span class="ursusCountdown" *ngIf="item.name == 'Ursus'" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
@@ -60,11 +60,11 @@
         <div class="taskGroupWrapper">
             <p>Arcane River Dailies</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyArcaneRiver; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive" (contextmenu)="disableDailyArcaneRiver($event, i)">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
-                    <label for="dailyArcaneRiver{{i}}">{{ item.name }}</label>
+                    <label for="dailyArcaneRiver{{i}}" (click)="disableDailyArcaneRiver(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyArcaneRiver{{i}}" id="dailyArcaneRiver{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
                         <div *ngIf="editModeActive" class="test">

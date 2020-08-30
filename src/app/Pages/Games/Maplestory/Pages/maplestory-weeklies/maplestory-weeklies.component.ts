@@ -136,8 +136,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     this.characterIndex = characterIndex;
   }
 
-  disableWeeklyBoss(event: any, taskIndex: number) {
-    event.preventDefault();
+  disableWeeklyBoss(taskIndex: number) {
     if (!this.editModeActive) {
       return;
     }
@@ -149,8 +148,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     }
   }
 
-  disableWeeklyTask(event: any, taskIndex: number) {
-    event.preventDefault();
+  disableWeeklyTask(taskIndex: number) {
     if (!this.editModeActive) {
       return;
     }
