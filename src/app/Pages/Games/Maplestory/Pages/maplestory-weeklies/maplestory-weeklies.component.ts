@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../assets/Games/Maplestory/Weeklies.json';
 import { Weeklies } from '../../Models/weeklies';
+import { Task } from '../../Models/task';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       newWeekliesList.characterName = "Char" + (i + 1);
       this.weeklies[i] = JSON.parse(JSON.stringify(newWeekliesList));
     }
-    
+
     localStorage.setItem("weekliesVersion", WeekliesJson.version);
     this.weekliesChangeHandler();
   }
@@ -71,33 +72,74 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   updateChecker() {
     // if the current version doesn't match the new version update the data
     if (localStorage.getItem("weekliesVersion") != WeekliesJson.version) {
+      // copy the old weeklies into a var to save them for value transfering
       var oldWeeklies: Weeklies[] = JSON.parse(localStorage.getItem("weeklies"));
-      // set the data to the new structure
+      // load in the new data structure into the weeklies var to transfer it to a newWeeklies array for verifying which weeklies need to be added or removed
       this.initiateData();
+      var newWeekliesStructure: Weeklies[] = JSON.parse(JSON.stringify(this.weeklies));
+
       for (let i = 0; i < this.weeklies.length; i++) {
         // move over the name
         this.weeklies[i].characterName = oldWeeklies[i].characterName;
 
-        // update weekly boss data
-        for (let j = 0; j < this.weeklies[i].weeklyBosses.length; j++) {
-          for (let k = 0; k < oldWeeklies[i].weeklyBosses.length; k++) {
-            if (this.weeklies[i].weeklyBosses[j].name == oldWeeklies[i].weeklyBosses[k].name) {
-              this.weeklies[i].weeklyBosses[j].completed = oldWeeklies[i].weeklyBosses[k].completed;
-              this.weeklies[i].weeklyBosses[j].enabled = oldWeeklies[i].weeklyBosses[k].enabled;
-              oldWeeklies[i].weeklyBosses.splice(k, 1);
+        // update weekly bosses
+        this.weeklies[i].weeklyBosses = [];
+        // copy over all data from weeklybosses that still exist in the new structure
+        for (let j = 0; j < oldWeeklies[i].weeklyBosses.length; j++) {
+          for (let k = 0; k < newWeekliesStructure[i].weeklyBosses.length; k++) {
+            if (oldWeeklies[i].weeklyBosses[j].name == newWeekliesStructure[i].weeklyBosses[k].name) {
+              // transfer the name, completed & enabled values from oldweeklies and image from the new structure into a temporary object
+              var transferTask: Task = {
+                name: oldWeeklies[i].weeklyBosses[j].name,
+                image: newWeekliesStructure[i].weeklyBosses[k].image,
+                completed: oldWeeklies[i].weeklyBosses[j].completed,
+                enabled: oldWeeklies[i].weeklyBosses[j].enabled
+              };
+              // add this task to the current weekly bosses structure
+              this.weeklies[i].weeklyBosses.push(transferTask);
+              newWeekliesStructure[i].weeklyBosses.splice(k, 1);
             }
           }
         }
+        // copy all left over new weeklybosses over
+        for (let j = 0; j < newWeekliesStructure[i].weeklyBosses.length; j++) {
+          var transferTask: Task = {
+            name: newWeekliesStructure[i].weeklyBosses[j].name,
+            image: newWeekliesStructure[i].weeklyBosses[j].image,
+            completed: newWeekliesStructure[i].weeklyBosses[j].completed,
+            enabled: newWeekliesStructure[i].weeklyBosses[j].enabled
+          };
+          this.weeklies[i].weeklyBosses.push(transferTask);
+        }
 
-        // update weekly task data
-        for (let j = 0; j < this.weeklies[i].weeklyTasks.length; j++) {
-          for (let k = 0; k < oldWeeklies[i].weeklyTasks.length; k++) {
-            if (this.weeklies[i].weeklyTasks[j].name == oldWeeklies[i].weeklyTasks[k].name) {
-              this.weeklies[i].weeklyTasks[j].completed = oldWeeklies[i].weeklyTasks[k].completed;
-              this.weeklies[i].weeklyTasks[j].enabled = oldWeeklies[i].weeklyTasks[k].enabled;
-              oldWeeklies[i].weeklyTasks.splice(k, 1);
+        // update weekly tasks
+        this.weeklies[i].weeklyTasks = [];
+        // copy over all data from weeklytasks that still exist in the new structure
+        for (let j = 0; j < oldWeeklies[i].weeklyTasks.length; j++) {
+          for (let k = 0; k < newWeekliesStructure[i].weeklyTasks.length; k++) {
+            if (oldWeeklies[i].weeklyTasks[j].name == newWeekliesStructure[i].weeklyTasks[k].name) {
+              // transfer the name, completed & enabled values from oldweeklies and image from the new structure into a temporary object
+              var transferTask: Task = {
+                name: oldWeeklies[i].weeklyTasks[j].name,
+                image: newWeekliesStructure[i].weeklyTasks[k].image,
+                completed: oldWeeklies[i].weeklyTasks[j].completed,
+                enabled: oldWeeklies[i].weeklyTasks[j].enabled
+              };
+              // add this task to the current weeklies structure
+              this.weeklies[i].weeklyTasks.push(transferTask);
+              newWeekliesStructure[i].weeklyTasks.splice(k, 1);
             }
           }
+        }
+        // copy all left over new weeklytasks over
+        for (let j = 0; j < newWeekliesStructure[i].weeklyTasks.length; j++) {
+          var transferTask: Task = {
+            name: newWeekliesStructure[i].weeklyTasks[j].name,
+            image: newWeekliesStructure[i].weeklyTasks[j].image,
+            completed: newWeekliesStructure[i].weeklyTasks[j].completed,
+            enabled: newWeekliesStructure[i].weeklyTasks[j].enabled
+          };
+          this.weeklies[i].weeklyTasks.push(transferTask);
         }
 
         // save the updated data
@@ -277,9 +319,9 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     return resultDate;
   }
 
-  moveWeeklyBoss(index: number, direction: string){
-    if(direction == "up") {
-      if(index == 0) {
+  moveWeeklyBoss(index: number, direction: string) {
+    if (direction == "up") {
+      if (index == 0) {
         return;
       }
       var temp = this.weeklies[this.characterIndex].weeklyBosses[index - 1];
@@ -287,8 +329,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.weeklies[this.characterIndex].weeklyBosses[index] = temp;
     }
 
-    if(direction == "down") {
-      if(index + 1 == this.weeklies[this.characterIndex].weeklyBosses.length){
+    if (direction == "down") {
+      if (index + 1 == this.weeklies[this.characterIndex].weeklyBosses.length) {
         return;
       }
       var temp = this.weeklies[this.characterIndex].weeklyBosses[index + 1];
@@ -297,9 +339,9 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     }
   }
 
-  moveWeeklyTask(index: number, direction: string){
-    if(direction == "up") {
-      if(index == 0) {
+  moveWeeklyTask(index: number, direction: string) {
+    if (direction == "up") {
+      if (index == 0) {
         return;
       }
       var temp = this.weeklies[this.characterIndex].weeklyTasks[index - 1];
@@ -307,8 +349,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.weeklies[this.characterIndex].weeklyTasks[index] = temp;
     }
 
-    if(direction == "down") {
-      if(index + 1 == this.weeklies[this.characterIndex].weeklyTasks.length){
+    if (direction == "down") {
+      if (index + 1 == this.weeklies[this.characterIndex].weeklyTasks.length) {
         return;
       }
       var temp = this.weeklies[this.characterIndex].weeklyTasks[index + 1];

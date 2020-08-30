@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../assets/Games/Maplestory/Dailies.json';
 import { Dailies } from '../../Models/dailies';
+import { Task } from '../../Models/task';
 
 @Component({
   selector: 'app-maplestory-dailies',
@@ -66,45 +67,127 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   updateChecker() {
     // if the current version doesn't match the new version update the data
     if (localStorage.getItem("dailiesVersion") != DailiesJson.version) {
+      // copy the old dailies into a var to save them for value transfering
       var oldDailies: Dailies[] = JSON.parse(localStorage.getItem("dailies"));
-      // set the data to the new structure
+      // load in the new data structure into the dailies var to transfer it to a newDailies array for verifying which dailies need to be added or removed
       this.initiateData();
+      var newDailiesStructure: Dailies[] = JSON.parse(JSON.stringify(this.dailies));
+
       for (let i = 0; i < this.dailies.length; i++) {
         // move over the name
         this.dailies[i].characterName = oldDailies[i].characterName;
 
-        // update daily boss data
-        for (let j = 0; j < this.dailies[i].dailyBosses.length; j++) {
-          for (let k = 0; k < oldDailies[i].dailyBosses.length; k++) {
-            if (this.dailies[i].dailyBosses[j].name == oldDailies[i].dailyBosses[k].name) {
-              this.dailies[i].dailyBosses[j].completed = oldDailies[i].dailyBosses[k].completed;
-              this.dailies[i].dailyBosses[j].enabled = oldDailies[i].dailyBosses[k].enabled;
-              oldDailies[i].dailyBosses.splice(k, 1);
+        // update daily bosses
+        this.dailies[i].dailyBosses = [];
+        // copy over all data from dailybosses that still exist in the new structure
+        for (let j = 0; j < oldDailies[i].dailyBosses.length; j++) {
+          for (let k = 0; k < newDailiesStructure[i].dailyBosses.length; k++) {
+            if (oldDailies[i].dailyBosses[j].name == newDailiesStructure[i].dailyBosses[k].name) {
+              // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
+              var transferTask: Task = {
+                name: oldDailies[i].dailyBosses[j].name,
+                image: newDailiesStructure[i].dailyBosses[k].image,
+                completed: oldDailies[i].dailyBosses[j].completed,
+                enabled: oldDailies[i].dailyBosses[j].enabled
+              };
+              // add this task to the current dailies structure
+              this.dailies[i].dailyBosses.push(transferTask);
+              newDailiesStructure[i].dailyBosses.splice(k, 1);
             }
           }
+        }
+        // copy all left over new dailybosses over
+        for (let j = 0; j < newDailiesStructure[i].dailyBosses.length; j++) {
+          var transferTask: Task = {
+            name: newDailiesStructure[i].dailyBosses[j].name,
+            image: newDailiesStructure[i].dailyBosses[j].image,
+            completed: newDailiesStructure[i].dailyBosses[j].completed,
+            enabled: newDailiesStructure[i].dailyBosses[j].enabled
+          };
+          this.dailies[i].dailyBosses.push(transferTask);
         }
 
-        // update daily task data
-        for (let j = 0; j < this.dailies[i].dailyTasks.length; j++) {
-          for (let k = 0; k < oldDailies[i].dailyTasks.length; k++) {
-            if (this.dailies[i].dailyTasks[j].name == oldDailies[i].dailyTasks[k].name) {
-              this.dailies[i].dailyTasks[j].completed = oldDailies[i].dailyTasks[k].completed;
-              this.dailies[i].dailyTasks[j].enabled = oldDailies[i].dailyTasks[k].enabled;
-              oldDailies[i].dailyTasks.splice(k, 1);
+        // update daily tasks
+        this.dailies[i].dailyTasks = [];
+        // copy over all data from dailytasks that still exist in the new structure
+        for (let j = 0; j < oldDailies[i].dailyTasks.length; j++) {
+          for (let k = 0; k < newDailiesStructure[i].dailyTasks.length; k++) {
+            if (oldDailies[i].dailyTasks[j].name == newDailiesStructure[i].dailyTasks[k].name) {
+              // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
+              var transferTask: Task = {
+                name: oldDailies[i].dailyTasks[j].name,
+                image: newDailiesStructure[i].dailyTasks[k].image,
+                completed: oldDailies[i].dailyTasks[j].completed,
+                enabled: oldDailies[i].dailyTasks[j].enabled
+              };
+              // add this task to the current dailies structure
+              this.dailies[i].dailyTasks.push(transferTask);
+              newDailiesStructure[i].dailyTasks.splice(k, 1);
             }
           }
         }
+        // copy all left over new weeklytasks over
+        for (let j = 0; j < newDailiesStructure[i].dailyTasks.length; j++) {
+          var transferTask: Task = {
+            name: newDailiesStructure[i].dailyTasks[j].name,
+            image: newDailiesStructure[i].dailyTasks[j].image,
+            completed: newDailiesStructure[i].dailyTasks[j].completed,
+            enabled: newDailiesStructure[i].dailyTasks[j].enabled
+          };
+          this.dailies[i].dailyTasks.push(transferTask);
+        }
+
+        // update daily arcaneriver
+        this.dailies[i].dailyArcaneRiver = [];
+        // copy over all data from dailyarcaneriver that still exist in the new structure
+        for (let j = 0; j < oldDailies[i].dailyArcaneRiver.length; j++) {
+          for (let k = 0; k < newDailiesStructure[i].dailyArcaneRiver.length; k++) {
+            if (oldDailies[i].dailyArcaneRiver[j].name == newDailiesStructure[i].dailyArcaneRiver[k].name) {
+              // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
+              var transferTask: Task = {
+                name: oldDailies[i].dailyArcaneRiver[j].name,
+                image: newDailiesStructure[i].dailyArcaneRiver[k].image,
+                completed: oldDailies[i].dailyArcaneRiver[j].completed,
+                enabled: oldDailies[i].dailyArcaneRiver[j].enabled
+              };
+              // add this task to the current dailies structure
+              this.dailies[i].dailyArcaneRiver.push(transferTask);
+              newDailiesStructure[i].dailyArcaneRiver.splice(k, 1);
+            }
+          }
+        }
+        // copy all left over new dailyarcaneriver over
+        for (let j = 0; j < newDailiesStructure[i].dailyArcaneRiver.length; j++) {
+          var transferTask: Task = {
+            name: newDailiesStructure[i].dailyArcaneRiver[j].name,
+            image: newDailiesStructure[i].dailyArcaneRiver[j].image,
+            completed: newDailiesStructure[i].dailyArcaneRiver[j].completed,
+            enabled: newDailiesStructure[i].dailyArcaneRiver[j].enabled
+          };
+          this.dailies[i].dailyArcaneRiver.push(transferTask);
+        }
+
+        // old update daily task data
+        // for (let j = 0; j < this.dailies[i].dailyTasks.length; j++) {
+        //   for (let k = 0; k < oldDailies[i].dailyTasks.length; k++) {
+        //     if (this.dailies[i].dailyTasks[j].name == oldDailies[i].dailyTasks[k].name) {
+        //       this.dailies[i].dailyTasks[j].completed = oldDailies[i].dailyTasks[k].completed;
+        //       this.dailies[i].dailyTasks[j].enabled = oldDailies[i].dailyTasks[k].enabled;
+        //       oldDailies[i].dailyTasks.splice(k, 1);
+        //     }
+        //   }
+        // }
 
         // update daily arcane river data
-        for (let j = 0; j < this.dailies[i].dailyArcaneRiver.length; j++) {
-          for (let k = 0; k < oldDailies[i].dailyArcaneRiver.length; k++) {
-            if (this.dailies[i].dailyArcaneRiver[j].name == oldDailies[i].dailyArcaneRiver[k].name) {
-              this.dailies[i].dailyArcaneRiver[j].completed = oldDailies[i].dailyArcaneRiver[k].completed;
-              this.dailies[i].dailyArcaneRiver[j].enabled = oldDailies[i].dailyArcaneRiver[k].enabled;
-              oldDailies[i].dailyArcaneRiver.splice(k, 1);
-            }
-          }
-        }
+        // for (let j = 0; j < this.dailies[i].dailyArcaneRiver.length; j++) {
+        //   for (let k = 0; k < oldDailies[i].dailyArcaneRiver.length; k++) {
+        //     if (this.dailies[i].dailyArcaneRiver[j].name == oldDailies[i].dailyArcaneRiver[k].name) {
+        //       this.dailies[i].dailyArcaneRiver[j].completed = oldDailies[i].dailyArcaneRiver[k].completed;
+        //       this.dailies[i].dailyArcaneRiver[j].enabled = oldDailies[i].dailyArcaneRiver[k].enabled;
+        //       oldDailies[i].dailyArcaneRiver.splice(k, 1);
+        //     }
+        //   }
+        // }
       }
       // save the updated data
       this.dailiesChangeHandler();
@@ -217,34 +300,34 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  determineUrsusEndTime() : number {
+  determineUrsusEndTime(): number {
     var date = new Date();
 
-    if(date.getUTCHours() < 1) {
+    if (date.getUTCHours() < 1) {
       // count down to ursus slot 1 start which is the current day at 1am
       this.ursusTimerPrefix = "Golden Time in ";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 1, 0, 0, 0);
     }
 
-    if(date.getUTCHours() >= 1 && date.getUTCHours() < 3) {
+    if (date.getUTCHours() >= 1 && date.getUTCHours() < 3) {
       // count down to ursus slot 1 ending
       this.ursusTimerPrefix = "Golden Time ending in";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 3, 0, 0, 0);
     }
 
-    if(date.getUTCHours() >= 3 && date.getUTCHours() < 18) {
+    if (date.getUTCHours() >= 3 && date.getUTCHours() < 18) {
       // count down to ursus slot 2 start
       this.ursusTimerPrefix = "Golden Time in";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 18, 0, 0, 0);
     }
 
-    if(date.getUTCHours() >= 18 && date.getUTCHours() < 20) {
+    if (date.getUTCHours() >= 18 && date.getUTCHours() < 20) {
       // count down to ursus slot 2 ending
       this.ursusTimerPrefix = "Golden Time ending in";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 20, 0, 0, 0);
     }
 
-    if(date.getUTCHours() >= 20) {
+    if (date.getUTCHours() >= 20) {
       // count down to ursus slot 1 start which is next utc day at 1am
       this.ursusTimerPrefix = "Golden Time in ";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 1, 0, 0, 0);
@@ -293,9 +376,9 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     localStorage.setItem("lastMapleDailyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
   }
 
-  moveDailyBoss(index: number, direction: string){
-    if(direction == "up") {
-      if(index == 0) {
+  moveDailyBoss(index: number, direction: string) {
+    if (direction == "up") {
+      if (index == 0) {
         return;
       }
       var temp = this.dailies[this.characterIndex].dailyBosses[index - 1];
@@ -303,8 +386,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailies[this.characterIndex].dailyBosses[index] = temp;
     }
 
-    if(direction == "down") {
-      if(index + 1 == this.dailies[this.characterIndex].dailyBosses.length){
+    if (direction == "down") {
+      if (index + 1 == this.dailies[this.characterIndex].dailyBosses.length) {
         return;
       }
       var temp = this.dailies[this.characterIndex].dailyBosses[index + 1];
@@ -313,9 +396,9 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }
   }
 
-  moveDailyTask(index: number, direction: string){
-    if(direction == "up") {
-      if(index == 0) {
+  moveDailyTask(index: number, direction: string) {
+    if (direction == "up") {
+      if (index == 0) {
         return;
       }
       var temp = this.dailies[this.characterIndex].dailyTasks[index - 1];
@@ -323,8 +406,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailies[this.characterIndex].dailyTasks[index] = temp;
     }
 
-    if(direction == "down") {
-      if(index + 1 == this.dailies[this.characterIndex].dailyTasks.length){
+    if (direction == "down") {
+      if (index + 1 == this.dailies[this.characterIndex].dailyTasks.length) {
         return;
       }
       var temp = this.dailies[this.characterIndex].dailyTasks[index + 1];
@@ -333,9 +416,9 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     }
   }
 
-  moveDailyArcaneRiver(index: number, direction: string){
-    if(direction == "up") {
-      if(index == 0) {
+  moveDailyArcaneRiver(index: number, direction: string) {
+    if (direction == "up") {
+      if (index == 0) {
         return;
       }
       var temp = this.dailies[this.characterIndex].dailyArcaneRiver[index - 1];
@@ -343,8 +426,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailies[this.characterIndex].dailyArcaneRiver[index] = temp;
     }
 
-    if(direction == "down") {
-      if(index + 1 == this.dailies[this.characterIndex].dailyArcaneRiver.length){
+    if (direction == "down") {
+      if (index + 1 == this.dailies[this.characterIndex].dailyArcaneRiver.length) {
         return;
       }
       var temp = this.dailies[this.characterIndex].dailyArcaneRiver[index + 1];
