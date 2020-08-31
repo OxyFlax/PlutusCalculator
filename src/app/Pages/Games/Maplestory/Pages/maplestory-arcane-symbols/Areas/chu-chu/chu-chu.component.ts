@@ -12,20 +12,6 @@ export class ChuChuComponent implements OnInit {
   hungryMuto: number = 0;
 
   ngOnInit() {
-    var dailyQuestStoredValue: number;
-    dailyQuestStoredValue = localStorage.getItem("chuchudailyquest") ?  + localStorage.getItem("chuchudailyquest") : 1;
-    this.dailyQuest = !!dailyQuestStoredValue; 
-
-    this.hungryMuto = localStorage.getItem("hungrymuto") ?  + localStorage.getItem("hungrymuto") : 1;
-  }
-
-  dailyQuestChangeHandler(){
-    if(this.dailyQuest) {
-      localStorage.setItem("chuchudailyquest", "1");
-    } else {
-      localStorage.setItem("chuchudailyquest", "0");
-    }
-    this.valueChanged();
   }
 
   hungryMutoInput(event: any) {    
@@ -60,7 +46,6 @@ export class ChuChuComponent implements OnInit {
     }
 
     this.valueChanged();
-    localStorage.setItem("hungrymuto", this.hungryMuto.toString());
   }
 
   public calculateDailySymbols(): number {

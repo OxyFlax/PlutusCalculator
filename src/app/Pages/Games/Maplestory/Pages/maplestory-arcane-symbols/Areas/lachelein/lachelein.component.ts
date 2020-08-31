@@ -12,20 +12,6 @@ export class LacheleinComponent implements OnInit{
   dreamDefender: number = 0;
 
   ngOnInit() {
-    var dailyQuestStoredValue: number;
-    dailyQuestStoredValue = localStorage.getItem("lachdailyquest") ?  + localStorage.getItem("lachdailyquest") : 1;
-    this.dailyQuest = !!dailyQuestStoredValue; 
-
-    this.dreamDefender = localStorage.getItem("dreamDefender") ?  + localStorage.getItem("dreamDefender") : 1;
-  }
-
-  dailyQuestChangeHandler(){
-    if(this.dailyQuest) {
-      localStorage.setItem("lachdailyquest", "1");
-    } else {
-      localStorage.setItem("lachdailyquest", "0");
-    }
-    this.valueChanged();
   }
 
   dreamDefenderInput(event: any) {    
@@ -60,7 +46,6 @@ export class LacheleinComponent implements OnInit{
     }
 
     this.valueChanged();
-    localStorage.setItem("dreamDefender", this.dreamDefender.toString());
   }
 
   public calculateDailySymbols(): number {

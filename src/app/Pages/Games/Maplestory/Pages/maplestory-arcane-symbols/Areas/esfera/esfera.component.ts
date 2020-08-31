@@ -10,18 +10,6 @@ export class EsferaComponent implements OnInit{
   dailyQuest: boolean = true;
 
   ngOnInit() {
-    var dailyQuestStoredValue: number;
-    dailyQuestStoredValue = localStorage.getItem("esferadailyquest") ?  + localStorage.getItem("esferadailyquest") : 1;
-    this.dailyQuest = !!dailyQuestStoredValue; 
-  }
-
-  dailyQuestChangeHandler(){
-    if(this.dailyQuest) {
-      localStorage.setItem("esferadailyquest", "1");
-    } else {
-      localStorage.setItem("esferadailyquest", "0");
-    }
-    this.valueChanged();
   }
 
   public calculateDailySymbols(): number {

@@ -1,6 +1,6 @@
 <div class="symbolInput">
     <div class="checkboxWrapper">
-        <input name="dailyQuest" id="dailyQuest" type="checkbox" (change)="dailyQuestChangeHandler()" [(ngModel)]="dailyQuest" [ngModelOptions]="{standalone: true}"/>
+        <input name="dailyQuest" id="dailyQuest" type="checkbox" (change)="valueChanged()" [(ngModel)]="dailyQuest" [ngModelOptions]="{standalone: true}"/>
         <label for="dailyQuest">Daily Quest (4)</label>
     </div>
 </div>

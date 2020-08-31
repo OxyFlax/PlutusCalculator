@@ -11,31 +11,6 @@ export class VanishingJourneyComponent implements OnInit {
   erdaSpectrum: boolean = true;
 
   ngOnInit() {
-    var dailyQuestStoredValue: number;
-    dailyQuestStoredValue = localStorage.getItem("vjdailyquest") ? + localStorage.getItem("vjdailyquest") : 1;
-    this.dailyQuest = !!dailyQuestStoredValue;
-
-    var erdaSpectrumStoredValue: number;
-    erdaSpectrumStoredValue = localStorage.getItem("erdaspectrum") ? + localStorage.getItem("erdaspectrum") : 1;
-    this.erdaSpectrum = !!erdaSpectrumStoredValue;
-  }
-
-  dailyQuestChangeHandler() {
-    if (this.dailyQuest) {
-      localStorage.setItem("vjdailyquest", "1");
-    } else {
-      localStorage.setItem("vjdailyquest", "0");
-    }
-    this.valueChanged();
-  }
-
-  erdaSpectrumChangeHandler() {
-    if (this.erdaSpectrum) {
-      localStorage.setItem("erdaspectrum", "1");
-    } else {
-      localStorage.setItem("erdaspectrum", "0");
-    }
-    this.valueChanged();
   }
 
   public calculateDailySymbols() {

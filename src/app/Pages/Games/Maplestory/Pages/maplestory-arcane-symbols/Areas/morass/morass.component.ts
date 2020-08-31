@@ -10,18 +10,6 @@ export class MorassComponent implements OnInit{
   dailyQuest: boolean = true;
 
   ngOnInit() {
-    var dailyQuestStoredValue: number;
-    dailyQuestStoredValue = localStorage.getItem("morassdailyquest") ?  + localStorage.getItem("morassdailyquest") : 1;
-    this.dailyQuest = !!dailyQuestStoredValue; 
-  }
-
-  dailyQuestChangeHandler(){
-    if(this.dailyQuest) {
-      localStorage.setItem("morassdailyquest", "1");
-    } else {
-      localStorage.setItem("morassdailyquest", "0");
-    }
-    this.valueChanged();
   }
 
   public calculateDailySymbols(): number {

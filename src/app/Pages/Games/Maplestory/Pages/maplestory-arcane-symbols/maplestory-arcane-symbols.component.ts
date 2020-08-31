@@ -7,6 +7,7 @@ import { LacheleinComponent } from './Areas/lachelein/lachelein.component';
 import { ArcanaComponent } from './Areas/arcana/arcana.component';
 import { MorassComponent } from './Areas/morass/morass.component';
 import { EsferaComponent } from './Areas/esfera/esfera.component';
+import { ArcaneSymbolSaveData } from '../../Models/arcanesymbolsavedata';
 
 @Component({
   selector: 'app-maplestory-arcane-symbols',
@@ -21,6 +22,7 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   @ViewChild(MorassComponent) morassChild: MorassComponent;
   @ViewChild(EsferaComponent) esferaChild: EsferaComponent;
 
+  arcaneSymbolSaveData: ArcaneSymbolSaveData;
   arcaneSymbolList: ArcaneSymbol[] = ArcaneSymbolsJson.arcaneSymbols;
   arcaneSymbolNames: string[] = ['Vanishing Journey', 'Chu Chu', 'Lachelein', 'Arcana', 'Morass', 'Esfera'];
   currentLevel: number = 1;
@@ -39,22 +41,93 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentLevel = localStorage.getItem("symbol" + this.activeSymbolIndex + "level") ? + localStorage.getItem("symbol" + this.activeSymbolIndex + "level") : 1;
-    this.currentXp = localStorage.getItem("symbol" + this.activeSymbolIndex + "exp") ? + localStorage.getItem("symbol" + this.activeSymbolIndex + "exp") : 1;
-    this.changeDetector.detectChanges();
-    this.submit();
+    this.initialise();
+  }
+
+  initialise() {
+    if (localStorage.getItem("arcaneSymbolSaveData")) {
+      this.arcaneSymbolSaveData = JSON.parse(localStorage.getItem("arcaneSymbolSaveData"));
+    } else {
+      // initiate a dataset
+      this.initiateData();
+    }
+    // call function to populate the input fields with correct data
+    this.changeActiveSymbolIndex(0);
+  }
+
+  initiateData() {
+    var newArcaneSymbolSaveData: ArcaneSymbolSaveData = {
+      vjLevel: 1,
+      vjExp: 1,
+      vjDailyQuest: true,
+      vjErdaSpectrum: true,
+      chuchuLevel: 1,
+      chuchuExp: 1,
+      chuchuDailyQuest: true,
+      chuchuHungryMuto: 1,
+      lacheleinLevel: 1,
+      lacheleinExp: 1,
+      lacheleinDailyQuest: true,
+      lacheleinDreamDefender: 1,
+      arcanaLevel: 1,
+      arcanaExp: 1,
+      arcanaDailyQuest: true,
+      arcanaSpiritSaviour: 1,
+      morassLevel: 1,
+      morassExp: 1,
+      morassDailyQuest: true,
+      esferaLevel: 1,
+      esferaExp: 1,
+      esferaDailyQuest: true
+    };
+    this.arcaneSymbolSaveData = newArcaneSymbolSaveData;
+    localStorage.setItem("arcaneSymbolSaveData", JSON.stringify(this.arcaneSymbolSaveData));
   }
 
   changeActiveSymbolIndex(value: number) {
     this.activeSymbolIndex = value;
     this.activeSymbolName = this.arcaneSymbolNames[value];
-
-    this.currentLevel = localStorage.getItem("symbol" + this.activeSymbolIndex + "level") ? + localStorage.getItem("symbol" + this.activeSymbolIndex + "level") : 1;
-    this.currentXp = localStorage.getItem("symbol" + this.activeSymbolIndex + "exp") ? + localStorage.getItem("symbol" + this.activeSymbolIndex + "exp") : 1;
-
-    this.clearOutputVariables();
-
     this.changeDetector.detectChanges();
+    switch (this.activeSymbolIndex) {
+      case 0:
+        this.currentLevel = this.arcaneSymbolSaveData.vjLevel;
+        this.currentXp = this.arcaneSymbolSaveData.vjExp;
+        this.vanishingJourneyChild.dailyQuest = this.arcaneSymbolSaveData.vjDailyQuest;
+        this.vanishingJourneyChild.erdaSpectrum = this.arcaneSymbolSaveData.vjErdaSpectrum;
+        break;
+      case 1:
+        this.currentLevel = this.arcaneSymbolSaveData.chuchuLevel;
+        this.currentXp = this.arcaneSymbolSaveData.chuchuExp;
+        this.chuChuChild.dailyQuest = this.arcaneSymbolSaveData.chuchuDailyQuest;
+        this.chuChuChild.hungryMuto = this.arcaneSymbolSaveData.chuchuHungryMuto;
+        break;
+      case 2:
+        this.currentLevel = this.arcaneSymbolSaveData.lacheleinLevel;
+        this.currentXp = this.arcaneSymbolSaveData.lacheleinExp;
+        this.lacheleinChild.dailyQuest = this.arcaneSymbolSaveData.lacheleinDailyQuest;
+        this.lacheleinChild.dreamDefender = this.arcaneSymbolSaveData.lacheleinDreamDefender;
+        break;
+      case 3:
+        this.currentLevel = this.arcaneSymbolSaveData.arcanaLevel;
+        this.currentXp = this.arcaneSymbolSaveData.arcanaExp;
+        this.arcanaChild.dailyQuest = this.arcaneSymbolSaveData.arcanaDailyQuest;
+        this.arcanaChild.spiritSaviour = this.arcaneSymbolSaveData.arcanaSpiritSaviour;
+        break;
+      case 4:
+        this.currentLevel = this.arcaneSymbolSaveData.morassLevel;
+        this.currentXp = this.arcaneSymbolSaveData.morassExp;
+        this.morassChild.dailyQuest = this.arcaneSymbolSaveData.morassDailyQuest;
+        break;
+      case 5:
+        this.currentLevel = this.arcaneSymbolSaveData.esferaLevel;
+        this.currentXp = this.arcaneSymbolSaveData.esferaExp;
+        this.esferaChild.dailyQuest = this.arcaneSymbolSaveData.esferaDailyQuest;
+        break;
+      default: {
+        break;
+      }
+    }
+    this.clearOutputVariables();
     this.submit();
   }
 
@@ -82,6 +155,8 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         break;
       }
     }
+    // update the saved data everytime a submit happens
+    this.updateSavedData();
   }
 
   currentLevelInput(event: any) {
@@ -119,11 +194,9 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
     // if the current xp is higher than the symbols required xp it is lowered to the symbols max xp and saved
     if (this.currentXp > this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired) {
       this.currentXp = this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired;
-      localStorage.setItem("symbol" + this.activeSymbolIndex + "exp", this.currentXp.toString());
     }
 
     this.submit();
-    localStorage.setItem("symbol" + this.activeSymbolIndex + "level", this.currentLevel.toString());
   }
 
   currentExpInput(event: any) {
@@ -170,7 +243,49 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
     }
 
     this.submit();
-    localStorage.setItem("symbol" + this.activeSymbolIndex + "exp", this.currentXp.toString());
+  }
+
+  updateSavedData() {
+    switch (this.activeSymbolIndex) {
+      case 0:
+        this.arcaneSymbolSaveData.vjLevel = this.currentLevel;
+        this.arcaneSymbolSaveData.vjExp = this.currentXp;
+        this.arcaneSymbolSaveData.vjDailyQuest = this.vanishingJourneyChild.dailyQuest;
+        this.arcaneSymbolSaveData.vjErdaSpectrum = this.vanishingJourneyChild.erdaSpectrum;
+        break;
+      case 1:
+        this.arcaneSymbolSaveData.chuchuLevel = this.currentLevel;
+        this.arcaneSymbolSaveData.chuchuExp = this.currentXp;
+        this.arcaneSymbolSaveData.chuchuDailyQuest = this.chuChuChild.dailyQuest;
+        this.arcaneSymbolSaveData.chuchuHungryMuto = this.chuChuChild.hungryMuto;
+        break;
+      case 2:
+        this.arcaneSymbolSaveData.lacheleinLevel = this.currentLevel;
+        this.arcaneSymbolSaveData.lacheleinExp = this.currentXp;
+        this.arcaneSymbolSaveData.lacheleinDailyQuest = this.lacheleinChild.dailyQuest;
+        this.arcaneSymbolSaveData.lacheleinDreamDefender = this.lacheleinChild.dreamDefender;
+        break;
+      case 3:
+        this.arcaneSymbolSaveData.arcanaLevel = this.currentLevel;
+        this.arcaneSymbolSaveData.arcanaExp = this.currentXp;
+        this.arcaneSymbolSaveData.arcanaDailyQuest = this.arcanaChild.dailyQuest;
+        this.arcaneSymbolSaveData.arcanaSpiritSaviour = this.arcanaChild.spiritSaviour;
+        break;
+      case 4:
+        this.arcaneSymbolSaveData.morassLevel = this.currentLevel;
+        this.arcaneSymbolSaveData.morassExp = this.currentXp;
+        this.arcaneSymbolSaveData.morassDailyQuest = this.morassChild.dailyQuest;
+        break;
+      case 5:
+        this.arcaneSymbolSaveData.esferaLevel = this.currentLevel;
+        this.arcaneSymbolSaveData.esferaExp = this.currentXp;
+        this.arcaneSymbolSaveData.esferaDailyQuest = this.esferaChild.dailyQuest;
+        break;
+      default: {
+        break;
+      }
+    }
+    localStorage.setItem("arcaneSymbolSaveData", JSON.stringify(this.arcaneSymbolSaveData));
   }
 
   calculateSymbolStats(symbolsPerDay: number) {

@@ -12,23 +12,10 @@ export class ArcanaComponent implements OnInit{
   spiritSaviour: number = 0;
 
   ngOnInit() {
-    var dailyQuestStoredValue: number;
-    dailyQuestStoredValue = localStorage.getItem("arcanadailyquest") ?  + localStorage.getItem("arcanadailyquest") : 1;
-    this.dailyQuest = !!dailyQuestStoredValue; 
-
-    this.spiritSaviour = localStorage.getItem("spiritSaviour") ?  + localStorage.getItem("spiritSaviour") : 1;
-  }
-
-  dailyQuestChangeHandler(){
-    if(this.dailyQuest) {
-      localStorage.setItem("arcanadailyquest", "1");
-    } else {
-      localStorage.setItem("arcanadailyquest", "0");
-    }
-    this.valueChanged();
   }
   
-  spiritSaviourInput(event: any) {    // set value to 0 and exit out the method since there is no value given
+  spiritSaviourInput(event: any) {    
+    // set value to 0 and exit out the method since there is no value given
     if (event.data == null && event.target.value == "") {
       this.emitClearOutput();
       return;
@@ -59,7 +46,6 @@ export class ArcanaComponent implements OnInit{
     }
 
     this.valueChanged();
-    localStorage.setItem("spiritSaviour", this.spiritSaviour.toString());
   }
 
   public calculateDailySymbols(): number {

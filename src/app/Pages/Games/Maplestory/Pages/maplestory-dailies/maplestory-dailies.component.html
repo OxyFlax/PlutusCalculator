@@ -30,7 +30,7 @@
                     <label for="dailyQuest{{i}}" (click)="disableDailyBoss(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyQuest{{i}}" id="dailyQuest{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
-                        <div *ngIf="editModeActive" class="test">
+                        <div *ngIf="editModeActive" class="orderChanger">
                             <i class="fa fa-caret-up fa-2x" (click)="moveDailyBoss(i, 'up')"></i>
                             <i class="fa fa-caret-down fa-2x" (click)="moveDailyBoss(i, 'down')"></i>
                         </div>
@@ -49,7 +49,7 @@
                     <span class="ursusCountdown" *ngIf="item.name == 'Ursus'" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
-                        <div *ngIf="editModeActive" class="test">
+                        <div *ngIf="editModeActive" class="orderChanger">
                             <i class="fa fa-caret-up fa-2x" (click)="moveDailyTask(i, 'up')"></i>
                             <i class="fa fa-caret-down fa-2x" (click)="moveDailyTask(i, 'down')"></i>
                         </div>
@@ -67,7 +67,7 @@
                     <label for="dailyArcaneRiver{{i}}" (click)="disableDailyArcaneRiver(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyArcaneRiver{{i}}" id="dailyArcaneRiver{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
-                        <div *ngIf="editModeActive" class="test">
+                        <div *ngIf="editModeActive" class="orderChanger">
                             <i class="fa fa-caret-up fa-2x" (click)="moveDailyArcaneRiver(i, 'up')"></i>
                             <i class="fa fa-caret-down fa-2x" (click)="moveDailyArcaneRiver(i, 'down')"></i>
                         </div>

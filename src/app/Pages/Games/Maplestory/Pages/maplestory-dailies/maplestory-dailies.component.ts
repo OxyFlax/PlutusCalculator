@@ -166,28 +166,6 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
           };
           this.dailies[i].dailyArcaneRiver.push(transferTask);
         }
-
-        // old update daily task data
-        // for (let j = 0; j < this.dailies[i].dailyTasks.length; j++) {
-        //   for (let k = 0; k < oldDailies[i].dailyTasks.length; k++) {
-        //     if (this.dailies[i].dailyTasks[j].name == oldDailies[i].dailyTasks[k].name) {
-        //       this.dailies[i].dailyTasks[j].completed = oldDailies[i].dailyTasks[k].completed;
-        //       this.dailies[i].dailyTasks[j].enabled = oldDailies[i].dailyTasks[k].enabled;
-        //       oldDailies[i].dailyTasks.splice(k, 1);
-        //     }
-        //   }
-        // }
-
-        // update daily arcane river data
-        // for (let j = 0; j < this.dailies[i].dailyArcaneRiver.length; j++) {
-        //   for (let k = 0; k < oldDailies[i].dailyArcaneRiver.length; k++) {
-        //     if (this.dailies[i].dailyArcaneRiver[j].name == oldDailies[i].dailyArcaneRiver[k].name) {
-        //       this.dailies[i].dailyArcaneRiver[j].completed = oldDailies[i].dailyArcaneRiver[k].completed;
-        //       this.dailies[i].dailyArcaneRiver[j].enabled = oldDailies[i].dailyArcaneRiver[k].enabled;
-        //       oldDailies[i].dailyArcaneRiver.splice(k, 1);
-        //     }
-        //   }
-        // }
       }
       // save the updated data
       this.dailiesChangeHandler();

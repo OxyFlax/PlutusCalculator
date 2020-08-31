@@ -163,6 +163,10 @@
     width: 180px;
 }
 
+.orderChanger {
+    color: var(--navigation-bar-settings-icon-font-color);
+}
+
 @media only screen and (max-width: 550px) {
     .topBar {
         height: 83px;
