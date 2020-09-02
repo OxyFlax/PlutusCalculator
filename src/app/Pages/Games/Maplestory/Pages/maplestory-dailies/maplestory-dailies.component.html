@@ -1,7 +1,13 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="gamePageContent">
     <div class="topBar">
-        <p class="timer">Reset in <br> {{ timerString }}</p>
+        <p *ngIf="!editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
+        <div *ngIf="editModeActive" class="regionSelector">
+            Region: 
+            <select (change)="regionChange($event)">
+                <option *ngFor="let r of regions" value="r.resetHour" [selected]="resetHour == r.resetHour">{{r.name}}</option>
+            </select>
+        </div>
         <p class="title">Daily Tracker {{ dailies[characterIndex].characterName }}</p>
         <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
     </div>
@@ -41,12 +47,12 @@
         <div class="taskGroupWrapper">
             <p>Daily Tasks</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
-                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus'}" *ngIf="item.enabled || editModeActive">
+                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus' && resetHour == 0}" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
                         <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
                     </div>
                     <label for="dailyTask{{i}}" (click)="disableDailyTask(i)">{{ item.name }}</label>
-                    <span class="ursusCountdown" *ngIf="item.name == 'Ursus'" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
+                    <span class="ursusCountdown" *ngIf="item.name == 'Ursus' && resetHour == 0" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
                     <div class="inputWrapper">
                         <input *ngIf="!editModeActive" name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
                         <div *ngIf="editModeActive" class="orderChanger">

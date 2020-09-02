@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../assets/Games/Maplestory/Weeklies.json';
 import { Weeklies } from '../../Models/weeklies';
 import { Task } from '../../Models/task';
+import { Region } from '../../Models/region';
 
 
 @Component({
@@ -15,9 +16,17 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   timerWeeklyBossesString: string;
   timerWeeklyTasksString: string;
 
+  regions: Array<Region> = [
+    { resetHour: 0, name: 'GMS' },
+    { resetHour: 16, name: 'MSEA' },
+    { resetHour: 15, name: 'KMS' }
+  ];
+  selectedRegionIndex: number = 16;
+  resetHour: number = 0;
+
   characterIndex: number = 0;
-  editModeActive: boolean = false;
   weeklies: Weeklies[] = [];
+  editModeActive: boolean = false;
   editButtonMessage: string = "Edit Weeklies";
 
   constructor() { }
@@ -36,6 +45,11 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   }
 
   initialise() {
+    if (localStorage.getItem("mapleRegion")) {
+      this.selectedRegionIndex = JSON.parse(localStorage.getItem("mapleRegion"));
+      this.resetHour = this.regions[this.selectedRegionIndex].resetHour;
+    }
+
     if (localStorage.getItem("weeklies")) {
       this.weeklies = JSON.parse(localStorage.getItem("weeklies"));
       this.weeklyBossDataChecker();
@@ -168,6 +182,15 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     if (lastVisit < lastMonday.valueOf()) {
       this.resetWeeklyTasksCompletedValues();
     }
+  }
+
+  regionChange(event: any) {
+    this.selectedRegionIndex = event.target.selectedIndex;
+    this.resetHour = this.regions[event.target.selectedIndex].resetHour;
+    localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
+
+    // re do the checks for previous day data & setup the timers for the new resetHour
+    this.initialise();
   }
 
   weekliesChangeHandler() {
@@ -306,10 +329,22 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   }
 
   getNextDayOfWeek(dayOfWeek) {
+    // if the timezone is ahead of UTC the next day of the week has to be the same as the current day there for a day is removed
+    // this allows the calculation that sets the resultdate to the next occuring day to the same day
+    // example: weekly boss reset wed -> thur on +8UTC resets on wednesday 16:00 UTC there for a day is removed so that the count down countsdown to wednesday at 16:00 and not thursday 16:00
+    if(this.resetHour > 0) {
+      if(dayOfWeek == 0) {
+        dayOfWeek = 6;
+      } else {
+        dayOfWeek = dayOfWeek -1;
+      }
+    }
+
     var currentDay = new Date();
-    var resultDate = new Date(Date.UTC(currentDay.getUTCFullYear(), currentDay.getUTCMonth(), currentDay.getUTCDate(), 0, 0, 0, 0));
+    var resultDate = new Date(Date.UTC(currentDay.getUTCFullYear(), currentDay.getUTCMonth(), currentDay.getUTCDate(), this.resetHour, 0, 0, 0));
 
     resultDate.setTime(resultDate.getTime() + (((7 + dayOfWeek - resultDate.getUTCDay() - 1) % 7 + 1) * 24 * 60 * 60 * 1000));
+
     return resultDate;
   }
 

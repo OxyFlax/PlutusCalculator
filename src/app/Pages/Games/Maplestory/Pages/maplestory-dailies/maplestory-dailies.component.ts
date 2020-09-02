@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../assets/Games/Maplestory/Dailies.json';
 import { Dailies } from '../../Models/dailies';
 import { Task } from '../../Models/task';
+import { Region } from '../../Models/region';
 
 @Component({
   selector: 'app-maplestory-dailies',
@@ -11,13 +12,22 @@ import { Task } from '../../Models/task';
 export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   timer: any;
   timerString: string;
+
   ursusTimer: any;
   ursusTimerString: string;
   ursusTimerPrefix: string;
 
+  regions: Array<Region> = [
+    { resetHour: 0, name: 'GMS' },
+    { resetHour: 16, name: 'MSEA' },
+    { resetHour: 15, name: 'KMS' }
+  ];
+  selectedRegionIndex: number = 0;
+  resetHour: number = 0;
+
   characterIndex: number = 0;
-  editModeActive: boolean = false;
   dailies: Dailies[] = [];
+  editModeActive: boolean = false;
   editButtonMessage: string = "Edit Dailies";
 
   constructor() { }
@@ -33,6 +43,11 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   }
 
   initialise() {
+    if (localStorage.getItem("mapleRegion")) {
+      this.selectedRegionIndex = JSON.parse(localStorage.getItem("mapleRegion"));
+      this.resetHour = this.regions[this.selectedRegionIndex].resetHour;
+    }
+
     if (localStorage.getItem("dailies")) {
       this.dailies = JSON.parse(localStorage.getItem("dailies"));
       this.checkIfDataIsFromPreviousDay();
@@ -43,8 +58,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       // set last visit 
       localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
     }
+
     this.startTimer();
-    this.startUrsusTimer();
+    // ursus timer only has support for GMS so if reset isn't at 0 utc we don't need to start the timer
+    if(this.resetHour == 0) {
+      this.startUrsusTimer();
+    }
   }
 
   initiateData() {
@@ -176,16 +195,24 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   checkIfDataIsFromPreviousDay() {
     var date = new Date();
-    var currentUtcDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0);
-
+    var lastReset = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), this.resetHour, 0, 0, 0);
     var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
 
-    if (lastVisit < currentUtcDay) {
+    if (lastVisit < lastReset) {
       this.resetCompletedValues();
     }
 
     // reset last visit to the current time
     localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
+  }
+
+  regionChange(event: any) {
+    this.selectedRegionIndex = event.target.selectedIndex;
+    this.resetHour = this.regions[event.target.selectedIndex].resetHour;
+    localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
+    
+    // re do the checks for previous day data & setup the timers for the new resetHour
+    this.initialise();
   }
 
   dailiesChangeHandler() {
@@ -247,7 +274,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     clearInterval(this.timer);
 
     var date = new Date();
-    var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 0, 0, 0, 0);
+    var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, this.resetHour, 0, 0, 0);
     this.calculateAndOutPutTime(endTime - new Date().getTime());
 
     this.timer = setInterval(() => {

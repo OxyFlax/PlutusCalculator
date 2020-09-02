@@ -13,6 +13,8 @@ import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/mapl
 import { MaplestoryClassPickerComponent } from './Pages/Games/Maplestory/Pages/maplestory-class-picker/maplestory-class-picker.component';
 import { ArkTamingCalculatorComponent } from './Pages/Games/Ark/Pages/ark-taming-calculator/ark-taming-calculator.component';
 import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.component';
+import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
+import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
 
 const routes: Routes = [
     {
@@ -67,6 +69,14 @@ const routes: Routes = [
     {
         path: 'games/overwatch/random-hero-selector', 
         component: OverwatchRandomHeroSelectorComponent
+    },
+    {
+        path: 'hidden', 
+        component: HiddenHomeComponent
+    },
+    {
+        path: 'hidden/timer', 
+        component: HiddenTimerComponent
     },
     {
         path        : '**',

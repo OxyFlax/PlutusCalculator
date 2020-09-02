@@ -135,6 +135,18 @@
     border: 2px solid var(--game-page-border-color);
 }
 
+.regionSelector {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 3px 0px 0px 8px;
+}
+
+.regionSelector select {
+    width: 80px;
+    margin: 0px;
+}
+
 .characterNavigationBar {
     width: 100%;
     margin-top: 4px;
@@ -189,7 +201,7 @@
     color: var(--navigation-bar-settings-icon-font-color);
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 950px) {
     .topBar {
         height: 83px;
     }

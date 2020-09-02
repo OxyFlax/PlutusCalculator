@@ -1,0 +1,8 @@
+<div class="sidenavbar">
+  <div class="sidenavbartitle">Hidden</div>
+  <p>General</p>
+  <a [routerLink]="'/hidden'"><span [class.sidenavbaractivelink]="router.isActive('/hidden', true)">Home</span></a>
+  <div class="horizontalSeparator"></div>
+  <p>Misc</p>
+  <a [routerLink]="'/hidden/timer'"><span [class.sidenavbaractivelink]="router.isActive('/hidden/timer', false)">Timer</span></a>
+</div>

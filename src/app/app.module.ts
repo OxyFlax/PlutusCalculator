@@ -33,6 +33,9 @@ import { LacheleinComponent } from './Pages/Games/Maplestory/Pages/maplestory-ar
 import { ArcanaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/arcana/arcana.component';
 import { MorassComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/morass/morass.component';
 import { EsferaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/Areas/esfera/esfera.component';
+import { HiddenSideNavigationComponent } from './Pages/hidden/side-navigation/hidden-side-navigation.component';
+import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
+import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { EsferaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcan
     LacheleinComponent,
     ArcanaComponent,
     MorassComponent,
-    EsferaComponent
+    EsferaComponent,
+    HiddenSideNavigationComponent,
+    HiddenHomeComponent,
+    HiddenTimerComponent
   ],
   imports: [
     BrowserModule,
