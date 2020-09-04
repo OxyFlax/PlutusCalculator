@@ -300,7 +300,7 @@ input[type="range"]:hover {
 
 ::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 15px; /* 1 */
+    width: 15px;
     height: 15px;
     background: #FFFFFF;
     cursor: pointer;
@@ -309,7 +309,7 @@ input[type="range"]:hover {
 }
 
 ::-moz-range-track {
-    height: 40px;
+    height: 15px;
     background: var(--input-range-background-color);
 }
 

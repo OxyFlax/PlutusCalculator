@@ -61,7 +61,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
     this.startTimer();
     // ursus timer only has support for GMS so if reset isn't at 0 utc we don't need to start the timer
-    if(this.resetHour == 0) {
+    if (this.resetHour == 0) {
       this.startUrsusTimer();
     }
   }
@@ -195,7 +195,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   checkIfDataIsFromPreviousDay() {
     var date = new Date();
-    var lastReset = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), this.resetHour, 0, 0, 0);
+    // if the timezone is ahead of UTC the previous reset is on the previous day there a day needs to be removed
+    if (this.resetHour > 0) {
+      var lastReset = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() - 1, this.resetHour, 0, 0, 0);
+    } else {
+      var lastReset = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), this.resetHour, 0, 0, 0);
+    }
     var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
 
     if (lastVisit < lastReset) {
@@ -210,7 +215,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     this.selectedRegionIndex = event.target.selectedIndex;
     this.resetHour = this.regions[event.target.selectedIndex].resetHour;
     localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
-    
+
     // re do the checks for previous day data & setup the timers for the new resetHour
     this.initialise();
   }
@@ -274,7 +279,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     clearInterval(this.timer);
 
     var date = new Date();
-    var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, this.resetHour, 0, 0, 0);
+    // if the timezone is ahead of UTC the next reset is on the same day there for no day needs to be added
+    if (this.resetHour > 0) {
+      var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), this.resetHour, 0, 0, 0);
+    } else {
+      var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, this.resetHour, 0, 0, 0);
+    }
     this.calculateAndOutPutTime(endTime - new Date().getTime());
 
     this.timer = setInterval(() => {
