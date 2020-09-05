@@ -1,23 +1,29 @@
 <app-hidden-side-navigation></app-hidden-side-navigation>
-<div class="timeOutput noselect" (click)="focusInput()" (clickOutside)="focusOut()">
-    <!-- on click focus the input box -->
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(0) != '0'">{{ timeOutputString.charAt(0) }}</span>
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(0) != '0'">{{ timeOutputString.charAt(1) }}</span>
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(0) != '0'">h</span>
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(2) != '0'">{{ timeOutputString.charAt(2) }}</span>
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(2) != '0' || timeOutputString.charAt(3) != '0'">{{ timeOutputString.charAt(3) }}</span>
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(2) != '0' || timeOutputString.charAt(3) != '0'">m</span>
-    <span *ngIf="timeInputFocussed || timeOutputString.charAt(3) != '0'">{{ timeOutputString.charAt(4) }}</span>
-    <span>{{ timeOutputString.charAt(5) }}</span>
-    <span>s</span>
-</div>
-<input #inputField name="timeInput" id="timeInput" type="number" [(ngModel)]="timeInput" (input)="timeInputHandler($event)" (keyup.enter)="focusOut()">
-<div class="volume">
-    <i class="fa fa-volume-down fa-lm"></i>
-    <div class="volumeSlider">
-        <input type="range" [(ngModel)]="volume" min="0" max="1" step="0.01" (mouseup)="updateVolume()">
+<div class="timerWrapper">
+    <div class="timer">
+        <div class="timeOutput noselect" (click)="focusInput()" (clickOutside)="focusOut()">
+            <span class="digit" *ngIf="timeInputFocussed || timeOutputString.charAt(0) != '0'">{{ timeOutputString.charAt(0) }}</span>
+            <span class="digit" *ngIf="timeInputFocussed || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(0) != '0'">{{ timeOutputString.charAt(1) }}</span>
+            <span class="sepatrator" *ngIf="timeInputFocussed || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(0) != '0'">h</span>
+            <span class="digit" *ngIf="timeInputFocussed || timeOutputString.charAt(2) != '0' || timeOutputString.charAt(0) != '0' || timeOutputString.charAt(1) != '0'">{{ timeOutputString.charAt(2) }}</span>
+            <span class="digit" *ngIf="timeInputFocussed || timeOutputString.charAt(3) != '0' || timeOutputString.charAt(0) != '0' || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(2) != '0'">{{ timeOutputString.charAt(3) }}</span>
+            <span class="sepatrator" *ngIf="timeInputFocussed || timeOutputString.charAt(2) != '0' || timeOutputString.charAt(0) != '0' || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(3) != '0'">m</span>
+            <span class="digit" *ngIf="timeInputFocussed || timeOutputString.charAt(4) != '0' || timeOutputString.charAt(0) != '0' || timeOutputString.charAt(1) != '0' || timeOutputString.charAt(2) != '0' || timeOutputString.charAt(3) != '0'">{{ timeOutputString.charAt(4) }}</span>
+            <span [ngClass]="{'digit': true, 'inputMarker': timeInputFocussed}">{{ timeOutputString.charAt(5) }}</span>
+            <span class="sepatrator">s</span>
+        </div>
+        <input #inputField name="timeInput" id="timeInput" type="number" [(ngModel)]="timeInput" (input)="timeInputHandler($event)" (keyup.enter)="focusOut()">
+        <div class="customSeparator"></div>
+        <div class="controls">
+            <button *ngIf="timerMessage != 'ok'" (click)="startStopButton()">{{ timerMessage }}</button>
+            <button *ngIf="timerMessage == 'ok'" (click)="stopAudio()">{{ timerMessage }}</button>
+            <button (click)="resetTimer()">reset</button>
+            <div class="volume">
+                <i class="fa fa-volume-down fa-lm"></i>
+                <div class="volumeSlider">
+                    <input type="range" [(ngModel)]="volume" min="0" max="1" step="0.01" (mouseup)="updateVolume()">
+                </div>
+            </div>
+        </div>
     </div>
-    <i class="fa fa-volume-up fa-lm"></i>
 </div>
-<button (click)="startStopTimer()">start</button>
-<button (click)="resetTimer()">reset</button>

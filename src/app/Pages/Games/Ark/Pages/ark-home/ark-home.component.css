@@ -56,7 +56,7 @@
     }
 }
 
-@media only screen and (max-width: 1071px) {
+@media only screen and (max-width: 1061px) {
     .contentPageOverride {
         width: calc(100% - 262px);
     }
