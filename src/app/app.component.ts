@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { filter, map } from 'rxjs/operators'; 
 
 //declare gives Angular app access to ga function
 declare let gtag: Function;
@@ -9,7 +10,9 @@ declare let gtag: Function;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  url: string;
+
   constructor(public router: Router) {
     this.router.events.subscribe(event => {
       if(event instanceof NavigationEnd){
@@ -21,5 +24,12 @@ export class AppComponent {
     if (sessionStorage.getItem("redirect")) {
       router.navigateByUrl(sessionStorage.getItem("redirect"));
     }
+  }
+  
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd),
+      map((e: NavigationEnd) => this.url = e.urlAfterRedirects)
+    ).subscribe();
   }
 }

@@ -80,7 +80,12 @@ const routes: Routes = [
     },
     {
         path        : '**',
-        pathMatch   : 'full',
+        redirectTo  : '404',
+        pathMatch   : 'full'
+    }
+    ,
+    {
+        path        : '404',
         component   : NotFoundComponent
     }
 ];

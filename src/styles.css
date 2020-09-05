@@ -41,6 +41,8 @@
     --input-box-border-color: #CCCCCC;
 
     --input-range-background-color: #808080;
+
+    --error-page-barcolor: #696969;
 }
 
 [data-theme="light"] {
@@ -86,6 +88,8 @@
     --input-box-border-color: #4d4d4b;
 
     --input-range-background-color: #DDDDDD;
+    
+    --error-page-barcolor: #DDDDDD;
 }
 
 html {
@@ -302,7 +306,7 @@ input[type="range"]:hover {
     -webkit-appearance: none;
     width: 15px;
     height: 15px;
-    background: #FFFFFF;
+    background: var(--toggleswitch-slider-color);
     cursor: pointer;
     box-shadow: calc(-100vw - 5px) 0 0 100vw #FF9F34;
     border-radius: 5px;
@@ -314,7 +318,7 @@ input[type="range"]:hover {
 }
 
 ::-moz-range-thumb {
-    background: #FFFFFF;
+    background: var(--toggleswitch-slider-color);
     height: 15px;
     width: 15px;
     border: none;

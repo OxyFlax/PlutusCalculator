@@ -80,7 +80,7 @@ i {
 }
 
 .inputMarker {
-    border-right: 1px solid white;
+    border-right: 1px solid var(--font-color);
 }
 
 .sepatrator {
