@@ -181,6 +181,7 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
     if (this.timer) {
       this.titleService.setTitle("Random Stuff");
       this.stopTimer();
+      this.timerMessage = "start";
     } else {
       this.startTimer();
     }
