@@ -17,12 +17,12 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   timerWeeklyTasksString: string;
 
   regions: Array<Region> = [
-    { resetHour: 0, name: 'GMS' },
-    { resetHour: 16, name: 'MSEA' },
-    { resetHour: 15, name: 'KMS' }
+    { resetUtcOffset: 0, name: 'GMS' },
+    { resetUtcOffset: 8, name: 'MSEA' },
+    { resetUtcOffset: 9, name: 'KMS' }
   ];
-  selectedRegionIndex: number = 16;
-  resetHour: number = 0;
+  selectedRegionIndex: number = 0;
+  resetUtcOffset: number = 0;
 
   characterIndex: number = 0;
   weeklies: Weeklies[] = [];
@@ -47,7 +47,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   initialise() {
     if (localStorage.getItem("mapleRegion")) {
       this.selectedRegionIndex = JSON.parse(localStorage.getItem("mapleRegion"));
-      this.resetHour = this.regions[this.selectedRegionIndex].resetHour;
+      this.resetUtcOffset = this.regions[this.selectedRegionIndex].resetUtcOffset;
     }
 
     if (localStorage.getItem("weeklies")) {
@@ -169,7 +169,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
     var lastVisit = localStorage.getItem("lastMapleWeeklyTrackerVisit") ? localStorage.getItem("lastMapleWeeklyTrackerVisit") : 0;
 
-    if (lastVisit < lastThursday.valueOf()) {
+    if (lastVisit < lastThursday) {
       this.resetWeeklyBossesCompletedValues();
     }
   }
@@ -179,17 +179,17 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
     var lastVisit = localStorage.getItem("lastMapleWeeklyTrackerVisit") ? localStorage.getItem("lastMapleWeeklyTrackerVisit") : 0;
 
-    if (lastVisit < lastMonday.valueOf()) {
+    if (lastVisit < lastMonday) {
       this.resetWeeklyTasksCompletedValues();
     }
   }
 
   regionChange(event: any) {
     this.selectedRegionIndex = event.target.selectedIndex;
-    this.resetHour = this.regions[event.target.selectedIndex].resetHour;
+    this.resetUtcOffset = this.regions[event.target.selectedIndex].resetUtcOffset;
     localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
 
-    // re do the checks for previous day data & setup the timers for the new resetHour
+    // re do the checks for previous day data & setup the timers for the new resetUtcOffset
     this.initialise();
   }
 
@@ -239,7 +239,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   startWeeklyBossesTimer() {
     clearInterval(this.timerWeeklyBosses);
 
-    var endTime = this.getNextDayOfWeek(4).valueOf();
+    var endTime = this.getNextDayOfWeek(4)
     this.calculateAndOutPutWeeklyBossesTime(endTime - new Date().getTime());
 
     this.timerWeeklyBosses = setInterval(() => {
@@ -256,7 +256,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   startWeeklyTasksTimer() {
     clearInterval(this.timerWeeklyTasks);
 
-    var endTime = this.getNextDayOfWeek(1).valueOf();
+    var endTime = this.getNextDayOfWeek(1)
     this.calculateAndOutPutWeeklyTasksTime(endTime - new Date().getTime());
 
     this.timerWeeklyTasks = setInterval(() => {
@@ -329,28 +329,26 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   }
 
   getNextDayOfWeek(dayOfWeek) {
-    // if the timezone is ahead of UTC the next day of the week has to be the same as the current day there for a day is removed
-    // this allows the calculation that sets the resultdate to the next occuring day to the same day
-    // example: weekly boss reset wed -> thur on +8UTC resets on wednesday 16:00 UTC there for a day is removed so that the count down countsdown to wednesday at 16:00 and not thursday 16:00
-    if(this.resetHour > 0) {
-      if(dayOfWeek == 0) {
-        dayOfWeek = 6;
-      } else {
-        dayOfWeek = dayOfWeek -1;
-      }
-    }
-
     var currentDay = new Date();
-    var resultDate = new Date(Date.UTC(currentDay.getUTCFullYear(), currentDay.getUTCMonth(), currentDay.getUTCDate(), this.resetHour, 0, 0, 0));
+    var resultDate = new Date(Date.UTC(currentDay.getUTCFullYear(), currentDay.getUTCMonth(), currentDay.getUTCDate(), 0, 0, 0, 0));
 
     resultDate.setTime(resultDate.getTime() + (((7 + dayOfWeek - resultDate.getUTCDay() - 1) % 7 + 1) * 24 * 60 * 60 * 1000));
 
-    return resultDate;
+    // calculate the offset from UTC if the time to countdown is in the past it means that a week needs to be added
+    // WARNING: countdowns to timezones behind utc might not work properly (Have fun future me if this needs to be added :) )
+    var resultDateEpoch = resultDate.valueOf();
+    resultDateEpoch = resultDateEpoch - (this.resetUtcOffset * 60 * 60 * 1000)
+
+    if(resultDateEpoch < currentDay.getTime()) {
+      resultDateEpoch += (7 * 24 * 60 * 60 * 1000);
+    }
+
+    return resultDateEpoch;
   }
 
   getPreviousDayOfWeek(dayOfWeek) {
     var resultDate = this.getNextDayOfWeek(dayOfWeek);
-    resultDate.setTime(resultDate.getTime() - (24 * 60 * 60 * 1000 * 7));
+    resultDate -= (24 * 60 * 60 * 1000 * 7);
     return resultDate;
   }
 

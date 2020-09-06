@@ -18,12 +18,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   ursusTimerPrefix: string;
 
   regions: Array<Region> = [
-    { resetHour: 0, name: 'GMS' },
-    { resetHour: 16, name: 'MSEA' },
-    { resetHour: 15, name: 'KMS' }
+    { resetUtcOffset: 0, name: 'GMS' },
+    { resetUtcOffset: 8, name: 'MSEA' },
+    { resetUtcOffset: 9, name: 'KMS' }
   ];
   selectedRegionIndex: number = 0;
-  resetHour: number = 0;
+  resetUtcOffset: number = 0;
 
   characterIndex: number = 0;
   dailies: Dailies[] = [];
@@ -40,12 +40,16 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     if (this.timer) {
       clearInterval(this.timer);
     }
+
+    if (this.ursusTimer) {
+      clearInterval(this.ursusTimer);
+    }
   }
 
   initialise() {
     if (localStorage.getItem("mapleRegion")) {
       this.selectedRegionIndex = JSON.parse(localStorage.getItem("mapleRegion"));
-      this.resetHour = this.regions[this.selectedRegionIndex].resetHour;
+      this.resetUtcOffset = this.regions[this.selectedRegionIndex].resetUtcOffset;
     }
 
     if (localStorage.getItem("dailies")) {
@@ -61,7 +65,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
     this.startTimer();
     // ursus timer only has support for GMS so if reset isn't at 0 utc we don't need to start the timer
-    if (this.resetHour == 0) {
+    if (this.resetUtcOffset == 0) {
       this.startUrsusTimer();
     }
   }
@@ -195,12 +199,9 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   checkIfDataIsFromPreviousDay() {
     var date = new Date();
-    // if the timezone is ahead of UTC the previous reset is on the previous day there a day needs to be removed
-    if (this.resetHour > 0) {
-      var lastReset = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() - 1, this.resetHour, 0, 0, 0);
-    } else {
-      var lastReset = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), this.resetHour, 0, 0, 0);
-    }
+
+    var lastReset = this.calculateResetTime() - (24 * 60 * 60 * 1000);
+
     var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
 
     if (lastVisit < lastReset) {
@@ -213,10 +214,10 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   regionChange(event: any) {
     this.selectedRegionIndex = event.target.selectedIndex;
-    this.resetHour = this.regions[event.target.selectedIndex].resetHour;
+    this.resetUtcOffset = this.regions[event.target.selectedIndex].resetUtcOffset;
     localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
 
-    // re do the checks for previous day data & setup the timers for the new resetHour
+    // re do the checks for previous day data & setup the timers for the new resetUtcOffset
     this.initialise();
   }
 
@@ -278,13 +279,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   startTimer() {
     clearInterval(this.timer);
 
-    var date = new Date();
-    // if the timezone is ahead of UTC the next reset is on the same day there for no day needs to be added
-    if (this.resetHour > 0) {
-      var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), this.resetHour, 0, 0, 0);
-    } else {
-      var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, this.resetHour, 0, 0, 0);
-    }
+    var endTime = this.calculateResetTime();
+
     this.calculateAndOutPutTime(endTime - new Date().getTime());
 
     this.timer = setInterval(() => {
@@ -347,6 +343,20 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.ursusTimerPrefix = "Golden Time in ";
       return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 1, 0, 0, 0);
     }
+  }
+
+  calculateResetTime(): number {
+    var date = new Date();
+    var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 0, 0, 0, 0);
+
+    // calculate the offset from UTC if the time to countdown is in the past it means that a day needs to be added
+    // WARNING: countdowns to timezones behind utc might not work properly (Have fun future me if this needs to be added :) )
+    endTime = endTime - (this.resetUtcOffset * 60 * 60 * 1000)
+    if(endTime < date.getTime()) {
+      endTime += (24 * 60 * 60 * 1000);
+    }
+
+    return endTime;
   }
 
   calculateAndOutPutTime(distance: number) {

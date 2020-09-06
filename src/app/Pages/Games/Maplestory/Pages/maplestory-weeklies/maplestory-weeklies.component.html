@@ -4,7 +4,7 @@
         <div *ngIf="editModeActive" class="regionSelector">
             Region: 
             <select (change)="regionChange($event)">
-                <option *ngFor="let r of regions" value="r.resetHour" [selected]="resetHour == r.resetHour">{{r.name}}</option>
+                <option *ngFor="let r of regions" value="r.resetUtcOffset" [selected]="resetUtcOffset == r.resetUtcOffset">{{r.name}}</option>
             </select>
         </div>
         <p class="title">Weekly Tracker {{ weeklies[characterIndex].characterName }}</p>

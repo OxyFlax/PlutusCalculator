@@ -1,4 +1,4 @@
 export interface Region {
-    resetHour: number;
+    resetUtcOffset: number;
     name: string;
   }
