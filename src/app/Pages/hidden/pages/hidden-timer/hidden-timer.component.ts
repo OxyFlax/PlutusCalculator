@@ -9,7 +9,8 @@ import { AudioType } from '../../models/audioType';
 })
 export class HiddenTimerComponent implements OnInit, OnDestroy {
   @ViewChild("inputField") inputField: ElementRef;
-  audio = new Audio();
+  previewAudio = new Audio();
+  fullAudio = new Audio();
   volume: number = 0.5;
 
   timeInputFocussed: boolean = false;
@@ -59,12 +60,17 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   loadAudioValues() {
     // load in saved volume
     this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
-    this.audio.volume = this.volume;
+    // apply saved volume and set audio src so it's available when the tab isn't focussed
+    this.previewAudio.volume = this.volume;
+    this.previewAudio.src = "assets/hidden/timer/PreviewSound.mp3";
+    this.fullAudio.volume = this.volume;
+    this.fullAudio.src = "assets/hidden/timer/FullSound.mp3";
   }
 
   updateVolume() {
     // update the volume to the user selected volume;
-    this.audio.volume = this.volume;
+    this.previewAudio.volume = this.volume;
+    this.fullAudio.volume = this.volume;
     // save the volume
     localStorage.setItem("siteVolume", JSON.stringify(this.volume));
     // play the audio so the user can test the selected volume
@@ -74,20 +80,20 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
 
   playAudio(type: AudioType) {
     if (type == AudioType.Preview) {
-      this.audio.src = "assets/hidden/timer/PreviewSound.mp3";
+            // reset the time incase it is currently being played or has progress after being paused
+      this.previewAudio.currentTime = 0;
+      this.previewAudio.play();
     }
 
     if (type == AudioType.Full) {
-      this.audio.src = "assets/hidden/timer/FullSound.mp3";
+      // reset the time incase it is currently being played or has progress after being paused
+      this.fullAudio.currentTime = 0;
+      this.fullAudio.play();
     }
-
-    // reset the time incase it is currently being played or has progress after being paused
-    this.audio.currentTime = 0;
-    this.audio.play();
   }
 
   stopAudio() {
-    this.audio.pause();
+    this.fullAudio.pause();
   }
 
   timeInputHandler(event: any) {
@@ -207,9 +213,6 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
-    // briefly plays muted audio to allow chromium based browsers to play future sounds when the tab is not focussed
-    this.prepareUnfocussedPlayback();
-
     // this prevents restarting the timer with effectively 0 seconds once it has finished
     if (this.totalMilliseconds == 0) {
       return;
@@ -241,17 +244,6 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
     var endTimeEpoch = new Date().getTime();
     var elapsedMilliseconds = Math.round((endTimeEpoch - this.startTimeEpoch) / 1000) * 1000
     this.totalMilliseconds = this.totalMilliseconds - (elapsedMilliseconds);
-  }
-
-  prepareUnfocussedPlayback() {
-    // briefly plays muted audio to allow chromium based browsers to play future sounds when the tab is not focussed
-    this.audio.muted = true;
-    this.audio.src = "assets/hidden/timer/PreviewSound.mp3";
-    this.audio.play();
-    setTimeout(() => {
-      this.audio.pause();
-      this.audio.muted = false;
-    }, 100);
   }
 
   resetTimer() {
