@@ -31,9 +31,22 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // load in saved volume
-    this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
-    this.audio.volume = this.volume;
+    this.loadAudioValues();
+    // // load in saved volume
+    // this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
+    // this.audio.volume = this.volume;
+
+    // // plays a blank sound to allow chromium based browsers to play future sounds when the tab is not focussed
+
+    // this.audio.volume = 0.01;
+    // console.log(this.audio.volume);
+    // this.audio.src = "assets/hidden/timer/PreviewSound.mp3";
+    // this.audio.play();
+    // setTimeout(() => {
+    //   // this.audio.pause();
+    //   // this.audio.volume = this.volume; 
+    // }, 1);
+
   }
 
   ngOnDestroy() {
@@ -43,6 +56,12 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
     this.titleService.setTitle("Random Stuff");
   }
 
+  loadAudioValues() {
+    // load in saved volume
+    this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
+    this.audio.volume = this.volume;
+  }
+
   updateVolume() {
     // update the volume to the user selected volume;
     this.audio.volume = this.volume;
@@ -50,15 +69,15 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
     localStorage.setItem("siteVolume", JSON.stringify(this.volume));
     // play the audio so the user can test the selected volume
     this.playAudio(AudioType.Preview);
-    
+
   }
 
   playAudio(type: AudioType) {
-    if(type == AudioType.Preview) {
+    if (type == AudioType.Preview) {
       this.audio.src = "assets/hidden/timer/PreviewSound.mp3";
     }
 
-    if(type == AudioType.Full) {
+    if (type == AudioType.Full) {
       this.audio.src = "assets/hidden/timer/FullSound.mp3";
     }
 
@@ -188,6 +207,9 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
+    // briefly plays muted audio to allow chromium based browsers to play future sounds when the tab is not focussed
+    this.prepareUnfocussedPlayback();
+
     // this prevents restarting the timer with effectively 0 seconds once it has finished
     if (this.totalMilliseconds == 0) {
       return;
@@ -219,6 +241,17 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
     var endTimeEpoch = new Date().getTime();
     var elapsedMilliseconds = Math.round((endTimeEpoch - this.startTimeEpoch) / 1000) * 1000
     this.totalMilliseconds = this.totalMilliseconds - (elapsedMilliseconds);
+  }
+
+  prepareUnfocussedPlayback() {
+    // briefly plays muted audio to allow chromium based browsers to play future sounds when the tab is not focussed
+    this.audio.muted = true;
+    this.audio.src = "assets/hidden/timer/PreviewSound.mp3";
+    this.audio.play();
+    setTimeout(() => {
+      this.audio.pause();
+      this.audio.muted = false;
+    }, 100);
   }
 
   resetTimer() {
@@ -256,9 +289,9 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   }
 
   outputPageTitle(hours: number, minutes: number, seconds: number, distance: number) {
-    if(distance != 0) {
+    if (distance != 0) {
       var outputString = "";
-      if(hours != 0) {
+      if (hours != 0) {
         outputString += hours.toString() + "h ";
         outputString += minutes.toString().padStart(2, "0") + "m ";
         outputString += seconds.toString().padStart(2, "0") + "s";
@@ -266,7 +299,7 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
         return;
       }
 
-      if(minutes != 0) {
+      if (minutes != 0) {
         outputString += minutes.toString().padStart(2, "0") + "m ";
         outputString += seconds.toString().padStart(2, "0") + "s";
         this.titleService.setTitle(outputString);
