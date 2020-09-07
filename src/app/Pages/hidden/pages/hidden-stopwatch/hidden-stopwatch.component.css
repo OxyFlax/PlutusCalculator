@@ -1,0 +1,83 @@
+.stopwatchWrapper {
+    width: 324px;
+    min-height: calc(100vh - 72px);
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.stopwatch {
+    position: relative;
+    width: 320px;
+    height: 128px;
+    margin: 30px auto 0px auto;
+    border: 2px solid var(--game-page-border-color);
+    border-radius: 3px;
+    background-color: var(--game-page-background-color);
+}
+
+.stopwatch button {
+    background-color: var(--game-page-accent-color);
+    border: none;
+    color: #FFFFFF;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+    font-size: 16px;
+    width: 75px;
+    margin: 0px 5px 0px 0px;
+    outline:none;
+    float: left;
+}
+
+.controls {
+    position: absolute;
+    bottom: 0px;
+    margin: 0px 5px 5px 5px;
+}
+
+.customSeparator {
+    width: 100%;
+    height: 0px;
+    margin: 0px;
+    border-bottom: 2px solid var(--game-page-border-color);
+}
+
+
+.stopwatchOutput {
+    margin: 10px 0px 9px 10px;
+}
+
+.digit {
+    font-size: 50px;
+}
+
+.digitSmall {
+    font-size: 30px;
+}
+
+.sepatrator {
+    font-size: 30px;
+    margin-right: 12px;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+  }
+
+@media only screen and (max-width: 826px) {
+    .stopwatchWrapper {
+        float: left;
+        margin: unset;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .stopwatchWrapper {
+        width: 100%;
+    }
+}

@@ -1,0 +1,22 @@
+<app-hidden-side-navigation></app-hidden-side-navigation>
+<div class="stopwatchWrapper">
+    <div class="stopwatch">
+        <div class="stopwatchOutput noselect">
+            <span class="digit" *ngIf="hours >= 10">{{ hours.toString().padStart(2, "0") }}</span>
+            <span class="digit" *ngIf="hours != 0 && hours < 10">{{ hours.toString() }}</span>
+            <span class="sepatrator" *ngIf="hours != 0">h</span>
+            <span class="digit" *ngIf="hours != 0">{{ minutes.toString().padStart(2, "0") }}</span>
+            <span class="digit" *ngIf="hours == 0 && minutes != 0">{{ minutes.toString() }}</span>
+            <span class="sepatrator" *ngIf="minutes != 0 || hours != 0">m</span>
+            <span class="digit" *ngIf="minutes != 0 || hours != 0">{{ seconds.toString().padStart(2, "0") }}</span>
+            <span class="digit" *ngIf="minutes == 0 && hours == 0">{{ seconds.toString() }}</span>
+            <span class="sepatrator">s</span>
+            <span class="digitSmall">{{ milliseconds.toString().padStart(2, "0") }}</span>
+        </div>
+        <div class="customSeparator"></div>
+        <div class="controls">
+            <button (click)="startStopButton()">{{ stopwatchMessage }}</button>
+            <button (click)="reset()">reset</button>
+        </div>
+    </div>
+</div>

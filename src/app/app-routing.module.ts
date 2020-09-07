@@ -15,6 +15,7 @@ import { ArkTamingCalculatorComponent } from './Pages/Games/Ark/Pages/ark-taming
 import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.component';
 import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
 import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
+import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
 
 const routes: Routes = [
     {
@@ -77,6 +78,10 @@ const routes: Routes = [
     {
         path: 'hidden/timer', 
         component: HiddenTimerComponent
+    },
+    {
+        path: 'hidden/stopwatch', 
+        component: HiddenStopwatchComponent
     },
     {
         path        : '**',

@@ -36,6 +36,7 @@ import { EsferaComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcan
 import { HiddenSideNavigationComponent } from './Pages/hidden/side-navigation/hidden-side-navigation.component';
 import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
 import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
+import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-t
     EsferaComponent,
     HiddenSideNavigationComponent,
     HiddenHomeComponent,
-    HiddenTimerComponent
+    HiddenTimerComponent,
+    HiddenStopwatchComponent
   ],
   imports: [
     BrowserModule,

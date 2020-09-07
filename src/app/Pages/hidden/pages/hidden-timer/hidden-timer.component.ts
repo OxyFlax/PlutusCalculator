@@ -32,22 +32,7 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadAudioValues();
-    // // load in saved volume
-    // this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
-    // this.audio.volume = this.volume;
-
-    // // plays a blank sound to allow chromium based browsers to play future sounds when the tab is not focussed
-
-    // this.audio.volume = 0.01;
-    // console.log(this.audio.volume);
-    // this.audio.src = "assets/hidden/timer/PreviewSound.mp3";
-    // this.audio.play();
-    // setTimeout(() => {
-    //   // this.audio.pause();
-    //   // this.audio.volume = this.volume; 
-    // }, 1);
-
+    this.loadAudio();
   }
 
   ngOnDestroy() {
@@ -57,7 +42,7 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
     this.titleService.setTitle("Random Stuff");
   }
 
-  loadAudioValues() {
+  loadAudio() {
     // load in saved volume
     this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
     // apply saved volume and set audio src so it's available when the tab isn't focussed
@@ -80,7 +65,7 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
 
   playAudio(type: AudioType) {
     if (type == AudioType.Preview) {
-            // reset the time incase it is currently being played or has progress after being paused
+      // reset the time incase it is currently being played or has progress after being paused
       this.previewAudio.currentTime = 0;
       this.previewAudio.play();
     }
