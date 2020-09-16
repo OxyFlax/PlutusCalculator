@@ -209,6 +209,7 @@ a {
     margin: 4px 4px 0px 4px;
     font-size: 18px;
     display: inline-block;
+    color: var(--font-color);
 }
 
 .characterNavigationBar a:hover {
