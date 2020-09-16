@@ -1,0 +1,180 @@
+<app-maplestory-side-navigation></app-maplestory-side-navigation>
+<div class="editedGamePageContent">
+    <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
+    <div *ngIf="!editModeActive">
+        <p class="explanation">The default flamescore multipliers are based on the 
+            <a href="https://docs.google.com/document/d/1R6dLFOEO5OfeiSZHgcUhCzplPLeeL0YSh9YaZFCRDE0" target="_blank">flaming guide</a> made by 
+            <a href="https://www.twitch.tv/scardor" target="_blank">Scardor</a>. 
+            These default values can be edited in the settings menu found on the right.</p>
+        <!-- <p class="explanation">This is a flame score calculator based on the flaming guide made by <a
+            href="https://www.twitch.tv/scardor" target="_blank">Scardor</a>. More info about how it works can be found <a
+            href="https://docs.google.com/document/d/1R6dLFOEO5OfeiSZHgcUhCzplPLeeL0YSh9YaZFCRDE0" target="_blank">here</a>.</p> -->
+    
+        <div class="classSelector">
+            <p>Select your class</p>
+            <search-select [data]="classes" [defaultIndex]="this.flameData.saveData[this.characterIndex].selectedClassIndex" (result)="updateSelectedClass($event)"></search-select>
+        </div>
+    
+        <div class="output">
+            <p>Flame score</p>
+            <p class="score">{{ flameScore }}</p>
+        </div>
+    
+        <div *ngIf="selectedClass != undefined" class="flameInput">
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('str')">
+                <label for="str">Str</label>
+                <input class="numberInput" name="str" id="str" type="number" [(ngModel)]="this.currentFlame.str" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('dex')">
+                <label for="dex">Dex</label>
+                <input class="numberInput" name="dex" id="dex" type="number" [(ngModel)]="this.currentFlame.dex" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('luk')">
+                <label for="luk">Luk</label>
+                <input class="numberInput" name="luk" id="luk" type="number" [(ngModel)]="this.currentFlame.luk" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('int')">
+                <label for="int">Int</label>
+                <input class="numberInput" name="int" id="int" type="number" [(ngModel)]="this.currentFlame.int" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('hp')">
+                <label for="hp">HP</label>
+                <input class="numberInput" name="hp" id="hp" type="number" [(ngModel)]="this.currentFlame.hp" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('mp')">
+                <label for="mp">MP</label>
+                <input class="numberInput" name="mp" id="mp" type="number" [(ngModel)]="this.currentFlame.mp" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('att')">
+                <label for="att">Weapon Att</label>
+                <input class="numberInput" name="att" id="att" type="number" [(ngModel)]="this.currentFlame.att" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('matt')">
+                <label for="matt">Magic Att</label>
+                <input class="numberInput" name="matt" id="matt" type="number" [(ngModel)]="this.currentFlame.matt" (input)="inputHandler()">
+            </div>
+            <div class="inputLabelWrapper" *ngIf="selectedClass.flameStats.includes('allstat')">
+                <label for="allstat">All Stat (%)</label>
+                <input class="numberInput" name="allstat" id="allstat" type="number" [(ngModel)]="this.currentFlame.allstat" (input)="inputHandler()">
+            </div>
+        </div>
+    
+        <div class="scoreSaverWrapper">
+            <h3>Save your flamescores</h3>
+            <p>Click on a slot to save the current flame to it.<br>Clicking on a slot containing a flame will overwrite it.<br>A long press on a saved flame will load it's stats back into the input fields above</p>
+            <div class="characterNavigationBar">
+                <a (click)="changeCharacter(0)" [ngClass]="(characterIndex == 0)?'selected':'notSelected'">{{ this.flameData.saveData[0].characterName }}</a>
+                <a (click)="changeCharacter(1)" [ngClass]="(characterIndex == 1)?'selected':'notSelected'">{{ this.flameData.saveData[1].characterName }}</a>
+                <a (click)="changeCharacter(2)" [ngClass]="(characterIndex == 2)?'selected':'notSelected'">{{ this.flameData.saveData[2].characterName }}</a>
+                <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ this.flameData.saveData[3].characterName }}</a>
+            </div>
+            <div class="scoreSaver">
+                <img src="assets/Games/Maplestory/EquipWindow.png" alt="equipWindow">
+                <table class="equipScoreGrid">
+                    <tr>
+                        <th class="hiddenOption"></th>
+                        <th class="hiddenOption"></th>
+                        <th longPress (onShortPress)="saveFlame('hat')" (onLongPress)="loadFlame('hat')">{{ calculateScore(this.flameData.saveData[characterIndex].hat) }}</th>
+                        <th class="hiddenOption"></th>
+                        <th class="hiddenOption"></th>
+                    </tr>
+                    <tr>
+                        <th class="hiddenOption"></th>
+                        <th longPress (onShortPress)="saveFlame('pendant2')" (onLongPress)="loadFlame('pendant2')">{{ calculateScore(this.flameData.saveData[characterIndex].pendant2) }}</th>
+                        <th longPress (onShortPress)="saveFlame('face')" (onLongPress)="loadFlame('face')">{{ calculateScore(this.flameData.saveData[characterIndex].face) }}</th>
+                        <th class="hiddenOption"></th>
+                        <th class="hiddenOption"></th>
+                    </tr>
+                    <tr>
+                        <th class="hiddenOption"></th>
+                        <th longPress (onShortPress)="saveFlame('pendant1')" (onLongPress)="loadFlame('pendant1')">{{ calculateScore(this.flameData.saveData[characterIndex].pendant1) }}</th>
+                        <th longPress (onShortPress)="saveFlame('eye')" (onLongPress)="loadFlame('eye')">{{ calculateScore(this.flameData.saveData[characterIndex].eye) }}</th>
+                        <th longPress (onShortPress)="saveFlame('earrings')" (onLongPress)="loadFlame('earrings')">{{ calculateScore(this.flameData.saveData[characterIndex].earrings) }}</th>
+                        <th class="hiddenOption"></th>
+                    </tr>
+                    <tr>
+                        <th class="hiddenOption"></th>
+                        <th longPress (onShortPress)="saveFlame('weapon')" (onLongPress)="loadFlame('weapon')">{{ calculateScore(this.flameData.saveData[characterIndex].weapon) }}</th>
+                        <th longPress (onShortPress)="saveFlame('top')" (onLongPress)="loadFlame('top')">{{ calculateScore(this.flameData.saveData[characterIndex].top) }}</th>
+                        <th longPress (onShortPress)="saveFlame('shoulder')" (onLongPress)="loadFlame('shoulder')">{{ calculateScore(this.flameData.saveData[characterIndex].shoulder) }}</th>
+                        <th class="hiddenOption"></th>
+                    </tr>
+                    <tr>
+                        <th longPress (onShortPress)="saveFlame('pocket')" (onLongPress)="loadFlame('pocket')">{{ calculateScore(this.flameData.saveData[characterIndex].pocket) }}</th>
+                        <th longPress (onShortPress)="saveFlame('belt')" (onLongPress)="loadFlame('belt')">{{ calculateScore(this.flameData.saveData[characterIndex].belt) }}</th>
+                        <th longPress (onShortPress)="saveFlame('bottom')" (onLongPress)="loadFlame('bottom')">{{ calculateScore(this.flameData.saveData[characterIndex].bottom) }}</th>
+                        <th longPress (onShortPress)="saveFlame('gloves')" (onLongPress)="loadFlame('gloves')">{{ calculateScore(this.flameData.saveData[characterIndex].gloves) }}</th>
+                        <th longPress (onShortPress)="saveFlame('cape')" (onLongPress)="loadFlame('cape')">{{ calculateScore(this.flameData.saveData[characterIndex].cape) }}</th>
+                    </tr>
+                    <tr>
+                        <th class="hiddenOption"></th>
+                        <th class="hiddenOption"></th>
+                        <th longPress (onShortPress)="saveFlame('shoes')" (onLongPress)="loadFlame('shoes')">{{ calculateScore(this.flameData.saveData[characterIndex].shoes) }}</th>
+                        <th class="hiddenOption"></th>
+                        <th class="hiddenOption"></th>
+                    </tr>
+                  </table>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="editModeActive">
+        <div class="settingsWrapper">
+            <div class="presetWrapper">
+                <p>Multiplier presets:</p>
+                <button class="buttonStyle" (click)="enablePreset('scardorLateGame')">Scardor Late Game</button>
+                <button class="buttonStyle" (click)="enablePreset('scardorEndGame')">Scardor End Game</button>
+            </div>
+            <h3>Stat multipliers</h3>
+            <div class="characterNameInput">
+                <label for="mainStatMultiplier">Mainstat</label>
+            <input class="numberInput" name="mainStatMultiplier" id="mainStatMultiplier" type="number" [(ngModel)]="this.flameData.mainStatMultiplier">
+            </div>
+            <div class="characterNameInput">
+                <label for="secondaryStatMultiplier">Secondary Stat</label>
+                <input class="textInput" type="text" id="secondaryStatMultiplier" name="secondaryStatMultiplier" maxlength="12" [(ngModel)]="this.flameData.secondaryStatMultiplier">
+            </div>
+            <div class="characterNameInput">
+                <label for="hpMpMultiplier">HP & MP</label>
+                <input class="textInput" type="text" id="hpMpMultiplier" name="hpMpMultiplier" maxlength="12" [(ngModel)]="this.flameData.hpMpMultiplier">
+            </div>
+            <div class="characterNameInput">
+                <label for="attMattMultiplier">Att & Matt</label>
+                <input class="textInput" type="text" id="attMattMultiplier" name="attMattMultiplier" maxlength="12" [(ngModel)]="this.flameData.attMattMultiplier">
+            </div>
+            <div class="characterNameInput">
+                <label for="allstatMultiplier">All Stat</label>
+                <input class="textInput" type="text" id="allstatMultiplier" name="allstatMultiplier" maxlength="12" [(ngModel)]="this.flameData.allstatMultiplier">
+            </div>
+            <div class="characterNameInput">
+                <label for="xenonAllstatMultiplier">Xenon All Stat</label>
+                <input class="textInput" type="text" id="xenonAllstatMultiplier" name="xenonAllstatMultiplier" maxlength="12" [(ngModel)]="this.flameData.xenonAllstatMultiplier">
+            </div>
+            <div class="characterNameInput">
+                <label for="lukDoubleSecondaryAllStatMultiplier">Shadower/DB/Cadena AS</label>
+                <input class="textInput" type="text" id="lukDoubleSecondaryAllStatMultiplier" name="lukDoubleSecondaryAllStatMultiplier" maxlength="12" [(ngModel)]="this.flameData.lukDoubleSecondaryAllStatMultiplier">
+            </div>
+        </div>
+
+        <div class="separator"></div>
+        <div class="settingsWrapper">
+            <h3>Save slot names</h3>
+            <div class="characterNameInput">
+                <label for="character1Name">First save slot name</label>
+                <input class="textInput" type="text" id="character1Name" name="character1Name" maxlength="12" [(ngModel)]="this.flameData.saveData[0].characterName">
+            </div>
+            <div class="characterNameInput">
+                <label for="character2Name">Second save slot name</label>
+                <input class="textInput" type="text" id="character2Name" name="character2Name" maxlength="12" [(ngModel)]="this.flameData.saveData[1].characterName">
+            </div>
+            <div class="characterNameInput">
+                <label for="character3Name">Third save slot name</label>
+                <input class="textInput" type="text" id="character3Name" name="character3Name" maxlength="12" [(ngModel)]="this.flameData.saveData[2].characterName">
+            </div>
+            <div class="characterNameInput">
+                <label for="character4Name">Fourth save slot name</label>
+                <input class="textInput" type="text" id="character4Name" name="character4Name" maxlength="12" [(ngModel)]="this.flameData.saveData[3].characterName">
+            </div>
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,87 @@
+.selectSearchWrapper {
+  display: table;
+  width: 200px;
+  box-sizing:border-box;
+  margin: 0 auto;
+}
+
+.select-data {
+  position: absolute;
+  background-color: var(--input-box-background-color);
+  width: 198px;
+  z-index: 1;
+  margin: 0px 0px 0px 0px;
+  list-style-type: none;
+  border: 1px solid var(--input-box-border-color);
+  padding: 0px;
+  max-height: 150px;
+  border-top: 0;
+
+  overflow-y: scroll;
+  scrollbar-width: thin; /* Firefox */
+  -ms-overflow-style: 8px;  /* Internet Explorer 10+ */
+}
+
+li {
+  padding-left: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+}
+
+li:hover {
+  background-color: Highlight;
+}
+
+.select-data::-webkit-scrollbar {
+  width: 8px;
+  height: initial;
+}
+
+.selectInput {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  padding: 6px 6px;
+  margin: 0px 0;
+  border-radius: 4px 4px 0px 0px;
+  border: 1px solid var(--input-box-border-color);
+  box-sizing: border-box;
+  color: var(--font-color);
+  background-color: var(--input-box-background-color);
+}
+
+.selectInput:hover .select-data {
+  display: block;
+}
+
+.selectInput:focus {
+  outline: none;
+}
+
+.bottomBorder {
+  border-radius: 4px;
+}
+
+.inputIconWrapper {
+  position: relative;
+}
+
+.inputIconWrapper i {
+  position: absolute;
+  right:0; 
+  top:0;
+  padding: 0 8px;
+  font-style: normal;
+  user-select: none;
+  pointer-events: none;
+  font-size: 17px;
+  margin-top: 5px;
+}
+
+.inputLabelWrapper label {
+  display:block;
+  text-align: left;
+  font-size: 15px;
+  padding-left: 3px;
+}

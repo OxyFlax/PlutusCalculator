@@ -7,7 +7,6 @@ import { ClickOutsideDirective } from './Directives/click-outside.directive';
 import { MiddleclickDirective } from './Directives/middle-click.directive';
 
 import { AppRoutingModule } from './app-routing.module';
-import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -21,7 +20,6 @@ import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { MaplestoryArcaneSymbolsComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
-import { MaplestoryAfkExperienceEventComponent } from './Pages/Games/Maplestory/Pages/maplestory-afk-experience-event/maplestory-afk-experience-event.component';
 import { MaplestoryDailiesComponent } from './Pages/Games/Maplestory/Pages/maplestory-dailies/maplestory-dailies.component';
 import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/maplestory-weeklies/maplestory-weeklies.component';
 import { MaplestoryClassPickerComponent } from './Pages/Games/Maplestory/Pages/maplestory-class-picker/maplestory-class-picker.component';
@@ -37,6 +35,9 @@ import { HiddenSideNavigationComponent } from './Pages/hidden/side-navigation/hi
 import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
 import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
 import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
+import { MaplestoryFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-flame-calculator/maplestory-flame-calculator.component';
+import { SearchSelectComponent } from './Components/search-select/search-select.component';
+import { LongPressDirective } from './Directives/long-press.directive';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/
     NavigationComponent,
     ClickOutsideDirective,
     MiddleclickDirective,
+    LongPressDirective,
     MaplestoryHomeComponent,
     MaplestorySideNavigationComponent,
     ArkHomeComponent,
@@ -54,10 +56,10 @@ import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/
     AboutComponent,
     MaplestoryArcaneSymbolsComponent,
     NotFoundComponent,
-    MaplestoryAfkExperienceEventComponent,
     MaplestoryDailiesComponent,
     MaplestoryWeekliesComponent,
     MaplestoryClassPickerComponent,
+    MaplestoryFlameCalculatorComponent,
     ArkTamingCalculatorComponent,
     OverwatchRandomHeroSelectorComponent,
     VanishingJourneyComponent,
@@ -69,14 +71,14 @@ import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/
     HiddenSideNavigationComponent,
     HiddenHomeComponent,
     HiddenTimerComponent,
-    HiddenStopwatchComponent
+    HiddenStopwatchComponent,
+    SearchSelectComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

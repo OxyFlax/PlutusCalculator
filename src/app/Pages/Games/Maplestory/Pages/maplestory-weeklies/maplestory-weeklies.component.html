@@ -3,7 +3,7 @@
     <div class="topBar">
         <div *ngIf="editModeActive" class="regionSelector">
             Region: 
-            <select (change)="regionChange($event)">
+            <select class="select" (change)="regionChange($event)">
                 <option *ngFor="let r of regions" value="r.resetUtcOffset" [selected]="resetUtcOffset == r.resetUtcOffset">{{r.name}}</option>
             </select>
         </div>
@@ -21,7 +21,7 @@
     <div class="inputWrapper" *ngIf="editModeActive">
         <div class="characterNameInput">
             <label for="characterName">Character Name</label>
-            <input type="text" id="characterName" name="characterName" maxlength="12" [(ngModel)]="weeklies[characterIndex].characterName">
+            <input class="textInput" type="text" id="characterName" name="characterName" maxlength="12" [(ngModel)]="weeklies[characterIndex].characterName">
         </div>
     </div>
     <div class="weeklyGroups">

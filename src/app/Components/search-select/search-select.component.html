@@ -1,0 +1,15 @@
+<div class="selectSearchWrapper">
+  <div class="inputLabelWrapper">
+    <label *ngIf="inputTitle != ''" for="filter">{{ inputTitle }}</label>
+    <div class="inputIconWrapper">
+      <input [ngClass]="{'bottomBorder' : !showList}" class="selectInput" type="text" id="filter" name="filter" maxlength="12" [(ngModel)]="filter" (keydown.tab)="hide()" (focus)="show()" (keyup)="show()" (clickOutside)="hide()" (keyup.enter)="findMatch()">
+      <i class="fa fa-angle-down"></i>
+    </div>
+  </div>
+  <ul *ngIf="showList" class="select-data">
+    <ng-container *ngFor="let item of mappedData">
+      <li *ngIf="item.name.toLowerCase().includes(filter.toLowerCase()) || filter == ''" (click)="returnItem(item)">
+        {{item.name}}</li>
+    </ng-container>
+  </ul>
+</div>

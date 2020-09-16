@@ -1,4 +1,4 @@
 export interface Region {
-    resetUtcOffset: number;
-    name: string;
-  }
+  resetUtcOffset: number;
+  name: string;
+}

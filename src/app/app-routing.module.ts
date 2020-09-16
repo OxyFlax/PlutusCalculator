@@ -7,7 +7,6 @@ import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
 import { MaplestoryArcaneSymbolsComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
-import { MaplestoryAfkExperienceEventComponent } from './Pages/Games/Maplestory/Pages/maplestory-afk-experience-event/maplestory-afk-experience-event.component';
 import { MaplestoryDailiesComponent } from './Pages/Games/Maplestory/Pages/maplestory-dailies/maplestory-dailies.component';
 import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/maplestory-weeklies/maplestory-weeklies.component';
 import { MaplestoryClassPickerComponent } from './Pages/Games/Maplestory/Pages/maplestory-class-picker/maplestory-class-picker.component';
@@ -16,6 +15,7 @@ import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pa
 import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
 import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
 import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
+import { MaplestoryFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-flame-calculator/maplestory-flame-calculator.component';
 
 const routes: Routes = [
     {
@@ -48,10 +48,6 @@ const routes: Routes = [
         component: MaplestoryArcaneSymbolsComponent
     },
     {
-        path: 'games/maplestory/afk-experience-event', 
-        component: MaplestoryAfkExperienceEventComponent
-    },
-    {
         path: 'games/maplestory/dailies', 
         component: MaplestoryDailiesComponent
     },
@@ -62,6 +58,10 @@ const routes: Routes = [
     {
         path: 'games/maplestory/class-picker', 
         component: MaplestoryClassPickerComponent
+    },
+    {
+        path: 'games/maplestory/flames', 
+        component: MaplestoryFlameCalculatorComponent
     },
     {
         path: 'games/overwatch/home', 

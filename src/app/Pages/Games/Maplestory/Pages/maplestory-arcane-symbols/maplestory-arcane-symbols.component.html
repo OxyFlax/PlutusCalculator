@@ -25,13 +25,13 @@
         <div class="symbolInput">
             <div class="inputLabelWrapper">
                 <label for="currentLevel">Symbol Level</label>
-                <input name="currentLevel" id="currentLevel" type="number" [(ngModel)]="currentLevel" (input)="currentLevelInput($event)">
+                <input class="numberInput" name="currentLevel" id="currentLevel" type="number" [(ngModel)]="currentLevel" (input)="currentLevelInput($event)">
             </div>
         </div>
         <div class="symbolInput">
             <div class="inputLabelWrapper">
                 <label for="currentXp">Symbol Experience</label>
-                <input name="currentXp" id="currentXp" type="number" [(ngModel)]="currentXp" (input)="currentExpInput($event)">
+                <input class="numberInput" name="currentXp" id="currentXp" type="number" [(ngModel)]="currentXp" (input)="currentExpInput($event)">
             </div>
         </div>
         <p class="symbolDailyTitle">Daily symbols</p>
@@ -47,37 +47,37 @@
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="daysLeft">Day(s) to Level 20</label>
-                <input name="daysLeft" id="daysLeft" type="text" value="{{ daysLeft }} Day(s)" disabled>
+                <input class="textInput" name="daysLeft" id="daysLeft" type="text" value="{{ daysLeft }} Day(s)" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="upgradeCost">Remaining Cost to Level 20</label>
-                <input name="upgradeCost" id="upgradeCost" type="text" value="{{ upgradeCost | number:'0.0-0'}} Mesos" disabled>
+                <input class="textInput" name="upgradeCost" id="upgradeCost" type="text" value="{{ upgradeCost | number:'0.0-0'}} Mesos" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="arcaneForceGain">Remaining Arcane Force to gain</label>
-                <input name="arcaneForceGain" id="arcaneForceGain" type="text" value="{{ arcaneForceGain | number:'0.0-0'}} AF" disabled>
+                <input class="textInput" name="arcaneForceGain" id="arcaneForceGain" type="text" value="{{ arcaneForceGain | number:'0.0-0'}} AF" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="statGain">Remaining Stat to Gain</label>
-                <input name="statGain" id="statGain" type="text" value="{{ statGain | number:'0.0-0'}} Stat" disabled>
+                <input class="textInput" name="statGain" id="statGain" type="text" value="{{ statGain | number:'0.0-0'}} Stat" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="xenonStatGain">Remaining All Stat to Gain (Xenon)</label>
-                <input name="xenonStatGain" id="xenonStatGain" type="text" value="{{ xenonStatGain | number:'0.0-0'}} AS" disabled>
+                <input class="textInput" name="xenonStatGain" id="xenonStatGain" type="text" value="{{ xenonStatGain | number:'0.0-0'}} AS" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="demonAvengerHpGain">Remaining HP to Gain (Demon Avenger)</label>
-                <input name="demonAvengerHpGain" id="demonAvengerHpGain" type="text" value="{{ demonAvengerHpGain | number:'0.0-0'}} HP" disabled>
+                <input class="textInput" name="demonAvengerHpGain" id="demonAvengerHpGain" type="text" value="{{ demonAvengerHpGain | number:'0.0-0'}} HP" disabled>
             </div>
         </div>
     </div>
