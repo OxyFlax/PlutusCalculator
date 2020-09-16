@@ -2,13 +2,10 @@
 <div class="editedGamePageContent">
     <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
     <div *ngIf="!editModeActive">
-        <p class="explanation">The default flamescore multipliers are based on the 
-            <a href="https://docs.google.com/document/d/1R6dLFOEO5OfeiSZHgcUhCzplPLeeL0YSh9YaZFCRDE0" target="_blank">flaming guide</a> made by 
+        <p class="explanation">The default flamescore multipliers are based on the flaming 
+            <a href="https://docs.google.com/document/d/1R6dLFOEO5OfeiSZHgcUhCzplPLeeL0YSh9YaZFCRDE0" target="_blank">guide</a> made by 
             <a href="https://www.twitch.tv/scardor" target="_blank">Scardor</a>. 
-            These default values can be edited in the settings menu found on the right.</p>
-        <!-- <p class="explanation">This is a flame score calculator based on the flaming guide made by <a
-            href="https://www.twitch.tv/scardor" target="_blank">Scardor</a>. More info about how it works can be found <a
-            href="https://docs.google.com/document/d/1R6dLFOEO5OfeiSZHgcUhCzplPLeeL0YSh9YaZFCRDE0" target="_blank">here</a>.</p> -->
+            The multipliers can be edited in the settings menu found in the top right corner.</p>
     
         <div class="classSelector">
             <p>Select your class</p>
@@ -61,7 +58,7 @@
     
         <div class="scoreSaverWrapper">
             <h3>Save your flamescores</h3>
-            <p>Click on a slot to save the current flame to it.<br>Clicking on a slot containing a flame will overwrite it.<br>A long press on a saved flame will load it's stats back into the input fields above</p>
+            <p>Click on a slot to save the current flame to it.<br>Clicking on a slot containing a flame will overwrite it.<br>A long press on a saved flame will load its stats back into the input fields above.</p>
             <div class="characterNavigationBar">
                 <a (click)="changeCharacter(0)" [ngClass]="(characterIndex == 0)?'selected':'notSelected'">{{ this.flameData.saveData[0].characterName }}</a>
                 <a (click)="changeCharacter(1)" [ngClass]="(characterIndex == 1)?'selected':'notSelected'">{{ this.flameData.saveData[1].characterName }}</a>
