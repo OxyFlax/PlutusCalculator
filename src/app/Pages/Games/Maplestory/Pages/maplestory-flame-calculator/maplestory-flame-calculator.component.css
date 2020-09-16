@@ -187,12 +187,12 @@ a {
     position: relative;
     margin: 0 auto;
     width: 232px;
-    height: 307px;
+    height: 337px;
 }
 
 .equipScoreGrid {
     position: absolute;
-    top: 33px;
+    top: 27px;
     right: 12px;
     border-spacing: 3px;
 }
@@ -203,6 +203,12 @@ a {
     padding: 0px;
     color: #FFFFFF;
     font-size: 15px;
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.extraSlotSpacer{
+    width: 100%;
+    height: 7px;
 }
 
 .hiddenOption {
@@ -218,7 +224,6 @@ a {
 }
 
 .characterNavigationBar a {
-    /* width: 50px; */
     padding: 2px 4px 2px 4px;
     margin: 4px 4px 0px 4px;
     font-size: 18px;

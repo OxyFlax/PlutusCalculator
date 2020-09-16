@@ -80,7 +80,12 @@ export class MaplestoryFlameCalculatorComponent implements OnInit {
       pendant2: newEmptyFlame,
       face: newEmptyFlame,
       eye: newEmptyFlame,
-      earrings: newEmptyFlame
+      earrings: newEmptyFlame,
+      extra1: newEmptyFlame,
+      extra2: newEmptyFlame,
+      extra3: newEmptyFlame,
+      extra4: newEmptyFlame,
+      extra5: newEmptyFlame
     };
 
     var newSaveDataArray: FlameSaveData[] = [];
@@ -284,5 +289,9 @@ export class MaplestoryFlameCalculatorComponent implements OnInit {
       this.flameData.lukDoubleSecondaryAllStatMultiplier = 10;
       return;
     }
+  }
+
+  test() {
+    console.log("hmm");
   }
 }

@@ -19,4 +19,9 @@ export interface FlameSaveData {
     face: Flame;
     eye: Flame;
     earrings: Flame;
+    extra1: Flame;
+    extra2: Flame;
+    extra3: Flame;
+    extra4: Flame;
+    extra5: Flame;
 }

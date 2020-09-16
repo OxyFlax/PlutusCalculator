@@ -113,6 +113,14 @@
                         <th class="hiddenOption"></th>
                         <th class="hiddenOption"></th>
                     </tr>
+                    <div class="extraSlotSpacer"></div>
+                    <tr>
+                        <th longPress (onShortPress)="saveFlame('extra1')" (onLongPress)="loadFlame('extra1')">{{ calculateScore(this.flameData.saveData[characterIndex].extra1) }}</th>
+                        <th longPress (onShortPress)="saveFlame('extra2')" (onLongPress)="loadFlame('extra2')">{{ calculateScore(this.flameData.saveData[characterIndex].extra2) }}</th>
+                        <th longPress (onShortPress)="saveFlame('extra3')" (onLongPress)="loadFlame('extra3')">{{ calculateScore(this.flameData.saveData[characterIndex].extra3) }}</th>
+                        <th longPress (onShortPress)="saveFlame('extra4')" (onLongPress)="loadFlame('extra4')">{{ calculateScore(this.flameData.saveData[characterIndex].extra4) }}</th>
+                        <th longPress (onShortPress)="saveFlame('extra5')" (onLongPress)="loadFlame('extra5')">{{ calculateScore(this.flameData.saveData[characterIndex].extra5) }}</th>
+                    </tr>
                   </table>
             </div>
         </div>
