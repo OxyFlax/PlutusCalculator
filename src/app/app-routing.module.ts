@@ -15,7 +15,8 @@ import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pa
 import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
 import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
 import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
-import { MaplestoryFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-flame-calculator/maplestory-flame-calculator.component';
+import { MaplestoryItemFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-item-flame-calculator/maplestory-item-flame-calculator.component';
+import { MaplestoryWeaponFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-weapon-flame-calculator/maplestory-weapon-flame-calculator.component';
 
 const routes: Routes = [
     {
@@ -60,8 +61,12 @@ const routes: Routes = [
         component: MaplestoryClassPickerComponent
     },
     {
-        path: 'games/maplestory/flames', 
-        component: MaplestoryFlameCalculatorComponent
+        path: 'games/maplestory/item-flames', 
+        component: MaplestoryItemFlameCalculatorComponent
+    },
+    {
+        path: 'games/maplestory/weapon-flame', 
+        component: MaplestoryWeaponFlameCalculatorComponent
     },
     {
         path: 'games/overwatch/home', 

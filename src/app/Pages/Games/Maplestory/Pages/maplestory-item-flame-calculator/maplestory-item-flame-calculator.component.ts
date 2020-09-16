@@ -7,11 +7,11 @@ import { FlameData } from '../../Models/flamedata';
 import { FlameSaveData } from '../../Models/flameSaveData';
 
 @Component({
-  selector: 'app-maplestory-flame-calculator',
-  templateUrl: './maplestory-flame-calculator.component.html',
-  styleUrls: ['./maplestory-flame-calculator.component.css']
+  selector: 'app-maplestory-item-flame-calculator',
+  templateUrl: './maplestory-item-flame-calculator.component.html',
+  styleUrls: ['./maplestory-item-flame-calculator.component.css']
 })
-export class MaplestoryFlameCalculatorComponent implements OnInit {
+export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   @ViewChild(SearchSelectComponent) searchSelectChild: SearchSelectComponent;
 
   public classes = ClassesJson.classes;
@@ -74,7 +74,6 @@ export class MaplestoryFlameCalculatorComponent implements OnInit {
       gloves: newEmptyFlame,
       cape: newEmptyFlame,
       shoulder: newEmptyFlame,
-      weapon: newEmptyFlame,
       pocket: newEmptyFlame,
       pendant1: newEmptyFlame,
       pendant2: newEmptyFlame,

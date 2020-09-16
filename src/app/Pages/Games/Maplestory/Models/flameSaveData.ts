@@ -12,7 +12,6 @@ export interface FlameSaveData {
     gloves: Flame;
     cape: Flame;
     shoulder: Flame;
-    weapon: Flame;
     pocket: Flame;
     pendant1: Flame;
     pendant2: Flame;

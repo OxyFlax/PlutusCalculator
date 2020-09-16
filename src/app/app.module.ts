@@ -35,9 +35,10 @@ import { HiddenSideNavigationComponent } from './Pages/hidden/side-navigation/hi
 import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
 import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
 import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
-import { MaplestoryFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-flame-calculator/maplestory-flame-calculator.component';
+import { MaplestoryItemFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-item-flame-calculator/maplestory-item-flame-calculator.component';
 import { SearchSelectComponent } from './Components/search-select/search-select.component';
 import { LongPressDirective } from './Directives/long-press.directive';
+import { MaplestoryWeaponFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-weapon-flame-calculator/maplestory-weapon-flame-calculator.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { LongPressDirective } from './Directives/long-press.directive';
     MaplestoryDailiesComponent,
     MaplestoryWeekliesComponent,
     MaplestoryClassPickerComponent,
-    MaplestoryFlameCalculatorComponent,
+    MaplestoryItemFlameCalculatorComponent,
+    MaplestoryWeaponFlameCalculatorComponent,
     ArkTamingCalculatorComponent,
     OverwatchRandomHeroSelectorComponent,
     VanishingJourneyComponent,
