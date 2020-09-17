@@ -66,6 +66,15 @@
                 <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ this.flameData.saveData[3].characterName }}</a>
             </div>
             <div class="scoreSaver">
+                <div *ngIf="saveConfirmationEnabled" class="confirmationBoxWrapper">
+                    <div class="confirmationBox">
+                        <p>Are you sure you want to overwrite this flame?</p>
+                        <div class="buttonWrapper">
+                            <button class="buttonStyle left" (click)="confirmSaving()">Yes</button>
+                            <button class="buttonStyle right" (click)="cancelSaving()">No</button>
+                        </div>
+                    </div>
+                </div>
                 <img src="assets/Games/Maplestory/EquipWindow.png" alt="equipWindow">
                 <table class="equipScoreGrid">
                     <tr>

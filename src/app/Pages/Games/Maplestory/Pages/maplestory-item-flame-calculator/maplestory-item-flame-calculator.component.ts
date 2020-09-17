@@ -13,7 +13,6 @@ import { FlameSaveData } from '../../Models/flameSaveData';
 })
 export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   @ViewChild(SearchSelectComponent) searchSelectChild: SearchSelectComponent;
-
   public classes = ClassesJson.classes;
   selectedClass: Class;
   characterIndex: number = 0;
@@ -34,6 +33,9 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
 
   editModeActive: boolean = false;
   editButtonMessage: string = "Settings";
+
+  saveConfirmationEnabled: boolean = false;
+  equipToSaveTo: string;
 
   constructor() { }
 
@@ -245,8 +247,16 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   }
 
   saveFlame(equipName: string) {
-    this.flameData.saveData[this.characterIndex][equipName] = JSON.parse(JSON.stringify(this.currentFlame));
-    localStorage.setItem("flameData", JSON.stringify(this.flameData));
+    // if the flame stored in that slot has a value of 0 there is nothing to accidentally overwrite
+    if(this.calculateScore(this.flameData.saveData[this.characterIndex][equipName]) == 0) {
+      this.flameData.saveData[this.characterIndex][equipName] = JSON.parse(JSON.stringify(this.currentFlame));
+      localStorage.setItem("flameData", JSON.stringify(this.flameData));
+      return;
+    }
+    
+    // if its none of the above show the user the confirmation box and save the equipName to the stored var
+    this.saveConfirmationEnabled = true;
+    this.equipToSaveTo = equipName;
   }
 
   loadFlame(equipName: any) {
@@ -290,7 +300,13 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
     }
   }
 
-  test() {
-    console.log("hmm");
+  confirmSaving() {
+    this.saveConfirmationEnabled = false;
+    this.flameData.saveData[this.characterIndex][this.equipToSaveTo] = JSON.parse(JSON.stringify(this.currentFlame));
+    localStorage.setItem("flameData", JSON.stringify(this.flameData));
+  }
+
+  cancelSaving() {
+    this.saveConfirmationEnabled = false;
   }
 }
