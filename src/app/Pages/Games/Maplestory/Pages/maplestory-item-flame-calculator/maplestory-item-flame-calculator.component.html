@@ -55,6 +55,10 @@
                 <input class="numberInput" name="allstat" id="allstat" type="number" [(ngModel)]="this.currentFlame.allstat" (input)="inputHandler()">
             </div>
         </div>
+        <div class="daNotice" *ngIf="selectedClass.flameStats.includes('da')">
+            Unfortunately, I'm not aware of a flame scoring system for demon avengers. But according to scardor's guide your late game aim is going for tier 6 HP flames and your endgame aim is tier 6HP + 6att flames.
+            A table to findout what tier a HP flame is can be found <a href="https://strategywiki.org/wiki/MapleStory/Bonus_Stats#HP_increase" target="_blank">here</a>. 
+        </div>
     
         <div class="scoreSaverWrapper">
             <h3>Save your flamescores</h3>

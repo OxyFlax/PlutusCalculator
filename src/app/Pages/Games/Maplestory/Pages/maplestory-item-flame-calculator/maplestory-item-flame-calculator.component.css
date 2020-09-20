@@ -320,6 +320,13 @@ a {
     float: right;
 }
 
+.daNotice {
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 8px;
+    text-align: center;
+}
+
 @media only screen and (max-width: 1104px) {
     .editedGamePageContent {
         float: left;
