@@ -1,3 +1,7 @@
+.gamePageContent {
+    position: relative;
+}
+
 .taskWrapper {
     position: relative;
     width: 250px;
@@ -70,6 +74,10 @@
 
 .disabledTask {
     border: 1px solid red;
+}
+
+.addTask {
+    border: 1px solid var(--game-page-accent-color);
 }
 
 .taskGroupWrapper {
@@ -198,8 +206,61 @@
     width: 180px;
 }
 
-.orderChanger {
+.orderChanger, .taskAdder {
     color: var(--navigation-bar-settings-icon-font-color);
+}
+
+.customNameInputWrapper {
+    position: absolute;
+    background-color: var(--custom-task-input-wrapper-color);
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    top: 0;
+}
+
+.customNameInput {
+    width: 250px;
+    height: 110px;
+    background-color: var(--custom-task-input-color);
+    border-radius: 4px;
+    position: absolute;
+    margin: auto;
+    top: 300px; 
+    left: 0; 
+    right: 0;
+    border: 2px solid var(--custom-task-input-border-color);
+}
+
+.customNameInput .input {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.customNameInput .buttonStyle {
+    width: 80px;
+}
+
+.buttonWrapper {
+    width: 175px;
+    margin: 0 auto;
+}
+
+.buttonWrapper button{
+    margin: 0;
+}
+
+.buttonWrapper .left {
+    float: left;
+}
+
+.buttonWrapper .right {
+    float: right;
+}
+
+.customNameInput .characterNameInput input {
+    width: 220px;
 }
 
 @media only screen and (max-width: 950px) {

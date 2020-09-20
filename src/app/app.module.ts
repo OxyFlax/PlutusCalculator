@@ -39,6 +39,7 @@ import { MaplestoryItemFlameCalculatorComponent } from './Pages/Games/Maplestory
 import { SearchSelectComponent } from './Components/search-select/search-select.component';
 import { LongPressDirective } from './Directives/long-press.directive';
 import { MaplestoryWeaponFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-weapon-flame-calculator/maplestory-weapon-flame-calculator.component';
+import { ScrollToDirective } from './Directives/scroll-to.directive';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MaplestoryWeaponFlameCalculatorComponent } from './Pages/Games/Maplesto
     ClickOutsideDirective,
     MiddleclickDirective,
     LongPressDirective,
+    ScrollToDirective,
     MaplestoryHomeComponent,
     MaplestorySideNavigationComponent,
     ArkHomeComponent,

@@ -17,7 +17,7 @@
         <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ weeklies[3].characterName }}</a>
     </div>
     <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, click on the names of weeklies to disable them (this
-        will prevent them from showing up outside of the edit mode)</p>
+        will prevent them from showing up outside of the edit mode)<br>Adding custom weeklies is possible with the option at the bottom of each list (custom weeklies cannot be disabled but are instead removed)</p>
     <div class="inputWrapper" *ngIf="editModeActive">
         <div class="characterNameInput">
             <label for="characterName">Character Name</label>
@@ -25,7 +25,10 @@
         </div>
     </div>
     <div class="weeklyGroups">
-        <div class="taskGroupWrapper">
+        <div *ngIf="allWeeklyBossesDisabled && allWeeklyTasksDisabled && !editModeActive">
+            All weeklies are disabled, click on the "Edit Weeklies" button to enable weeklies.
+        </div>
+        <div *ngIf="!allWeeklyBossesDisabled || editModeActive" class="taskGroupWrapper">
             <p class="groupTitle">Weekly Bosses</p>
             <p class="timer">{{ timerWeeklyBossesString }}</p>
             <ng-container *ngFor="let item of weeklies[characterIndex].weeklyBosses; let i = index">
@@ -43,8 +46,19 @@
                     </div>
                 </div>
             </ng-container>
+            <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="addCustomWeekly('boss')">
+                <div class="imgWrapper">
+                    <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
+                </div>
+                <label>Add Custom Weekly</label>
+                <div class="inputWrapper">
+                    <div class="taskAdder">
+                        <i class="fa fa-plus fa-2x"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="taskGroupWrapper">
+        <div *ngIf="!allWeeklyTasksDisabled || editModeActive" class="taskGroupWrapper">
             <p class="groupTitle">Weekly Tasks</p>
             <p class="timer">{{ timerWeeklyTasksString }}</p>
             <ng-container *ngFor="let item of weeklies[characterIndex].weeklyTasks; let i = index">
@@ -62,6 +76,31 @@
                     </div>
                 </div>
             </ng-container>
+            <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="addCustomWeekly('task')">
+                <div class="imgWrapper">
+                    <img src="assets/Games/Maplestory/Weeklies/Custom.png" alt="custom">
+                </div>
+                <label>Add Custom Weekly</label>
+                <div class="inputWrapper">
+                    <div class="taskAdder">
+                        <i class="fa fa-plus fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="editModeActive && addingCustomWeekly" class="customNameInputWrapper" scrollTo>
+        <div class="customNameInput">
+            <div class="inputWrapper">
+                <div class="characterNameInput">
+                    <label for="customName">Custom {{ customWeeklyType }} weekly name</label>
+                    <input class="textInput" type="text" id="customName" name="customName" maxlength="30" [(ngModel)]="customWeeklyName" (keyup.enter)="confirmAddingCustomWeekly()">
+                </div>
+            </div>
+            <div class="buttonWrapper">
+                <button class="buttonStyle left" (click)="confirmAddingCustomWeekly()">Confirm</button>
+                <button class="buttonStyle right" (click)="cancelAddingCustomWeekly()">Cancel</button>
+            </div>
         </div>
     </div>
 </div>

@@ -43,6 +43,10 @@
     --input-range-background-color: #808080;
 
     --error-page-barcolor: #696969;
+
+    --custom-task-input-wrapper-color: rgba(200, 200, 200, 0.65);
+    --custom-task-input-color: rgba(70, 70, 70, 0.95);
+    --custom-task-input-border-color: rgba(150, 150, 150);
 }
 
 [data-theme="light"] {
@@ -90,6 +94,10 @@
     --input-range-background-color: #DDDDDD;
     
     --error-page-barcolor: #DDDDDD;
+
+    --custom-task-input-wrapper-color: rgba(40, 40, 40, 0.3);
+    --custom-task-input-color: rgba(240, 240, 240, 0.9);
+    --custom-task-input-border-color: rgba(150, 150, 150);
 }
 
 html {

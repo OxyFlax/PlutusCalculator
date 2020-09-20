@@ -10,6 +10,7 @@ import { Region } from '../../Models/region';
   styleUrls: ['./maplestory-dailies.component.css']
 })
 export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
+  // TODO after: ensure the update system moves custom dailies over
   timer: any;
   timerString: string;
 
@@ -27,8 +28,15 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   characterIndex: number = 0;
   dailies: Dailies[] = [];
+  allDailyBossesDisabled: boolean = false;
+  allDailyTasksDisabled: boolean = false;
+  allDailyArcaneRiverDisabled: boolean = false;
   editModeActive: boolean = false;
   editButtonMessage: string = "Edit Dailies";
+
+  addingCustomDaily: boolean = false;
+  customDailyType: string = "";
+  customDailyName: string = "";
 
   constructor() { }
 
@@ -44,6 +52,11 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     if (this.ursusTimer) {
       clearInterval(this.ursusTimer);
     }
+
+    // handle the saving of things if the user leaves without exiting edit mode
+    if (this.editModeActive) {
+      this.toggleEditMode;
+    }
   }
 
   initialise() {
@@ -56,6 +69,9 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailies = JSON.parse(localStorage.getItem("dailies"));
       this.checkIfDataIsFromPreviousDay();
       this.updateChecker();
+
+      // if the data is not a new set check if the loaded data has a dailygroup that is fully disabled
+      this.checkIfDailyGroupsAreFullyDisabled();
     } else {
       // initiate a dataset
       this.initiateData();
@@ -104,6 +120,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         this.dailies[i].dailyBosses = [];
         // copy over all data from dailybosses that still exist in the new structure
         for (let j = 0; j < oldDailies[i].dailyBosses.length; j++) {
+          // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
+          if (oldDailies[i].dailyBosses[j].image == "Custom.png") {
+            this.dailies[i].dailyBosses.push(oldDailies[i].dailyBosses[j]);
+            continue;
+          }
+
           for (let k = 0; k < newDailiesStructure[i].dailyBosses.length; k++) {
             if (oldDailies[i].dailyBosses[j].name == newDailiesStructure[i].dailyBosses[k].name) {
               // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
@@ -134,6 +156,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         this.dailies[i].dailyTasks = [];
         // copy over all data from dailytasks that still exist in the new structure
         for (let j = 0; j < oldDailies[i].dailyTasks.length; j++) {
+          // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
+          if (oldDailies[i].dailyTasks[j].image == "Custom.png") {
+            this.dailies[i].dailyTasks.push(oldDailies[i].dailyTasks[j]);
+            continue;
+          }
+
           for (let k = 0; k < newDailiesStructure[i].dailyTasks.length; k++) {
             if (oldDailies[i].dailyTasks[j].name == newDailiesStructure[i].dailyTasks[k].name) {
               // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
@@ -164,6 +192,12 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         this.dailies[i].dailyArcaneRiver = [];
         // copy over all data from dailyarcaneriver that still exist in the new structure
         for (let j = 0; j < oldDailies[i].dailyArcaneRiver.length; j++) {
+          // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
+          if (oldDailies[i].dailyArcaneRiver[j].image == "Custom.png") {
+            this.dailies[i].dailyArcaneRiver.push(oldDailies[i].dailyArcaneRiver[j]);
+            continue;
+          }
+
           for (let k = 0; k < newDailiesStructure[i].dailyArcaneRiver.length; k++) {
             if (oldDailies[i].dailyArcaneRiver[j].name == newDailiesStructure[i].dailyArcaneRiver[k].name) {
               // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
@@ -227,10 +261,18 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   changeCharacter(characterIndex: number) {
     this.characterIndex = characterIndex;
+
+    // recheck if a group is disabled for a diffrent character
+    this.checkIfDailyGroupsAreFullyDisabled();
   }
 
   disableDailyBoss(taskIndex: number) {
     if (!this.editModeActive) {
+      return;
+    }
+
+    if (this.dailies[this.characterIndex].dailyBosses[taskIndex].image == "Custom.png") {
+      this.dailies[this.characterIndex].dailyBosses.splice(taskIndex, 1);
       return;
     }
 
@@ -246,6 +288,11 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.dailies[this.characterIndex].dailyTasks[taskIndex].image == "Custom.png") {
+      this.dailies[this.characterIndex].dailyTasks.splice(taskIndex, 1);
+      return;
+    }
+
     if (this.dailies[this.characterIndex].dailyTasks[taskIndex].enabled) {
       this.dailies[this.characterIndex].dailyTasks[taskIndex].enabled = false;
     } else {
@@ -255,6 +302,11 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   disableDailyArcaneRiver(taskIndex: number) {
     if (!this.editModeActive) {
+      return;
+    }
+
+    if (this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].image == "Custom.png") {
+      this.dailies[this.characterIndex].dailyArcaneRiver.splice(taskIndex, 1);
       return;
     }
 
@@ -270,6 +322,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.editModeActive = false;
       this.editButtonMessage = "Edit Dailies";
       this.dailiesChangeHandler();
+      // recheck if there is a dailygroup that is fully disabled
+      this.checkIfDailyGroupsAreFullyDisabled();
     } else {
       this.editModeActive = true;
       this.editButtonMessage = "Exit Edit Mode";
@@ -352,7 +406,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     // calculate the offset from UTC if the time to countdown is in the past it means that a day needs to be added
     // WARNING: countdowns to timezones behind utc might not work properly (Have fun future me if this needs to be added :) )
     endTime = endTime - (this.resetUtcOffset * 60 * 60 * 1000)
-    if(endTime < date.getTime()) {
+    if (endTime < date.getTime()) {
       endTime += (24 * 60 * 60 * 1000);
     }
 
@@ -459,5 +513,61 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailies[this.characterIndex].dailyArcaneRiver[index + 1] = this.dailies[this.characterIndex].dailyArcaneRiver[index];
       this.dailies[this.characterIndex].dailyArcaneRiver[index] = temp;
     }
+  }
+
+  checkIfDailyGroupsAreFullyDisabled() {
+    if (this.dailies[this.characterIndex].dailyBosses.some(item => item.enabled)) {
+      this.allDailyBossesDisabled = false;
+    } else {
+      this.allDailyBossesDisabled = true;
+    }
+
+    if (this.dailies[this.characterIndex].dailyTasks.some(item => item.enabled)) {
+      this.allDailyTasksDisabled = false;
+    } else {
+      this.allDailyTasksDisabled = true;
+    }
+
+    if (this.dailies[this.characterIndex].dailyArcaneRiver.some(item => item.enabled)) {
+      this.allDailyArcaneRiverDisabled = false;
+    } else {
+      this.allDailyArcaneRiverDisabled = true;
+    }
+  }
+
+  addCustomDaily(customDailyType: string) {
+    this.addingCustomDaily = true;
+    this.customDailyType = customDailyType;
+  }
+
+  confirmAddingCustomDaily() {
+    if (this.customDailyName != "") {
+      var newTask: Task = {
+        name: this.customDailyName,
+        image: "Custom.png",
+        completed: false,
+        enabled: true
+      }
+
+      if (this.customDailyType == "boss") {
+        this.dailies[this.characterIndex].dailyBosses.push(newTask);
+      }
+
+      if (this.customDailyType == "task") {
+        this.dailies[this.characterIndex].dailyTasks.push(newTask);
+      }
+
+      if (this.customDailyType == "arcane river") {
+        this.dailies[this.characterIndex].dailyArcaneRiver.push(newTask);
+      }
+
+      this.dailiesChangeHandler();
+      this.addingCustomDaily = false;
+      this.customDailyName = "";
+    }
+  }
+
+  cancelAddingCustomDaily() {
+    this.addingCustomDaily = false;
   }
 }

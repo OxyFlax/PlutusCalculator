@@ -26,8 +26,14 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
   characterIndex: number = 0;
   weeklies: Weeklies[] = [];
+  allWeeklyBossesDisabled: boolean = false;
+  allWeeklyTasksDisabled: boolean = false;
   editModeActive: boolean = false;
   editButtonMessage: string = "Edit Weeklies";
+
+  addingCustomWeekly: boolean = false;
+  customWeeklyType: string = "";
+  customWeeklyName: string = "";
 
   constructor() { }
 
@@ -39,8 +45,14 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     if (this.timerWeeklyBosses) {
       clearInterval(this.timerWeeklyBosses);
     }
+
     if (this.timerWeeklyTasks) {
       clearInterval(this.timerWeeklyTasks);
+    }
+    
+    // handle the saving of things if the user leaves without exiting edit mode
+    if(this.editModeActive) {
+      this.toggleEditMode;
     }
   }
 
@@ -55,6 +67,10 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.weeklyBossDataChecker();
       this.weeklyTaskDataChecker();
       this.updateChecker();
+
+      // if the data is not a new set check if the loaded data has a weeklygroup that is fully disabled
+      this.checkIfWeeklyGroupsAreFullyDisabled();
+
       // set last visit
       localStorage.setItem("lastMapleWeeklyTrackerVisit", Date.now().toString());
     } else {
@@ -100,6 +116,12 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
         this.weeklies[i].weeklyBosses = [];
         // copy over all data from weeklybosses that still exist in the new structure
         for (let j = 0; j < oldWeeklies[i].weeklyBosses.length; j++) {
+          // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
+          if (oldWeeklies[i].weeklyBosses[j].image == "Custom.png") {
+            this.weeklies[i].weeklyBosses.push(oldWeeklies[i].weeklyBosses[j]);
+            continue;
+          }
+
           for (let k = 0; k < newWeekliesStructure[i].weeklyBosses.length; k++) {
             if (oldWeeklies[i].weeklyBosses[j].name == newWeekliesStructure[i].weeklyBosses[k].name) {
               // transfer the name, completed & enabled values from oldweeklies and image from the new structure into a temporary object
@@ -130,6 +152,12 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
         this.weeklies[i].weeklyTasks = [];
         // copy over all data from weeklytasks that still exist in the new structure
         for (let j = 0; j < oldWeeklies[i].weeklyTasks.length; j++) {
+          // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
+          if (oldWeeklies[i].weeklyTasks[j].image == "Custom.png") {
+            this.weeklies[i].weeklyTasks.push(oldWeeklies[i].weeklyTasks[j]);
+            continue;
+          }
+
           for (let k = 0; k < newWeekliesStructure[i].weeklyTasks.length; k++) {
             if (oldWeeklies[i].weeklyTasks[j].name == newWeekliesStructure[i].weeklyTasks[k].name) {
               // transfer the name, completed & enabled values from oldweeklies and image from the new structure into a temporary object
@@ -199,10 +227,18 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
   changeCharacter(characterIndex: number) {
     this.characterIndex = characterIndex;
+
+    // recheck if a group is disabled for a diffrent character
+    this.checkIfWeeklyGroupsAreFullyDisabled();
   }
 
   disableWeeklyBoss(taskIndex: number) {
     if (!this.editModeActive) {
+      return;
+    }
+
+    if (this.weeklies[this.characterIndex].weeklyBosses[taskIndex].image == "Custom.png") {
+      this.weeklies[this.characterIndex].weeklyBosses.splice(taskIndex, 1);
       return;
     }
 
@@ -218,6 +254,11 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (this.weeklies[this.characterIndex].weeklyTasks[taskIndex].image == "Custom.png") {
+      this.weeklies[this.characterIndex].weeklyTasks.splice(taskIndex, 1);
+      return;
+    }
+
     if (this.weeklies[this.characterIndex].weeklyTasks[taskIndex].enabled) {
       this.weeklies[this.characterIndex].weeklyTasks[taskIndex].enabled = false;
     } else {
@@ -230,6 +271,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.editModeActive = false;
       this.editButtonMessage = "Edit Weekies";
       this.weekliesChangeHandler();
+      // recheck if there is a weeklygroup that is fully disabled
+      this.checkIfWeeklyGroupsAreFullyDisabled();
     } else {
       this.editModeActive = true;
       this.editButtonMessage = "Exit Edit Mode";
@@ -339,7 +382,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     var resultDateEpoch = resultDate.valueOf();
     resultDateEpoch = resultDateEpoch - (this.resetUtcOffset * 60 * 60 * 1000)
 
-    if(resultDateEpoch < currentDay.getTime()) {
+    if (resultDateEpoch < currentDay.getTime()) {
       resultDateEpoch += (7 * 24 * 60 * 60 * 1000);
     }
 
@@ -390,5 +433,51 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.weeklies[this.characterIndex].weeklyTasks[index + 1] = this.weeklies[this.characterIndex].weeklyTasks[index];
       this.weeklies[this.characterIndex].weeklyTasks[index] = temp;
     }
+  }
+
+  checkIfWeeklyGroupsAreFullyDisabled() {
+    if (this.weeklies[this.characterIndex].weeklyBosses.some(item => item.enabled)) {
+      this.allWeeklyBossesDisabled = false;
+    } else {
+      this.allWeeklyBossesDisabled = true;
+    }
+
+    if (this.weeklies[this.characterIndex].weeklyTasks.some(item => item.enabled)) {
+      this.allWeeklyTasksDisabled = false;
+    } else {
+      this.allWeeklyTasksDisabled = true;
+    }
+  }
+
+  addCustomWeekly(customWeeklyType: string) {
+    this.addingCustomWeekly = true;
+    this.customWeeklyType = customWeeklyType;
+  }
+
+  confirmAddingCustomWeekly() {
+    if (this.customWeeklyName != "") {
+      var newTask: Task = {
+        name: this.customWeeklyName,
+        image: "Custom.png",
+        completed: false,
+        enabled: true
+      }
+
+      if (this.customWeeklyType == "boss") {
+        this.weeklies[this.characterIndex].weeklyBosses.push(newTask);
+      }
+
+      if (this.customWeeklyType == "task") {
+        this.weeklies[this.characterIndex].weeklyTasks.push(newTask);
+      }
+
+      this.weekliesChangeHandler();
+      this.addingCustomWeekly = false;
+      this.customWeeklyName = "";
+    }
+  }
+
+  cancelAddingCustomWeekly() {
+    this.addingCustomWeekly = false;
   }
 }
