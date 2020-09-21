@@ -147,9 +147,6 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
       case 'xenon':
         score = this.calculateXenonTypeScore(flame);
         break;
-      case 'da':
-        score = this.calculateDaTypeScore();
-        break;
       default:
         break;
     }
@@ -197,7 +194,7 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   }
 
   calculateLukDoubleSecondaryTypeScore(flame: Flame): number {
-    return (this.currentFlame.luk * this.flameData.mainStatMultiplier) 
+    return (flame.luk * this.flameData.mainStatMultiplier) 
     + (flame.dex * this.flameData.secondaryStatMultiplier) 
     + (flame.str * this.flameData.secondaryStatMultiplier) 
     + (flame.att * this.flameData.attMattMultiplier) 
@@ -219,11 +216,6 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
     + (flame.str * this.flameData.mainStatMultiplier)
     + (flame.att * this.flameData.attMattMultiplier)
     + (flame.allstat * this.flameData.xenonAllstatMultiplier);
-  }
-
-  calculateDaTypeScore(): number {
-    console.log("not really a calculation for this lmao yeet");
-    return 0;
   }
 
   resetValues() {
