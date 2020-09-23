@@ -34,7 +34,7 @@
             <ng-container *ngFor="let item of weeklies[characterIndex].weeklyBosses; let i = index">
                 <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
-                        <img src="assets/Games/Maplestory/Weeklies/{{item.image}}" alt="{{item.name}}">
+                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Weeklies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Weeklies/Custom.png'" alt="{{item.name}}">
                     </div>
                     <label for="weeklyBosses{{i}}" (click)="disableWeeklyBoss(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
@@ -64,7 +64,7 @@
             <ng-container *ngFor="let item of weeklies[characterIndex].weeklyTasks; let i = index">
                 <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
-                        <img src="assets/Games/Maplestory/Weeklies/{{item.image}}" alt="{{item.name}}">
+                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Weeklies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Weeklies/Custom.png'" alt="{{item.name}}">
                     </div>
                     <label for="weeklyTask{{i}}" (click)="disableWeeklyTask(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
@@ -95,6 +95,10 @@
                 <div class="characterNameInput">
                     <label for="customName">Custom {{ customWeeklyType }} weekly name</label>
                     <input class="textInput" type="text" id="customName" name="customName" maxlength="30" [(ngModel)]="customWeeklyName" (keyup.enter)="confirmAddingCustomWeekly()">
+                </div>
+                <div class="characterNameInput">
+                    <label for="customUrl">Optional custom image url</label>
+                    <input class="textInput" type="text" id="customUrl" name="customUrl" [(ngModel)]="customWeeklyImageUrl" (keyup.enter)="confirmAddingCustomWeekly()">
                 </div>
             </div>
             <div class="buttonWrapper">

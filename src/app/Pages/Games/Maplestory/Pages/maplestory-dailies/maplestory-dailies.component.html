@@ -34,7 +34,7 @@
             <ng-container *ngFor="let item of dailies[characterIndex].dailyBosses; let i = index">
                 <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
-                        <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
+                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
                     </div>
                     <label for="dailyQuest{{i}}" (click)="disableDailyBoss(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
@@ -63,7 +63,7 @@
             <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
                 <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus' && resetUtcOffset == 0}" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
-                        <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
+                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
                     </div>
                     <label for="dailyTask{{i}}" (click)="disableDailyTask(i)">{{ item.name }}</label>
                     <span class="ursusCountdown" *ngIf="item.name == 'Ursus' && resetUtcOffset == 0" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
@@ -93,7 +93,7 @@
             <ng-container *ngFor="let item of dailies[characterIndex].dailyArcaneRiver; let i = index">
                 <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
                     <div class="imgWrapper">
-                        <img src="assets/Games/Maplestory/Dailies/{{item.image}}" alt="{{item.name}}">
+                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
                     </div>
                     <label for="dailyArcaneRiver{{i}}" (click)="disableDailyArcaneRiver(i)">{{ item.name }}</label>
                     <div class="inputWrapper">
@@ -124,6 +124,10 @@
                 <div class="characterNameInput">
                     <label for="customName">Custom {{ customDailyType }} daily name</label>
                     <input class="textInput" type="text" id="customName" name="customName" maxlength="30" [(ngModel)]="customDailyName" (keyup.enter)="confirmAddingCustomDaily()">
+                </div>
+                <div class="characterNameInput">
+                    <label for="customUrl">Optional custom image url</label>
+                    <input class="textInput" type="text" id="customUrl" name="customUrl" [(ngModel)]="customDailyImageUrl" (keyup.enter)="confirmAddingCustomDaily()">
                 </div>
             </div>
             <div class="buttonWrapper">

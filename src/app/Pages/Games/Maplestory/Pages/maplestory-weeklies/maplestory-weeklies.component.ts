@@ -34,6 +34,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   addingCustomWeekly: boolean = false;
   customWeeklyType: string = "";
   customWeeklyName: string = "";
+  customWeeklyImageUrl: string = "";
 
   constructor() { }
 
@@ -49,9 +50,9 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     if (this.timerWeeklyTasks) {
       clearInterval(this.timerWeeklyTasks);
     }
-    
+
     // handle the saving of things if the user leaves without exiting edit mode
-    if(this.editModeActive) {
+    if (this.editModeActive) {
       this.toggleEditMode;
     }
   }
@@ -117,7 +118,13 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
         // copy over all data from weeklybosses that still exist in the new structure
         for (let j = 0; j < oldWeeklies[i].weeklyBosses.length; j++) {
           // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-          if (oldWeeklies[i].weeklyBosses[j].image == "Custom.png") {
+          if (oldWeeklies[i].weeklyBosses[j].type == "custom" || oldWeeklies[i].weeklyBosses[j].image == "Custom.png") {
+            // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
+            oldWeeklies[i].weeklyBosses[j]["type"] = "custom";
+            // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
+            if (oldWeeklies[i].weeklyBosses[j]["image"] == "Custom.png") {
+              oldWeeklies[i].weeklyBosses[j]["image"] = "assets/Games/Maplestory/Weeklies/" + "Custom.png";
+            }
             this.weeklies[i].weeklyBosses.push(oldWeeklies[i].weeklyBosses[j]);
             continue;
           }
@@ -129,7 +136,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
                 name: oldWeeklies[i].weeklyBosses[j].name,
                 image: newWeekliesStructure[i].weeklyBosses[k].image,
                 completed: oldWeeklies[i].weeklyBosses[j].completed,
-                enabled: oldWeeklies[i].weeklyBosses[j].enabled
+                enabled: oldWeeklies[i].weeklyBosses[j].enabled,
+                type: newWeekliesStructure[i].weeklyBosses[k].image
               };
               // add this task to the current weekly bosses structure
               this.weeklies[i].weeklyBosses.push(transferTask);
@@ -143,7 +151,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
             name: newWeekliesStructure[i].weeklyBosses[j].name,
             image: newWeekliesStructure[i].weeklyBosses[j].image,
             completed: newWeekliesStructure[i].weeklyBosses[j].completed,
-            enabled: newWeekliesStructure[i].weeklyBosses[j].enabled
+            enabled: newWeekliesStructure[i].weeklyBosses[j].enabled,
+            type: newWeekliesStructure[i].weeklyBosses[j].image
           };
           this.weeklies[i].weeklyBosses.push(transferTask);
         }
@@ -153,7 +162,13 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
         // copy over all data from weeklytasks that still exist in the new structure
         for (let j = 0; j < oldWeeklies[i].weeklyTasks.length; j++) {
           // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-          if (oldWeeklies[i].weeklyTasks[j].image == "Custom.png") {
+          if (oldWeeklies[i].weeklyTasks[j].type == "custom" || oldWeeklies[i].weeklyTasks[j].image == "Custom.png") {
+            // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
+            oldWeeklies[i].weeklyTasks[j]["type"] = "custom";
+            // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
+            if (oldWeeklies[i].weeklyTasks[j]["image"] == "Custom.png") {
+              oldWeeklies[i].weeklyTasks[j]["image"] = "assets/Games/Maplestory/Weeklies/" + "Custom.png";
+            }
             this.weeklies[i].weeklyTasks.push(oldWeeklies[i].weeklyTasks[j]);
             continue;
           }
@@ -165,7 +180,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
                 name: oldWeeklies[i].weeklyTasks[j].name,
                 image: newWeekliesStructure[i].weeklyTasks[k].image,
                 completed: oldWeeklies[i].weeklyTasks[j].completed,
-                enabled: oldWeeklies[i].weeklyTasks[j].enabled
+                enabled: oldWeeklies[i].weeklyTasks[j].enabled,
+                type: newWeekliesStructure[i].weeklyTasks[k].image
               };
               // add this task to the current weeklies structure
               this.weeklies[i].weeklyTasks.push(transferTask);
@@ -179,7 +195,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
             name: newWeekliesStructure[i].weeklyTasks[j].name,
             image: newWeekliesStructure[i].weeklyTasks[j].image,
             completed: newWeekliesStructure[i].weeklyTasks[j].completed,
-            enabled: newWeekliesStructure[i].weeklyTasks[j].enabled
+            enabled: newWeekliesStructure[i].weeklyTasks[j].enabled,
+            type: newWeekliesStructure[i].weeklyTasks[j].image
           };
           this.weeklies[i].weeklyTasks.push(transferTask);
         }
@@ -237,7 +254,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.weeklies[this.characterIndex].weeklyBosses[taskIndex].image == "Custom.png") {
+    if (this.weeklies[this.characterIndex].weeklyBosses[taskIndex].type == "custom" || this.weeklies[this.characterIndex].weeklyBosses[taskIndex].image == "Custom.png") {
       this.weeklies[this.characterIndex].weeklyBosses.splice(taskIndex, 1);
       return;
     }
@@ -254,7 +271,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.weeklies[this.characterIndex].weeklyTasks[taskIndex].image == "Custom.png") {
+    if (this.weeklies[this.characterIndex].weeklyTasks[taskIndex].type == "custom" || this.weeklies[this.characterIndex].weeklyTasks[taskIndex].image == "Custom.png") {
       this.weeklies[this.characterIndex].weeklyTasks.splice(taskIndex, 1);
       return;
     }
@@ -456,11 +473,17 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
   confirmAddingCustomWeekly() {
     if (this.customWeeklyName != "") {
+      // if the user didn't specify an url set it to the default icon
+      if (this.customWeeklyImageUrl == "") {
+        this.customWeeklyImageUrl = "assets/Games/Maplestory/Weeklies/Custom.png";
+      }
+
       var newTask: Task = {
         name: this.customWeeklyName,
-        image: "Custom.png",
+        image: this.customWeeklyImageUrl,
         completed: false,
-        enabled: true
+        enabled: true,
+        type: "custom"
       }
 
       if (this.customWeeklyType == "boss") {
@@ -474,10 +497,13 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
       this.weekliesChangeHandler();
       this.addingCustomWeekly = false;
       this.customWeeklyName = "";
+      this.customWeeklyImageUrl = "";
     }
   }
 
   cancelAddingCustomWeekly() {
     this.addingCustomWeekly = false;
+    this.customWeeklyName = "";
+    this.customWeeklyImageUrl = "";
   }
 }

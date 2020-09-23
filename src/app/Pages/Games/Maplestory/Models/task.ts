@@ -3,4 +3,5 @@ export interface Task {
   image: string;
   completed: boolean;
   enabled: boolean;
+  type: string;
 }

@@ -37,6 +37,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   addingCustomDaily: boolean = false;
   customDailyType: string = "";
   customDailyName: string = "";
+  customDailyImageUrl: string = "";
 
   constructor() { }
 
@@ -121,7 +122,13 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         // copy over all data from dailybosses that still exist in the new structure
         for (let j = 0; j < oldDailies[i].dailyBosses.length; j++) {
           // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-          if (oldDailies[i].dailyBosses[j].image == "Custom.png") {
+          if (oldDailies[i].dailyBosses[j].type == "custom" || oldDailies[i].dailyBosses[j].image == "Custom.png") {
+            // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
+            oldDailies[i].dailyBosses[j]["type"] = "custom";
+            // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
+            if (oldDailies[i].dailyBosses[j]["image"] == "Custom.png") {
+              oldDailies[i].dailyBosses[j]["image"] = "assets/Games/Maplestory/Dailies/" + "Custom.png";
+            }
             this.dailies[i].dailyBosses.push(oldDailies[i].dailyBosses[j]);
             continue;
           }
@@ -133,7 +140,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
                 name: oldDailies[i].dailyBosses[j].name,
                 image: newDailiesStructure[i].dailyBosses[k].image,
                 completed: oldDailies[i].dailyBosses[j].completed,
-                enabled: oldDailies[i].dailyBosses[j].enabled
+                enabled: oldDailies[i].dailyBosses[j].enabled,
+                type: newDailiesStructure[i].dailyBosses[k].type
               };
               // add this task to the current dailies structure
               this.dailies[i].dailyBosses.push(transferTask);
@@ -147,7 +155,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
             name: newDailiesStructure[i].dailyBosses[j].name,
             image: newDailiesStructure[i].dailyBosses[j].image,
             completed: newDailiesStructure[i].dailyBosses[j].completed,
-            enabled: newDailiesStructure[i].dailyBosses[j].enabled
+            enabled: newDailiesStructure[i].dailyBosses[j].enabled,
+            type: newDailiesStructure[i].dailyBosses[j].type
           };
           this.dailies[i].dailyBosses.push(transferTask);
         }
@@ -157,7 +166,13 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         // copy over all data from dailytasks that still exist in the new structure
         for (let j = 0; j < oldDailies[i].dailyTasks.length; j++) {
           // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-          if (oldDailies[i].dailyTasks[j].image == "Custom.png") {
+          if (oldDailies[i].dailyTasks[j].type == "custom" || oldDailies[i].dailyTasks[j].image == "Custom.png") {
+            // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
+            oldDailies[i].dailyTasks[j]["type"] = "custom";
+            // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
+            if (oldDailies[i].dailyTasks[j]["image"] == "Custom.png") {
+              oldDailies[i].dailyTasks[j]["image"] = "assets/Games/Maplestory/Dailies/" + "Custom.png";
+            }
             this.dailies[i].dailyTasks.push(oldDailies[i].dailyTasks[j]);
             continue;
           }
@@ -169,7 +184,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
                 name: oldDailies[i].dailyTasks[j].name,
                 image: newDailiesStructure[i].dailyTasks[k].image,
                 completed: oldDailies[i].dailyTasks[j].completed,
-                enabled: oldDailies[i].dailyTasks[j].enabled
+                enabled: oldDailies[i].dailyTasks[j].enabled,
+                type: newDailiesStructure[i].dailyTasks[k].type
               };
               // add this task to the current dailies structure
               this.dailies[i].dailyTasks.push(transferTask);
@@ -183,7 +199,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
             name: newDailiesStructure[i].dailyTasks[j].name,
             image: newDailiesStructure[i].dailyTasks[j].image,
             completed: newDailiesStructure[i].dailyTasks[j].completed,
-            enabled: newDailiesStructure[i].dailyTasks[j].enabled
+            enabled: newDailiesStructure[i].dailyTasks[j].enabled,
+            type: newDailiesStructure[i].dailyTasks[j].type
           };
           this.dailies[i].dailyTasks.push(transferTask);
         }
@@ -193,7 +210,13 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         // copy over all data from dailyarcaneriver that still exist in the new structure
         for (let j = 0; j < oldDailies[i].dailyArcaneRiver.length; j++) {
           // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-          if (oldDailies[i].dailyArcaneRiver[j].image == "Custom.png") {
+          if (oldDailies[i].dailyArcaneRiver[j].type == "custom" || oldDailies[i].dailyArcaneRiver[j].image == "Custom.png") {
+            // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
+            oldDailies[i].dailyArcaneRiver[j]["type"] = "custom";
+            // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
+            if (oldDailies[i].dailyArcaneRiver[j]["image"] == "Custom.png") {
+              oldDailies[i].dailyArcaneRiver[j]["image"] = "assets/Games/Maplestory/Dailies/" + "Custom.png";
+            }
             this.dailies[i].dailyArcaneRiver.push(oldDailies[i].dailyArcaneRiver[j]);
             continue;
           }
@@ -205,7 +228,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
                 name: oldDailies[i].dailyArcaneRiver[j].name,
                 image: newDailiesStructure[i].dailyArcaneRiver[k].image,
                 completed: oldDailies[i].dailyArcaneRiver[j].completed,
-                enabled: oldDailies[i].dailyArcaneRiver[j].enabled
+                enabled: oldDailies[i].dailyArcaneRiver[j].enabled,
+                type: newDailiesStructure[i].dailyArcaneRiver[k].type
               };
               // add this task to the current dailies structure
               this.dailies[i].dailyArcaneRiver.push(transferTask);
@@ -219,7 +243,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
             name: newDailiesStructure[i].dailyArcaneRiver[j].name,
             image: newDailiesStructure[i].dailyArcaneRiver[j].image,
             completed: newDailiesStructure[i].dailyArcaneRiver[j].completed,
-            enabled: newDailiesStructure[i].dailyArcaneRiver[j].enabled
+            enabled: newDailiesStructure[i].dailyArcaneRiver[j].enabled,
+            type: newDailiesStructure[i].dailyArcaneRiver[j].type
           };
           this.dailies[i].dailyArcaneRiver.push(transferTask);
         }
@@ -271,7 +296,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.dailies[this.characterIndex].dailyBosses[taskIndex].image == "Custom.png") {
+    if (this.dailies[this.characterIndex].dailyBosses[taskIndex].type == "custom" || this.dailies[this.characterIndex].dailyBosses[taskIndex].image == "Custom.png") {
       this.dailies[this.characterIndex].dailyBosses.splice(taskIndex, 1);
       return;
     }
@@ -288,7 +313,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.dailies[this.characterIndex].dailyTasks[taskIndex].image == "Custom.png") {
+    if (this.dailies[this.characterIndex].dailyTasks[taskIndex].type == "custom" || this.dailies[this.characterIndex].dailyTasks[taskIndex].image == "Custom.png") {
       this.dailies[this.characterIndex].dailyTasks.splice(taskIndex, 1);
       return;
     }
@@ -305,7 +330,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].image == "Custom.png") {
+    if (this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].type == "custom" || this.dailies[this.characterIndex].dailyArcaneRiver[taskIndex].image == "Custom.png") {
       this.dailies[this.characterIndex].dailyArcaneRiver.splice(taskIndex, 1);
       return;
     }
@@ -542,11 +567,17 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   confirmAddingCustomDaily() {
     if (this.customDailyName != "") {
+      // if the user didn't specify an url set it to the default icon
+      if (this.customDailyImageUrl == "") {
+        this.customDailyImageUrl = "assets/Games/Maplestory/Dailies/Custom.png";
+      }
+
       var newTask: Task = {
         name: this.customDailyName,
-        image: "Custom.png",
+        image: this.customDailyImageUrl,
         completed: false,
-        enabled: true
+        enabled: true,
+        type: "custom"
       }
 
       if (this.customDailyType == "boss") {
@@ -564,10 +595,13 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
       this.dailiesChangeHandler();
       this.addingCustomDaily = false;
       this.customDailyName = "";
+      this.customDailyImageUrl = "";
     }
   }
 
   cancelAddingCustomDaily() {
     this.addingCustomDaily = false;
+    this.customDailyName = "";
+    this.customDailyImageUrl = "";
   }
 }
