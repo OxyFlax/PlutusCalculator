@@ -1,22 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ArkHomeComponent } from './Pages/Games/Ark/Pages/ark-home/ark-home.component';
-import { MaplestoryHomeComponent } from './Pages/Games/Maplestory/Pages/maplestory-home/maplestory-home.component';
-import { OverwatchHomeComponent } from './Pages/Games/Overwatch/Pages/overwatch-home/overwatch-home.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { AboutComponent } from './Pages/about/about.component';
-import { MaplestoryArcaneSymbolsComponent } from './Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
-import { MaplestoryDailiesComponent } from './Pages/Games/Maplestory/Pages/maplestory-dailies/maplestory-dailies.component';
-import { MaplestoryWeekliesComponent } from './Pages/Games/Maplestory/Pages/maplestory-weeklies/maplestory-weeklies.component';
-import { MaplestoryClassPickerComponent } from './Pages/Games/Maplestory/Pages/maplestory-class-picker/maplestory-class-picker.component';
-import { ArkTamingCalculatorComponent } from './Pages/Games/Ark/Pages/ark-taming-calculator/ark-taming-calculator.component';
-import { OverwatchRandomHeroSelectorComponent } from './Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.component';
-import { HiddenHomeComponent } from './Pages/hidden/pages/hidden-home/hidden-home.component';
-import { HiddenTimerComponent } from './Pages/hidden/pages/hidden-timer/hidden-timer.component';
-import { HiddenStopwatchComponent } from './Pages/hidden/pages/hidden-stopwatch/hidden-stopwatch.component';
-import { MaplestoryItemFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-item-flame-calculator/maplestory-item-flame-calculator.component';
-import { MaplestoryWeaponFlameCalculatorComponent } from './Pages/Games/Maplestory/Pages/maplestory-weapon-flame-calculator/maplestory-weapon-flame-calculator.component';
 
 const routes: Routes = [
     {
@@ -32,61 +18,58 @@ const routes: Routes = [
         path: 'about', 
         component: AboutComponent
     },
-    {
-        path: 'games/ark/home', 
-        component: ArkHomeComponent
-    },
-    {
-        path: 'games/ark/taming-calculator', 
-        component: ArkTamingCalculatorComponent
-    },
+
+
+
     {
         path: 'games/maplestory/home', 
-        component: MaplestoryHomeComponent
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-home/maplestory-home.module').then(m => m.MaplestoryHomeModule)
     },
     {
         path: 'games/maplestory/arcane-symbols', 
-        component: MaplestoryArcaneSymbolsComponent
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.module').then(m => m.MaplestoryArcaneSymbolsModule)
     },
     {
         path: 'games/maplestory/dailies', 
-        component: MaplestoryDailiesComponent
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies/maplestory-dailies.module').then(m => m.MaplestoryDailiesModule)
     },
     {
         path: 'games/maplestory/weeklies', 
-        component: MaplestoryWeekliesComponent
-    },
-    {
-        path: 'games/maplestory/class-picker', 
-        component: MaplestoryClassPickerComponent
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies/maplestory-weeklies.module').then(m => m.MaplestoryWeekliesModule)
     },
     {
         path: 'games/maplestory/item-flames', 
-        component: MaplestoryItemFlameCalculatorComponent
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-item-flame-calculator/maplestory-item-flame-calculator.module').then(m => m.MaplestoryItemFlameCalculatorModule)
     },
     {
         path: 'games/maplestory/weapon-flame', 
-        component: MaplestoryWeaponFlameCalculatorComponent
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weapon-flame-calculator/maplestory-weapon-flame-calculator.module').then(m => m.MaplestoryWeaponFlameCalculatorModule)
     },
+
+
+
     {
         path: 'games/overwatch/home', 
-        component: OverwatchHomeComponent
+        loadChildren: () => import('./Pages/Games/Overwatch/Pages/overwatch-home/overwatch-home.module').then(m => m.OverwatchHomeModule)
     },
     {
         path: 'games/overwatch/random-hero-selector', 
-        component: OverwatchRandomHeroSelectorComponent
+        loadChildren: () => import('./Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.module').then(m => m.OverwatchRandomHeroSelectorModule)
     },
+
+
+
     {
         path: 'hidden', 
-        component: HiddenHomeComponent
+        loadChildren: () => import('./Pages/Hidden/Pages/hidden-home/hidden-home.module').then(m => m.HiddenHomeModule)
     },
     {
         path: 'hidden/timer', 
-        component: HiddenTimerComponent
+        loadChildren: () => import('./Pages/Hidden/Pages/hidden-timer/hidden-timer.module').then(m => m.HiddenTimerModule)
     },
     {
         path: 'hidden/stopwatch', 
-        component: HiddenStopwatchComponent
+        loadChildren: () => import('./Pages/Hidden/Pages/hidden-stopwatch/hidden-stopwatch.module').then(m => m.HiddenStopwatchModule)
     },
     {
         path        : '**',
