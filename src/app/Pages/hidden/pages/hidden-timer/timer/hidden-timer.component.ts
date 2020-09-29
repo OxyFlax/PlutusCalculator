@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { AudioType } from '../../../models/audioType';
 
 @Component({
@@ -28,10 +28,18 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
   timerMessage: string = "start";
 
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private metaService: Meta) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Timer | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "Personal timer project."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "noindex, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
+    }
+
     this.loadAudio();
   }
 

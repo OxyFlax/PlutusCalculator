@@ -8,6 +8,7 @@ import { LacheleinComponent } from './Areas/lachelein/lachelein.component';
 import { ArcanaComponent } from './Areas/arcana/arcana.component';
 import { MorassComponent } from './Areas/morass/morass.component';
 import { EsferaComponent } from './Areas/esfera/esfera.component';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-maplestory-arcane-symbols',
@@ -37,10 +38,18 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   xenonStatGain: number = 0;
   demonAvengerHpGain: number = 0;
 
-  constructor(private changeDetector: ChangeDetectorRef) {
+  constructor(private changeDetector: ChangeDetectorRef, private titleService: Title, private metaService: Meta) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Maplestory Arcane Symbol Calculator | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "An arcane symbol calculator to determine the amount of time & money required to max out a symbol."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "index, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "index, follow" });
+    }
+
     this.initialise();
   }
 

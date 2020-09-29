@@ -3,6 +3,7 @@ import DailiesJson from '../../../../../../../assets/Games/Maplestory/Dailies.js
 import { Dailies } from '../../../Models/dailies';
 import { Task } from '../../../Models/task';
 import { Region } from '../../../Models/region';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-maplestory-dailies',
@@ -38,9 +39,17 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   customDailyName: string = "";
   customDailyImageUrl: string = "";
 
-  constructor() { }
+  constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Maplestory Dailies Tracker | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "A dailies tracker for Maplestory to keep track of your completed daily tasks. Keep track of your dailies across multiple different characters."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "index, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "index, follow" });
+    }
+
     this.initialise();
   }
 

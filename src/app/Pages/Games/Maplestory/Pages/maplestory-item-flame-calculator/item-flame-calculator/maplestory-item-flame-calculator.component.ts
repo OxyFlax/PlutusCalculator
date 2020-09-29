@@ -5,6 +5,7 @@ import { Class } from '../../../Models/class';
 import { FlameData } from '../../../Models/flamedata';
 import { FlameSaveData } from '../../../Models/flameSaveData';
 import { Flame } from '../../../Models/flame';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-maplestory-item-flame-calculator',
@@ -37,9 +38,17 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   saveConfirmationEnabled: boolean = false;
   equipToSaveTo: string;
 
-  constructor() { }
+  constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Maplestory Flame Score Calculator | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "Maplestory flame score calculator to calculate and store the flame score of each equipment. Store and compare the scores of your equipment flames across multiple characters."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "index, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "index, follow" });
+    }
+
     this.initialise();
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import HeroesJson from '../../../../../../../assets/Games/Overwatch/Heroes.json';
 import { Hero } from '../../../Models/hero';
 
@@ -11,10 +12,17 @@ export class OverwatchRandomHeroSelectorComponent implements OnInit {
   heroesList: Hero[] = HeroesJson.heroes;
   selectedHero: Hero = { name: "Unknown", image: "" }
 
-  constructor() {
+  constructor(private titleService: Title, private metaService: Meta) {
   }
 
   ngOnInit() {
+    this.titleService.setTitle("Overwatch Random Hero Selector | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "A randomized Overwatch hero picker, get assigned a random hero to play."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "index, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "index, follow" });
+    }
   }
 
   selectRandomHero() {

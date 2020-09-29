@@ -3,6 +3,7 @@ import WeekliesJson from '../../../../../../../assets/Games/Maplestory/Weeklies.
 import { Weeklies } from '../../../Models/weeklies';
 import { Task } from '../../../Models/task';
 import { Region } from '../../../Models/region';
+import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -36,9 +37,17 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
   customWeeklyName: string = "";
   customWeeklyImageUrl: string = "";
 
-  constructor() { }
+  constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit() {
+    this.titleService.setTitle("Maplestory Weeklies Tracker | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "A weeklies tracker for maplestory to keep track of your completed weekly tasks. Keep track of your weeklies across multiple different characters."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "index, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "index, follow" });
+    }
+
     this.initialise();
   }
 

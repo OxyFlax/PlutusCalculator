@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,28 +10,15 @@ import { Router } from '@angular/router';
 export class NotFoundComponent {
   darkMode: boolean = true;
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, private titleService: Title, private metaService: Meta) { }
 
-  // ngOnInit() {
-  //   const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-
-  //   if (currentTheme) {
-  //     document.documentElement.setAttribute('data-theme', currentTheme);
-
-  //     if (currentTheme === 'light') {
-  //       this.darkMode = false;
-  //     }
-  //   }
-  // }
-
-  // toggleTheme() {
-  //   if (this.darkMode) {
-  //     document.documentElement.setAttribute('data-theme', 'dark');
-  //     localStorage.setItem('theme', 'dark');
-  //   } else {
-  //     document.documentElement.setAttribute('data-theme', 'light');
-  //     localStorage.setItem('theme', 'light');
-  //   }
-  // }
-
+  ngOnInit() {
+    this.titleService.setTitle('404 | Random Stuff');
+    this.metaService.updateTag({ name: 'description', content: 'Random Stuff 404 page.' });
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "noindex, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
+    }
+  }
 }

@@ -1,11 +1,12 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-hidden-timer',
   templateUrl: './hidden-stopwatch.component.html',
   styleUrls: ['./hidden-stopwatch.component.css']
 })
-export class HiddenStopwatchComponent implements OnDestroy {
+export class HiddenStopwatchComponent implements OnInit, OnDestroy {
   hours: number = 0;
   minutes: number = 0;
   seconds: number = 0;
@@ -17,7 +18,17 @@ export class HiddenStopwatchComponent implements OnDestroy {
   totalTime: number = 0;
   savedTime: number = 0;
 
-  constructor() {
+  constructor(private titleService: Title, private metaService: Meta) {
+  }
+
+  ngOnInit() {
+    this.titleService.setTitle("Stopwatch | Random Stuff");
+    this.metaService.updateTag({ name: "description", content: "Personal stopwatch project."});
+    if(!this.metaService.getTag("name='robots'")) {
+      this.metaService.addTag({ name: "robots", content: "noindex, follow" });
+    } else {
+      this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
+    }
   }
 
   ngOnDestroy() {
