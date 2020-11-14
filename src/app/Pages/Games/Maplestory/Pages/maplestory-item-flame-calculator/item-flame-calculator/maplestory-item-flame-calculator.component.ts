@@ -42,7 +42,7 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle("Maplestory Flame Score Calculator | Random Stuff");
-    this.metaService.updateTag({ name: "description", content: "Maplestory flame score calculator to calculate and store the flame score of each equipment. Store and compare the scores of your equipment flames across multiple characters."});
+    this.metaService.updateTag({ name: "description", content: "Maplestory flame score calculator to calculate and store the flame score of each equipment. Store and compare the scores of your equipment flames, supports storing scores for multiple characters."});
     if(!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "index, follow" });
     } else {

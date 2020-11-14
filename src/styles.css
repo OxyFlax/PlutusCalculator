@@ -360,7 +360,34 @@ input[type="range"]:hover {
     border-radius: 5px;
 }
 
+.textAreaWrapper {
+    margin: 0 auto;
+}
 
+.textAreaWrapper label {
+    display:block;
+    text-align: left;
+    font-size: 15px;
+    padding-left: 5px;
+    margin-bottom: 2px;
+}
+
+.textAreaWrapper textarea {
+    display:block;
+    background-color: var(--navigation-bar-background-color);
+    color: var(--font-color);
+    width: calc(100% - 8px);
+    height: calc(100% - 25px);
+    overflow-y: scroll;
+    border: 2px solid var(--game-page-border-color);
+    border-radius: 3px;
+    padding-left: 4px;
+}
+
+.textAreaWrapper textarea:focus {
+    outline: none;
+    box-shadow: 0 0 3px var(--navigation-bar-separator-color);
+}
 /* end of form css */
 
 /* start of global maple css */

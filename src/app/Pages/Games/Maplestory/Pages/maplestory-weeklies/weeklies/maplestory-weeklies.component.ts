@@ -41,7 +41,7 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.titleService.setTitle("Maplestory Weeklies Tracker | Random Stuff");
-    this.metaService.updateTag({ name: "description", content: "A weeklies tracker for maplestory to keep track of your completed weekly tasks. Keep track of your weeklies across multiple different characters."});
+    this.metaService.updateTag({ name: "description", content: "A weeklies tracker for Maplestory to keep track of your completed weekly tasks. Keep track of your weeklies across multiple different characters."});
     if(!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "index, follow" });
     } else {

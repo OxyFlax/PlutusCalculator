@@ -12,7 +12,7 @@ export class HiddenHomeComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle("Hidden Home | Random Stuff");
-    this.metaService.updateTag({ name: "description", content: "The home page for the various hidden projects"});
+    this.metaService.updateTag({ name: "description", content: "The home page for various hidden projects."});
     if(!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "noindex, follow" });
     } else {

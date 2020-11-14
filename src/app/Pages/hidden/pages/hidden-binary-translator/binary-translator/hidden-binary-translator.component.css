@@ -1,11 +1,3 @@
-.contentPageOverride .title {
-    margin: 0px;
-    text-align: center;
-    font-size: 25px;
-    text-decoration: underline;
-    margin-top: 5px;
-}
-
 .contentPageOverride {
     width: 800px;
     background-color: var(--content-page-background-color);
@@ -15,32 +7,39 @@
     margin-top: 8px;
 }
 
-.contentPageOverride .intro {
-    margin-left: 50px;
-    margin-right: 50px;
-    font-size: 18px;
+.textAreaWrapper {
+    width: 400px;
+    height: 108px;
 }
 
-.changeLog {
-    margin-top: 100px;
-    margin-left: 50px;
-    margin-right: 50px;
-    font-size: 16px;
+.textAreaOutput:focus {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
-.changeLog .changeLogTitle {
-    margin: 0px;
-    font-size: 18px;
-    text-decoration: underline;
+.inputWrapper {
+    margin-top: 15px;
 }
 
-.individualLog {
-    margin-top: 5px;
-    font-size: 16px;
+.controlsWrapper {
+    width: 400px;
+    height: 50px;
+    margin: 0 auto;
 }
 
-.individualLog p{
-    margin: 0px 0px 0px 10px;
+.buttonStyle {
+    float: left;
+    height: 35px;
+    line-height: normal;
+}
+
+.clear {
+    margin-left: 4px;
+}
+
+.swap {
+    padding-top: 9px;
 }
 
 @media only screen and (max-width: 1305px) {
@@ -64,5 +63,17 @@
         margin-right: 8px;
         min-height: calc(100vh - 100px);
         width: calc(100% - 18px);
+    }
+}
+
+@media only screen and (max-width: 444px) {
+    .inputWrapper {
+        margin-top: 5px;
+    }
+}
+
+@media only screen and (max-width: 427px) {
+    .textAreaWrapper {
+        width: calc(100% - 8px);
     }
 }

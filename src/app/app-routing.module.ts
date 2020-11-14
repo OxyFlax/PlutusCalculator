@@ -72,6 +72,13 @@ const routes: Routes = [
         loadChildren: () => import('./Pages/Hidden/Pages/hidden-stopwatch/hidden-stopwatch.module').then(m => m.HiddenStopwatchModule)
     },
     {
+        path: 'hidden/binary-translator', 
+        loadChildren: () => import('./Pages/Hidden/Pages/hidden-binary-translator/hidden-binary-translator.module').then(m => m.HiddenBinaryTranslatorModule)
+    },
+
+
+
+    {
         path        : '**',
         redirectTo  : '404',
         pathMatch   : 'full'

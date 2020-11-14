@@ -1,0 +1,15 @@
+<app-hidden-side-navigation></app-hidden-side-navigation>
+<div class="contentPageOverride">
+    <div class="textAreaWrapper inputWrapper">
+        <label for="input">{{ inputHeader }} input:</label>
+        <textarea class="textAreaInput" id="input" name="input" placeholder="{{ inputHeader }} input..." [(ngModel)]="input" (input)='convert()'></textarea>
+    </div>
+    <div class="controlsWrapper">
+        <button class="buttonStyle clear" (click)="clearInput()"><span>&#10006;</span> Clear Input</button>
+        <button class="buttonStyle swap" (click)="swapTranslation()"><span>&#x21c5;</span> Swap Translation</button>
+    </div>
+    <div class="textAreaWrapper outputWrapper">
+        <label for="input">{{ outputHeader }} output:</label>
+        <textarea class="textAreaOutput" id="input" name="input" placeholder="{{ outputHeader }} output..." [(ngModel)]="output" readonly></textarea>
+    </div>
+</div>
