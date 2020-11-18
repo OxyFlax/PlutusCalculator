@@ -401,34 +401,46 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
   determineUrsusEndTime(): number {
     var date = new Date();
 
-    if (date.getUTCHours() < 1) {
+    var slotOneStartTime = 1;
+    var slotOneEndTime = 3;
+    var slotTwoStartTime = 18;
+    var slotTwoEndTime = 20;
+
+    // this adjusts the endtimes during the Awake event (the timeslot is two hours longer until the 26th of January 2021 11:59PM UTC)
+    //  if its past this date the times are no longer adjusted
+    if(date.getTime() < 1611705600000) {
+      slotOneEndTime = 5;
+      slotTwoEndTime = 22;
+    }
+
+    if (date.getUTCHours() < slotOneStartTime) {
       // count down to ursus slot 1 start which is the current day at 1am
       this.ursusTimerPrefix = "Golden Time in ";
-      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 1, 0, 0, 0);
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), slotOneStartTime, 0, 0, 0);
     }
 
-    if (date.getUTCHours() >= 1 && date.getUTCHours() < 3) {
+    if (date.getUTCHours() >= slotOneStartTime && date.getUTCHours() < slotOneEndTime) {
       // count down to ursus slot 1 ending
       this.ursusTimerPrefix = "Golden Time ending in";
-      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 3, 0, 0, 0);
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), slotOneEndTime, 0, 0, 0);
     }
 
-    if (date.getUTCHours() >= 3 && date.getUTCHours() < 18) {
+    if (date.getUTCHours() >= slotOneEndTime && date.getUTCHours() < slotTwoStartTime) {
       // count down to ursus slot 2 start
       this.ursusTimerPrefix = "Golden Time in";
-      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 18, 0, 0, 0);
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), slotTwoStartTime, 0, 0, 0);
     }
 
-    if (date.getUTCHours() >= 18 && date.getUTCHours() < 20) {
+    if (date.getUTCHours() >= slotTwoStartTime && date.getUTCHours() < slotTwoEndTime) {
       // count down to ursus slot 2 ending
       this.ursusTimerPrefix = "Golden Time ending in";
-      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 20, 0, 0, 0);
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), slotTwoEndTime, 0, 0, 0);
     }
 
-    if (date.getUTCHours() >= 20) {
+    if (date.getUTCHours() >= slotTwoEndTime) {
       // count down to ursus slot 1 start which is next utc day at 1am
       this.ursusTimerPrefix = "Golden Time in ";
-      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 1, 0, 0, 0);
+      return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, slotOneStartTime, 0, 0, 0);
     }
   }
 
