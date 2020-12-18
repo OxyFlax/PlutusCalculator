@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { AudioType } from '../../../models/audioType';
 
@@ -52,7 +52,7 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
 
   loadAudio() {
     // load in saved volume
-    this.volume = localStorage.getItem('theme') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
+    this.volume = localStorage.getItem('siteVolume') ? JSON.parse(localStorage.getItem("siteVolume")) : 0.5;
     // apply saved volume and set audio src so it's available when the tab isn't focussed
     this.previewAudio.volume = this.volume;
     this.previewAudio.src = "assets/hidden/timer/PreviewSound.mp3";
@@ -319,4 +319,19 @@ export class HiddenTimerComponent implements OnInit, OnDestroy {
       this.timeInput = this.timeInput
     }
   }
+
+
+  // TODO: decide if enter to start the time is needed or not if so fix the issues the blow code still has
+  // @HostListener('document:keydown', ['$event'])
+  // handleKeyboardEvent(event: KeyboardEvent) { 
+  //   // prevents a helddown key from being counted more than once
+  //   if (event.repeat) { return }
+  //   if (event.key == "Unidentified") { return }
+
+  //   if(event.key == "Enter" && !this.timeInputFocussed) {
+  //     console.log("enter pressed while timeInput not in focus");
+  //     console.log(this.timer);
+  //     event.stopPropagation();
+  //   }
+  // }
 }

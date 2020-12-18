@@ -27,7 +27,6 @@ export class HiddenBinaryTranslatorComponent implements OnInit {
 
   convert() {
     var char = "a";
-    console.log(char.charCodeAt(0).toString(2).padStart(8, "0"));
     if(this.inputHeader == "Binary") {
       this.output = this.binaryToText(this.input.replace(/[^0-1]/g, ''));
     } else {
