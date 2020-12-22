@@ -9,6 +9,7 @@ import { Meta, Title } from '@angular/platform-browser';
 export class MiscSkribblComponent implements OnInit, OnDestroy {
   input: string = "";
   output: string = "";
+  wordCount: number = 0;
 
   constructor(private titleService: Title, private metaService: Meta) {
   }
@@ -35,12 +36,13 @@ export class MiscSkribblComponent implements OnInit, OnDestroy {
     });
 
     // remove duplicates
-    var test = res.reduce(function(a,b){
+    var uniqueArray = res.reduce(function(a,b){
       if (a.indexOf(b) < 0 ) a.push(b);
       return a;
     },[]);
 
-    this.output = test.join(", ");
+    this.wordCount = uniqueArray.length;
+    this.output = uniqueArray.join(", ");
   }
 }
 
