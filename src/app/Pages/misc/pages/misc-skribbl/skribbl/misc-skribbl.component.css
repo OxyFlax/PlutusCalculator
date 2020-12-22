@@ -1,0 +1,55 @@
+.contentPageOverride {
+    width: 800px;
+    background-color: var(--content-page-background-color);
+    border: 1px solid var(--content-page-border-color);
+    min-height: calc(100vh - 72px);
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.textAreaWrapper {
+    width: 400px;
+    height: 108px;
+}
+
+.textAreaOutput:focus {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.inputWrapper {
+    margin-top: 15px;
+}
+
+.controlsWrapper {
+    width: 400px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.buttonStyle {
+    float: left;
+    height: 35px;
+    line-height: normal;
+}
+
+@media only screen and (max-width: 818px) {
+    .contentPageOverride {
+        width: calc(100% - 18px);
+    }
+}
+
+@media only screen and (max-width: 444px) {
+    .inputWrapper {
+        margin-top: 5px;
+    }
+
+    .textAreaWrapper {
+        width: calc(100% - 8px);
+    }
+
+    .controlsWrapper {
+        margin-left: 4px;
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
@@ -6,7 +6,7 @@ import { Meta, Title } from '@angular/platform-browser';
   templateUrl: './hidden-binary-translator.component.html',
   styleUrls: ['./hidden-binary-translator.component.css']
 })
-export class HiddenBinaryTranslatorComponent implements OnInit {
+export class HiddenBinaryTranslatorComponent implements OnInit, OnDestroy {
   input: string = "";
   output: string = "";
 
@@ -23,6 +23,10 @@ export class HiddenBinaryTranslatorComponent implements OnInit {
     } else {
       this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
     }
+  }
+
+  ngOnDestroy() {
+    this.titleService.setTitle("Random Stuff");
   }
 
   convert() {

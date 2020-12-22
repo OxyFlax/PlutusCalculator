@@ -1,0 +1,13 @@
+<div class="contentPageOverride">
+    <div class="textAreaWrapper inputWrapper">
+        <label for="input">Input words separated by a comma:</label>
+        <textarea class="textAreaInput" id="input" name="input" placeholder="input..." [(ngModel)]="input"></textarea>
+    </div>
+    <div class="controlsWrapper">
+        <button class="buttonStyle clear" (click)="removeDuplicates()">Remove Duplicates</button>
+    </div>
+    <div class="textAreaWrapper outputWrapper">
+        <label for="input">Output</label>
+        <textarea class="textAreaOutput" id="input" name="input" placeholder="output..." [(ngModel)]="output" readonly></textarea>
+    </div>
+</div>
