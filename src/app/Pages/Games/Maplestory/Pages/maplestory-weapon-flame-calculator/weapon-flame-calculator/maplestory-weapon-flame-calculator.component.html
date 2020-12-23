@@ -1,4 +1,27 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="editedGamePageContent">
     Soon™ calculator to determine the tier of an att/matt flame
+    
+    <div class="checkboxWrapper">
+        <label for="flameAdvantage">Flame Advantage</label>
+        <input name="flameAdvantage" id="flameAdvantage" type="checkbox" [(ngModel)]="flameAdvantage" [ngModelOptions]="{standalone: true}"/>
+    </div>
+
+    <div class="inputLabelWrapper">
+        <label for="baseAttack">Base Attack</label>
+        <input class="numberInput" name="baseAttack" id="baseAttack" type="number" [(ngModel)]="baseAttack">
+    </div>
+
+    <div class="inputLabelWrapper">
+        <label for="attackFlame">Base Attack</label>
+        <input class="numberInput" name="attackFlame" id="attackFlame" type="number" [(ngModel)]="attackFlame">
+    </div>
+
+    <select class="select" (change)="levelRangeChange($event)">
+        <option *ngFor="let r of itemLevelRanges; let i = index" value="r" [selected]="i == selectedLevelRangeIndex">{{ r }}</option>
+    </select>
+
+    <button class="buttonStyle" (click)="calculateWeaponFlameTier()">
+        test
+    </button>
 </div>
