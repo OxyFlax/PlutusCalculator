@@ -6,6 +6,55 @@
     border: 1px solid var(--game-page-border-color);
     min-height: calc(100vh - 72px);
     margin-top: 8px;
+    padding-top: 15px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.select {
+    margin-top: 3px;
+    width: 240px;
+}
+
+.numberInput {
+    width: 240px;
+}
+
+.checkboxWrapper {
+    margin: 1px 0px 0px -1px;
+    padding: 0px;
+}
+
+.flameInput, .flameOutput {
+    width: 240px;
+    margin: 0 auto;
+}
+
+.flameOutput {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.tableOutputWrapper {
+    width: 240px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.tableOutputWrapper table {
+    width: 100%;
+    border: 1px solid red;
+    border-collapse: collapse;
+}
+
+.tableOutputWrapper table th,td {
+    width: 30px;
+    height: 21px;
+    text-align: center;
+    border: 1px solid gray;
 }
 
 @media only screen and (max-width: 1104px) {

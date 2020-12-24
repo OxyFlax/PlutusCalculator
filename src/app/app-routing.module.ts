@@ -76,6 +76,8 @@ const routes: Routes = [
         loadChildren: () => import('./Pages/Hidden/Pages/hidden-binary-translator/hidden-binary-translator.module').then(m => m.HiddenBinaryTranslatorModule)
     },
 
+
+    
     {
         path: 'misc/skribbl', 
         loadChildren: () => import('./Pages/Misc/Pages/misc-skribbl/misc-skribbl.module').then(m => m.MiscSkribblModule)

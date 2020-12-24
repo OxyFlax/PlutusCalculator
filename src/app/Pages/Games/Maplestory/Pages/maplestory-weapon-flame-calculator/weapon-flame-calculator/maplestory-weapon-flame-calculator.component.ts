@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { WeaponFlameData } from '../../../Models/flameWeapon';
 
 @Component({
   selector: 'app-maplestory-weapon-flame-calculator',
@@ -35,66 +36,92 @@ export class MaplestoryWeaponFlameCalculatorComponent implements OnInit {
     "240-275"
   ]
 
-  flameAdvantage: boolean = true;
-  baseAttack: number = 128;
-  attackFlame: number = 31;
-  selectedLevelRangeIndex: number = 3;
+  weaponFlameData: WeaponFlameData;
 
-  
-
-
+  calculatedTier: number = 0;
+  tableOutput: number[] = new Array(7);
 
   constructor(private titleService: Title, private metaService: Meta) {
   }
 
   ngOnInit() {
     this.titleService.setTitle("Maplestory Weapon Flame Calculator | Random Stuff");
-    this.metaService.updateTag({ name: "description", content: "Maplestory weapon flame calculator to determine the tier of an attack flame on a weapon."});
-    if(!this.metaService.getTag("name='robots'")) {
+    this.metaService.updateTag({ name: "description", content: "Maplestory weapon flame calculator to determine the tier of an attack flame on a weapon." });
+    if (!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "index, follow" });
     } else {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
     }
+
+    this.initialise();
   }
 
-  calculateWeaponFlameTier() {
-    var baseValues = this.flameAdvantage ? this.advantageWeaponTierMultipliers : this.normalWeaponTierMultipliers;
-    
-    // Find the right value.
-    let flameTier = 0;
-    let tierList = [];
-    // To display possibilites
-    baseValues.forEach((value, index) => {
-      var predictedAttack = Math.ceil(((this.selectedLevelRangeIndex + 1) * value) * this.baseAttack) || 0;
-      tierList.push(predictedAttack);
-      // if (flameAttack == predictedAttack) { flameTier = index + 1; }
-    });
-    
-    console.log(tierList);
-
-    // Flame advantaged starts at tier 3.
-    // if (flameAdvantaged && flameTier != 0) { flameTier += 2; }
-    
-    return {
-      flameTier: flameTier,
-      tierList: tierList,
+  initialise() {
+    if (localStorage.getItem("weaponFlameData")) {
+      this.weaponFlameData = JSON.parse(localStorage.getItem("weaponFlameData"));
+      this.calculateWeaponFlameTier();
+    } else {
+      // initiate a dataset
+      var newWeaponFlameData: WeaponFlameData = {
+        flameAdvantage: false,
+        baseAttack: null,
+        flameAttack: null,
+        selectedItemLevelRangeIndex: 0  
+      }
+      this.weaponFlameData = newWeaponFlameData;
     }
   }
 
-  levelRangeChange(event: any) {
-    this.selectedLevelRangeIndex = event.target.selectedIndex;
-    // this.resetUtcOffset = this.regions[event.target.selectedIndex].resetUtcOffset;
-    console.log(this.selectedLevelRangeIndex);
-    //localStorage.setItem("mapleRegion", JSON.stringify(this.selectedLevelRange));
+  calculateWeaponFlameTier() {
+    var multiplierValues = this.weaponFlameData.flameAdvantage ? this.advantageWeaponTierMultipliers : this.normalWeaponTierMultipliers;
+
+    // reset the values for calculations
+    // items with flame advantage start at tier 3 so we skip the first 2 tiers and add 2 empty values;
+    this.tableOutput = this.weaponFlameData.flameAdvantage ? [null, null] : [];
+    this.calculatedTier = 0;
+    // calculate all possibilities for the given base attack
+    multiplierValues.forEach((value, index) => {
+      var predictedAttack = Math.ceil(((this.weaponFlameData.selectedItemLevelRangeIndex + 1) * value) * this.weaponFlameData.baseAttack) || 0;
+      this.tableOutput.push(predictedAttack);
+
+      if (this.weaponFlameData.flameAttack == predictedAttack && predictedAttack != 0) { 
+        this.calculatedTier += index + 1; 
+
+        // if the flametier has an advantage it starts at 3 so we add 2 to the calculated tier;
+        this.calculatedTier = this.weaponFlameData.flameAdvantage ? this.calculatedTier + 2 : this.calculatedTier;
+      }
+    });
+
+    //this.output = tierList;
+    // this.calculatedTier = flameTier;
+
+    // if (this.flameAdvantage) {
+    //   // this.output = [null, null].concat(tierList);
+    //   this.output = tierList;
+    // } else {
+    //   this.output = tierList;
+    // }
+
+    // Flame advantaged starts at tier 3.
+    // if (this.flameAdvantage && flameTier != 0) {
+    //   this.calculatedTier = flameTier + 2;
+    // } else {
+    //   this.calculatedTier = flameTier;
+    // }
+
+    // return {
+    //   flameTier: flameTier,
+    //   tierList: tierList,
+    // }
   }
 
+  itemLevelRangeChange(event: any) {
+    this.weaponFlameData.selectedItemLevelRangeIndex = event.target.selectedIndex;
+    this.changeHandler();
+  }
 
-  regionChange(event: any) {
-    // this.selectedRegionIndex = event.target.selectedIndex;
-    // this.resetUtcOffset = this.regions[event.target.selectedIndex].resetUtcOffset;
-    // localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
-
-    // // re do the checks for previous day data & setup the timers for the new resetUtcOffset
-    // this.initialise();
+  changeHandler() {
+    this.calculateWeaponFlameTier();
+    localStorage.setItem("weaponFlameData", JSON.stringify(this.weaponFlameData));
   }
 }

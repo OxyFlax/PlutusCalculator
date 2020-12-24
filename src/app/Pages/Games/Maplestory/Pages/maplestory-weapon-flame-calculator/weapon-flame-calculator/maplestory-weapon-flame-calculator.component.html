@@ -1,27 +1,49 @@
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="editedGamePageContent">
-    Soon™ calculator to determine the tier of an att/matt flame
-    
-    <div class="checkboxWrapper">
-        <label for="flameAdvantage">Flame Advantage</label>
-        <input name="flameAdvantage" id="flameAdvantage" type="checkbox" [(ngModel)]="flameAdvantage" [ngModelOptions]="{standalone: true}"/>
+    <div class="flameOutput">
+        Tier: <span [ngClass]="{'hidden': calculatedTier == 0}" >{{ calculatedTier }}</span>
+    </div>
+    <div class="flameInput">   
+        <div class="inputLabelWrapper">
+            <label for="baseAttack">Base Attack</label>
+            <input class="numberInput" name="baseAttack" id="baseAttack" type="number" [(ngModel)]="weaponFlameData.baseAttack" (input)="changeHandler()">
+        </div>
+        <div class="inputLabelWrapper">
+            <label for="flameAttack">Flame Attack</label>
+            <input class="numberInput" name="flameAttack" id="flameAttack" type="number" [(ngModel)]="weaponFlameData.flameAttack" (input)="changeHandler()">
+        </div>
+        <div class="inputLabelWrapper">
+            <label for="itemLevel">Weapon Level</label>
+            <select class="select" name="itemLevel" id="itemLevel" (change)="itemLevelRangeChange($event)">
+                <option *ngFor="let r of itemLevelRanges; let i = index" value="r" [selected]="i == weaponFlameData.selectedItemLevelRangeIndex">{{ r }}</option>
+            </select>
+        </div>
+        <div class="checkboxWrapper">
+            <label for="flameAdvantage">Flame Advantage</label>
+            <input name="flameAdvantage" id="flameAdvantage" type="checkbox" [(ngModel)]="weaponFlameData.flameAdvantage" (change)="changeHandler()" [ngModelOptions]="{standalone: true}" />
+        </div>
     </div>
 
-    <div class="inputLabelWrapper">
-        <label for="baseAttack">Base Attack</label>
-        <input class="numberInput" name="baseAttack" id="baseAttack" type="number" [(ngModel)]="baseAttack">
+    <div class="tableOutputWrapper">
+        <table>
+            <tr>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+            </tr>
+            <tr>
+                <td>{{ tableOutput[0] }}</td>
+                <td>{{ tableOutput[1] }}</td>
+                <td>{{ tableOutput[2] }}</td>
+                <td>{{ tableOutput[3] }}</td>
+                <td>{{ tableOutput[4] }}</td>
+                <td>{{ tableOutput[5] }}</td>
+                <td>{{ tableOutput[6] }}</td>
+            </tr>
+        </table>
     </div>
-
-    <div class="inputLabelWrapper">
-        <label for="attackFlame">Base Attack</label>
-        <input class="numberInput" name="attackFlame" id="attackFlame" type="number" [(ngModel)]="attackFlame">
-    </div>
-
-    <select class="select" (change)="levelRangeChange($event)">
-        <option *ngFor="let r of itemLevelRanges; let i = index" value="r" [selected]="i == selectedLevelRangeIndex">{{ r }}</option>
-    </select>
-
-    <button class="buttonStyle" (click)="calculateWeaponFlameTier()">
-        test
-    </button>
 </div>
