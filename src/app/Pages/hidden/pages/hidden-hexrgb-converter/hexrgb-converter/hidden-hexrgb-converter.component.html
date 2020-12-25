@@ -1,0 +1,54 @@
+<app-hidden-side-navigation></app-hidden-side-navigation>
+<div class="contentPageOverride">
+
+    <div class="inputWrapper">
+        <div class="hexInputWrapper" *ngIf="inputIsHex">
+            <div class="inputLabelWrapper">
+                <label for="hexInput">Hex color code (#RRGGBB)</label>
+                <input class="textInput" name="hexInput" id="hexInput" type="text" placeholder="#000000" [(ngModel)]="hexInput" (input)="convert()">
+            </div>
+        </div>
+
+        <div class="rgbInputWrapper"  *ngIf="!inputIsHex">
+            <div class="inputLabelWrapper">
+                <label for="rgbRedInput">Red (R)</label>
+                <input class="numberInput" name="rgbRedInput" id="rgbRedInput" type="number" placeholder="0" [(ngModel)]="rgbRedInput" (input)="convert()">
+            </div>
+            <div class="inputLabelWrapper">
+                <label for="rgbGreenInput">Green (G)</label>
+                <input class="numberInput" name="rgbGreenInput" id="rgbGreenInput" type="number" placeholder="0" [(ngModel)]="rgbGreenInput" (input)="convert()">
+            </div>
+            <div class="inputLabelWrapper">
+                <label for="rgbBlueInput">Blue (B)</label>
+                <input class="numberInput" name="rgbBlueInput" id="rgbBlueInput" type="number" placeholder="0" [(ngModel)]="rgbBlueInput" (input)="convert()">
+            </div>
+        </div>
+    </div>
+
+    <div class="controlsWrapper">
+        <button class="buttonStyle clear" (click)="clearInput()"><span>&#10006;</span> Clear Input</button>
+        <button class="buttonStyle swap" (click)="swapConversion()"><span>&#x21c5;</span> Swap Conversion</button>
+    </div>
+
+    <div class="outputWrapper">
+        <div class="hexOutputWrapper" *ngIf="!inputIsHex">
+            <div class="outputLabelWrapper">
+                <label for="hexOutput">Hex color code</label>
+                <input class="textInput" name="hexOutput" id="hexOutput" type="text" [(ngModel)]="hexOutput" disabled>
+            </div>
+        </div>
+
+        <div class="rgbOutputWrapper"  *ngIf="inputIsHex">
+            <div class="outputLabelWrapper">
+                <label for="rgbOutput">RGB color code</label>
+                <input class="textInput" name="rgbOutput" id="rgbOutput" type="text" [(ngModel)]="rgbOutput" disabled>
+            </div>
+        </div>
+
+        <!-- TODO: preview color square thingie base it on the current output color (a var that is set during conversion?) -->
+        <p class="colorPreviewLabel">Color preview</p>
+        <div class="colorPreview" [style.background]="color">
+
+        </div>
+    </div>
+</div>

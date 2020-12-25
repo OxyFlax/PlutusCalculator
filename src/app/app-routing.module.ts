@@ -75,6 +75,10 @@ const routes: Routes = [
         path: 'hidden/binary-translator', 
         loadChildren: () => import('./Pages/Hidden/Pages/hidden-binary-translator/hidden-binary-translator.module').then(m => m.HiddenBinaryTranslatorModule)
     },
+    {
+        path: 'hidden/hexrgb-converter', 
+        loadChildren: () => import('./Pages/Hidden/Pages/hidden-hexrgb-converter/hidden-hexrgb-converter.module').then(m => m.HiddenHexRGBConverterModule)
+    },
 
 
     

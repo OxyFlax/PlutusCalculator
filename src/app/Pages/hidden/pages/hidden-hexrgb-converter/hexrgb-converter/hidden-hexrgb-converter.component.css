@@ -1,0 +1,90 @@
+.contentPageOverride {
+    width: 800px;
+    background-color: var(--content-page-background-color);
+    border: 1px solid var(--content-page-border-color);
+    min-height: calc(100vh - 72px);
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+#hexInput, #hexOutput, #rgbOutput {
+    width: 330px;
+}
+
+#rgbRedInput, #rgbGreenInput, #rgbBlueInput {
+    width: 100px;
+}
+
+#rgbRedInput, #rgbGreenInput {
+    margin-right: 15px;
+}
+
+.inputWrapper, .outputWrapper {
+    width: 330px;
+    margin: 0 auto;
+}
+
+.inputWrapper {
+    margin-top: 15px;
+}
+
+.controlsWrapper {
+    width: 330px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.buttonStyle {
+    float: left;
+    height: 35px;
+    line-height: normal;
+}
+
+.clear {
+    margin-left: 4px;
+}
+
+.swap {
+    padding-top: 9px;
+}
+
+.colorPreviewLabel {
+    margin: 6px 0px 2px 3px;
+}
+
+.colorPreview {
+    width: 330px;
+    height: 65px;
+    border: 1px solid var(--input-box-border-color);
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 1305px) {
+    .contentPageOverride {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 1061px) {
+    .contentPageOverride {
+        width: calc(100% - 262px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .contentPageOverride {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-height: calc(100vh - 100px);
+        width: calc(100% - 18px);
+    }
+}
+
+@media only screen and (max-width: 444px) {
+    .inputWrapper {
+        margin-top: 5px;
+    }
+}
