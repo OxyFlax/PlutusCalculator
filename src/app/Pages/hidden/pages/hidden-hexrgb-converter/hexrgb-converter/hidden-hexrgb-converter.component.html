@@ -1,15 +1,14 @@
 <app-hidden-side-navigation></app-hidden-side-navigation>
 <div class="contentPageOverride">
-
     <div class="inputWrapper">
-        <div class="hexInputWrapper" *ngIf="inputIsHex">
+        <div class="hexInputWrapper" *ngIf="inputSetToHex">
             <div class="inputLabelWrapper">
                 <label for="hexInput">Hex color code (#RRGGBB)</label>
                 <input class="textInput" name="hexInput" id="hexInput" type="text" placeholder="#000000" [(ngModel)]="hexInput" (input)="convert()">
             </div>
         </div>
 
-        <div class="rgbInputWrapper"  *ngIf="!inputIsHex">
+        <div class="rgbInputWrapper"  *ngIf="!inputSetToHex">
             <div class="inputLabelWrapper">
                 <label for="rgbRedInput">Red (R)</label>
                 <input class="numberInput" name="rgbRedInput" id="rgbRedInput" type="number" placeholder="0" [(ngModel)]="rgbRedInput" (input)="convert()">
@@ -31,24 +30,60 @@
     </div>
 
     <div class="outputWrapper">
-        <div class="hexOutputWrapper" *ngIf="!inputIsHex">
+        <div class="hexOutputWrapper" *ngIf="!inputSetToHex">
             <div class="outputLabelWrapper">
                 <label for="hexOutput">Hex color code</label>
                 <input class="textInput" name="hexOutput" id="hexOutput" type="text" [(ngModel)]="hexOutput" disabled>
             </div>
         </div>
 
-        <div class="rgbOutputWrapper"  *ngIf="inputIsHex">
+        <div class="rgbOutputWrapper"  *ngIf="inputSetToHex">
             <div class="outputLabelWrapper">
                 <label for="rgbOutput">RGB color code</label>
                 <input class="textInput" name="rgbOutput" id="rgbOutput" type="text" [(ngModel)]="rgbOutput" disabled>
             </div>
         </div>
 
-        <!-- TODO: preview color square thingie base it on the current output color (a var that is set during conversion?) -->
         <p class="colorPreviewLabel">Color preview</p>
         <div class="colorPreview" [style.background]="color">
-
         </div>
+    </div>
+
+    <div class="colorTable">
+        <table>
+            <tr>
+                <td [style.background]="colorShades[0]"></td><td>{{ colorShades[0] }}</td> <td></td> <td>{{ colorTints[0] }}</td><td [style.background]="colorTints[0]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[1]"></td><td>{{ colorShades[1] }}</td> <td></td> <td>{{ colorTints[1] }}</td><td [style.background]="colorTints[1]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[2]"></td><td>{{ colorShades[2] }}</td> <td></td> <td>{{ colorTints[2] }}</td><td [style.background]="colorTints[2]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[3]"></td><td>{{ colorShades[3] }}</td> <td></td> <td>{{ colorTints[3] }}</td><td [style.background]="colorTints[3]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[4]"></td><td>{{ colorShades[4] }}</td> <td></td> <td>{{ colorTints[4] }}</td><td [style.background]="colorTints[4]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[5]"></td><td>{{ colorShades[5] }}</td> <td></td> <td>{{ colorTints[5] }}</td><td [style.background]="colorTints[5]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[6]"></td><td>{{ colorShades[6] }}</td> <td></td> <td>{{ colorTints[6] }}</td><td [style.background]="colorTints[6]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[7]"></td><td>{{ colorShades[7] }}</td> <td></td> <td>{{ colorTints[7] }}</td><td [style.background]="colorTints[7]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[8]"></td><td>{{ colorShades[8] }}</td> <td></td> <td>{{ colorTints[8] }}</td><td [style.background]="colorTints[8]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[9]"></td><td>{{ colorShades[9] }}</td> <td></td> <td>{{ colorTints[9] }}</td><td [style.background]="colorTints[9]"></td>
+            </tr>
+            <tr>
+                <td [style.background]="colorShades[10]"></td><td>{{ colorShades[10] }}</td> <td></td> <td>{{ colorTints[10] }}</td><td [style.background]="colorTints[10]"></td>
+            </tr>
+        </table>
     </div>
 </div>
