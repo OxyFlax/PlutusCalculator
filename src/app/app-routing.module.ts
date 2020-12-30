@@ -79,9 +79,13 @@ const routes: Routes = [
         path: 'hidden/hexrgb-converter', 
         loadChildren: () => import('./Pages/Hidden/Pages/hidden-hexrgb-converter/hidden-hexrgb-converter.module').then(m => m.HiddenHexRGBConverterModule)
     },
+    {
+        path: 'hidden/palette-generator', 
+        loadChildren: () => import('./Pages/Hidden/Pages/hidden-palette-generator/hidden-palette-generator.module').then(m => m.HiddenPaletteGeneratorModule)
+    },
 
 
-    
+
     {
         path: 'misc/skribbl', 
         loadChildren: () => import('./Pages/Misc/Pages/misc-skribbl/misc-skribbl.module').then(m => m.MiscSkribblModule)

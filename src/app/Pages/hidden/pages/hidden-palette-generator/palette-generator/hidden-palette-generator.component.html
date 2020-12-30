@@ -1,0 +1,19 @@
+<app-hidden-side-navigation></app-hidden-side-navigation>
+<div class="contentPageOverride">
+    <div class="fileInputWrapper">
+        <label for="imageInput" class="fileSelectorLabel">Select an image</label>
+        <input id="imageInput" type="file" accept="image/*" (change)="processFile($event)" hidden>
+    </div>
+
+    <div class="imageOutput" [ngStyle]="{'background-image': 'url(' + image + ')'}">
+    </div>
+
+
+    <div class="colorOutput">
+        <ng-container *ngFor="let color of colorPalette; let i = index">
+            <div class="color" [style.background]="color" [style.color]="colorPaletteTextColor[i]">
+                {{ color }}
+            </div>
+        </ng-container>
+    </div>
+</div>

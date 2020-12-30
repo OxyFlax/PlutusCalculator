@@ -1,0 +1,89 @@
+.contentPageOverride {
+    width: 800px;
+    background-color: var(--content-page-background-color);
+    color: white;
+    border: 1px solid var(--content-page-border-color);
+    min-height: calc(100vh - 72px);
+    margin: 0 auto;
+    margin-top: 8px;
+}
+
+.fileInputWrapper {
+    width: 300px;
+    height: 30px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 18px;
+}
+
+.fileSelectorLabel {
+    width: 200;
+    background-color: var(--game-page-accent-color);
+    padding: 5px;
+    cursor: pointer;
+}
+
+.imageOutput {
+    width: 400px;
+    height: 400px;
+    border: 2px solid gray;
+    margin: 0 auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.colorOutput {
+    width: 350px;
+    margin: 0 auto;
+    margin-top: 3px;
+    text-align: center;
+}
+
+.color {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    margin: 4px;
+    line-height: 2.6;
+}
+
+@media only screen and (max-width: 1305px) {
+    .contentPageOverride {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 1061px) {
+    .contentPageOverride {
+        width: calc(100% - 262px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .contentPageOverride {
+        margin-left: 8px;
+        margin-right: 8px;
+        min-height: calc(100vh - 100px);
+        width: calc(100% - 18px);
+    }
+}
+
+@media only screen and (max-width: 437px) {
+    .imageOutput {
+        width: 300px;
+        height: 300px;
+    }
+
+    .colorOutput {
+        width: 280px;
+    }
+
+    .color {
+        width: 80px;
+    }
+}

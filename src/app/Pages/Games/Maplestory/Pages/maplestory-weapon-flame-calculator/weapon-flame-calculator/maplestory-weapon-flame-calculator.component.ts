@@ -91,28 +91,6 @@ export class MaplestoryWeaponFlameCalculatorComponent implements OnInit {
         this.calculatedTier = this.weaponFlameData.flameAdvantage ? this.calculatedTier + 2 : this.calculatedTier;
       }
     });
-
-    //this.output = tierList;
-    // this.calculatedTier = flameTier;
-
-    // if (this.flameAdvantage) {
-    //   // this.output = [null, null].concat(tierList);
-    //   this.output = tierList;
-    // } else {
-    //   this.output = tierList;
-    // }
-
-    // Flame advantaged starts at tier 3.
-    // if (this.flameAdvantage && flameTier != 0) {
-    //   this.calculatedTier = flameTier + 2;
-    // } else {
-    //   this.calculatedTier = flameTier;
-    // }
-
-    // return {
-    //   flameTier: flameTier,
-    //   tierList: tierList,
-    // }
   }
 
   itemLevelRangeChange(event: any) {
