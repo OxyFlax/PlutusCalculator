@@ -4,6 +4,7 @@ import { Dailies } from '../../../Models/dailies';
 import { Task } from '../../../Models/task';
 import { Region } from '../../../Models/region';
 import { Meta, Title } from '@angular/platform-browser';
+import { truncate } from 'fs';
 
 @Component({
   selector: 'app-maplestory-dailies',
@@ -43,8 +44,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.titleService.setTitle("Maplestory Dailies Tracker | Random Stuff");
-    this.metaService.updateTag({ name: "description", content: "A dailies tracker for Maplestory to keep track of your completed daily tasks. Keep track of your dailies across multiple different characters."});
-    if(!this.metaService.getTag("name='robots'")) {
+    this.metaService.updateTag({ name: "description", content: "A dailies tracker for Maplestory to keep track of your completed daily tasks. Keep track of your dailies across multiple different characters." });
+    if (!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "index, follow" });
     } else {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
@@ -149,7 +150,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
                 image: newDailiesStructure[i].dailyBosses[k].image,
                 completed: oldDailies[i].dailyBosses[j].completed,
                 enabled: oldDailies[i].dailyBosses[j].enabled,
-                type: newDailiesStructure[i].dailyBosses[k].type
+                type: newDailiesStructure[i].dailyBosses[k].type,
+                displayCondition: newDailiesStructure[i].dailyBosses[k].displayCondition
               };
               // add this task to the current dailies structure
               this.dailies[i].dailyBosses.push(transferTask);
@@ -164,7 +166,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
             image: newDailiesStructure[i].dailyBosses[j].image,
             completed: newDailiesStructure[i].dailyBosses[j].completed,
             enabled: newDailiesStructure[i].dailyBosses[j].enabled,
-            type: newDailiesStructure[i].dailyBosses[j].type
+            type: newDailiesStructure[i].dailyBosses[j].type,
+            displayCondition: newDailiesStructure[i].dailyBosses[j].displayCondition
           };
           this.dailies[i].dailyBosses.push(transferTask);
         }
@@ -193,7 +196,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
                 image: newDailiesStructure[i].dailyTasks[k].image,
                 completed: oldDailies[i].dailyTasks[j].completed,
                 enabled: oldDailies[i].dailyTasks[j].enabled,
-                type: newDailiesStructure[i].dailyTasks[k].type
+                type: newDailiesStructure[i].dailyTasks[k].type,
+                displayCondition: newDailiesStructure[i].dailyTasks[k].displayCondition
               };
               // add this task to the current dailies structure
               this.dailies[i].dailyTasks.push(transferTask);
@@ -208,7 +212,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
             image: newDailiesStructure[i].dailyTasks[j].image,
             completed: newDailiesStructure[i].dailyTasks[j].completed,
             enabled: newDailiesStructure[i].dailyTasks[j].enabled,
-            type: newDailiesStructure[i].dailyTasks[j].type
+            type: newDailiesStructure[i].dailyTasks[j].type,
+            displayCondition: newDailiesStructure[i].dailyTasks[j].displayCondition
           };
           this.dailies[i].dailyTasks.push(transferTask);
         }
@@ -237,7 +242,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
                 image: newDailiesStructure[i].dailyArcaneRiver[k].image,
                 completed: oldDailies[i].dailyArcaneRiver[j].completed,
                 enabled: oldDailies[i].dailyArcaneRiver[j].enabled,
-                type: newDailiesStructure[i].dailyArcaneRiver[k].type
+                type: newDailiesStructure[i].dailyArcaneRiver[k].type,
+                displayCondition: newDailiesStructure[i].dailyArcaneRiver[k].displayCondition
               };
               // add this task to the current dailies structure
               this.dailies[i].dailyArcaneRiver.push(transferTask);
@@ -252,7 +258,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
             image: newDailiesStructure[i].dailyArcaneRiver[j].image,
             completed: newDailiesStructure[i].dailyArcaneRiver[j].completed,
             enabled: newDailiesStructure[i].dailyArcaneRiver[j].enabled,
-            type: newDailiesStructure[i].dailyArcaneRiver[j].type
+            type: newDailiesStructure[i].dailyArcaneRiver[j].type,
+            displayCondition: newDailiesStructure[i].dailyArcaneRiver[j].displayCondition
           };
           this.dailies[i].dailyArcaneRiver.push(transferTask);
         }
@@ -408,7 +415,7 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
 
     // this adjusts the endtimes during the Awake event (the timeslot is two hours longer until the 26th of January 2021 11:59PM UTC)
     //  if its past this date the times are no longer adjusted
-    if(date.getTime() < 1611705600000) {
+    if (date.getTime() < 1611705600000) {
       slotOneEndTime = 5;
       slotTwoEndTime = 22;
     }
@@ -597,7 +604,8 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
         image: this.customDailyImageUrl,
         completed: false,
         enabled: true,
-        type: "custom"
+        type: "custom",
+        displayCondition: "true"
       }
 
       if (this.customDailyType == "boss") {
@@ -623,5 +631,13 @@ export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
     this.addingCustomDaily = false;
     this.customDailyName = "";
     this.customDailyImageUrl = "";
+  }
+
+  evaluateDisplayCondition(condition: string) {
+    try {
+      return eval(condition);
+    } catch (e) {
+      return true;
+    }
   }
 }

@@ -146,7 +146,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
                 image: newWeekliesStructure[i].weeklyBosses[k].image,
                 completed: oldWeeklies[i].weeklyBosses[j].completed,
                 enabled: oldWeeklies[i].weeklyBosses[j].enabled,
-                type: newWeekliesStructure[i].weeklyBosses[k].image
+                type: newWeekliesStructure[i].weeklyBosses[k].image,
+                displayCondition: newWeekliesStructure[i].weeklyBosses[k].displayCondition
               };
               // add this task to the current weekly bosses structure
               this.weeklies[i].weeklyBosses.push(transferTask);
@@ -161,7 +162,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
             image: newWeekliesStructure[i].weeklyBosses[j].image,
             completed: newWeekliesStructure[i].weeklyBosses[j].completed,
             enabled: newWeekliesStructure[i].weeklyBosses[j].enabled,
-            type: newWeekliesStructure[i].weeklyBosses[j].image
+            type: newWeekliesStructure[i].weeklyBosses[j].image,
+            displayCondition: newWeekliesStructure[i].weeklyBosses[j].displayCondition
           };
           this.weeklies[i].weeklyBosses.push(transferTask);
         }
@@ -190,7 +192,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
                 image: newWeekliesStructure[i].weeklyTasks[k].image,
                 completed: oldWeeklies[i].weeklyTasks[j].completed,
                 enabled: oldWeeklies[i].weeklyTasks[j].enabled,
-                type: newWeekliesStructure[i].weeklyTasks[k].image
+                type: newWeekliesStructure[i].weeklyTasks[k].image,
+                displayCondition: newWeekliesStructure[i].weeklyTasks[k].displayCondition
               };
               // add this task to the current weeklies structure
               this.weeklies[i].weeklyTasks.push(transferTask);
@@ -205,7 +208,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
             image: newWeekliesStructure[i].weeklyTasks[j].image,
             completed: newWeekliesStructure[i].weeklyTasks[j].completed,
             enabled: newWeekliesStructure[i].weeklyTasks[j].enabled,
-            type: newWeekliesStructure[i].weeklyTasks[j].image
+            type: newWeekliesStructure[i].weeklyTasks[j].image,
+            displayCondition: newWeekliesStructure[i].weeklyTasks[j].displayCondition
           };
           this.weeklies[i].weeklyTasks.push(transferTask);
         }
@@ -492,7 +496,8 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
         image: this.customWeeklyImageUrl,
         completed: false,
         enabled: true,
-        type: "custom"
+        type: "custom",
+        displayCondition: "true"
       }
 
       if (this.customWeeklyType == "boss") {
@@ -514,5 +519,13 @@ export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
     this.addingCustomWeekly = false;
     this.customWeeklyName = "";
     this.customWeeklyImageUrl = "";
+  }
+
+  evaluateDisplayCondition(condition: string) {
+    try {
+      return eval(condition);
+    } catch (e) {
+      return true;
+    }
   }
 }

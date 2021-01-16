@@ -32,7 +32,7 @@
         <div *ngIf="!allDailyBossesDisabled || editModeActive" class="taskGroupWrapper">
             <p>Daily Bosses</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyBosses; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="(item.enabled || editModeActive) && evaluateDisplayCondition(item.displayCondition)">
                     <div class="imgWrapper">
                         <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
                     </div>
@@ -61,7 +61,7 @@
         <div *ngIf="!allDailyTasksDisabled || editModeActive" class="taskGroupWrapper">
             <p>Daily Tasks</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
-                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus' && resetUtcOffset == 0}" *ngIf="item.enabled || editModeActive">
+                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus' && resetUtcOffset == 0}" *ngIf="(item.enabled || editModeActive) && evaluateDisplayCondition(item.displayCondition)">
                     <div class="imgWrapper">
                         <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
                     </div>
@@ -91,7 +91,7 @@
         <div *ngIf="!allDailyArcaneRiverDisabled || editModeActive" class="taskGroupWrapper">
             <p>Arcane River Dailies</p>
             <ng-container *ngFor="let item of dailies[characterIndex].dailyArcaneRiver; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="item.enabled || editModeActive">
+                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="(item.enabled || editModeActive) && evaluateDisplayCondition(item.displayCondition)">
                     <div class="imgWrapper">
                         <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
                     </div>

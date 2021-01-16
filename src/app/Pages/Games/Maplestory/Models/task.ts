@@ -4,4 +4,5 @@ export interface Task {
   completed: boolean;
   enabled: boolean;
   type: string;
+  displayCondition: string;
 }
