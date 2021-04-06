@@ -6,3 +6,9 @@ export interface Dailies {
   dailyTasks: Task[];
   dailyArcaneRiver: Task[];
 }
+
+export interface DailiesData {
+  dailies: Dailies[];
+  dailiesVersion: string;
+  lastDailiesTrackerVisit: string;
+}

@@ -1,5 +1,5 @@
 {
-    "version": "5.1",
+    "version": "5.2",
     "dailyBosses":[ 
         {
             "name": "Zakum",
@@ -202,30 +202,6 @@
             "enabled": true,
             "type": "event",
             "displayCondition": "new Date().getTime() > 1612386000000 && new Date().getTime() < 1623196799000"
-        },
-        {
-            "name": "Cotton Candy Capping",
-            "image": "Event/MoonLightMagic/CottonCandy.png",
-            "completed": false,
-            "enabled": true,
-            "type": "event",
-            "displayCondition": "new Date().getTime() > 1612386000000 && new Date().getTime() < 1615334399000"
-        },
-        {
-            "name": "Moon Candy Capping",
-            "image": "Event/MoonLightMagic/MoonCandy.png",
-            "completed": false,
-            "enabled": true,
-            "type": "event",
-            "displayCondition": "new Date().getTime() > 1612386000000 && new Date().getTime() < 1615334399000"
-        },
-        {
-            "name": "Star Balloon Pop",
-            "image": "Event/MoonLightMagic/StarCandy.png",
-            "completed": false,
-            "enabled": true,
-            "type": "event",
-            "displayCondition": "new Date().getTime() > 1612386000000 && new Date().getTime() < 1615334399000"
         }
     ],
     "dailyArcaneRiver":[

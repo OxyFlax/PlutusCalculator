@@ -45,6 +45,14 @@ const routes: Routes = [
         path: 'games/maplestory/weapon-flame', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weapon-flame-calculator/maplestory-weapon-flame-calculator.module').then(m => m.MaplestoryWeaponFlameCalculatorModule)
     },
+    {
+        path: 'games/maplestory/settings', 
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-settings/maplestory-settings.module').then(m => m.MaplestorySettingsModule)
+    },
+    {
+        path: 'games/maplestory/dailies-v2', 
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v2/maplestory-dailies-v2.module').then(m => m.MaplestoryDailiesV2Module)
+    },
 
 
 

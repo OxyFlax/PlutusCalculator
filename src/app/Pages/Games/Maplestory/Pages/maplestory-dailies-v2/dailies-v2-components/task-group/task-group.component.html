@@ -1,0 +1,32 @@
+<div *ngIf="!allDailyBossesDisabled || editModeActive" class="taskGroupWrapper">
+    <p>{{ this.title }}</p>
+    <ng-container *ngFor="let task of tasks; let i = index">
+        <div class="taskWrapper" [ngClass]="(task.enabled)?'enabledTask':'disabledTask'" *ngIf="(task.enabled || editModeActive) && evaluateDisplayCondition(task.displayCondition)">
+            <div class="imgWrapper">
+                 <img [src]="task.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + task.image : task.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{task.name}}">
+            </div>
+            <label for="{{this.title}}{{i}}" (click)="disableTask(i)">{{ task.name }}</label>
+            <div class="inputWrapper">
+                <input *ngIf="!editModeActive" name="{{this.title}}{{i}}" id="{{this.title}}{{i}}" type="checkbox" [(ngModel)]="task.completed" (change)="taskChangeHandler()" />
+                <div *ngIf="editModeActive" class="orderChanger">
+                    <i class="fa fa-caret-up fa-2x" (click)="moveTask(i, 'up')"></i>
+                    <i class="fa fa-caret-down fa-2x" (click)="moveTask(i, 'down')"></i>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="startAddingCustomTask()">
+        <div class="imgWrapper">
+            <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
+        </div>
+        <label>Add Custom Task</label>
+        <div class="inputWrapper">
+            <div class="taskAdder">
+                <i class="fa fa-plus fa-2x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-task-adder *ngIf="editModeActive && addingCustomTask" (cancelAddingTaskEvent)="cancelAddCustomTask()" (confirmAddingTaskEvent)="confirmAddingCustomDaily($event)"></app-task-adder>

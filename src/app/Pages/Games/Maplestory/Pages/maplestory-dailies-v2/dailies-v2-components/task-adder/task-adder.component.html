@@ -1,0 +1,18 @@
+<div class="customNameInputWrapper" scrollTo>
+    <div class="customNameInput">
+        <div class="inputWrapper">
+            <div class="characterNameInput">
+                <label for="customName">Custom task name</label>
+                <input class="textInput" type="text" id="customName" name="customName" maxlength="30" [(ngModel)]="customTaskName" (keyup.enter)="confirmAddingCustomTask()">
+            </div>
+            <div class="characterNameInput">
+                <label for="customUrl">Optional custom image url</label>
+                <input class="textInput" type="text" id="customUrl" name="customUrl" [(ngModel)]="customTaskImageUrl" (keyup.enter)="confirmAddingCustomTask()">
+            </div>
+        </div>
+        <div class="buttonWrapper">
+            <button class="buttonStyle left" (click)="confirmAddingCustomTask()">Confirm</button>
+            <button class="buttonStyle right" (click)="cancelAddingCustomTask()">Cancel</button>
+        </div>
+    </div>
+</div>
