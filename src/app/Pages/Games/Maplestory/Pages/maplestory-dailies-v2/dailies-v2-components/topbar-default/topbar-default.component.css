@@ -1,0 +1,28 @@
+.editButton {
+    background-color: var(--game-page-accent-color);
+    border: none;
+    color: #FFFFFF;
+    padding: 5px 8px 5px 8px;
+    text-align: center;
+    font-size: 16px;
+    margin: 8px 8px 0px 0px;
+    outline:none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.title {
+    margin: 0px;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    margin-top: 5px;
+}
+
+@media only screen and (max-width: 950px) {
+    .title {
+        padding-top: 48px;
+    }
+}

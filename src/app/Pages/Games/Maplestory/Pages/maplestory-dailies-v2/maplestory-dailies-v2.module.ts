@@ -5,9 +5,12 @@ import { MaplestoryDailiesV2RoutingModule } from './maplestory-dailies-v2-routin
 import { MaplestorySharedModule } from '../../side-navigation/maplestory-shared.module';
 import { TaskGroupComponent } from './dailies-v2-components/task-group/task-group.component';
 import { TaskAdderComponent } from './dailies-v2-components/task-adder/task-adder.component';
+import { TopbarEditmodeComponent } from './dailies-v2-components/topbar-editmode/topbar-editmode.component';
+import { TopbarDefaultComponent } from './dailies-v2-components/topbar-default/topbar-default.component';
+import { CharacterNavigationBarComponent } from './dailies-v2-components/character-navigation-bar/character-navigation-bar.component';
 
 @NgModule({
-    declarations: [MaplestoryDailiesV2Component, TaskGroupComponent, TaskAdderComponent],
+    declarations: [MaplestoryDailiesV2Component, TaskGroupComponent, TaskAdderComponent, TopbarDefaultComponent, TopbarEditmodeComponent, CharacterNavigationBarComponent],
     imports: [CommonModule, MaplestoryDailiesV2RoutingModule, MaplestorySharedModule],
     exports: [MaplestoryDailiesV2Component, TaskGroupComponent, TaskAdderComponent]
 })

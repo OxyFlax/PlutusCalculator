@@ -9,7 +9,11 @@ import { Task } from '../../../../Models/task';
 export class TaskGroupComponent implements OnInit {
   @Input() tasks: Task[];
   @Input() title: string;
+  @Input() editModeActive: boolean;
   @Output() taskChangeEvent = new EventEmitter<any>();
+
+
+
 
 
 
@@ -17,7 +21,6 @@ export class TaskGroupComponent implements OnInit {
 
 
   allDailyBossesDisabled: boolean = false;
-  editModeActive: boolean = false;
   addingCustomTask: boolean = false;
 
   ngOnInit(): void {
@@ -65,10 +68,6 @@ export class TaskGroupComponent implements OnInit {
     this.addingCustomTask = true;
   }
 
-  cancelAddCustomTask() {
-    this.addingCustomTask = false;
-  }
-
   confirmAddingCustomDaily(eventData: any) {
     if (eventData.name != "") {
       // if the user didn't specify an url set it to the default icon
@@ -91,8 +90,9 @@ export class TaskGroupComponent implements OnInit {
     }
   }
 
-
-
+  cancelAddCustomTask() {
+    this.addingCustomTask = false;
+  }
 
   evaluateDisplayCondition(condition: string) {
     try {

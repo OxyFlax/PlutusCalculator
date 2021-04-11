@@ -34,21 +34,3 @@
 .customNameInput .characterNameInput input {
     width: 220px;
 }
-
-.characterNameInput {
-    display: inline-block;
-    margin-top: 3px;
-}
-
-.characterNameInput label {
-    display:block;
-    text-align: center;
-    font-size: 15px;
-}
-
-.characterNameInput input{
-    display:block;
-    margin-top: 3px;
-    text-align: center;
-    width: 180px;
-}

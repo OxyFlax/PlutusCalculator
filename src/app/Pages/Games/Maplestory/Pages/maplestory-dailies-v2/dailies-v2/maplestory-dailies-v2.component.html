@@ -1,30 +1,29 @@
+<!--
+    planned ways to implement things:
+
+    weeklies count downs: add a var to the "task-group" that contains if it resets on a certain day aka "sunday", "wednesday" or "no" use this to add a count down timer or not.
+    weeklies reset: each countdown triggers it for them selves.
+    dailies count down: add a count down to the dailies component itself.
+    dailies reset: dailies component does the reset for everything -> this should be done by turning taskgroups into a var so its arrayable
+    ^ not the cleanest way to implement it but the best for versatility 
+    
+
+-->
+
+
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="gamePageContent">
+    <app-topbar-default *ngIf="!this.dailiesData.editModeActive" [dailiesData]="this.dailiesData" [topBarTitle]="'Daily Tracker'"></app-topbar-default>
+    <app-topbar-editmode *ngIf="this.dailiesData.editModeActive" [dailiesData]="this.dailiesData" [topBarTitle]="'Daily Tracker'"></app-topbar-editmode>
+
+
     <button class="buttonStyle" (click)="test()">test</button>
     <!-- <div class="topBar">
         <p *ngIf="!editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
-        <div *ngIf="editModeActive" class="regionSelector">
-            Region: 
-            <select class="select" (change)="regionChange($event)">
-                <option *ngFor="let r of regions" value="r.resetUtcOffset" [selected]="resetUtcOffset == r.resetUtcOffset">{{r.name}}</option>
-            </select>
-        </div>
-        <p class="title">Daily Tracker {{ dailies[characterIndex].characterName }}</p>
-        <button class="editButton" (click)="toggleEditMode()">{{ editButtonMessage }}</button>
+
+
     </div>
-    <div class="characterNavigationBar">
-        <a (click)="changeCharacter(0)" [ngClass]="(characterIndex == 0)?'selected':'notSelected'">{{ dailies[0].characterName }}</a>
-        <a (click)="changeCharacter(1)" [ngClass]="(characterIndex == 1)?'selected':'notSelected'">{{ dailies[1].characterName }}</a>
-        <a (click)="changeCharacter(2)" [ngClass]="(characterIndex == 2)?'selected':'notSelected'">{{ dailies[2].characterName }}</a>
-        <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ dailies[3].characterName }}</a>
-    </div>
-    <p class="editModeMessage" *ngIf="editModeActive">Edit mode active, click on the names of dailies to disable them (this
-        will prevent them from showing up outside of the edit mode)<br>Adding custom dailies is possible with the option at the bottom of each list (custom dailies cannot be disabled but are instead removed)</p>
-    <div class="inputWrapper" *ngIf="editModeActive">
-        <div class="characterNameInput">
-            <label for="characterName">Character Name</label>
-            <input class="textInput" type="text" id="characterName" name="characterName" maxlength="12" [(ngModel)]="dailies[characterIndex].characterName">
-        </div>
+
     </div> -->
     <div class="dailyGroups">
         <!-- <div *ngIf="allDailyBossesDisabled && allDailyTasksDisabled && allDailyArcaneRiverDisabled && !editModeActive">
@@ -38,9 +37,10 @@
 
 
         <!-- data to pass on & show: dailiesData tasks bosses & arcaneriver -->
-        <app-task-group [tasks]="this.dailiesData.dailies[0].dailyBosses" [title]="'Daily Bosses'" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
-        <app-task-group [tasks]="this.dailiesData.dailies[0].dailyTasks" [title]="'Daily Tasks'" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
-        <app-task-group [tasks]="this.dailiesData.dailies[0].dailyArcaneRiver" [title]="'Arcane River Dailies'" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
+        <!-- rework this to iterate over a list of dailiesgroups this means it could include properties like the title -->
+        <app-task-group [tasks]="this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].dailyBosses" [title]="'Daily Bosses'" [editModeActive]="this.dailiesData.editModeActive" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
+        <app-task-group [tasks]="this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].dailyTasks" [title]="'Daily Tasks'" [editModeActive]="this.dailiesData.editModeActive" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
+        <app-task-group [tasks]="this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].dailyArcaneRiver" [title]="'Arcane River Dailies'" [editModeActive]="this.dailiesData.editModeActive" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
 
         <!-- <div *ngIf="!allDailyBossesDisabled || editModeActive" class="taskGroupWrapper">
             <p>Daily Bosses</p>

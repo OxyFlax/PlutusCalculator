@@ -11,6 +11,10 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrls: ['./maplestory-dailies-v2.component.css']
 })
 export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
+  characterIndex: number = 0;
+  dailiesData: DailiesData;
+
+
   timer: any;
   timerString: string;
 
@@ -26,14 +30,13 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
   selectedRegionIndex: number = 0;
   resetUtcOffset: number = 0;
 
-  characterIndex: number = 0;
-  dailiesData: DailiesData;
+
+
   dailies: Dailies[] = [];
   allDailyBossesDisabled: boolean = false;
   allDailyTasksDisabled: boolean = false;
   allDailyArcaneRiverDisabled: boolean = false;
-  editModeActive: boolean = false;
-  editButtonMessage: string = "Edit Dailies";
+
 
   addingCustomDaily: boolean = false;
   customDailyType: string = "";
@@ -107,10 +110,13 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     var newDailiesData: DailiesData = {
       dailies: [],
       dailiesVersion: DailiesJson.version,
-      lastDailiesTrackerVisit: Date.now().toString()
+      lastDailiesTrackerVisit: Date.now().toString(),
+      selecterCharacterIndex: 0,
+      editModeActive: false,
+      mapleRegion: {resetUtcOffset: 0, name: 'GMS'}
     }
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
       newDailiesList.characterName = "Char" + (i + 1);
       newDailiesData.dailies[i] = JSON.parse(JSON.stringify(newDailiesList));
     }
@@ -292,15 +298,6 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
   }
 
-  regionChange(event: any) {
-    this.selectedRegionIndex = event.target.selectedIndex;
-    this.resetUtcOffset = this.regions[event.target.selectedIndex].resetUtcOffset;
-    localStorage.setItem("mapleRegion", JSON.stringify(this.selectedRegionIndex));
-
-    // re do the checks for previous day data & setup the timers for the new resetUtcOffset
-    this.initialise();
-  }
-
   dailiesChangeHandler() {
     localStorage.setItem("dailiesData", JSON.stringify(this.dailiesData));
   }
@@ -310,19 +307,6 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
 
     // recheck if a group is disabled for a diffrent character
     this.checkIfDailyGroupsAreFullyDisabled();
-  }
-
-  toggleEditMode() {
-    if (this.editModeActive) {
-      this.editModeActive = false;
-      this.editButtonMessage = "Edit Dailies";
-      this.dailiesChangeHandler();
-      // recheck if there is a dailygroup that is fully disabled
-      this.checkIfDailyGroupsAreFullyDisabled();
-    } else {
-      this.editModeActive = true;
-      this.editButtonMessage = "Exit Edit Mode";
-    }
   }
 
   startTimer() {
@@ -482,10 +466,14 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     }
   }
 
+  characterNameChange($event: any) {
+    this.dailiesData.dailies[0].characterName = $event;
+  }
+
   test() {
     console.log(this.dailiesData.dailies[0].dailyBosses);
     console.log(this.dailiesData.dailies[0].dailyTasks);
     console.log(this.dailiesData.dailies[0].dailyArcaneRiver);
-    
+    console.log(this.dailiesData);
   }
 }

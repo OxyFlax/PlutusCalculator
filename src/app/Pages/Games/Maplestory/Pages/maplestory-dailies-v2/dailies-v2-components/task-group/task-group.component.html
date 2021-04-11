@@ -29,4 +29,4 @@
     </div>
 </div>
 
-<app-task-adder *ngIf="editModeActive && addingCustomTask" (cancelAddingTaskEvent)="cancelAddCustomTask()" (confirmAddingTaskEvent)="confirmAddingCustomDaily($event)"></app-task-adder>
+<app-task-adder *ngIf="addingCustomTask" (cancelAddingTaskEvent)="cancelAddCustomTask()" (confirmAddingTaskEvent)="confirmAddingCustomDaily($event)"></app-task-adder>
