@@ -8,13 +8,10 @@ import { TaskData, TaskGroup } from '../../../../Models/taskModels';
   styleUrls: ['./task-group.component.css']
 })
 export class TaskGroupComponent implements OnInit {
-  @Input() taskData: TaskData; // reference is passed along to make editModeActive available
+  @Input() taskData: TaskData; // reference is passed along to make editModeActive available and enable the resetting of a taskgroup for every character
+  @Input() taskGroupIndex: number; // passed on to enable the resetting of the taskgroup for every character
   @Input() taskGroup: TaskGroup;
   @Input() title: string;
-
-  ursusTimerPrefix: string = "lmao";
-  ursusTimerString: string = "yeet";
-
 
   @Output() changeEvent = new EventEmitter<any>();
 
@@ -94,5 +91,15 @@ export class TaskGroupComponent implements OnInit {
 
   changeHandler() {
     this.changeEvent.emit();
+  }
+
+  // Resets the completed values for this taskgroup for all characters
+  resetCompletedValues() {
+    this.taskData.characters.forEach(item => {
+      item.taskGroups[this.taskGroupIndex].tasks.forEach(task => {
+        task.completed = false;
+      });
+    });
+    this.changeHandler();
   }
 }

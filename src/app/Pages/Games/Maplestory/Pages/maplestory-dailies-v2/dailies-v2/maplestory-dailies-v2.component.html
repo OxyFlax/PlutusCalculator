@@ -21,13 +21,13 @@
         <p *ngIf="!editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
     </div>
      -->
+     <button class="buttonStyle" (click)="resetAllCompletedValues()">test reset</button>
+     
 
     <div class="dailyGroups">
         <div *ngIf="allGroupsAreDisabled && !dailiesData.editModeActive">
             All dailies are disabled, click on the "Edit Dailies" button to enable dailies.
         </div>
-
-        <app-task-group *ngFor="let item of dailiesData.characters[this.dailiesData.selectedCharacterIndex].taskGroups; let i = index" [taskData]="dailiesData" [taskGroup]="item" [title]="item.title" (changeEvent)="changeHandler()">
-        </app-task-group>
+        <app-task-group #tskgrpcmp *ngFor="let item of dailiesData.characters[this.dailiesData.selectedCharacterIndex].taskGroups; let i = index" [taskData]="dailiesData" [taskGroup]="item" [taskGroupIndex]="i" [title]="item.title" (changeEvent)="changeHandler()"></app-task-group>
     </div>
 </div>

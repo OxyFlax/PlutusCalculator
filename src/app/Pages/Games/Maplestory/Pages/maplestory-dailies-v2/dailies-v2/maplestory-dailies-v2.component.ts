@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import DailiesJson from '../../../../../../../assets/Games/Maplestory/Dailies.json';
 import { Region } from '../../../Models/region';
 import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, Task, CharacterData, TaskGroup } from '../../../Models/taskModels';
+import { TaskGroupComponent } from '../dailies-v2-components/task-group/task-group.component';
 
 @Component({
   selector: 'app-maplestory-dailies-v2',
@@ -10,6 +11,8 @@ import { TaskData, Task, CharacterData, TaskGroup } from '../../../Models/taskMo
   styleUrls: ['./maplestory-dailies-v2.component.css']
 })
 export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
+  @ViewChildren('tskgrpcmp') taskGroupComponents:QueryList<TaskGroupComponent>;
+
   characterIndex: number = 0;
   dailiesData: TaskData;
   allGroupsAreDisabled: boolean;
@@ -18,26 +21,8 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
   timer: any;
   timerString: string;
 
-  regions: Array<Region> = [
-    { resetUtcOffset: 0, name: 'GMS' },
-    { resetUtcOffset: 8, name: 'MSEA' },
-    { resetUtcOffset: 9, name: 'KMS' }
-  ];
-  selectedRegionIndex: number = 0;
-  resetUtcOffset: number = 0;
 
-
-
-  dailies: CharacterData[] = [];
-  allDailyBossesDisabled: boolean = false;
-  allDailyTasksDisabled: boolean = false;
-  allDailyArcaneRiverDisabled: boolean = false;
-
-
-  addingCustomDaily: boolean = false;
-  customDailyType: string = "";
-  customDailyName: string = "";
-  customDailyImageUrl: string = "";
+  
 
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -57,18 +42,9 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     // if (this.timer) {
     //   clearInterval(this.timer);
     // }
-
-    // if (this.ursusTimer) {
-    //   clearInterval(this.ursusTimer);
-    // }
   }
 
   initialise() {
-    if (localStorage.getItem("mapleRegion")) {
-      this.selectedRegionIndex = JSON.parse(localStorage.getItem("mapleRegion"));
-      this.resetUtcOffset = this.regions[this.selectedRegionIndex].resetUtcOffset;
-    }
-
     if (localStorage.getItem("dailiesData")) {
       this.dailiesData = JSON.parse(localStorage.getItem("dailiesData"));
 
@@ -81,20 +57,14 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       // this.checkIfDataIsFromPreviousDay();
       // this.updateChecker();
 
-      // if the data is not a new set check if the loaded data has a dailygroup that is fully disabled
-      // this.checkIfDailyGroupsAreFullyDisabled();
+      // checks if all groups are disabled to notify users to enable dailies in the editmode
+      this.checkIfAllGroupsAreDisabled();
     } else {
       // initiate a dataset
       this.initiateData();
-      // set last visit 
-      // localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
     }
 
-    this.startTimer();
-    // ursus timer only has support for GMS so if reset isn't at 0 utc we don't need to start the timer
-    // if (this.resetUtcOffset == 0) {
-    //   this.startUrsusTimer();
-    // }
+    //this.startTimer();
   }
 
   initiateData() {
@@ -114,12 +84,15 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       selectedCharacterIndex: 0,
       editModeActive: false,
       mapleRegion: {resetUtcOffset: 0, name: 'GMS'}
-    }
+    };
 
     for (let i = 0; i < 4; i++) {
       newCharacterList.characterName = "Char" + (i + 1);
       newDailiesData.characters[i] = JSON.parse(JSON.stringify(newCharacterList));
-    }
+    };
+
+    // set the last visit to the current time
+    newDailiesData.lastTrackerVisit = Date.now().toString();
 
     this.dailiesData = newDailiesData;
     this.changeHandler();
@@ -217,7 +190,7 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
   //           }
   //         }
   //       }
-  //       // copy all left over new weeklytasks over
+  //       // copy all left over new daily tasks over
   //       for (let j = 0; j < newDailiesStructure[i].dailyTasks.length; j++) {
   //         var transferTask: Task = {
   //           name: newDailiesStructure[i].dailyTasks[j].name,
@@ -283,52 +256,52 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
   //   }
   // }
 
-  checkIfDataIsFromPreviousDay() {
-    var date = new Date();
+  // checkIfDataIsFromPreviousDay() {
+  //   var date = new Date();
 
-    var lastReset = this.calculateResetTime() - (24 * 60 * 60 * 1000);
+  //   var lastReset = this.calculateResetTime() - (24 * 60 * 60 * 1000);
 
-    var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
+  //   var lastVisit = localStorage.getItem("lastMapleDailyTrackerVisit") ? localStorage.getItem("lastMapleDailyTrackerVisit") : 0;
 
-    if (lastVisit < lastReset) {
-      //this.resetCompletedValues();
-    }
+  //   if (lastVisit < lastReset) {
+  //     //this.resetCompletedValues();
+  //   }
 
-    // reset last visit to the current time
-    localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
-  }
+  //   // reset last visit to the current time
+  //   localStorage.setItem("lastMapleDailyTrackerVisit", Date.now().toString());
+  // }
 
-  startTimer() {
-    clearInterval(this.timer);
+  // startTimer() {
+  //   clearInterval(this.timer);
 
-    var endTime = this.calculateResetTime();
+  //   var endTime = this.calculateResetTime();
 
-    this.calculateAndOutPutTime(endTime - new Date().getTime());
+  //   this.calculateAndOutPutTime(endTime - new Date().getTime());
 
-    this.timer = setInterval(() => {
-      var distance = endTime - new Date().getTime();
-      this.calculateAndOutPutTime(distance);
+  //   this.timer = setInterval(() => {
+  //     var distance = endTime - new Date().getTime();
+  //     this.calculateAndOutPutTime(distance);
 
-      if (distance < 0) {
-        clearInterval(this.timer);
-        //this.liveReset();
-      }
-    }, 1000);
-  }
+  //     if (distance < 0) {
+  //       clearInterval(this.timer);
+  //       //this.liveReset();
+  //     }
+  //   }, 1000);
+  // }
 
-  calculateResetTime(): number {
-    var date = new Date();
-    var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 0, 0, 0, 0);
+  // calculateResetTime(): number {
+  //   var date = new Date();
+  //   var endTime = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate() + 1, 0, 0, 0, 0);
 
-    // calculate the offset from UTC if the time to countdown is in the past it means that a day needs to be added
-    // WARNING: countdowns to timezones behind utc might not work properly (Have fun future me if this needs to be added :) )
-    endTime = endTime - (this.resetUtcOffset * 60 * 60 * 1000)
-    if (endTime < date.getTime()) {
-      endTime += (24 * 60 * 60 * 1000);
-    }
+  //   // calculate the offset from UTC if the time to countdown is in the past it means that a day needs to be added
+  //   // WARNING: countdowns to timezones behind utc might not work properly (Have fun future me if this needs to be added :) )
+  //   endTime = endTime - (this.resetUtcOffset * 60 * 60 * 1000)
+  //   if (endTime < date.getTime()) {
+  //     endTime += (24 * 60 * 60 * 1000);
+  //   }
 
-    return endTime;
-  }
+  //   return endTime;
+  // }
 
   calculateAndOutPutTime(distance: number) {
     if (distance < 0) {
@@ -343,54 +316,28 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     this.timerString = hours + "h " + minutes + "m " + ("00" + seconds).slice(-2) + "s ";
   }
 
-  // resetCompletedValues() {
-  //   this.dailies.forEach(item => {
-  //     item.dailyBosses.forEach(item => {
-  //       item.completed = false;
-  //     });
-  //     item.dailyTasks.forEach(item => {
-  //       item.completed = false;
-  //     });
-  //     item.dailyArcaneRiver.forEach(item => {
-  //       item.completed = false;
-  //     });
-  //   });
-  //   this.taskChangeHandler();
-  // }
-
   // liveReset() {
   //   this.resetCompletedValues();
   //   this.startTimer();
   //   localStorage.setItem("lastMapleDailyTrackerVisit", (parseInt(Date.now().toString()) + 5000).toString());
   // }
 
-  // checkIfDailyGroupsAreFullyDisabled() {
-  //   if (this.dailies[this.characterIndex].dailyBosses.some(item => item.enabled)) {
-  //     this.allDailyBossesDisabled = false;
-  //   } else {
-  //     this.allDailyBossesDisabled = true;
-  //   }
+  checkIfAllGroupsAreDisabled() {
+    this.allGroupsAreDisabled = !this.dailiesData.characters[this.dailiesData.selectedCharacterIndex].taskGroups.some(item => !item.allDisabled);
+  }
 
-  //   if (this.dailies[this.characterIndex].dailyTasks.some(item => item.enabled)) {
-  //     this.allDailyTasksDisabled = false;
-  //   } else {
-  //     this.allDailyTasksDisabled = true;
-  //   }
+  // This calls the resetCompletedValues() method in all of the task-group components
+  // this allows the tracker page to reset the completed values for all task-groups at once (incase the data is from a previous day)
+  // ontop of that this means the dailies tracker reset time can be ran inside of this component
+  resetAllCompletedValues() {
+    var taskGroupComponentList: any = this.taskGroupComponents.toArray();
+    taskGroupComponentList.forEach(element => {
+      element.resetCompletedValues();
+    });
+  }
 
-  //   if (this.dailies[this.characterIndex].dailyArcaneRiver.some(item => item.enabled)) {
-  //     this.allDailyArcaneRiverDisabled = false;
-  //   } else {
-  //     this.allDailyArcaneRiverDisabled = true;
-  //   }
-  // }
-
-  
   changeHandler() {
     localStorage.setItem("dailiesData", JSON.stringify(this.dailiesData));
     this.checkIfAllGroupsAreDisabled();
-  }
-
-  checkIfAllGroupsAreDisabled() {
-    this.allGroupsAreDisabled = !this.dailiesData.characters[this.dailiesData.selectedCharacterIndex].taskGroups.some(item => !item.allDisabled);
   }
 }
