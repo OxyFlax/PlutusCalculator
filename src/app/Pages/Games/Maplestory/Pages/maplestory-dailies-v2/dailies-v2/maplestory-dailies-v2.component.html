@@ -6,153 +6,28 @@
     dailies count down: add a count down to the dailies component itself.
     dailies reset: dailies component does the reset for everything -> this should be done by turning taskgroups into a var so its arrayable
     ^ not the cleanest way to implement it but the best for versatility 
-    
-
 -->
 
 
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="gamePageContent">
-    <app-topbar-default *ngIf="!this.dailiesData.editModeActive" [dailiesData]="this.dailiesData" [topBarTitle]="'Daily Tracker'"></app-topbar-default>
-    <app-topbar-editmode *ngIf="this.dailiesData.editModeActive" [dailiesData]="this.dailiesData" [topBarTitle]="'Daily Tracker'"></app-topbar-editmode>
+    <app-topbar-default *ngIf="!dailiesData.editModeActive" [taskData]="dailiesData" [topBarTitle]="'Daily Tracker'" (changeEvent)="changeHandler()"></app-topbar-default>
+    <app-topbar-editmode *ngIf="dailiesData.editModeActive" [taskData]="dailiesData" [topBarTitle]="'Daily Tracker'" (changeEvent)="changeHandler()"></app-topbar-editmode>
 
 
-    <button class="buttonStyle" (click)="test()">test</button>
-    <!-- <div class="topBar">
+    <!-- 
+    Reference for the daily reset countdown
+    <div class="topBar">
         <p *ngIf="!editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
-
-
     </div>
+     -->
 
-    </div> -->
     <div class="dailyGroups">
-        <!-- <div *ngIf="allDailyBossesDisabled && allDailyTasksDisabled && allDailyArcaneRiverDisabled && !editModeActive">
+        <div *ngIf="allGroupsAreDisabled && !dailiesData.editModeActive">
             All dailies are disabled, click on the "Edit Dailies" button to enable dailies.
-        </div> -->
-
-
-
-
-
-
-
-        <!-- data to pass on & show: dailiesData tasks bosses & arcaneriver -->
-        <!-- rework this to iterate over a list of dailiesgroups this means it could include properties like the title -->
-        <app-task-group [tasks]="this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].dailyBosses" [title]="'Daily Bosses'" [editModeActive]="this.dailiesData.editModeActive" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
-        <app-task-group [tasks]="this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].dailyTasks" [title]="'Daily Tasks'" [editModeActive]="this.dailiesData.editModeActive" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
-        <app-task-group [tasks]="this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].dailyArcaneRiver" [title]="'Arcane River Dailies'" [editModeActive]="this.dailiesData.editModeActive" (taskChangeEvent)="dailiesChangeHandler()"></app-task-group>
-
-        <!-- <div *ngIf="!allDailyBossesDisabled || editModeActive" class="taskGroupWrapper">
-            <p>Daily Bosses</p>
-            <ng-container *ngFor="let item of dailies[characterIndex].dailyBosses; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="(item.enabled || editModeActive) && evaluateDisplayCondition(item.displayCondition)">
-                    <div class="imgWrapper">
-                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
-                    </div>
-                    <label for="dailyQuest{{i}}" (click)="disableDailyBoss(i)">{{ item.name }}</label>
-                    <div class="inputWrapper">
-                        <input *ngIf="!editModeActive" name="dailyQuest{{i}}" id="dailyQuest{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
-                        <div *ngIf="editModeActive" class="orderChanger">
-                            <i class="fa fa-caret-up fa-2x" (click)="moveDailyBoss(i, 'up')"></i>
-                            <i class="fa fa-caret-down fa-2x" (click)="moveDailyBoss(i, 'down')"></i>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-            <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="addCustomDaily('boss')">
-                <div class="imgWrapper">
-                    <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
-                </div>
-                <label>Add Custom Daily</label>
-                <div class="inputWrapper">
-                    <div class="taskAdder">
-                        <i class="fa fa-plus fa-2x"></i>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
-
-
-    
-
-        <!-- <div *ngIf="!allDailyTasksDisabled || editModeActive" class="taskGroupWrapper">
-            <p>Daily Tasks</p>
-            <ng-container *ngFor="let item of dailies[characterIndex].dailyTasks; let i = index">
-                <div class="taskWrapper" [ngClass]="{'enabledTask': item.enabled, 'disabledTask': !item.enabled, 'ursusTaskWrapper': ursusTimerPrefix == 'Golden Time ending in' && item.name == 'Ursus' && resetUtcOffset == 0}" *ngIf="(item.enabled || editModeActive) && evaluateDisplayCondition(item.displayCondition)">
-                    <div class="imgWrapper">
-                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
-                    </div>
-                    <label for="dailyTask{{i}}" (click)="disableDailyTask(i)">{{ item.name }}</label>
-                    <span class="ursusCountdown" *ngIf="item.nname == 'Ursus' && resetUtcOffset == 0" style="pointer-events:none">{{ ursusTimerPrefix }} {{ ursusTimerString }}</span>
-                    <div class="inputWrapper">
-                        <input *ngIf="!editModeActive" name="dailyTask{{i}}" id="dailyTask{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
-                        <div *ngIf="editModeActive" class="orderChanger">
-                            <i class="fa fa-caret-up fa-2x" (click)="moveDailyTask(i, 'up')"></i>
-                            <i class="fa fa-caret-down fa-2x" (click)="moveDailyTask(i, 'down')"></i>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-            <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="addCustomDaily('task')">
-                <div class="imgWrapper">
-                    <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
-                </div>
-                <label>Add Custom Daily</label>
-                <div class="inputWrapper">
-                    <div class="taskAdder">
-                        <i class="fa fa-plus fa-2x"></i>
-                    </div>
-                </div>
-            </div>
         </div>
-        <div *ngIf="!allDailyArcaneRiverDisabled || editModeActive" class="taskGroupWrapper">
-            <p>Arcane River Dailies</p>
-            <ng-container *ngFor="let item of dailies[characterIndex].dailyArcaneRiver; let i = index">
-                <div class="taskWrapper" [ngClass]="(item.enabled)?'enabledTask':'disabledTask'" *ngIf="(item.enabled || editModeActive) && evaluateDisplayCondition(item.displayCondition)">
-                    <div class="imgWrapper">
-                        <img [src]="item.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + item.image : item.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{item.name}}">
-                    </div>
-                    <label for="dailyArcaneRiver{{i}}" (click)="disableDailyArcaneRiver(i)">{{ item.name }}</label>
-                    <div class="inputWrapper">
-                        <input *ngIf="!editModeActive" name="dailyArcaneRiver{{i}}" id="dailyArcaneRiver{{i}}" type="checkbox" [(ngModel)]="item.completed" (change)="dailiesChangeHandler()" />
-                        <div *ngIf="editModeActive" class="orderChanger">
-                            <i class="fa fa-caret-up fa-2x" (click)="moveDailyArcaneRiver(i, 'up')"></i>
-                            <i class="fa fa-caret-down fa-2x" (click)="moveDailyArcaneRiver(i, 'down')"></i>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
-            <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="addCustomDaily('arcane river')">
-                <div class="imgWrapper">
-                    <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
-                </div>
-                <label>Add Custom Daily</label>
-                <div class="inputWrapper">
-                    <div class="taskAdder">
-                        <i class="fa fa-plus fa-2x"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- <div *ngIf="editModeActive && addingCustomDaily" class="customNameInputWrapper" scrollTo>
-        <div class="customNameInput">
-            <div class="inputWrapper">
-                <div class="characterNameInput">
-                    <label for="customName">Custom {{ customDailyType }} daily name</label>
-                    <input class="textInput" type="text" id="customName" name="customName" maxlength="30" [(ngModel)]="customDailyName" (keyup.enter)="confirmAddingCustomDaily()">
-                </div>
-                <div class="characterNameInput">
-                    <label for="customUrl">Optional custom image url</label>
-                    <input class="textInput" type="text" id="customUrl" name="customUrl" [(ngModel)]="customDailyImageUrl" (keyup.enter)="confirmAddingCustomDaily()">
-                </div>
-            </div>
-            <div class="buttonWrapper">
-                <button class="buttonStyle left" (click)="confirmAddingCustomDaily()">Confirm</button>
-                <button class="buttonStyle right" (click)="cancelAddingCustomDaily()">Cancel</button>
-            </div>
-        </div>
-    </div> -->
+
+        <app-task-group *ngFor="let item of dailiesData.characters[this.dailiesData.selectedCharacterIndex].taskGroups; let i = index" [taskData]="dailiesData" [taskGroup]="item" [title]="item.title" (changeEvent)="changeHandler()">
+        </app-task-group>
+    </div>
 </div>

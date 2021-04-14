@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { DailiesData } from '../../../../Models/dailies';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TaskData } from '../../../../Models/taskModels';
 
 @Component({
   selector: 'app-topbar-default',
@@ -7,10 +7,17 @@ import { DailiesData } from '../../../../Models/dailies';
   styleUrls: ['./topbar-default.component.css']
 })
 export class TopbarDefaultComponent {
-  @Input() dailiesData: DailiesData;
+  @Input() taskData: TaskData;
   @Input() topBarTitle: string;
+
+  @Output() changeEvent = new EventEmitter<any>();
   
   enterEditMode() {
-    this.dailiesData.editModeActive = true;
+    this.taskData.editModeActive = true;
+    this.changeHandler();
+  }
+
+  changeHandler() {
+    this.changeEvent.emit();
   }
 }

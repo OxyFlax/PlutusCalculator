@@ -2,21 +2,7 @@
     position: relative;
 }
 
-.ursusTaskWrapper {
-    -webkit-box-shadow: inset 0 0 15px 0px #F9D77E;
-    -moz-box-shadow: inset 0 0 15px 0px #F9D77E;
-    box-shadow: inset 0 0 15px 0px #F9D77E;
-}
 
-.taskWrapper .ursusCountdown {
-    position:absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-left: 19px;
-    padding-bottom: 5px;
-    font-size: 12px;
-}
 
 .disableMode {
     width: 100px;

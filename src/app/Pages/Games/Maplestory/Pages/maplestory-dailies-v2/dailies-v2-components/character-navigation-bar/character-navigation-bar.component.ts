@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { DailiesData } from '../../../../Models/dailies';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TaskData } from '../../../../Models/taskModels';
 
 @Component({
   selector: 'app-character-navigation-bar',
@@ -7,10 +7,19 @@ import { DailiesData } from '../../../../Models/dailies';
   styleUrls: ['./character-navigation-bar.component.css']
 })
 export class CharacterNavigationBarComponent {
-  @Input() dailiesData: DailiesData;
+  @Input() taskData: TaskData;
+
+  @Output() changeEvent = new EventEmitter<any>();
 
 
   changeCharacter(index: number) {
-    this.dailiesData.selecterCharacterIndex = index;
+    this.taskData.selectedCharacterIndex = index;
+
+    // save the changes
+    this.changeHandler();
+  }
+
+  changeHandler() {
+    this.changeEvent.emit();
   }
 }

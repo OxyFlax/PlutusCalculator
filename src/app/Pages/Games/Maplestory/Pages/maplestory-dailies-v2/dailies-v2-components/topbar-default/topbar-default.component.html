@@ -1,4 +1,4 @@
 <button class="editButton" (click)="enterEditMode()">Edit Dailies</button>
 
-<p class="title">{{ this.topBarTitle }} {{ this.dailiesData.dailies[this.dailiesData.selecterCharacterIndex].characterName }}</p>
-<app-character-navigation-bar [dailiesData]="this.dailiesData"></app-character-navigation-bar>
+<p class="title">{{ this.topBarTitle }} {{ taskData.characters[taskData.selectedCharacterIndex].characterName }}</p>
+<app-character-navigation-bar [taskData]="taskData" (changeEvent)="changeHandler()"></app-character-navigation-bar>

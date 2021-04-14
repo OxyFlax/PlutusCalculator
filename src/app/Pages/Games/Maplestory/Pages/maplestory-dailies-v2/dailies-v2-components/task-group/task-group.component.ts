@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Task } from '../../../../Models/task';
+import { TestBed } from '@angular/core/testing';
+import { TaskData, TaskGroup } from '../../../../Models/taskModels';
 
 @Component({
   selector: 'app-task-group',
@@ -7,91 +8,56 @@ import { Task } from '../../../../Models/task';
   styleUrls: ['./task-group.component.css']
 })
 export class TaskGroupComponent implements OnInit {
-  @Input() tasks: Task[];
+  @Input() taskData: TaskData; // reference is passed along to make editModeActive available
+  @Input() taskGroup: TaskGroup;
   @Input() title: string;
-  @Input() editModeActive: boolean;
-  @Output() taskChangeEvent = new EventEmitter<any>();
+
+  ursusTimerPrefix: string = "lmao";
+  ursusTimerString: string = "yeet";
 
 
+  @Output() changeEvent = new EventEmitter<any>();
 
-
-
-
-  //TODO edit button should trigger the safe, on destroy it should also trigger a save.
-
-
-  allDailyBossesDisabled: boolean = false;
+  allTasksDisabled: boolean = false;
   addingCustomTask: boolean = false;
 
-  ngOnInit(): void {
-    console.log(this.tasks);
+  ngOnInit() {
+    this.checkIfGroupIsFullyDisabled();
   }
 
-  moveTask(index: number, direction: string) {
-    if (direction == "up") {
-      if (index == 0) {
+  moveTask(event: any) {
+    if (event.direction == "up") {
+      if (event.index == 0) {
         return;
       }
-      var temp = this.tasks[index - 1];
-      this.tasks[index - 1] = this.tasks[index];
-      this.tasks[index] = temp;
+      var temp = this.taskGroup.tasks[event.index - 1];
+      this.taskGroup.tasks[event.index - 1] = this.taskGroup.tasks[event.index];
+      this.taskGroup.tasks[event.index] = temp;
     }
 
-    if (direction == "down") {
-      if (index + 1 == this.tasks.length) {
+    if (event.direction == "down") {
+      if (event.index + 1 == this.taskGroup.tasks.length) {
         return;
       }
-      var temp = this.tasks[index + 1];
-      this.tasks[index + 1] = this.tasks[index];
-      this.tasks[index] = temp;
+      var temp = this.taskGroup.tasks[event.index + 1];
+      this.taskGroup.tasks[event.index + 1] = this.taskGroup.tasks[event.index];
+      this.taskGroup.tasks[event.index] = temp;
     }
   }
 
-  disableTask(taskIndex: number) {
-    if (!this.editModeActive) {
+  disableTask(index: any) {
+    if (this.taskGroup.tasks[index].type == "custom" || this.taskGroup.tasks[index].image == "Custom.png") {
+      this.taskGroup.tasks.splice(index, 1);
       return;
     }
 
-    if (this.tasks[taskIndex].type == "custom" || this.tasks[taskIndex].image == "Custom.png") {
-      this.tasks.splice(taskIndex, 1);
-      return;
-    }
-
-    if (this.tasks[taskIndex].enabled) {
-      this.tasks[taskIndex].enabled = false;
+    if (this.taskGroup.tasks[index].enabled) {
+      this.taskGroup.tasks[index].enabled = false;
     } else {
-      this.tasks[taskIndex].enabled = true;
+      this.taskGroup.tasks[index].enabled = true;
     }
-  }
 
-  startAddingCustomTask() {
-    this.addingCustomTask = true;
-  }
-
-  confirmAddingCustomDaily(eventData: any) {
-    if (eventData.name != "") {
-      // if the user didn't specify an url set it to the default icon
-      if (eventData.imageUrl == "") {
-        eventData.imageUrl = "assets/Games/Maplestory/Dailies/Custom.png";
-      }
-
-      var newTask: Task = {
-        name: eventData.name,
-        image: eventData.imageUrl,
-        completed: false,
-        enabled: true,
-        type: "custom",
-        displayCondition: "true"
-      }
-
-      this.tasks.push(newTask);
-      this.addingCustomTask = false;
-      this.taskChangeHandler();
-    }
-  }
-
-  cancelAddCustomTask() {
-    this.addingCustomTask = false;
+    this.checkIfGroupIsFullyDisabled();
   }
 
   evaluateDisplayCondition(condition: string) {
@@ -102,7 +68,31 @@ export class TaskGroupComponent implements OnInit {
     }
   }
 
-  taskChangeHandler() {
-    this.taskChangeEvent.emit();
+  checkIfGroupIsFullyDisabled() {
+    if (this.taskGroup.tasks.some(item => item.enabled)) {
+      this.taskGroup.allDisabled = false;
+    } else {
+      this.taskGroup.allDisabled = true;
+    }
+    this.changeHandler();
+  }
+
+  customTaskStartAdding() {
+    this.addingCustomTask = true;
+  }
+
+  customTaskConfirmAdding(eventData: any) {
+      this.taskGroup.tasks.push(eventData);
+      this.addingCustomTask = false;
+      this.checkIfGroupIsFullyDisabled();
+      this.changeHandler();
+  }
+
+  customTaskCancelAdding() {
+    this.addingCustomTask = false;
+  }
+
+  changeHandler() {
+    this.changeEvent.emit();
   }
 }

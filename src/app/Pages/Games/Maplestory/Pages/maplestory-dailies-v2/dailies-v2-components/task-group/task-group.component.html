@@ -1,22 +1,11 @@
-<div *ngIf="!allDailyBossesDisabled || editModeActive" class="taskGroupWrapper">
-    <p>{{ this.title }}</p>
-    <ng-container *ngFor="let task of tasks; let i = index">
-        <div class="taskWrapper" [ngClass]="(task.enabled)?'enabledTask':'disabledTask'" *ngIf="(task.enabled || editModeActive) && evaluateDisplayCondition(task.displayCondition)">
-            <div class="imgWrapper">
-                 <img [src]="task.type != 'custom' ? 'assets/Games/Maplestory/Dailies/' + task.image : task.image" onerror="this.onerror=null; this.src='assets/Games/Maplestory/Dailies/Custom.png'" alt="{{task.name}}">
-            </div>
-            <label for="{{this.title}}{{i}}" (click)="disableTask(i)">{{ task.name }}</label>
-            <div class="inputWrapper">
-                <input *ngIf="!editModeActive" name="{{this.title}}{{i}}" id="{{this.title}}{{i}}" type="checkbox" [(ngModel)]="task.completed" (change)="taskChangeHandler()" />
-                <div *ngIf="editModeActive" class="orderChanger">
-                    <i class="fa fa-caret-up fa-2x" (click)="moveTask(i, 'up')"></i>
-                    <i class="fa fa-caret-down fa-2x" (click)="moveTask(i, 'down')"></i>
-                </div>
-            </div>
-        </div>
+<div *ngIf="!taskGroup.allDisabled || taskData.editModeActive" class="taskGroupWrapper">
+    <p>{{ title }}</p>
+    <ng-container *ngFor="let task of taskGroup.tasks; let i = index">
+        <app-task *ngIf="task.name != 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-task>
+        <app-ursus-task *ngIf="task.name == 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" [resetUtcOffset]="taskData.mapleRegion.resetUtcOffset" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-ursus-task>
     </ng-container>
 
-    <div class="taskWrapper addTask" *ngIf="editModeActive" (click)="startAddingCustomTask()">
+    <div class="taskWrapper addTask" *ngIf="taskData.editModeActive" (click)="customTaskStartAdding()">
         <div class="imgWrapper">
             <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
         </div>
@@ -29,4 +18,4 @@
     </div>
 </div>
 
-<app-task-adder *ngIf="addingCustomTask" (cancelAddingTaskEvent)="cancelAddCustomTask()" (confirmAddingTaskEvent)="confirmAddingCustomDaily($event)"></app-task-adder>
+<app-task-adder *ngIf="addingCustomTask" (cancelAddingTaskEvent)="customTaskCancelAdding()" (confirmAddingTaskEvent)="customTaskConfirmAdding($event)"></app-task-adder>

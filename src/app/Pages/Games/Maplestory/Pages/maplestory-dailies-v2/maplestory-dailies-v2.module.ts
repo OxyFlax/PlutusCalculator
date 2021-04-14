@@ -8,9 +8,11 @@ import { TaskAdderComponent } from './dailies-v2-components/task-adder/task-adde
 import { TopbarEditmodeComponent } from './dailies-v2-components/topbar-editmode/topbar-editmode.component';
 import { TopbarDefaultComponent } from './dailies-v2-components/topbar-default/topbar-default.component';
 import { CharacterNavigationBarComponent } from './dailies-v2-components/character-navigation-bar/character-navigation-bar.component';
+import { TaskComponent } from './dailies-v2-components/task/task.component';
+import { UrsusTaskComponent } from './dailies-v2-components/task/custom-tasks/ursus-task/ursus-task.component';
 
 @NgModule({
-    declarations: [MaplestoryDailiesV2Component, TaskGroupComponent, TaskAdderComponent, TopbarDefaultComponent, TopbarEditmodeComponent, CharacterNavigationBarComponent],
+    declarations: [MaplestoryDailiesV2Component, TaskComponent, UrsusTaskComponent, TaskGroupComponent, TaskAdderComponent, TopbarDefaultComponent, TopbarEditmodeComponent, CharacterNavigationBarComponent],
     imports: [CommonModule, MaplestoryDailiesV2RoutingModule, MaplestorySharedModule],
     exports: [MaplestoryDailiesV2Component, TaskGroupComponent, TaskAdderComponent]
 })
