@@ -6,13 +6,7 @@ import { MaplestorySharedModule } from '../../side-navigation/maplestory-shared.
 
 @NgModule({
     declarations: [MaplestoryWeekliesComponent],
-    imports: [
-        CommonModule,
-        MaplestoryWeekliesRoutingModule,
-        MaplestorySharedModule
-    ],
-    exports: [
-        MaplestoryWeekliesComponent,
-    ]
+    imports: [CommonModule, MaplestoryWeekliesRoutingModule, MaplestorySharedModule],
+    exports: [MaplestoryWeekliesComponent]
 })
 export class MaplestoryWeekliesModule { }

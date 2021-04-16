@@ -1,0 +1,4 @@
+<button class="editButton" (click)="enterEditMode()">Edit {{ editButtonTitle }}</button>
+
+<p class="title">{{ this.topBarTitle }} {{ taskData.characters[taskData.selectedCharacterIndex].characterName }}</p>
+<app-task-character-navigation-bar [taskData]="taskData" (changeEvent)="changeHandler()"></app-task-character-navigation-bar>

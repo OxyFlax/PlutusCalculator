@@ -53,6 +53,10 @@ const routes: Routes = [
         path: 'games/maplestory/dailies-v2', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v2/maplestory-dailies-v2.module').then(m => m.MaplestoryDailiesV2Module)
     },
+    {
+        path: 'games/maplestory/weeklies-v2', 
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v2/maplestory-weeklies-v2.module').then(m => m.MaplestoryWeekliesV2Module)
+    },
 
 
 

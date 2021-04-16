@@ -2,8 +2,6 @@
     position: relative;
 }
 
-
-
 .disableMode {
     width: 100px;
     height: 50px;
@@ -20,7 +18,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    margin: 3px 0px 0px 8px;
+    margin: 8px 0px 0px 8px;
     text-align: center;
     font-size: 16px;
     padding: 3px;
@@ -42,9 +40,4 @@
 
 .buttonWrapper .right {
     float: right;
-}
-
-
-.test {
-    padding-top: 40px;
 }

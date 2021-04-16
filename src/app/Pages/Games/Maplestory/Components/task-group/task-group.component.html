@@ -1,0 +1,22 @@
+<div *ngIf="!taskGroup.allDisabled || taskData.editModeActive" class="taskGroupWrapper">
+    <p class="taskGroupTitle">{{ title }}</p>
+    <p class="timer">{{ timerString }}</p>
+    <ng-container *ngFor="let task of taskGroup.tasks; let i = index">
+        <app-task *ngIf="task.name != 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-task>
+        <app-ursus-task *ngIf="task.name == 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" [resetUtcOffset]="taskData.mapleRegion.resetUtcOffset" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-ursus-task>
+    </ng-container>
+
+    <div class="taskWrapper addTask" *ngIf="taskData.editModeActive" (click)="customTaskStartAdding()">
+        <div class="imgWrapper">
+            <img src="assets/Games/Maplestory/Dailies/Custom.png" alt="custom">
+        </div>
+        <label>Add Custom Task</label>
+        <div class="inputWrapper">
+            <div class="taskAdder">
+                <i class="fa fa-plus fa-2x"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-task-adder *ngIf="addingCustomTask" (cancelAddingTaskEvent)="customTaskCancelAdding()" (confirmAddingTaskEvent)="customTaskConfirmAdding($event)"></app-task-adder>
