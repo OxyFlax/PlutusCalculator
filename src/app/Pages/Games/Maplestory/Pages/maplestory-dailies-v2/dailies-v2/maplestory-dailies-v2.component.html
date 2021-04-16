@@ -1,10 +1,3 @@
-<!--
-    planned ways to implement things:
-
-    weeklies count downs: add a var to the "task-group" that contains if it resets on a certain day aka "sunday", "wednesday" or "no" use this to add a count down timer or not.
-    weeklies reset: each countdown triggers it for them selves.
--->
-
 <app-maplestory-side-navigation></app-maplestory-side-navigation>
 <div class="gamePageContent">
     <app-task-topbar-default *ngIf="!dailiesData.editModeActive" [taskData]="dailiesData" [topBarTitle]="'Daily Tracker'" [editButtonTitle]="'Dailies'" (changeEvent)="changeHandler()"></app-task-topbar-default>

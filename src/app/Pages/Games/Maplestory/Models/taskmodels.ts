@@ -5,8 +5,8 @@ export interface TaskData {
     version: string;
     lastTrackerVisit: string;
     selectedCharacterIndex: number;
-    editModeActive: boolean;
     mapleRegion: Region;
+    editModeActive: boolean;
 }
 
 export interface CharacterData {

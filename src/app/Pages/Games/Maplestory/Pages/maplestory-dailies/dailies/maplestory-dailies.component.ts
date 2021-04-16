@@ -4,7 +4,6 @@ import { Dailies } from '../../../Models/dailies';
 import { Task } from '../../../Models/task';
 import { Region } from '../../../Models/region';
 import { Meta, Title } from '@angular/platform-browser';
-import { truncate } from 'fs';
 
 @Component({
   selector: 'app-maplestory-dailies',

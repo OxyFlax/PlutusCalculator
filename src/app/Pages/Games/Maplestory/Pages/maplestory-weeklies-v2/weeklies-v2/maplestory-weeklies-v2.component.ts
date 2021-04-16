@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../../assets/Games/Maplestory/Weeklies.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { TaskData, CharacterData } from '../../../Models/taskModels';
+import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
 
 @Component({
   selector: 'app-maplestory-weeklies-v2',
@@ -47,8 +47,8 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       // prevents the page from loading in editmode
       this.weekliesData.editModeActive = false;
 
+      this.updateChecker();
       this.weeklyDataChecker();
-      // this.updateChecker();
 
       // checks if all groups are disabled to notify users to enable dailies in the editmode
       this.checkIfAllGroupsAreDisabled();
@@ -76,8 +76,8 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       version: WeekliesJson.version,
       lastTrackerVisit: Date.now().toString(),
       selectedCharacterIndex: 0,
-      editModeActive: false,
-      mapleRegion: {resetUtcOffset: 0, name: 'GMS'}
+      mapleRegion: {resetUtcOffset: 0, name: 'GMS'},
+      editModeActive: false
     };
 
     for (let i = 0; i < 4; i++) {
@@ -131,163 +131,80 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
     return resultDate;
   }
 
-  // updateChecker() {
-  //   // if the current version doesn't match the new version update the data
-  //   if (localStorage.getItem("dailiesVersion") != DailiesJson.version) {
-  //     // copy the old dailies into a var to save them for value transfering
-  //     var oldDailies: CharacterData[] = JSON.parse(localStorage.getItem("dailies"));
-  //     // load in the new data structure into the dailies var to transfer it to a newDailies array for verifying which dailies need to be added or removed
-  //     this.initiateData();
-  //     var newDailiesStructure: CharacterData[] = JSON.parse(JSON.stringify(this.dailies));
+  updateChecker() {
+    // if the current version doesn't match the new version update the data
+    if (this.weekliesData.version != WeekliesJson.version) {
+      // copy the old dailiesData into a var to save them for value transfering
+      var oldDailiesData: TaskData = JSON.parse(JSON.stringify(this.weekliesData));
+      // load in the new data structure into the dailiesData var to transfer it to a newDailies array for verifying which dailies need to be added or removed
+      this.initiateDataSet();
+      var newDailiesStructure: TaskData = JSON.parse(JSON.stringify(this.weekliesData));
 
-  //     for (let i = 0; i < this.dailies.length; i++) {
-  //       // move over the name
-  //       this.dailies[i].characterName = oldDailies[i].characterName;
+      for (let i = 0; i < oldDailiesData.characters.length; i++) {
+        // move over the name
+        this.weekliesData.characters[i].characterName = oldDailiesData.characters[i].characterName;
+        // loop through all the old taskgroups for the character
+        for(let j = 0; j < this.weekliesData.characters[i].taskGroups.length; j++) {
+          // clear the current dailiesData (the old/new data will be saved to this)
+          this.weekliesData.characters[i].taskGroups[j].tasks = [];
 
-  //       // update daily bosses
-  //       this.dailies[i].dailyBosses = [];
-  //       // copy over all data from dailybosses that still exist in the new structure
-  //       for (let j = 0; j < oldDailies[i].dailyBosses.length; j++) {
-  //         // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-  //         if (oldDailies[i].dailyBosses[j].type == "custom" || oldDailies[i].dailyBosses[j].image == "Custom.png") {
-  //           // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
-  //           oldDailies[i].dailyBosses[j]["type"] = "custom";
-  //           // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
-  //           if (oldDailies[i].dailyBosses[j]["image"] == "Custom.png") {
-  //             oldDailies[i].dailyBosses[j]["image"] = "assets/Games/Maplestory/Dailies/" + "Custom.png";
-  //           }
-  //           this.dailies[i].dailyBosses.push(oldDailies[i].dailyBosses[j]);
-  //           continue;
-  //         }
+          // loop through all old tasks from the taskgroup
+          for(let k = 0; k < oldDailiesData.characters[i].taskGroups[j].tasks.length; k++) {
+            // if the type of the old task is "custom" or the image is "custom.png" it is a custom task and should be moved to the new structure
+            if (oldDailiesData.characters[i].taskGroups[j].tasks[k].type == "custom" || oldDailiesData.characters[i].taskGroups[j].tasks[k].image == "Custom.png") {
+              // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
+              oldDailiesData.characters[i].taskGroups[j].tasks[k].type = "custom";
+              // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
+              if (oldDailiesData.characters[i].taskGroups[j].tasks[k].image == "Custom.png") {
+                oldDailiesData.characters[i].taskGroups[j].tasks[k].image = "assets/Games/Maplestory/Tracker/" + "Custom.png";
+              }
+              this.weekliesData.characters[i].taskGroups[j].tasks.push(oldDailiesData.characters[i].taskGroups[j].tasks[k]);
+              continue;
+            }
 
-  //         for (let k = 0; k < newDailiesStructure[i].dailyBosses.length; k++) {
-  //           if (oldDailies[i].dailyBosses[j].name == newDailiesStructure[i].dailyBosses[k].name) {
-  //             // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
-  //             var transferTask: Task = {
-  //               name: oldDailies[i].dailyBosses[j].name,
-  //               image: newDailiesStructure[i].dailyBosses[k].image,
-  //               completed: oldDailies[i].dailyBosses[j].completed,
-  //               enabled: oldDailies[i].dailyBosses[j].enabled,
-  //               type: newDailiesStructure[i].dailyBosses[k].type,
-  //               displayCondition: newDailiesStructure[i].dailyBosses[k].displayCondition
-  //             };
-  //             // add this task to the current dailies structure
-  //             this.dailies[i].dailyBosses.push(transferTask);
-  //             newDailiesStructure[i].dailyBosses.splice(k, 1);
-  //           }
-  //         }
-  //       }
-  //       // copy all left over new dailybosses over
-  //       for (let j = 0; j < newDailiesStructure[i].dailyBosses.length; j++) {
-  //         var transferTask: Task = {
-  //           name: newDailiesStructure[i].dailyBosses[j].name,
-  //           image: newDailiesStructure[i].dailyBosses[j].image,
-  //           completed: newDailiesStructure[i].dailyBosses[j].completed,
-  //           enabled: newDailiesStructure[i].dailyBosses[j].enabled,
-  //           type: newDailiesStructure[i].dailyBosses[j].type,
-  //           displayCondition: newDailiesStructure[i].dailyBosses[j].displayCondition
-  //         };
-  //         this.dailies[i].dailyBosses.push(transferTask);
-  //       }
+            // if the old task isn't custom verify if it still exists in the new dailies structure if it does move it over
+            for (let l = 0; l < newDailiesStructure.characters[i].taskGroups[j].tasks.length; l++) {
+              if (oldDailiesData.characters[i].taskGroups[j].tasks[k].name == newDailiesStructure.characters[i].taskGroups[j].tasks[l].name) {
+                // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
+                var transferTask: Task = {
+                  name: oldDailiesData.characters[i].taskGroups[j].tasks[k].name ,
+                  image: newDailiesStructure.characters[i].taskGroups[j].tasks[l].image,
+                  completed: oldDailiesData.characters[i].taskGroups[j].tasks[k].completed,
+                  enabled: oldDailiesData.characters[i].taskGroups[j].tasks[k].enabled,
+                  type: newDailiesStructure.characters[i].taskGroups[j].tasks[l].type,
+                  displayCondition: newDailiesStructure.characters[i].taskGroups[j].tasks[l].displayCondition
+                };
+                // add this task to the current dailies structure
+                this.weekliesData.characters[i].taskGroups[j].tasks.push(transferTask);
 
-  //       // update daily tasks
-  //       this.dailies[i].dailyTasks = [];
-  //       // copy over all data from dailytasks that still exist in the new structure
-  //       for (let j = 0; j < oldDailies[i].dailyTasks.length; j++) {
-  //         // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-  //         if (oldDailies[i].dailyTasks[j].type == "custom" || oldDailies[i].dailyTasks[j].image == "Custom.png") {
-  //           // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
-  //           oldDailies[i].dailyTasks[j]["type"] = "custom";
-  //           // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
-  //           if (oldDailies[i].dailyTasks[j]["image"] == "Custom.png") {
-  //             oldDailies[i].dailyTasks[j]["image"] = "assets/Games/Maplestory/Dailies/" + "Custom.png";
-  //           }
-  //           this.dailies[i].dailyTasks.push(oldDailies[i].dailyTasks[j]);
-  //           continue;
-  //         }
-
-  //         for (let k = 0; k < newDailiesStructure[i].dailyTasks.length; k++) {
-  //           if (oldDailies[i].dailyTasks[j].name == newDailiesStructure[i].dailyTasks[k].name) {
-  //             // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
-  //             var transferTask: Task = {
-  //               name: oldDailies[i].dailyTasks[j].name,
-  //               image: newDailiesStructure[i].dailyTasks[k].image,
-  //               completed: oldDailies[i].dailyTasks[j].completed,
-  //               enabled: oldDailies[i].dailyTasks[j].enabled,
-  //               type: newDailiesStructure[i].dailyTasks[k].type,
-  //               displayCondition: newDailiesStructure[i].dailyTasks[k].displayCondition
-  //             };
-  //             // add this task to the current dailies structure
-  //             this.dailies[i].dailyTasks.push(transferTask);
-  //             newDailiesStructure[i].dailyTasks.splice(k, 1);
-  //           }
-  //         }
-  //       }
-  //       // copy all left over new daily tasks over
-  //       for (let j = 0; j < newDailiesStructure[i].dailyTasks.length; j++) {
-  //         var transferTask: Task = {
-  //           name: newDailiesStructure[i].dailyTasks[j].name,
-  //           image: newDailiesStructure[i].dailyTasks[j].image,
-  //           completed: newDailiesStructure[i].dailyTasks[j].completed,
-  //           enabled: newDailiesStructure[i].dailyTasks[j].enabled,
-  //           type: newDailiesStructure[i].dailyTasks[j].type,
-  //           displayCondition: newDailiesStructure[i].dailyTasks[j].displayCondition
-  //         };
-  //         this.dailies[i].dailyTasks.push(transferTask);
-  //       }
-
-  //       // update daily arcaneriver
-  //       this.dailies[i].dailyArcaneRiver = [];
-  //       // copy over all data from dailyarcaneriver that still exist in the new structure
-  //       for (let j = 0; j < oldDailies[i].dailyArcaneRiver.length; j++) {
-  //         // if the image of the old task is custom.png its a custom task and should be moved over to the new structure
-  //         if (oldDailies[i].dailyArcaneRiver[j].type == "custom" || oldDailies[i].dailyArcaneRiver[j].image == "Custom.png") {
-  //           // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
-  //           oldDailies[i].dailyArcaneRiver[j]["type"] = "custom";
-  //           // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
-  //           if (oldDailies[i].dailyArcaneRiver[j]["image"] == "Custom.png") {
-  //             oldDailies[i].dailyArcaneRiver[j]["image"] = "assets/Games/Maplestory/Dailies/" + "Custom.png";
-  //           }
-  //           this.dailies[i].dailyArcaneRiver.push(oldDailies[i].dailyArcaneRiver[j]);
-  //           continue;
-  //         }
-
-  //         for (let k = 0; k < newDailiesStructure[i].dailyArcaneRiver.length; k++) {
-  //           if (oldDailies[i].dailyArcaneRiver[j].name == newDailiesStructure[i].dailyArcaneRiver[k].name) {
-  //             // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
-  //             var transferTask: Task = {
-  //               name: oldDailies[i].dailyArcaneRiver[j].name,
-  //               image: newDailiesStructure[i].dailyArcaneRiver[k].image,
-  //               completed: oldDailies[i].dailyArcaneRiver[j].completed,
-  //               enabled: oldDailies[i].dailyArcaneRiver[j].enabled,
-  //               type: newDailiesStructure[i].dailyArcaneRiver[k].type,
-  //               displayCondition: newDailiesStructure[i].dailyArcaneRiver[k].displayCondition
-  //             };
-  //             // add this task to the current dailies structure
-  //             this.dailies[i].dailyArcaneRiver.push(transferTask);
-  //             newDailiesStructure[i].dailyArcaneRiver.splice(k, 1);
-  //           }
-  //         }
-  //       }
-  //       // copy all left over new dailyarcaneriver over
-  //       for (let j = 0; j < newDailiesStructure[i].dailyArcaneRiver.length; j++) {
-  //         var transferTask: Task = {
-  //           name: newDailiesStructure[i].dailyArcaneRiver[j].name,
-  //           image: newDailiesStructure[i].dailyArcaneRiver[j].image,
-  //           completed: newDailiesStructure[i].dailyArcaneRiver[j].completed,
-  //           enabled: newDailiesStructure[i].dailyArcaneRiver[j].enabled,
-  //           type: newDailiesStructure[i].dailyArcaneRiver[j].type,
-  //           displayCondition: newDailiesStructure[i].dailyArcaneRiver[j].displayCondition
-  //         };
-  //         this.dailies[i].dailyArcaneRiver.push(transferTask);
-  //       }
-  //     }
-  //     // save the updated data
-  //     this.taskChangeHandler();
-  //     // update the saved version to the current one
-  //     localStorage.setItem("dailiesVersion", DailiesJson.version);
-  //   }
-  // }
+                // remove the new task that was matched with an old existing one
+                newDailiesStructure.characters[i].taskGroups[j].tasks.splice(l, 1);
+              }
+            }
+          }
+          // copy all left over new tasks over
+          for (let k = 0; k < newDailiesStructure.characters[i].taskGroups[j].tasks.length; k++) {
+            var transferTask: Task = {
+              name: newDailiesStructure.characters[i].taskGroups[j].tasks[k].name,
+              image: newDailiesStructure.characters[i].taskGroups[j].tasks[k].image,
+              completed: newDailiesStructure.characters[i].taskGroups[j].tasks[k].completed,
+              enabled: newDailiesStructure.characters[i].taskGroups[j].tasks[k].enabled,
+              type: newDailiesStructure.characters[i].taskGroups[j].tasks[k].type,
+              displayCondition: newDailiesStructure.characters[i].taskGroups[j].tasks[k].displayCondition
+            };
+            this.weekliesData.characters[i].taskGroups[j].tasks.push(transferTask);
+          }
+        }
+      }
+      // move over other properties including the new version
+      this.weekliesData.version = WeekliesJson.version;
+      this.weekliesData.lastTrackerVisit = Date.now().toString();
+      this.weekliesData.selectedCharacterIndex = oldDailiesData.selectedCharacterIndex;
+      this.weekliesData.mapleRegion = oldDailiesData.mapleRegion;
+      // save the updated data
+      this.changeHandler();
+    }
+  }
 
   startTimer(taskGroupIndex: number) {
     clearInterval(this.timers[taskGroupIndex]);
