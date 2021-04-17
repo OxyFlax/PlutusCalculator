@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../../assets/Games/Maplestory/Weeklies.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
+import { Region, Weeklies } from '../../../Models/oldTrackerModels';
 
 @Component({
   selector: 'app-maplestory-weeklies-v2',
@@ -53,13 +54,57 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       // checks if all groups are disabled to notify users to enable dailies in the editmode
       this.checkIfAllGroupsAreDisabled();
     } else {
-      // initiate a dataset
-      this.initiateDataSet();
+      // if the old tracker save info is present port it to the new format
+      if(localStorage.getItem("weeklies")) {
+        this.v1v2Updater();
+      } else {
+        // initiate a dataset
+        this.initiateDataSet();
+      }
     }
 
     // 0 starts weekly boss timer, 1 starts weekly task timer
     this.startTimer(0);
     this.startTimer(1);
+  }
+
+  v1v2Updater() {
+    var regions: Array<Region> = [
+      { resetUtcOffset: 0, name: 'GMS' },
+      { resetUtcOffset: 8, name: 'MSEA' },
+      { resetUtcOffset: 9, name: 'KMS' }
+    ];
+
+    var newWeekliesData: TaskData = {
+      characters: [],
+      version: localStorage.getItem("weekliesVersion"),
+      lastTrackerVisit: localStorage.getItem("lastMapleWeeklyTrackerVisit"),
+      selectedCharacterIndex: 0,
+      mapleRegion: regions[JSON.parse(localStorage.getItem("mapleRegion"))],
+      editModeActive: false
+    };
+
+    var oldWeeklies: Weeklies[] = JSON.parse(localStorage.getItem("weeklies"));
+    
+    for (let i = 0; i < oldWeeklies.length; i++) {
+      var newCharacter: CharacterData = {
+        characterName: oldWeeklies[i].characterName,
+        taskGroups: [
+          { title: 'Weekly Bosses', tasks: oldWeeklies[i].weeklyBosses, allDisabled: false },
+          { title: 'Weekly Tasks', tasks: oldWeeklies[i].weeklyTasks, allDisabled: false }
+        ]
+      };
+      newWeekliesData.characters.push(newCharacter);
+    }
+
+    this.weekliesData = newWeekliesData;
+    this.changeHandler();
+    localStorage.removeItem('weekliesVersion');
+    localStorage.removeItem('lastMapleWeeklyTrackerVisit');
+    localStorage.removeItem('weeklies');
+
+    // at the end resend it through the initialise to check for version update etc 
+    this.initialise();
   }
 
   initiateDataSet() {

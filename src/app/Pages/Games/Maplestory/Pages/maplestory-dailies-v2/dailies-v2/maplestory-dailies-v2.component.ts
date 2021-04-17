@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../../assets/Games/Maplestory/Dailies.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
+import { Dailies, Region } from '../../../Models/oldTrackerModels';
 
 @Component({
   selector: 'app-maplestory-dailies-v2',
@@ -49,11 +50,56 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       // checks if all groups are disabled to notify users to enable dailies in the editmode
       this.checkIfAllGroupsAreDisabled();
     } else {
-      // initiate a dataset
-      this.initiateDataSet();
+      // if the old tracker save info is present port it to the new format
+      if(localStorage.getItem("dailies")) {
+        this.v1v2Updater();
+      } else {
+        // initiate a dataset
+        this.initiateDataSet();
+      }
     }
 
     this.startTimer();
+  }
+
+  v1v2Updater() {
+    var regions: Array<Region> = [
+      { resetUtcOffset: 0, name: 'GMS' },
+      { resetUtcOffset: 8, name: 'MSEA' },
+      { resetUtcOffset: 9, name: 'KMS' }
+    ];
+
+    var newDailiesData: TaskData = {
+      characters: [],
+      version: localStorage.getItem("dailiesVersion"),
+      lastTrackerVisit: localStorage.getItem("lastMapleDailyTrackerVisit"),
+      selectedCharacterIndex: 0,
+      mapleRegion: regions[JSON.parse(localStorage.getItem("mapleRegion"))],
+      editModeActive: false
+    };
+
+    var oldDailies: Dailies[] = JSON.parse(localStorage.getItem("dailies"));
+    
+    for (let i = 0; i < oldDailies.length; i++) {
+      var newCharacter: CharacterData = {
+        characterName: oldDailies[i].characterName,
+        taskGroups: [
+          { title: 'Daily Bosses', tasks: oldDailies[i].dailyBosses, allDisabled: false },
+          { title: 'Daily Tasks', tasks: oldDailies[i].dailyTasks, allDisabled: false },
+          { title: 'Arcane River Dailies', tasks: oldDailies[i].dailyArcaneRiver, allDisabled: false }
+        ]
+      };
+      newDailiesData.characters.push(newCharacter);
+    }
+
+    this.dailiesData = newDailiesData;
+    this.changeHandler();
+    localStorage.removeItem('dailiesVersion');
+    localStorage.removeItem('lastMapleDailyTrackerVisit');
+    localStorage.removeItem('dailies');
+
+    // at the end resend it through the initialise to check for version update etc 
+    this.initialise();
   }
 
   initiateDataSet() {
