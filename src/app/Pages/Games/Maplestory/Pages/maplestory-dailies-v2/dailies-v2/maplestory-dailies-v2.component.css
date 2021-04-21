@@ -41,3 +41,47 @@
 .buttonWrapper .right {
     float: right;
 }
+
+.info {
+    width: 1130px;
+    margin: 0 auto;
+    background-color: var(--game-page-background-color);
+    border: 1px solid var(--game-page-border-color);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.info p {
+    max-width: 600px;
+    text-align: justify;
+    margin: 0 auto;
+    padding-top: 8px;
+}
+
+.info button {
+    margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 1635px) {
+    .info {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 1391px) {
+    .info {
+        width: calc(100% - 262px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .info {
+        margin-left: 8px;
+        margin-right: 8px;
+        width: calc(100% - 18px);
+    }
+}

@@ -16,6 +16,8 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
 
   timers: any[] = [];
   timerStrings: string[] = ["", ""];
+
+  showInfo: boolean;
   
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -28,6 +30,7 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
     }
 
+    this.infoInit();
     this.initialise();
   }
 
@@ -44,6 +47,13 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
   initialise() {
     if (localStorage.getItem("weekliesData")) {
       this.weekliesData = JSON.parse(localStorage.getItem("weekliesData"));
+
+      // this code fixes an error caused by me not checking if the users has a mapleRegion record in their localstorage causing it to become undefined.
+      // set it to the default value (aka the value people who don't have a mapleRegion record use)
+      if (this.weekliesData.mapleRegion === undefined) {
+        var region: Region = { resetUtcOffset: 0, name: 'GMS' };
+        this.weekliesData.mapleRegion = region;
+      }
 
       // prevents the page from loading in editmode
       this.weekliesData.editModeActive = false;
@@ -69,18 +79,39 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
   }
 
   v1v2Updater() {
+    var version: string;
+    var lastTrackerVisit: string;
+    var mapleRegion: Region;
     var regions: Array<Region> = [
       { resetUtcOffset: 0, name: 'GMS' },
       { resetUtcOffset: 8, name: 'MSEA' },
       { resetUtcOffset: 9, name: 'KMS' }
     ];
 
+    if(localStorage.getItem("weekliesVersion")) {
+      version = localStorage.getItem("dailiesVersion"); 
+    } else {
+      version = "0";
+    }
+
+    if(localStorage.getItem("lastMapleWeeklyTrackerVisit")) {
+      lastTrackerVisit = localStorage.getItem("lastMapleDailyTrackerVisit"); 
+    } else {
+      lastTrackerVisit = "0";
+    }
+
+    if(localStorage.getItem("mapleRegion")) {
+      mapleRegion = regions[JSON.parse(localStorage.getItem("mapleRegion"))];
+    } else {
+      mapleRegion =  regions[0];
+    }
+
     var newWeekliesData: TaskData = {
       characters: [],
-      version: localStorage.getItem("weekliesVersion"),
-      lastTrackerVisit: localStorage.getItem("lastMapleWeeklyTrackerVisit"),
+      version: version,
+      lastTrackerVisit: lastTrackerVisit,
       selectedCharacterIndex: 0,
-      mapleRegion: regions[JSON.parse(localStorage.getItem("mapleRegion"))],
+      mapleRegion: mapleRegion,
       editModeActive: false
     };
 
@@ -321,5 +352,33 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
     // 0 starts weekly boss timer, 1 starts weekly task timer
     this.startTimer(0);
     this.startTimer(1);
+  }
+  
+
+
+  infoInit() {
+    if(localStorage.getItem("weekliesInfoViewed")) {
+      this.showInfo = false;
+    } else {
+      this.showInfo = true;
+    }
+  }
+
+  infoReset() {
+    // remove both stored data objects
+    localStorage.removeItem('weeklies');
+    localStorage.removeItem('weekliesData');
+
+    // mark the message as read and hide it
+    localStorage.setItem("weekliesInfoViewed", "yes");
+    this.showInfo = false;
+
+    // recall the initialise to repopulate the data
+    this.initialise();
+  }
+
+  infoDismiss() {
+    localStorage.setItem("weekliesInfoViewed", "yes");
+    this.showInfo = false;
   }
 }

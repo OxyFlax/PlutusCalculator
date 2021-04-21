@@ -16,6 +16,8 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
 
   timer: any;
   timerString: string;
+
+  showInfo: boolean;
   
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -28,6 +30,7 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
     }
 
+    this.infoInit();
     this.initialise();
   }
 
@@ -40,6 +43,14 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
   initialise() {
     if (localStorage.getItem("dailiesData")) {
       this.dailiesData = JSON.parse(localStorage.getItem("dailiesData"));
+
+      // this code fixes an error caused by me not checking if the users has a mapleRegion record in their localstorage causing it to become undefined.
+      // set it to the default value (aka the value people who don't have a mapleRegion record use)
+      // if(this.dailiesData.mapleRegion === undefined)
+      // {
+      //   var region: Region = { resetUtcOffset: 0, name: 'GMS' };
+      //   this.dailiesData.mapleRegion = region;
+      // }
 
       // prevents the page from loading in editmode
       this.dailiesData.editModeActive = false;
@@ -63,18 +74,39 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
   }
 
   v1v2Updater() {
+    var version: string;
+    var lastTrackerVisit: string;
+    var mapleRegion: Region;
     var regions: Array<Region> = [
       { resetUtcOffset: 0, name: 'GMS' },
       { resetUtcOffset: 8, name: 'MSEA' },
       { resetUtcOffset: 9, name: 'KMS' }
     ];
 
+    if(localStorage.getItem("dailiesVersion")) {
+      version = localStorage.getItem("dailiesVersion"); 
+    } else {
+      version = "0";
+    }
+
+    if(localStorage.getItem("lastMapleDailyTrackerVisit")) {
+      lastTrackerVisit = localStorage.getItem("lastMapleDailyTrackerVisit"); 
+    } else {
+      lastTrackerVisit = "0";
+    }
+
+    if(localStorage.getItem("mapleRegion")) {
+      mapleRegion = regions[JSON.parse(localStorage.getItem("mapleRegion"))];
+    } else {
+      mapleRegion =  regions[0];
+    }
+
     var newDailiesData: TaskData = {
       characters: [],
-      version: localStorage.getItem("dailiesVersion"),
-      lastTrackerVisit: localStorage.getItem("lastMapleDailyTrackerVisit"),
+      version: version,
+      lastTrackerVisit: lastTrackerVisit,
       selectedCharacterIndex: 0,
-      mapleRegion: regions[JSON.parse(localStorage.getItem("mapleRegion"))],
+      mapleRegion: mapleRegion,
       editModeActive: false
     };
 
@@ -294,5 +326,33 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     this.checkIfDataIsFromPreviousDay();
 
     this.startTimer();
+  }
+
+
+  
+  infoInit() {
+    if(localStorage.getItem("dailiesInfoViewed")) {
+      this.showInfo = false;
+    } else {
+      this.showInfo = true;
+    }
+  }
+
+  infoReset() {
+    // remove both stored data objects
+    localStorage.removeItem('dailies');
+    localStorage.removeItem('dailiesData');
+
+    // mark the message as read and hide it
+    localStorage.setItem("dailiesInfoViewed", "yes");
+    this.showInfo = false;
+
+    // recall the initialise to repopulate the data
+    this.initialise();
+  }
+
+  infoDismiss() {
+    localStorage.setItem("dailiesInfoViewed", "yes");
+    this.showInfo = false;
   }
 }

@@ -20,7 +20,14 @@ const routes: Routes = [
     },
 
 
-
+    {
+        path: 'games/maplestory/dailies1', 
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v1/maplestory-dailies-v1.module').then(m => m.MaplestoryDailiesV1Module)
+    },
+    {
+        path: 'games/maplestory/weeklies1', 
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v1/maplestory-weeklies-v1.module').then(m => m.MaplestoryWeekliesV1Module)
+    },
     {
         path: 'games/maplestory/home', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-home/maplestory-home.module').then(m => m.MaplestoryHomeModule)
@@ -28,14 +35,6 @@ const routes: Routes = [
     {
         path: 'games/maplestory/arcane-symbols', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.module').then(m => m.MaplestoryArcaneSymbolsModule)
-    },
-    {
-        path: 'games/maplestory/dailies-v1', 
-        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v1/maplestory-dailies-v1.module').then(m => m.MaplestoryDailiesV1Module)
-    },
-    {
-        path: 'games/maplestory/weeklies-v1', 
-        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v1/maplestory-weeklies-v1.module').then(m => m.MaplestoryWeekliesV1Module)
     },
     {
         path: 'games/maplestory/item-flames', 
