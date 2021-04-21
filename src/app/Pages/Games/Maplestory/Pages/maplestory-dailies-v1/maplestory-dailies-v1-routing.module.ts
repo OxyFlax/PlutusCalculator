@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MaplestoryDailiesComponent } from './dailies/maplestory-dailies.component';
+import { MaplestoryDailiesV1Component } from './dailies/maplestory-dailies-v1.component';
 
 const routes: Routes = [
-    { path: '', component: MaplestoryDailiesComponent }
+    { path: '', component: MaplestoryDailiesV1Component }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class MaplestoryDailiesRoutingModule { }
+export class MaplestoryDailiesV1RoutingModule { }

@@ -7,11 +7,11 @@ import { Meta, Title } from '@angular/platform-browser';
 
 
 @Component({
-  selector: 'app-maplestory-weeklies',
-  templateUrl: './maplestory-weeklies.component.html',
-  styleUrls: ['./maplestory-weeklies.component.css']
+  selector: 'app-maplestory-weeklies-v1',
+  templateUrl: './maplestory-weeklies-v1.component.html',
+  styleUrls: ['./maplestory-weeklies-v1.component.css']
 })
-export class MaplestoryWeekliesComponent implements OnInit, OnDestroy {
+export class MaplestoryWeekliesV1Component implements OnInit, OnDestroy {
   timerWeeklyBosses: any;
   timerWeeklyTasks: any;
   timerWeeklyBossesString: string;

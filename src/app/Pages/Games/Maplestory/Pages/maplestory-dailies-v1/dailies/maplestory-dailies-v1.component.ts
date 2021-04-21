@@ -6,11 +6,11 @@ import { Region } from '../../../Models/region';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-maplestory-dailies',
-  templateUrl: './maplestory-dailies.component.html',
-  styleUrls: ['./maplestory-dailies.component.css']
+  selector: 'app-maplestory-dailies-v1',
+  templateUrl: './maplestory-dailies-v1.component.html',
+  styleUrls: ['./maplestory-dailies-v1.component.css']
 })
-export class MaplestoryDailiesComponent implements OnInit, OnDestroy {
+export class MaplestoryDailiesV1Component implements OnInit, OnDestroy {
   timer: any;
   timerString: string;
 
