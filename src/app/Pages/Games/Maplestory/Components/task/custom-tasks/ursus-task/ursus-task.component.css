@@ -45,10 +45,12 @@
 
 .enabledTask {
     border: 1px solid var(--navigation-bar-settings-icon-font-color);
+    box-shadow: 0 0 1px 0px var(--navigation-bar-settings-icon-font-color) inset, 0 0 1px 0px var(--navigation-bar-settings-icon-font-color);
 }
 
 .disabledTask {
     border: 1px solid red;
+    box-shadow: 0 0 1px 0px red inset, 0 0 1px 0px red;
 }
 
 .ursusTaskWrapper {

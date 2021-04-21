@@ -62,6 +62,7 @@
 
 .addTask {
     border: 1px solid var(--game-page-accent-color);
+    box-shadow: 0 0 1px 0px var(--game-page-accent-color) inset, 0 0 1px 0px var(--game-page-accent-color);
 }
 
 .taskAdder {
