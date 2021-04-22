@@ -89,13 +89,13 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
     ];
 
     if(localStorage.getItem("weekliesVersion")) {
-      version = localStorage.getItem("dailiesVersion"); 
+      version = localStorage.getItem("weekliesVersion"); 
     } else {
       version = "0";
     }
 
     if(localStorage.getItem("lastMapleWeeklyTrackerVisit")) {
-      lastTrackerVisit = localStorage.getItem("lastMapleDailyTrackerVisit"); 
+      lastTrackerVisit = localStorage.getItem("lastMapleWeeklyTrackerVisit"); 
     } else {
       lastTrackerVisit = "0";
     }
