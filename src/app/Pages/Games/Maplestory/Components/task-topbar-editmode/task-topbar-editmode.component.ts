@@ -10,15 +10,10 @@ import { TaskData } from '../../Models/taskModels';
 export class TopbarEditmodeComponent implements OnDestroy {
   @Input() taskData: TaskData;
   @Input() topBarTitle: string;
+  @Input() regions: Array<Region>;
   
   @Output() changeEvent = new EventEmitter<any>();
   @Output() regionChangeEvent = new EventEmitter<any>();
-
-  regions: Array<Region> = [
-    { resetUtcOffset: 0, name: 'GMS' },
-    { resetUtcOffset: 8, name: 'MSEA' },
-    { resetUtcOffset: 9, name: 'KMS' }
-  ];
 
   ngOnDestroy() {
     // should prevent the page from loading in editmode

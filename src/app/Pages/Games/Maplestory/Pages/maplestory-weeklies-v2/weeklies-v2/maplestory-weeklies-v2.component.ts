@@ -22,6 +22,12 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
   timers: any[] = [];
   timerStrings: string[] = ["", ""];
 
+  regions: Array<Region> = [
+    { resetUtcOffset: 0, name: 'GMS' },
+    { resetUtcOffset: 8, name: 'MSEA' },
+    { resetUtcOffset: 9, name: 'KMS' }
+  ];
+
   showInfo: boolean;
   
   constructor(private titleService: Title, private metaService: Meta) { }

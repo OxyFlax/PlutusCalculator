@@ -6,7 +6,7 @@
 </div>
 <div class="gamePageContent">
     <app-task-topbar-default *ngIf="!dailiesData.editModeActive" [taskData]="dailiesData" [topBarTitle]="'Daily Tracker'" [editButtonTitle]="'Dailies'" (changeEvent)="changeHandler()"></app-task-topbar-default>
-    <app-task-topbar-editmode *ngIf="dailiesData.editModeActive" [taskData]="dailiesData" [topBarTitle]="'Daily Tracker'" (changeEvent)="changeHandler()" (regionChangeEvent)="regionChangeHandler()"></app-task-topbar-editmode>
+    <app-task-topbar-editmode *ngIf="dailiesData.editModeActive" [taskData]="dailiesData" [topBarTitle]="'Daily Tracker'" [regions]="regions" (changeEvent)="changeHandler()" (regionChangeEvent)="regionChangeHandler()"></app-task-topbar-editmode>
 
     <p *ngIf="!dailiesData.editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
      

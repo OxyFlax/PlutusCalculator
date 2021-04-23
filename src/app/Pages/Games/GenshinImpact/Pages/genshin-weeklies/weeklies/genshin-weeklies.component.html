@@ -1,15 +1,17 @@
 <app-genshin-side-navigation></app-genshin-side-navigation>
 <div class="editedGamePageContent">
     <app-task-topbar-default *ngIf="!genshinWeekliesData.editModeActive" [taskData]="genshinWeekliesData" [topBarTitle]="'Weekly Tracker'" [editButtonTitle]="'Weeklies'" (changeEvent)="changeHandler()"></app-task-topbar-default>
-    <app-task-topbar-editmode *ngIf="genshinWeekliesData.editModeActive" [taskData]="genshinWeekliesData" [topBarTitle]="'Weekly Tracker'" (changeEvent)="changeHandler()" (regionChangeEvent)="regionChangeHandler()"></app-task-topbar-editmode>
+    <app-task-topbar-editmode *ngIf="genshinWeekliesData.editModeActive" [taskData]="genshinWeekliesData" [topBarTitle]="'Weekly Tracker'" [regions]="regions" (changeEvent)="changeHandler()" (regionChangeEvent)="regionChangeHandler()"></app-task-topbar-editmode>
      
+    <p *ngIf="!genshinWeekliesData.editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
+
     <div class="dailyGroups">
         <div *ngIf="allGroupsAreDisabled && !genshinWeekliesData.editModeActive">
             All weeklies are disabled, click on the "Edit Weeklies" button to enable weeklies.
         </div>
 
         <ng-container *ngFor="let item of genshinWeekliesData.characters[this.genshinWeekliesData.selectedCharacterIndex].taskGroups; let i = index">
-            <app-task-group [taskData]="genshinWeekliesData" [taskGroup]="item" [title]="item.title" [timerString]="timerStrings[i]" (changeEvent)="changeHandler()"></app-task-group>
+            <app-task-group [taskData]="genshinWeekliesData" [taskGroup]="item" [title]="item.title" (changeEvent)="changeHandler()"></app-task-group>
         </ng-container>
     </div>
 </div>

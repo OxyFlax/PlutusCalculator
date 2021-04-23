@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../../assets/Games/GenshinImpact/Dailies.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { Task, TaskData, CharacterData } from '../../../../Maplestory/Models/taskModels';
+import { Region } from '../../../../Maplestory/Models/region';
 
 // When upgrading the trackers from v1 to v2 a function to update the saved data was added.
 // This is something that can be removed 2months after the upgrade so as many people as possible are able to enjoy a flawless transition
 // Removal possible after: June 21 2021
 // In the updatechecker a removal of the "old tracker custom task support" can be done too. Since there has been more than enough time for all old tracker objects to receive the type = custom
+
 
 @Component({
   selector: 'app-genshin-dailies',
@@ -21,7 +23,11 @@ export class GenshinDailiesComponent implements OnInit, OnDestroy {
   timer: any;
   timerString: string;
 
-  showInfo: boolean;
+  regions: Array<Region> = [
+    { resetUtcOffset: -9, name: 'NA' },
+    { resetUtcOffset: -3, name: 'EU' },
+    { resetUtcOffset: 4, name: 'ASIA' }
+  ];
   
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -76,7 +82,7 @@ export class GenshinDailiesComponent implements OnInit, OnDestroy {
       version: DailiesJson.version,
       lastTrackerVisit: Date.now().toString(),
       selectedCharacterIndex: 0,
-      mapleRegion: {resetUtcOffset: 0, name: 'GMS'},
+      mapleRegion: {resetUtcOffset: -9, name: 'US'},
       editModeActive: false
     };
 
@@ -199,7 +205,6 @@ export class GenshinDailiesComponent implements OnInit, OnDestroy {
     if (endTime < date.getTime()) {
       endTime += (24 * 60 * 60 * 1000);
     }
-
     return endTime;
   }
 

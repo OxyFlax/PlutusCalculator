@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../../assets/Games/GenshinImpact/Weeklies.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { Task, TaskData, CharacterData } from '../../../../Maplestory/Models/taskModels';
+import { Region } from '../../../../Maplestory/Models/region';
 
 // When upgrading the trackers from v1 to v2 a function to update the saved data was added.
 // This is something that can be removed 2months after the upgrade so as many people as possible are able to enjoy a flawless transition
@@ -18,10 +19,14 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
   genshinWeekliesData: TaskData;
   allGroupsAreDisabled: boolean;
 
-  timers: any[] = [];
-  timerStrings: string[] = ["", ""];
+  timer: any;
+  timerString: string;
 
-  showInfo: boolean;
+  regions: Array<Region> = [
+    { resetUtcOffset: -9, name: 'NA' },
+    { resetUtcOffset: -3, name: 'EU' },
+    { resetUtcOffset: 4, name: 'ASIA' }
+  ];
   
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -38,12 +43,8 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.timers[0]) {
-      clearInterval(this.timers[0]);
-    }
-
-    if (this.timers[1]) {
-      clearInterval(this.timers[1]);
+    if (this.timer) {
+      clearInterval(this.timer);
     }
   }
 
@@ -55,7 +56,7 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
       this.genshinWeekliesData.editModeActive = false;
 
       this.updateChecker();
-      this.weeklyDataChecker();
+      this.checkIfDataIsFromPreviousWeek();
 
       // checks if all groups are disabled to notify users to enable dailies in the editmode
       this.checkIfAllGroupsAreDisabled();
@@ -64,9 +65,7 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
       this.initiateDataSet();
     }
 
-    // 0 starts weekly boss timer, 1 starts weekly task timer
-    this.startTimer(0);
-    this.startTimer(1);
+    this.startTimer();
   }
 
   initiateDataSet() {
@@ -82,7 +81,7 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
       version: WeekliesJson.version,
       lastTrackerVisit: Date.now().toString(),
       selectedCharacterIndex: 0,
-      mapleRegion: {resetUtcOffset: 0, name: 'GMS'},
+      mapleRegion: {resetUtcOffset: -9, name: 'US'},
       editModeActive: false
     };
 
@@ -95,18 +94,13 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
     this.changeHandler();
   }
 
-  weeklyDataChecker() {
-    var lastThursday = this.getPreviousDayOfWeek(4);
+  checkIfDataIsFromPreviousWeek() {
     var lastMonday = this.getPreviousDayOfWeek(1);
 
     var lastVisit = parseInt(this.genshinWeekliesData.lastTrackerVisit);
 
-    if (lastVisit < lastThursday) {
-      this.resetCompletedValues(0);
-    }
-
     if (lastVisit < lastMonday) {
-      this.resetCompletedValues(1);
+      this.resetCompletedValues();
     }
 
     this.genshinWeekliesData.lastTrackerVisit = Date.now().toString();
@@ -206,34 +200,27 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
     }
   }
 
-  startTimer(taskGroupIndex: number) {
-    clearInterval(this.timers[taskGroupIndex]);
+  startTimer() {
+    clearInterval(this.timer);
 
-    var endTime;
+    var endTime = this.getNextDayOfWeek(1);
 
-    // if the index is 0 the reset is for weeklybosses on thursday else it is 1 which is the reset for weeklytasks on sunday
-    if(taskGroupIndex == 0) {
-      endTime = this.getNextDayOfWeek(4);
-    } else {
-      endTime = this.getNextDayOfWeek(1);
-    }
+    this.calculateAndOutPutTimes(endTime - new Date().getTime());
 
-    this.calculateAndOutPutTimes(endTime - new Date().getTime(), taskGroupIndex);
-
-    this.timers[taskGroupIndex] = setInterval(() => {
+    this.timer = setInterval(() => {
       var distance = endTime - new Date().getTime();
-      this.calculateAndOutPutTimes(distance, taskGroupIndex);
+      this.calculateAndOutPutTimes(distance);
 
       if (distance < 0) {
-        clearInterval(this.timers[taskGroupIndex]);
-        this.liveReset(taskGroupIndex);
+        clearInterval(this.timer);
+        this.liveReset();
       }
     }, 1000);
   }
 
-  calculateAndOutPutTimes(distance: number, taskGroupIndex: number) {
+  calculateAndOutPutTimes(distance: number) {
     if (distance < 0) {
-      this.timerStrings[taskGroupIndex] = "RESET!";
+      this.timerString = "RESET!";
       return;
     }
 
@@ -242,24 +229,26 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    this.timerStrings[taskGroupIndex] = days + "d " + hours + "h " + minutes + "m " + ("00" + seconds).slice(-2) + "s ";
+    this.timerString = days + "d " + hours + "h " + minutes + "m " + ("00" + seconds).slice(-2) + "s ";
   }
 
-  liveReset(TaskGroupIndex: number) {
-    this.resetCompletedValues(TaskGroupIndex);
-    this.startTimer(TaskGroupIndex);
+  liveReset() {
+    this.resetCompletedValues();
+    this.startTimer();
     this.genshinWeekliesData.lastTrackerVisit = (parseInt(Date.now().toString()) + 5000).toString();
     this.changeHandler();
   }
 
-  // This function resets all completed values for a taskgroup based on the given index (0 = bosses, 1 = tasks)
-  resetCompletedValues(TaskGroupIndex: number) {
-    this.genshinWeekliesData.characters.forEach(character => {
-      character.taskGroups[TaskGroupIndex].tasks.forEach(task => {
-        task.completed = false;
+    // This function resets all completed values
+    resetCompletedValues() {
+      this.genshinWeekliesData.characters.forEach(character => {
+        character.taskGroups.forEach(taskgroup => {
+          taskgroup.tasks.forEach(task => {
+            task.completed = false;
+          });
+        });
       });
-    });
-  }
+    }
 
   changeHandler() {
     localStorage.setItem("genshinWeekliesData", JSON.stringify(this.genshinWeekliesData));
@@ -271,10 +260,9 @@ export class GenshinWeekliesComponent implements OnInit, OnDestroy {
   }
   
   regionChangeHandler() {
-    this.weeklyDataChecker();
+    this.checkIfDataIsFromPreviousWeek();
 
     // 0 starts weekly boss timer, 1 starts weekly task timer
-    this.startTimer(0);
-    this.startTimer(1);
+    this.startTimer();
   }
 }

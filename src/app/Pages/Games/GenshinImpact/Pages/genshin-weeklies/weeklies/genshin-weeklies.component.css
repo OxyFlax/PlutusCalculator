@@ -1,6 +1,6 @@
 .editedGamePageContent {
     position: relative;
-    width: 600px;
+    width: 650px;
     margin: 0 auto;
     background-color: var(--game-page-background-color);
     border: 1px solid var(--game-page-border-color);
@@ -33,6 +33,17 @@
     text-align: center;
 }
 
+.timer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 8px 0px 0px 8px;
+    text-align: center;
+    font-size: 16px;
+    padding: 3px;
+    border: 2px solid var(--game-page-border-color);
+}
+
 .buttonWrapper {
     width: 175px;
     margin: 0 auto;
@@ -50,7 +61,7 @@
     float: right;
 }
 
-@media only screen and (max-width: 1104px) {
+@media only screen and (max-width: 1157px) {
     .editedGamePageContent {
         float: left;
         margin: unset;
@@ -59,13 +70,9 @@
     }
 }
 
-@media only screen and (max-width: 862px) {
+@media only screen and (max-width: 912px) {
     .editedGamePageContent {
         width: calc(100% - 262px);
-    }
-
-    .explanation {
-        max-width: 360px;
     }
 }
 
