@@ -1,0 +1,17 @@
+<app-genshin-side-navigation></app-genshin-side-navigation>
+<div class="editedGamePageContent">
+    <app-task-topbar-default *ngIf="!genshinDailiesData.editModeActive" [taskData]="genshinDailiesData" [topBarTitle]="'Daily Tracker'" [editButtonTitle]="'Dailies'" (changeEvent)="changeHandler()"></app-task-topbar-default>
+    <app-task-topbar-editmode *ngIf="genshinDailiesData.editModeActive" [taskData]="genshinDailiesData" [topBarTitle]="'Daily Tracker'" (changeEvent)="changeHandler()" (regionChangeEvent)="regionChangeHandler()"></app-task-topbar-editmode>
+
+    <p *ngIf="!genshinDailiesData.editModeActive" class="timer">Reset in <br> {{ timerString }}</p>
+     
+    <div class="dailyGroups">
+        <div *ngIf="allGroupsAreDisabled && !genshinDailiesData.editModeActive">
+            All dailies are disabled, click on the "Edit Dailies" button to enable dailies.
+        </div>
+
+        <ng-container *ngFor="let item of genshinDailiesData.characters[this.genshinDailiesData.selectedCharacterIndex].taskGroups; let i = index">
+            <app-task-group [taskData]="genshinDailiesData" [taskGroup]="item" [title]="item.title" (changeEvent)="changeHandler()"></app-task-group>
+        </ng-container>
+    </div>
+</div>

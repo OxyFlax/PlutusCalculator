@@ -4,6 +4,11 @@ import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
 import { Dailies, Region } from '../../../Models/oldTrackerModels';
 
+// When upgrading the trackers from v1 to v2 a function to update the saved data was added.
+// This is something that can be removed 2months after the upgrade so as many people as possible are able to enjoy a flawless transition
+// Removal possible after: June 21 2021
+// In the updatechecker a removal of the "old tracker custom task support" can be done too. Since there has been more than enough time for all old tracker objects to receive the type = custom
+
 @Component({
   selector: 'app-maplestory-dailies-v2',
   templateUrl: './maplestory-dailies-v2.component.html',
@@ -46,11 +51,11 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
 
       // this code fixes an error caused by me not checking if the users has a mapleRegion record in their localstorage causing it to become undefined.
       // set it to the default value (aka the value people who don't have a mapleRegion record use)
-      // if(this.dailiesData.mapleRegion === undefined)
-      // {
-      //   var region: Region = { resetUtcOffset: 0, name: 'GMS' };
-      //   this.dailiesData.mapleRegion = region;
-      // }
+      if(this.dailiesData.mapleRegion === undefined)
+      {
+        var region: Region = { resetUtcOffset: 0, name: 'GMS' };
+        this.dailiesData.mapleRegion = region;
+      }
 
       // prevents the page from loading in editmode
       this.dailiesData.editModeActive = false;

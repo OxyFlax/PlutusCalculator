@@ -4,6 +4,11 @@ import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
 import { Region, Weeklies } from '../../../Models/oldTrackerModels';
 
+// When upgrading the trackers from v1 to v2 a function to update the saved data was added.
+// This is something that can be removed 2months after the upgrade so as many people as possible are able to enjoy a flawless transition
+// Removal possible after: June 21 2021
+// In the updatechecker a removal of the "old tracker custom task support" can be done too. Since there has been more than enough time for all old tracker objects to receive the type = custom
+
 @Component({
   selector: 'app-maplestory-weeklies-v2',
   templateUrl: './maplestory-weeklies-v2.component.html',
@@ -147,7 +152,7 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       ]
     };
 
-    var newDailiesData: TaskData = {
+    var newWeekliesData: TaskData = {
       characters: [],
       version: WeekliesJson.version,
       lastTrackerVisit: Date.now().toString(),
@@ -158,10 +163,10 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
 
     for (let i = 0; i < 4; i++) {
       newCharacterList.characterName = "Char" + (i + 1);
-      newDailiesData.characters[i] = JSON.parse(JSON.stringify(newCharacterList));
+      newWeekliesData.characters[i] = JSON.parse(JSON.stringify(newCharacterList));
     };
 
-    this.weekliesData = newDailiesData;
+    this.weekliesData = newWeekliesData;
     this.changeHandler();
   }
 
@@ -210,63 +215,63 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
   updateChecker() {
     // if the current version doesn't match the new version update the data
     if (this.weekliesData.version != WeekliesJson.version) {
-      // copy the old dailiesData into a var to save them for value transfering
-      var oldDailiesData: TaskData = JSON.parse(JSON.stringify(this.weekliesData));
-      // load in the new data structure into the dailiesData var to transfer it to a newDailies array for verifying which dailies need to be added or removed
+      // copy the old weekliesData into a var to save them for value transfering
+      var oldWeekliesData: TaskData = JSON.parse(JSON.stringify(this.weekliesData));
+      // load in the new data structure into the weekliesData var to transfer it to a newweeklies array for verifying which weeklies need to be added or removed
       this.initiateDataSet();
-      var newDailiesStructure: TaskData = JSON.parse(JSON.stringify(this.weekliesData));
+      var newWeekliesStructure: TaskData = JSON.parse(JSON.stringify(this.weekliesData));
 
-      for (let i = 0; i < oldDailiesData.characters.length; i++) {
+      for (let i = 0; i < oldWeekliesData.characters.length; i++) {
         // move over the name
-        this.weekliesData.characters[i].characterName = oldDailiesData.characters[i].characterName;
+        this.weekliesData.characters[i].characterName = oldWeekliesData.characters[i].characterName;
         // loop through all the old taskgroups for the character
         for(let j = 0; j < this.weekliesData.characters[i].taskGroups.length; j++) {
-          // clear the current dailiesData (the old/new data will be saved to this)
+          // clear the current weekliesData (the old/new data will be saved to this)
           this.weekliesData.characters[i].taskGroups[j].tasks = [];
 
           // loop through all old tasks from the taskgroup
-          for(let k = 0; k < oldDailiesData.characters[i].taskGroups[j].tasks.length; k++) {
+          for(let k = 0; k < oldWeekliesData.characters[i].taskGroups[j].tasks.length; k++) {
             // if the type of the old task is "custom" or the image is "custom.png" it is a custom task and should be moved to the new structure
-            if (oldDailiesData.characters[i].taskGroups[j].tasks[k].type == "custom" || oldDailiesData.characters[i].taskGroups[j].tasks[k].image == "Custom.png") {
-              // if it doesn't have the type attribute due to being a custom daily from before the addition of the type system
-              oldDailiesData.characters[i].taskGroups[j].tasks[k].type = "custom";
+            if (oldWeekliesData.characters[i].taskGroups[j].tasks[k].type == "custom" || oldWeekliesData.characters[i].taskGroups[j].tasks[k].image == "Custom.png") {
+              // if it doesn't have the type attribute due to being a custom weekly from before the addition of the type system
+              oldWeekliesData.characters[i].taskGroups[j].tasks[k].type = "custom";
               // if the custom image url = "Custom.png" change this to a diffrent url for compatability with the new system
-              if (oldDailiesData.characters[i].taskGroups[j].tasks[k].image == "Custom.png") {
-                oldDailiesData.characters[i].taskGroups[j].tasks[k].image = "assets/Games/Maplestory/Tracker/" + "Custom.png";
+              if (oldWeekliesData.characters[i].taskGroups[j].tasks[k].image == "Custom.png") {
+                oldWeekliesData.characters[i].taskGroups[j].tasks[k].image = "assets/Games/Maplestory/Tracker/" + "Custom.png";
               }
-              this.weekliesData.characters[i].taskGroups[j].tasks.push(oldDailiesData.characters[i].taskGroups[j].tasks[k]);
+              this.weekliesData.characters[i].taskGroups[j].tasks.push(oldWeekliesData.characters[i].taskGroups[j].tasks[k]);
               continue;
             }
 
             // if the old task isn't custom verify if it still exists in the new dailies structure if it does move it over
-            for (let l = 0; l < newDailiesStructure.characters[i].taskGroups[j].tasks.length; l++) {
-              if (oldDailiesData.characters[i].taskGroups[j].tasks[k].name == newDailiesStructure.characters[i].taskGroups[j].tasks[l].name) {
+            for (let l = 0; l < newWeekliesStructure.characters[i].taskGroups[j].tasks.length; l++) {
+              if (oldWeekliesData.characters[i].taskGroups[j].tasks[k].name == newWeekliesStructure.characters[i].taskGroups[j].tasks[l].name) {
                 // transfer the name, completed & enabled values from olddailies and image from the new structure into a temporary object
                 var transferTask: Task = {
-                  name: oldDailiesData.characters[i].taskGroups[j].tasks[k].name ,
-                  image: newDailiesStructure.characters[i].taskGroups[j].tasks[l].image,
-                  completed: oldDailiesData.characters[i].taskGroups[j].tasks[k].completed,
-                  enabled: oldDailiesData.characters[i].taskGroups[j].tasks[k].enabled,
-                  type: newDailiesStructure.characters[i].taskGroups[j].tasks[l].type,
-                  displayCondition: newDailiesStructure.characters[i].taskGroups[j].tasks[l].displayCondition
+                  name: oldWeekliesData.characters[i].taskGroups[j].tasks[k].name ,
+                  image: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].image,
+                  completed: oldWeekliesData.characters[i].taskGroups[j].tasks[k].completed,
+                  enabled: oldWeekliesData.characters[i].taskGroups[j].tasks[k].enabled,
+                  type: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].type,
+                  displayCondition: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].displayCondition
                 };
                 // add this task to the current dailies structure
                 this.weekliesData.characters[i].taskGroups[j].tasks.push(transferTask);
 
                 // remove the new task that was matched with an old existing one
-                newDailiesStructure.characters[i].taskGroups[j].tasks.splice(l, 1);
+                newWeekliesStructure.characters[i].taskGroups[j].tasks.splice(l, 1);
               }
             }
           }
           // copy all left over new tasks over
-          for (let k = 0; k < newDailiesStructure.characters[i].taskGroups[j].tasks.length; k++) {
+          for (let k = 0; k < newWeekliesStructure.characters[i].taskGroups[j].tasks.length; k++) {
             var transferTask: Task = {
-              name: newDailiesStructure.characters[i].taskGroups[j].tasks[k].name,
-              image: newDailiesStructure.characters[i].taskGroups[j].tasks[k].image,
-              completed: newDailiesStructure.characters[i].taskGroups[j].tasks[k].completed,
-              enabled: newDailiesStructure.characters[i].taskGroups[j].tasks[k].enabled,
-              type: newDailiesStructure.characters[i].taskGroups[j].tasks[k].type,
-              displayCondition: newDailiesStructure.characters[i].taskGroups[j].tasks[k].displayCondition
+              name: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].name,
+              image: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].image,
+              completed: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].completed,
+              enabled: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].enabled,
+              type: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].type,
+              displayCondition: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].displayCondition
             };
             this.weekliesData.characters[i].taskGroups[j].tasks.push(transferTask);
           }
@@ -275,8 +280,8 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       // move over other properties including the new version
       this.weekliesData.version = WeekliesJson.version;
       this.weekliesData.lastTrackerVisit = Date.now().toString();
-      this.weekliesData.selectedCharacterIndex = oldDailiesData.selectedCharacterIndex;
-      this.weekliesData.mapleRegion = oldDailiesData.mapleRegion;
+      this.weekliesData.selectedCharacterIndex = oldWeekliesData.selectedCharacterIndex;
+      this.weekliesData.mapleRegion = oldWeekliesData.mapleRegion;
       // save the updated data
       this.changeHandler();
     }

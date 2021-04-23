@@ -71,6 +71,21 @@ const routes: Routes = [
 
 
     {
+        path: 'games/genshin/home', 
+        loadChildren: () => import('./Pages/Games/GenshinImpact/Pages/genshin-home/genshin-home.module').then(m => m.GenshinHomeModule)
+    },
+    {
+        path: 'games/genshin/dailies', 
+        loadChildren: () => import('./Pages/Games/GenshinImpact/Pages/genshin-dailies/genshin-dailies.module').then(m => m.GenshinDailiesModule)
+    },
+    {
+        path: 'games/genshin/weeklies', 
+        loadChildren: () => import('./Pages/Games/GenshinImpact/Pages/genshin-weeklies/genshin-weeklies.module').then(m => m.GenshinWeekliesModule)
+    },
+
+
+
+    {
         path: 'hidden', 
         loadChildren: () => import('./Pages/Hidden/Pages/hidden-home/hidden-home.module').then(m => m.HiddenHomeModule)
     },

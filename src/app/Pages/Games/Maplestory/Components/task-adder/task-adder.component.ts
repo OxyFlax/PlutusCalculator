@@ -17,7 +17,7 @@ export class TaskAdderComponent {
     if (this.customTaskName != "") {
       // if the user didn't specify an url set it to the default icon
       if (this.customTaskImageUrl == "") {
-        this.customTaskImageUrl = "assets/Games/Maplestory/Tracker/Custom.png";
+        this.customTaskImageUrl = "assets/TrackerImages/Custom.png";
       }
 
       var newTask: Task = {
