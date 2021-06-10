@@ -78,10 +78,10 @@ export class UrsusTaskComponent implements OnInit, OnDestroy{
     var slotTwoStartTime = 18;
     var slotTwoEndTime = 20;
 
-    // this used to adjust the endtimes during the Awake event (the timeslot is two hours longer until the 26th of January 2021 11:59PM UTC)
+    // this used to adjust the endtimes during the Neo event (the timeslot is two hours longer until the 24th of August 2021 11:59PM UTC)
     // if its past this date the times are no longer adjusted
     // this is left for reference for future ursus end time changes during events
-    if (date.getTime() < 1611705600000) {
+    if (date.getTime() < 1629849599000) {
       slotOneEndTime = 5;
       slotTwoEndTime = 22;
     }

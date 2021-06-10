@@ -5,7 +5,8 @@ import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
 import { Region, Weeklies } from '../../../Models/oldTrackerModels';
 
 // When upgrading the trackers from v1 to v2 a function to update the saved data was added.
-// This is something that can be removed 2months after the upgrade so as many people as possible are able to enjoy a flawless transition
+// Removal done: June 10 2021
+//
 // Removal possible after: June 21 2021
 // In the updatechecker a removal of the "old tracker custom task support" can be done too. Since there has been more than enough time for all old tracker objects to receive the type = custom
 
@@ -41,7 +42,7 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
     }
 
-    this.infoInit();
+    // this.infoInit();
     this.initialise();
   }
 
@@ -69,19 +70,14 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       // prevents the page from loading in editmode
       this.weekliesData.editModeActive = false;
 
-      this.updateChecker();
       this.weeklyDataChecker();
+      this.updateChecker();
 
       // checks if all groups are disabled to notify users to enable dailies in the editmode
       this.checkIfAllGroupsAreDisabled();
     } else {
-      // if the old tracker save info is present port it to the new format
-      if(localStorage.getItem("weeklies")) {
-        this.v1v2Updater();
-      } else {
         // initiate a dataset
         this.initiateDataSet();
-      }
     }
 
     // 0 starts weekly boss timer, 1 starts weekly task timer
@@ -89,65 +85,65 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
     this.startTimer(1);
   }
 
-  v1v2Updater() {
-    var version: string;
-    var lastTrackerVisit: string;
-    var mapleRegion: Region;
-    var regions: Array<Region> = [
-      { resetUtcOffset: 0, name: 'GMS' },
-      { resetUtcOffset: 8, name: 'MSEA' },
-      { resetUtcOffset: 9, name: 'KMS' }
-    ];
+  // v1v2Updater() {
+  //   var version: string;
+  //   var lastTrackerVisit: string;
+  //   var mapleRegion: Region;
+  //   var regions: Array<Region> = [
+  //     { resetUtcOffset: 0, name: 'GMS' },
+  //     { resetUtcOffset: 8, name: 'MSEA' },
+  //     { resetUtcOffset: 9, name: 'KMS' }
+  //   ];
 
-    if(localStorage.getItem("weekliesVersion")) {
-      version = localStorage.getItem("weekliesVersion"); 
-    } else {
-      version = "0";
-    }
+  //   if(localStorage.getItem("weekliesVersion")) {
+  //     version = localStorage.getItem("weekliesVersion"); 
+  //   } else {
+  //     version = "0";
+  //   }
 
-    if(localStorage.getItem("lastMapleWeeklyTrackerVisit")) {
-      lastTrackerVisit = localStorage.getItem("lastMapleWeeklyTrackerVisit"); 
-    } else {
-      lastTrackerVisit = "0";
-    }
+  //   if(localStorage.getItem("lastMapleWeeklyTrackerVisit")) {
+  //     lastTrackerVisit = localStorage.getItem("lastMapleWeeklyTrackerVisit"); 
+  //   } else {
+  //     lastTrackerVisit = "0";
+  //   }
 
-    if(localStorage.getItem("mapleRegion")) {
-      mapleRegion = regions[JSON.parse(localStorage.getItem("mapleRegion"))];
-    } else {
-      mapleRegion =  regions[0];
-    }
+  //   if(localStorage.getItem("mapleRegion")) {
+  //     mapleRegion = regions[JSON.parse(localStorage.getItem("mapleRegion"))];
+  //   } else {
+  //     mapleRegion =  regions[0];
+  //   }
 
-    var newWeekliesData: TaskData = {
-      characters: [],
-      version: version,
-      lastTrackerVisit: lastTrackerVisit,
-      selectedCharacterIndex: 0,
-      mapleRegion: mapleRegion,
-      editModeActive: false
-    };
+  //   var newWeekliesData: TaskData = {
+  //     characters: [],
+  //     version: version,
+  //     lastTrackerVisit: lastTrackerVisit,
+  //     selectedCharacterIndex: 0,
+  //     mapleRegion: mapleRegion,
+  //     editModeActive: false
+  //   };
 
-    var oldWeeklies: Weeklies[] = JSON.parse(localStorage.getItem("weeklies"));
+  //   var oldWeeklies: Weeklies[] = JSON.parse(localStorage.getItem("weeklies"));
     
-    for (let i = 0; i < oldWeeklies.length; i++) {
-      var newCharacter: CharacterData = {
-        characterName: oldWeeklies[i].characterName,
-        taskGroups: [
-          { title: 'Weekly Bosses', tasks: oldWeeklies[i].weeklyBosses, allDisabled: false },
-          { title: 'Weekly Tasks', tasks: oldWeeklies[i].weeklyTasks, allDisabled: false }
-        ]
-      };
-      newWeekliesData.characters.push(newCharacter);
-    }
+  //   for (let i = 0; i < oldWeeklies.length; i++) {
+  //     var newCharacter: CharacterData = {
+  //       characterName: oldWeeklies[i].characterName,
+  //       taskGroups: [
+  //         { title: 'Weekly Bosses', tasks: oldWeeklies[i].weeklyBosses, allDisabled: false },
+  //         { title: 'Weekly Tasks', tasks: oldWeeklies[i].weeklyTasks, allDisabled: false }
+  //       ]
+  //     };
+  //     newWeekliesData.characters.push(newCharacter);
+  //   }
 
-    this.weekliesData = newWeekliesData;
-    this.changeHandler();
-    localStorage.removeItem('weekliesVersion');
-    localStorage.removeItem('lastMapleWeeklyTrackerVisit');
-    localStorage.removeItem('weeklies');
+  //   this.weekliesData = newWeekliesData;
+  //   this.changeHandler();
+  //   localStorage.removeItem('weekliesVersion');
+  //   localStorage.removeItem('lastMapleWeeklyTrackerVisit');
+  //   localStorage.removeItem('weeklies');
 
-    // at the end resend it through the initialise to check for version update etc 
-    this.initialise();
-  }
+  //   // at the end resend it through the initialise to check for version update etc 
+  //   this.initialise();
+  // }
 
   initiateDataSet() {
     var newCharacterList: CharacterData = {

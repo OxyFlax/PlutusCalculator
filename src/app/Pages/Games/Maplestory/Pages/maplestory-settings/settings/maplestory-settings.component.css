@@ -23,6 +23,43 @@
     margin-left: 50px;
     margin-right: 50px;
     font-size: 18px;
+    text-align: center;
+    margin-bottom: 5px;
+
+}
+
+.buttonWrapper {
+    text-align: center;
+}
+
+.title2 {
+    padding-top: 30px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.reset {
+    width: 210px;
+    margin: 0 auto;
+}
+
+.reset p {
+    width: 150px;
+    display: inline-block;
+}
+
+.reset .resetTitle {
+    width: 210px;
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.reset button {
+    width: 60px;
+    margin-right: 0px;
 }
 
 @media only screen and (max-width: 1305px) {

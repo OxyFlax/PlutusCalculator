@@ -5,7 +5,8 @@ import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
 import { Dailies, Region } from '../../../Models/oldTrackerModels';
 
 // When upgrading the trackers from v1 to v2 a function to update the saved data was added.
-// This is something that can be removed 2months after the upgrade so as many people as possible are able to enjoy a flawless transition
+// Removal done: June 10 2021
+//
 // Removal possible after: June 21 2021
 // In the updatechecker a removal of the "old tracker custom task support" can be done too. Since there has been more than enough time for all old tracker objects to receive the type = custom
 
@@ -41,7 +42,7 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
     }
 
-    this.infoInit();
+    // this.infoInit();
     this.initialise();
   }
 
@@ -66,84 +67,79 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       // prevents the page from loading in editmode
       this.dailiesData.editModeActive = false;
 
-      this.updateChecker();
       this.checkIfDataIsFromPreviousDay();
+      this.updateChecker();
 
       // checks if all groups are disabled to notify users to enable dailies in the editmode
       this.checkIfAllGroupsAreDisabled();
     } else {
-      // if the old tracker save info is present port it to the new format
-      if(localStorage.getItem("dailies")) {
-        this.v1v2Updater();
-      } else {
         // initiate a dataset
         this.initiateDataSet();
-      }
     }
 
     this.startTimer();
   }
 
-  v1v2Updater() {
-    var version: string;
-    var lastTrackerVisit: string;
-    var mapleRegion: Region;
-    var regions: Array<Region> = [
-      { resetUtcOffset: 0, name: 'GMS' },
-      { resetUtcOffset: 8, name: 'MSEA' },
-      { resetUtcOffset: 9, name: 'KMS' }
-    ];
+  // v1v2Updater() {
+  //   var version: string;
+  //   var lastTrackerVisit: string;
+  //   var mapleRegion: Region;
+  //   var regions: Array<Region> = [
+  //     { resetUtcOffset: 0, name: 'GMS' },
+  //     { resetUtcOffset: 8, name: 'MSEA' },
+  //     { resetUtcOffset: 9, name: 'KMS' }
+  //   ];
 
-    if(localStorage.getItem("dailiesVersion")) {
-      version = localStorage.getItem("dailiesVersion"); 
-    } else {
-      version = "0";
-    }
+  //   if(localStorage.getItem("dailiesVersion")) {
+  //     version = localStorage.getItem("dailiesVersion"); 
+  //   } else {
+  //     version = "0";
+  //   }
 
-    if(localStorage.getItem("lastMapleDailyTrackerVisit")) {
-      lastTrackerVisit = localStorage.getItem("lastMapleDailyTrackerVisit"); 
-    } else {
-      lastTrackerVisit = "0";
-    }
+  //   if(localStorage.getItem("lastMapleDailyTrackerVisit")) {
+  //     lastTrackerVisit = localStorage.getItem("lastMapleDailyTrackerVisit"); 
+  //   } else {
+  //     lastTrackerVisit = "0";
+  //   }
 
-    if(localStorage.getItem("mapleRegion")) {
-      mapleRegion = regions[JSON.parse(localStorage.getItem("mapleRegion"))];
-    } else {
-      mapleRegion =  regions[0];
-    }
+  //   if(localStorage.getItem("mapleRegion")) {
+  //     mapleRegion = regions[JSON.parse(localStorage.getItem("mapleRegion"))];
+  //   } else {
+  //     mapleRegion =  regions[0];
+  //   }
 
-    var newDailiesData: TaskData = {
-      characters: [],
-      version: version,
-      lastTrackerVisit: lastTrackerVisit,
-      selectedCharacterIndex: 0,
-      mapleRegion: mapleRegion,
-      editModeActive: false
-    };
+  //   var newDailiesData: TaskData = {
+  //     characters: [],
+  //     version: version,
+  //     lastTrackerVisit: lastTrackerVisit,
+  //     selectedCharacterIndex: 0,
+  //     mapleRegion: mapleRegion,
+  //     editModeActive: false
+  //   };
 
-    var oldDailies: Dailies[] = JSON.parse(localStorage.getItem("dailies"));
+  //   var oldDailies: Dailies[] = JSON.parse(localStorage.getItem("dailies"));
     
-    for (let i = 0; i < oldDailies.length; i++) {
-      var newCharacter: CharacterData = {
-        characterName: oldDailies[i].characterName,
-        taskGroups: [
-          { title: 'Daily Bosses', tasks: oldDailies[i].dailyBosses, allDisabled: false },
-          { title: 'Daily Tasks', tasks: oldDailies[i].dailyTasks, allDisabled: false },
-          { title: 'Arcane River Dailies', tasks: oldDailies[i].dailyArcaneRiver, allDisabled: false }
-        ]
-      };
-      newDailiesData.characters.push(newCharacter);
-    }
+  //   for (let i = 0; i < oldDailies.length; i++) {
+  //     var newCharacter: CharacterData = {
+  //       characterName: oldDailies[i].characterName,
+  //       taskGroups: [
+  //         { title: 'Daily Bosses', tasks: oldDailies[i].dailyBosses, allDisabled: false },
+  //         { title: 'Daily Tasks', tasks: oldDailies[i].dailyTasks, allDisabled: false },
+  //         { title: 'Arcane River Dailies', tasks: oldDailies[i].dailyArcaneRiver, allDisabled: false }
+  //       ]
+  //     };
+  //     newDailiesData.characters.push(newCharacter);
+  //   }
 
-    this.dailiesData = newDailiesData;
-    this.changeHandler();
-    localStorage.removeItem('dailiesVersion');
-    localStorage.removeItem('lastMapleDailyTrackerVisit');
-    localStorage.removeItem('dailies');
+  //   this.dailiesData = newDailiesData;
+  //   this.changeHandler();
+  //   localStorage.removeItem('dailiesVersion');
+  //   localStorage.removeItem('lastMapleDailyTrackerVisit');
+  //   localStorage.removeItem('dailies');
 
-    // at the end resend it through the initialise to check for version update etc 
-    this.initialise();
-  }
+  //   // at the end resend it through the initialise to check for version update etc 
+  //   this.initialise();
+  // }
 
   initiateDataSet() {
     var newCharacterList: CharacterData = {
