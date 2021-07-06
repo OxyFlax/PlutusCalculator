@@ -9,6 +9,7 @@ export class VanishingJourneyComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
   dailyQuest: boolean = true;
   erdaSpectrum: boolean = true;
+  reverseCity: boolean = false;
 
   ngOnInit() {
   }
@@ -22,6 +23,11 @@ export class VanishingJourneyComponent implements OnInit {
 
     if (this.erdaSpectrum) {
       dailySymbols += 6;
+    }
+
+    // if reverse city is unlocked add an extra 8 symbols
+    if (this.reverseCity) {
+      dailySymbols += 8;
     }
 
     return dailySymbols;

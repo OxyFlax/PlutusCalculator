@@ -3,11 +3,13 @@ export interface ArcaneSymbolSaveData {
   vjExp: number,
   vjDailyQuest: boolean,
   vjErdaSpectrum: boolean,
+  vjReverseCity: boolean,
 
   chuchuLevel: number,
   chuchuExp: number,
   chuchuDailyQuest: boolean,
   chuchuHungryMuto: number,
+  chuchuYumYumIsland: boolean,
 
   lacheleinLevel: number,
   lacheleinExp: number,

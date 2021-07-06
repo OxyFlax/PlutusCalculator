@@ -2,8 +2,9 @@
     <p class="taskGroupTitle">{{ title }}</p>
     <p class="timer">{{ timerString }}</p>
     <ng-container *ngFor="let task of taskGroup.tasks; let i = index">
-        <app-task *ngIf="task.name != 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-task>
+        <app-task *ngIf="task.name != 'Ursus' && task.name != 'Yu Garden'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-task>
         <app-ursus-task *ngIf="task.name == 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" [resetUtcOffset]="taskData.mapleRegion.resetUtcOffset" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-ursus-task>
+        <app-yu-garden-task *ngIf="task.name == 'Yu Garden'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" [resetUtcOffset]="taskData.mapleRegion.resetUtcOffset" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-yu-garden-task>
     </ng-container>
 
     <div class="taskWrapper addTask" *ngIf="taskData.editModeActive" (click)="customTaskStartAdding()">

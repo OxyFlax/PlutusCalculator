@@ -10,6 +10,7 @@ export class ChuChuComponent implements OnInit {
   @Output() clearOutput = new EventEmitter();
   dailyQuest: boolean = true;
   hungryMuto: number = 0;
+  yumYumIsland: boolean = false;
 
   ngOnInit() {
   }
@@ -56,6 +57,11 @@ export class ChuChuComponent implements OnInit {
     }
 
     symbolsPerDay += +this.hungryMuto;
+
+    // if yum yum island is unlocked add an extra 8 symbols
+    if (this.yumYumIsland) {
+      symbolsPerDay += 4;
+    }
 
     return symbolsPerDay;
   }

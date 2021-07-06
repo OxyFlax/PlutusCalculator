@@ -8,10 +8,11 @@ import { TopbarEditmodeComponent } from "../Components/task-topbar-editmode/task
 import { CharacterNavigationBarComponent } from "../Components/task-character-navigation-bar/task-character-navigation-bar.component";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "../../../../Shared/shared.module";
+import { YuGardenTaskComponent } from "../Components/task/custom-tasks/yu-garden-task/yu-garden-task.component";
 
 @NgModule({
     imports: [CommonModule, SharedModule],
-    declarations: [TaskComponent, UrsusTaskComponent, TaskGroupComponent, TaskAdderComponent, TopbarDefaultComponent, TopbarEditmodeComponent, CharacterNavigationBarComponent],
+    declarations: [TaskComponent, YuGardenTaskComponent, UrsusTaskComponent, TaskGroupComponent, TaskAdderComponent, TopbarDefaultComponent, TopbarEditmodeComponent, CharacterNavigationBarComponent],
     exports: [TaskComponent, UrsusTaskComponent, TaskGroupComponent, TaskAdderComponent, TopbarDefaultComponent, TopbarEditmodeComponent, CharacterNavigationBarComponent]
 })
 export class MaplestoryTrackerSharedModule { }

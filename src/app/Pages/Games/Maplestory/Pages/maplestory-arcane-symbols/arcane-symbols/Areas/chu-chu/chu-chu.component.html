@@ -11,3 +11,12 @@
         <input class="numberInput" name="hungryMuto" id="hungryMuto" type="number" [(ngModel)]="hungryMuto" (input)="hungryMutoInput($event)">
     </div>
 </div>
+
+<p class="symbolDailyTitle">Daily quest reward x2</p>
+
+<div class="symbolInput">
+    <div class="checkboxWrapper">
+        <input name="yumYumIsland" id="yumYumIsland" type="checkbox" (change)="valueChanged()" [(ngModel)]="yumYumIsland" [ngModelOptions]="{standalone: true}" />
+        <label for="yumYumIsland">Yum Yum Isl Unlocked</label>
+    </div>
+</div>

@@ -70,10 +70,12 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
       vjExp: 1,
       vjDailyQuest: true,
       vjErdaSpectrum: true,
+      vjReverseCity: false,
       chuchuLevel: 1,
       chuchuExp: 1,
       chuchuDailyQuest: true,
       chuchuHungryMuto: 1,
+      chuchuYumYumIsland: false,
       lacheleinLevel: 1,
       lacheleinExp: 1,
       lacheleinDailyQuest: true,
@@ -103,12 +105,14 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         this.currentXp = this.arcaneSymbolSaveData.vjExp;
         this.vanishingJourneyChild.dailyQuest = this.arcaneSymbolSaveData.vjDailyQuest;
         this.vanishingJourneyChild.erdaSpectrum = this.arcaneSymbolSaveData.vjErdaSpectrum;
+        this.vanishingJourneyChild.reverseCity = this.arcaneSymbolSaveData.vjReverseCity;
         break;
       case 1:
         this.currentLevel = this.arcaneSymbolSaveData.chuchuLevel;
         this.currentXp = this.arcaneSymbolSaveData.chuchuExp;
         this.chuChuChild.dailyQuest = this.arcaneSymbolSaveData.chuchuDailyQuest;
         this.chuChuChild.hungryMuto = this.arcaneSymbolSaveData.chuchuHungryMuto;
+        this.chuChuChild.yumYumIsland = this.arcaneSymbolSaveData.chuchuYumYumIsland;
         break;
       case 2:
         this.currentLevel = this.arcaneSymbolSaveData.lacheleinLevel;
@@ -261,12 +265,14 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         this.arcaneSymbolSaveData.vjExp = this.currentXp;
         this.arcaneSymbolSaveData.vjDailyQuest = this.vanishingJourneyChild.dailyQuest;
         this.arcaneSymbolSaveData.vjErdaSpectrum = this.vanishingJourneyChild.erdaSpectrum;
+        this.arcaneSymbolSaveData.vjReverseCity = this.vanishingJourneyChild.reverseCity;
         break;
       case 1:
         this.arcaneSymbolSaveData.chuchuLevel = this.currentLevel;
         this.arcaneSymbolSaveData.chuchuExp = this.currentXp;
         this.arcaneSymbolSaveData.chuchuDailyQuest = this.chuChuChild.dailyQuest;
         this.arcaneSymbolSaveData.chuchuHungryMuto = this.chuChuChild.hungryMuto;
+        this.arcaneSymbolSaveData.chuchuYumYumIsland = this.chuChuChild.yumYumIsland;
         break;
       case 2:
         this.arcaneSymbolSaveData.lacheleinLevel = this.currentLevel;
