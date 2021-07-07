@@ -38,6 +38,8 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   saveConfirmationEnabled: boolean = false;
   equipToSaveTo: string;
 
+  showInfo: boolean;
+
   constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit() {
@@ -53,6 +55,9 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   }
 
   initialise() {
+    // display condition for issues when Kain was added to the class list
+    this.showInfo = new Date().getTime() < 1630454399000;
+
     if (localStorage.getItem("flameData")) {
       this.flameData = JSON.parse(localStorage.getItem("flameData"));
     } else {

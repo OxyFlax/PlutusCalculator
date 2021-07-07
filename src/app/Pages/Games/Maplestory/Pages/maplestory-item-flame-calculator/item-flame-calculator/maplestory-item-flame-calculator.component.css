@@ -327,8 +327,38 @@ a {
     text-align: center;
 }
 
+.info {
+    width: 600px;
+    margin: 0 auto;
+    background-color: var(--game-page-background-color);
+    border: 1px solid var(--game-page-border-color);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.info p {
+    max-width: 400px;
+    text-align: justify;
+    margin: 0 auto;
+    padding-top: 4px;
+    padding-bottom: 8px;
+}
+
+.info h2 {
+    padding-top: 8px;
+    margin: 0px;
+}
+
 @media only screen and (max-width: 1104px) {
     .editedGamePageContent {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+
+    .info {
         float: left;
         margin: unset;
         margin-top: 8px;
@@ -344,6 +374,14 @@ a {
     .explanation {
         max-width: 360px;
     }
+
+    .info {
+        width: calc(100% - 262px);
+    }
+
+    .info p {
+        max-width: 360px;
+    }
 }
 
 @media only screen and (max-width: 800px) {
@@ -353,6 +391,12 @@ a {
         min-height: calc(100vh - 100px);
         width: calc(100% - 18px);
     }
+
+    .info {
+        margin-left: 8px;
+        margin-right: 8px;
+        width: calc(100% - 18px);
+    }
 }
 
 @media only screen and (max-width: 575px) {
@@ -360,3 +404,33 @@ a {
         padding-top: 38px;
     }
 }
+
+
+
+
+
+
+
+
+/* @media only screen and (max-width: 1635px) {
+    .info {
+        float: left;
+        margin: unset;
+        margin-top: 8px;
+        margin-left: 9px;
+    }
+}
+
+@media only screen and (max-width: 1391px) {
+    .info {
+        width: calc(100% - 262px);
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .info {
+        margin-left: 8px;
+        margin-right: 8px;
+        width: calc(100% - 18px);
+    }
+} */

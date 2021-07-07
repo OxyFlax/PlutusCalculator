@@ -141,6 +141,11 @@
           "flameType": "dex"
         },
         {
+          "name": "Kain",
+          "flameStats": ["dex", "str", "att", "allstat"],
+          "flameType": "dex"
+        },
+        {
           "name": "Kaiser",
           "flameStats": ["str", "dex", "att", "allstat"],
           "flameType": "str"
