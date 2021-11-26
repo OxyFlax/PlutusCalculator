@@ -1,5 +1,5 @@
 {
-    "version": "6.2",
+    "version": "6.3",
     "dailyBosses":[ 
         {
             "name": "Zakum",
@@ -196,28 +196,20 @@
             "displayCondition": "true"
         },
         {
-            "name": "Neo Stone Capping",
-            "image": "Dailies/Event/Neo/NeoStone.png",
+            "name": "Pink Bean Capping",
+            "image": "Dailies/Event/OnAir/PinkBean.png",
             "completed": false,
             "enabled": true,
             "type": "event",
-            "displayCondition": "new Date().getTime() > 1623275999000 && new Date().getTime() < 1629849599000"
+            "displayCondition": "new Date().getTime() > 1637193599000 && new Date().getTime() < 1644364799000"
         },
         {
-            "name": "Neo Gem Capping",
-            "image": "Dailies/Event/Neo/NeoGem.png",
+            "name": "Subscriber Capping",
+            "image": "Dailies/Event/OnAir/Subscribers.png",
             "completed": false,
             "enabled": true,
             "type": "event",
-            "displayCondition": "new Date().getTime() > 1623275999000 && new Date().getTime() < 1629849599000"
-        },
-        {
-            "name": "Neo Crystal Challenge",
-            "image": "Dailies/Event/Neo/NeoCrystalChallenge.png",
-            "completed": false,
-            "enabled": true,
-            "type": "event",
-            "displayCondition": "new Date().getTime() > 1623275999000 && new Date().getTime() < 1629849599000"
+            "displayCondition": "new Date().getTime() > 1637193599000 && new Date().getTime() < 1644364799000"
         }
     ],
     "dailyArcaneRiver":[

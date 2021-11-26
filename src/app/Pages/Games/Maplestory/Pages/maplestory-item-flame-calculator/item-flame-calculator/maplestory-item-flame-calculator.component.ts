@@ -55,8 +55,8 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   }
 
   initialise() {
-    // display condition for issues when Kain was added to the class list
-    this.showInfo = new Date().getTime() < 1630454399000;
+    // display condition for issues when Lara was added to the class list
+    this.showInfo = new Date().getTime() < 1642291199000;
 
     if (localStorage.getItem("flameData")) {
       this.flameData = JSON.parse(localStorage.getItem("flameData"));

@@ -161,6 +161,11 @@
           "flameType": "int"
         },
         {
+          "name": "Lara",
+          "flameStats": ["int", "luk", "matt", "allstat"],
+          "flameType": "int"
+        },
+        {
           "name": "Luminous",
           "flameStats": ["int", "luk", "matt", "allstat"],
           "flameType": "int"
