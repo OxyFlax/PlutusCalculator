@@ -52,7 +52,7 @@ export class LacheleinComponent implements OnInit{
     var symbolsPerDay: number = 0;
 
     if (this.dailyQuest) {
-      symbolsPerDay += 4;
+      symbolsPerDay += 8;
     }
 
     symbolsPerDay += +this.dreamDefender;

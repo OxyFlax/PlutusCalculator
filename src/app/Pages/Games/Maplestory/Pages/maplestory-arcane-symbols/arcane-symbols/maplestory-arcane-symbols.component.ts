@@ -204,9 +204,21 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
       this.currentLevel = 20;
     }
 
-    // if the current xp is higher than the symbols required xp it is lowered to the symbols max xp and saved
-    if (this.currentXp > this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired) {
-      this.currentXp = this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired;
+    // if the level is set back to 1 and the currentXp is 0, the xp needs to be raised to 1 as this is the xp any symbol starts with
+    if(this.currentLevel == 1 && this.currentXp == 0) {
+      this.currentXp = 1;
+    }
+
+
+    // Calculate the total amount of symbols needed to reach the max level.
+    var totalSymbolsToGo = 0;
+    for (let i = this.currentLevel - 1; i < 20; i++) {
+      totalSymbolsToGo += this.arcaneSymbolList[i].symbolExpRequired;
+    }
+
+    // ensure the currentXp is adjusted if it is higher than the total symbols required
+    if (this.currentXp > totalSymbolsToGo) {
+      this.currentXp = totalSymbolsToGo;
     }
 
     this.submit();
@@ -249,10 +261,17 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
       this.currentXp = 0;
     }
 
-    // prevents input of numbers that are too high for current level
-    if (this.currentXp > this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired) {
-      event.target.value = this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired;
-      this.currentXp = this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired;
+
+    // Calculate the total amount of symbols needed to reach the max level.
+    var totalSymbolsToGo = 0;
+    for (let i = this.currentLevel - 1; i < 20; i++) {
+      totalSymbolsToGo += this.arcaneSymbolList[i].symbolExpRequired;
+    }
+
+    // prevents input of numbers that go beyond the total symbols required
+    if (this.currentXp > totalSymbolsToGo) {
+      event.target.value = totalSymbolsToGo;
+      this.currentXp = totalSymbolsToGo;
     }
 
     this.submit();
