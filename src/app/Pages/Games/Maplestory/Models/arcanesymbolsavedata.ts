@@ -24,8 +24,10 @@ export interface ArcaneSymbolSaveData {
   morassLevel: number,
   morassExp: number,
   morassDailyQuest: boolean,
+  moreassRanheimDefense: boolean,
 
   esferaLevel: number,
   esferaExp: number,
-  esferaDailyQuest: boolean
+  esferaDailyQuest: boolean,
+  esferaGuardian: boolean
 }

@@ -1,5 +1,5 @@
 {
-    "version": "6.3",
+    "version": "6.4",
     "weeklyBosses":[   
         {
             "name": "Chaos Pink Bean",
@@ -25,7 +25,6 @@
             "type": "default",
             "displayCondition": "true"
         },
-        
         {
             "name": "Chaos Zakum",
             "image": "Weeklies/ChaosZakum.png",
@@ -109,6 +108,14 @@
         {
             "name": "Damien",
             "image": "Weeklies/Damien.png",
+            "completed": false,
+            "enabled": true,
+            "type": "default",
+            "displayCondition": "true"
+        },
+        {
+            "name": "Guardian Angel Slime",
+            "image": "Weeklies/GuardianAngelSlime.png",
             "completed": false,
             "enabled": true,
             "type": "default",

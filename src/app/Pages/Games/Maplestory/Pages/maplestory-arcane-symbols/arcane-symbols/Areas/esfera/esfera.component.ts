@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class EsferaComponent implements OnInit{
   @Output() valueChange = new EventEmitter();
   dailyQuest: boolean = true;
+  esferaGuardian: boolean = true;
 
   ngOnInit() {
   }
@@ -17,6 +18,10 @@ export class EsferaComponent implements OnInit{
 
     if (this.dailyQuest) {
       symbolsPerDay += 8;
+    }
+
+    if(this.esferaGuardian) {
+      symbolsPerDay += 6;
     }
 
     return symbolsPerDay;

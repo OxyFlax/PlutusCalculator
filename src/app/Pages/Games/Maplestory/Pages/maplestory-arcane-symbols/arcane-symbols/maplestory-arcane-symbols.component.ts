@@ -87,9 +87,12 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
       morassLevel: 1,
       morassExp: 1,
       morassDailyQuest: true,
+      moreassRanheimDefense: true,
       esferaLevel: 1,
       esferaExp: 1,
-      esferaDailyQuest: true
+      esferaDailyQuest: true,
+      esferaGuardian: true
+
     };
     this.arcaneSymbolSaveData = newArcaneSymbolSaveData;
     localStorage.setItem("arcaneSymbolSaveData", JSON.stringify(this.arcaneSymbolSaveData));
@@ -130,11 +133,13 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         this.currentLevel = this.arcaneSymbolSaveData.morassLevel;
         this.currentXp = this.arcaneSymbolSaveData.morassExp;
         this.morassChild.dailyQuest = this.arcaneSymbolSaveData.morassDailyQuest;
+        this.morassChild.ranheimDefense = this.arcaneSymbolSaveData.moreassRanheimDefense;
         break;
       case 5:
         this.currentLevel = this.arcaneSymbolSaveData.esferaLevel;
         this.currentXp = this.arcaneSymbolSaveData.esferaExp;
         this.esferaChild.dailyQuest = this.arcaneSymbolSaveData.esferaDailyQuest;
+        this.esferaChild.esferaGuardian = this.arcaneSymbolSaveData.esferaGuardian
         break;
       default: {
         break;
@@ -309,11 +314,13 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         this.arcaneSymbolSaveData.morassLevel = this.currentLevel;
         this.arcaneSymbolSaveData.morassExp = this.currentXp;
         this.arcaneSymbolSaveData.morassDailyQuest = this.morassChild.dailyQuest;
+        this.arcaneSymbolSaveData.moreassRanheimDefense = this.morassChild.ranheimDefense;
         break;
       case 5:
         this.arcaneSymbolSaveData.esferaLevel = this.currentLevel;
         this.arcaneSymbolSaveData.esferaExp = this.currentXp;
         this.arcaneSymbolSaveData.esferaDailyQuest = this.esferaChild.dailyQuest;
+        this.arcaneSymbolSaveData.esferaGuardian = this.esferaChild.esferaGuardian;
         break;
       default: {
         break;

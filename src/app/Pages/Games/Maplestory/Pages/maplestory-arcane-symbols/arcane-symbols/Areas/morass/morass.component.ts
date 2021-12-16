@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class MorassComponent implements OnInit{
   @Output() valueChange = new EventEmitter();
   dailyQuest: boolean = true;
+  ranheimDefense: boolean = true;
 
   ngOnInit() {
   }
@@ -17,6 +18,10 @@ export class MorassComponent implements OnInit{
 
     if (this.dailyQuest) {
       symbolsPerDay += 8;
+    }
+
+    if(this.ranheimDefense) {
+      symbolsPerDay += 6;
     }
 
     return symbolsPerDay;
