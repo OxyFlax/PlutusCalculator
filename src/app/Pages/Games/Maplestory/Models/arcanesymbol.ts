@@ -5,5 +5,4 @@ export interface ArcaneSymbol {
   statDemonAvenger: number;
   arcaneForce: number;
   symbolExpRequired: number;
-  upgradeCost: number;
 }

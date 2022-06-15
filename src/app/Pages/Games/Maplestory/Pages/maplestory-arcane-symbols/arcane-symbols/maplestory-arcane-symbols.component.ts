@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
-import ArcaneSymbolsJson from '../../../../../../../assets/Games/Maplestory/ArcaneSymbols.json';
+import ArcaneSymbolStatsJson from '../../../../../../../assets/Games/Maplestory/ArcaneSymbolStats.json';
+import ArcaneSymbolCostJson from '../../../../../../../assets/Games/Maplestory/ArcaneSymbolCost.json';
 import { ArcaneSymbol } from '../../../Models/arcanesymbol';
 import { ArcaneSymbolSaveData } from '../../../Models/arcanesymbolsavedata';
 import { VanishingJourneyComponent } from './Areas/vanishing-journey/vanishing-journey.component';
@@ -9,6 +10,7 @@ import { ArcanaComponent } from './Areas/arcana/arcana.component';
 import { MorassComponent } from './Areas/morass/morass.component';
 import { EsferaComponent } from './Areas/esfera/esfera.component';
 import { Meta, Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-maplestory-arcane-symbols',
@@ -24,7 +26,8 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   @ViewChild(EsferaComponent) esferaChild: EsferaComponent;
 
   arcaneSymbolSaveData: ArcaneSymbolSaveData;
-  arcaneSymbolList: ArcaneSymbol[] = ArcaneSymbolsJson.arcaneSymbols;
+  arcaneSymbolStats: ArcaneSymbol[] = ArcaneSymbolStatsJson.ArcaneSymbolsStats;
+  arcaneSymbolCost: number[] = ArcaneSymbolCostJson.VanishingJourney;
   arcaneSymbolNames: string[] = ['Vanishing Journey', 'Chu Chu', 'Lachelein', 'Arcana', 'Morass', 'Esfera'];
   currentLevel: number = 1;
   currentXp: number = 1;
@@ -104,6 +107,7 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
     this.changeDetector.detectChanges();
     switch (this.activeSymbolIndex) {
       case 0:
+        this.arcaneSymbolCost = ArcaneSymbolCostJson.VanishingJourney
         this.currentLevel = this.arcaneSymbolSaveData.vjLevel;
         this.currentXp = this.arcaneSymbolSaveData.vjExp;
         this.vanishingJourneyChild.dailyQuest = this.arcaneSymbolSaveData.vjDailyQuest;
@@ -111,6 +115,7 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         this.vanishingJourneyChild.reverseCity = this.arcaneSymbolSaveData.vjReverseCity;
         break;
       case 1:
+        this.arcaneSymbolCost = ArcaneSymbolCostJson.ChuChu;
         this.currentLevel = this.arcaneSymbolSaveData.chuchuLevel;
         this.currentXp = this.arcaneSymbolSaveData.chuchuExp;
         this.chuChuChild.dailyQuest = this.arcaneSymbolSaveData.chuchuDailyQuest;
@@ -118,24 +123,28 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
         this.chuChuChild.yumYumIsland = this.arcaneSymbolSaveData.chuchuYumYumIsland;
         break;
       case 2:
+        this.arcaneSymbolCost = ArcaneSymbolCostJson.Lachelein
         this.currentLevel = this.arcaneSymbolSaveData.lacheleinLevel;
         this.currentXp = this.arcaneSymbolSaveData.lacheleinExp;
         this.lacheleinChild.dailyQuest = this.arcaneSymbolSaveData.lacheleinDailyQuest;
         this.lacheleinChild.dreamDefender = this.arcaneSymbolSaveData.lacheleinDreamDefender;
         break;
       case 3:
+        this.arcaneSymbolCost = ArcaneSymbolCostJson.Arcana
         this.currentLevel = this.arcaneSymbolSaveData.arcanaLevel;
         this.currentXp = this.arcaneSymbolSaveData.arcanaExp;
         this.arcanaChild.dailyQuest = this.arcaneSymbolSaveData.arcanaDailyQuest;
         this.arcanaChild.spiritSaviour = this.arcaneSymbolSaveData.arcanaSpiritSaviour;
         break;
       case 4:
+        this.arcaneSymbolCost = ArcaneSymbolCostJson.Morass
         this.currentLevel = this.arcaneSymbolSaveData.morassLevel;
         this.currentXp = this.arcaneSymbolSaveData.morassExp;
         this.morassChild.dailyQuest = this.arcaneSymbolSaveData.morassDailyQuest;
         this.morassChild.ranheimDefense = this.arcaneSymbolSaveData.moreassRanheimDefense;
         break;
       case 5:
+        this.arcaneSymbolCost = ArcaneSymbolCostJson.Esfera
         this.currentLevel = this.arcaneSymbolSaveData.esferaLevel;
         this.currentXp = this.arcaneSymbolSaveData.esferaExp;
         this.esferaChild.dailyQuest = this.arcaneSymbolSaveData.esferaDailyQuest;
@@ -218,7 +227,7 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
     // Calculate the total amount of symbols needed to reach the max level.
     var totalSymbolsToGo = 0;
     for (let i = this.currentLevel - 1; i < 20; i++) {
-      totalSymbolsToGo += this.arcaneSymbolList[i].symbolExpRequired;
+      totalSymbolsToGo += this.arcaneSymbolStats[i].symbolExpRequired;
     }
 
     // ensure the currentXp is adjusted if it is higher than the total symbols required
@@ -270,7 +279,7 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
     // Calculate the total amount of symbols needed to reach the max level.
     var totalSymbolsToGo = 0;
     for (let i = this.currentLevel - 1; i < 20; i++) {
-      totalSymbolsToGo += this.arcaneSymbolList[i].symbolExpRequired;
+      totalSymbolsToGo += this.arcaneSymbolStats[i].symbolExpRequired;
     }
 
     // prevents input of numbers that go beyond the total symbols required
@@ -332,17 +341,17 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   calculateSymbolStats(symbolsPerDay: number) {
     var symbolsToGo: number = 0;
 
-    symbolsToGo = (this.arcaneSymbolList[this.currentLevel - 1].symbolExpRequired - this.currentXp);
-    this.upgradeCost = this.arcaneSymbolList[this.currentLevel - 1].upgradeCost;
+    symbolsToGo = (this.arcaneSymbolStats[this.currentLevel - 1].symbolExpRequired - this.currentXp);
+    this.upgradeCost = this.arcaneSymbolCost[this.currentLevel - 1];
     for (let i = this.currentLevel; i < 20; i++) {
-      symbolsToGo += this.arcaneSymbolList[i].symbolExpRequired;
-      this.upgradeCost += this.arcaneSymbolList[i].upgradeCost;
+      symbolsToGo += this.arcaneSymbolStats[i].symbolExpRequired;
+      this.upgradeCost += this.arcaneSymbolCost[i];
     }
 
-    this.arcaneForceGain = this.arcaneSymbolList[19].arcaneForce - this.arcaneSymbolList[this.currentLevel - 1].arcaneForce;
-    this.statGain = this.arcaneSymbolList[19].stat - this.arcaneSymbolList[this.currentLevel - 1].stat;
-    this.xenonStatGain = this.arcaneSymbolList[19].statXenon - this.arcaneSymbolList[this.currentLevel - 1].statXenon;
-    this.demonAvengerHpGain = this.arcaneSymbolList[19].statDemonAvenger - this.arcaneSymbolList[this.currentLevel - 1].statDemonAvenger;
+    this.arcaneForceGain = this.arcaneSymbolStats[19].arcaneForce - this.arcaneSymbolStats[this.currentLevel - 1].arcaneForce;
+    this.statGain = this.arcaneSymbolStats[19].stat - this.arcaneSymbolStats[this.currentLevel - 1].stat;
+    this.xenonStatGain = this.arcaneSymbolStats[19].statXenon - this.arcaneSymbolStats[this.currentLevel - 1].statXenon;
+    this.demonAvengerHpGain = this.arcaneSymbolStats[19].statDemonAvenger - this.arcaneSymbolStats[this.currentLevel - 1].statDemonAvenger;
     this.daysLeft = Math.ceil(symbolsToGo / symbolsPerDay);
   }
 
