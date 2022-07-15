@@ -1,5 +1,5 @@
 {
-    "version": "6.8",
+    "version": "7.1",
     "imagePrefix": "MapleWeeklies/",
     "taskGroups": [
         {
@@ -164,12 +164,20 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
+                },
+                {
+                    "name": "Harmony Coin Capping",
+                    "image": "Event/Destiny/HarmonyCoin.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "event",
+                    "dispCon": "new Date().getTime() < 1661903999000"
                 }
             ],
             "allDisabled": false
         },
         {
-            "title": "Weekly Bosses",
+            "title": "Weekly Tasks",
             "tasks": [
                 {
                     "name": "Guild Buff",

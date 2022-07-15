@@ -1,5 +1,5 @@
 {
-    "version": "6.8",
+    "version": "7.0",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -202,6 +202,14 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
+                },
+                {
+                    "name": "Melody Coin Capping",
+                    "image": "Event/Destiny/MelodyCoin.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "event",
+                    "dispCon": "new Date().getTime() < 1661903999000"
                 }
             ],
             "allDisabled":false
