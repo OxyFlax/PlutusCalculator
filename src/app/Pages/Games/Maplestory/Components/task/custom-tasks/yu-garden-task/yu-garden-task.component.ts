@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
-import { Task } from '../../../../Models/task';
+import { Task } from '../../../../Models/taskModels';
 
 
 @Component({
@@ -13,6 +13,7 @@ export class YuGardenTaskComponent implements OnInit, OnDestroy{
   @Input() title: string;
   @Input() index: number;
   @Input() resetUtcOffset: number = 0;
+  @Input() imagePrefix: string;
 
   @Output() disableEvent = new EventEmitter<any>();
   @Output() moveEvent = new EventEmitter<any>();

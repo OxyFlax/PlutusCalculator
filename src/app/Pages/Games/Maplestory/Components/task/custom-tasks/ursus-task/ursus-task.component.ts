@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, OnDestroy, Output } from '@angular/core';
-import { Task } from '../../../../Models/task';
+import { Task } from '../../../../Models/taskModels';
 
 
 @Component({
@@ -13,6 +13,7 @@ export class UrsusTaskComponent implements OnInit, OnDestroy{
   @Input() title: string;
   @Input() index: number;
   @Input() resetUtcOffset: number = 0;
+  @Input() imagePrefix: string;
 
   @Output() disableEvent = new EventEmitter<any>();
   @Output() moveEvent = new EventEmitter<any>();
@@ -81,7 +82,7 @@ export class UrsusTaskComponent implements OnInit, OnDestroy{
     // this used to adjust the endtimes during the Neo event (the timeslot is two hours longer until the 24th of August 2021 11:59PM UTC)
     // if its past this date the times are no longer adjusted
     // this is left for reference for future ursus end time changes during events
-    if (date.getTime() < 1629849599000) {
+    if (date.getTime() < 1661903999000) {
       slotOneEndTime = 5;
       slotTwoEndTime = 22;
     }

@@ -32,7 +32,6 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
   currentLevel: number = 1;
   currentXp: number = 1;
   activeSymbolIndex: number = 0;
-  activeSymbolName: string = this.arcaneSymbolNames[0];
 
   daysLeft: number = 0;
   upgradeCost: number = 0;
@@ -103,7 +102,6 @@ export class MaplestoryArcaneSymbolsComponent implements OnInit {
 
   changeActiveSymbolIndex(value: number) {
     this.activeSymbolIndex = value;
-    this.activeSymbolName = this.arcaneSymbolNames[value];
     this.changeDetector.detectChanges();
     switch (this.activeSymbolIndex) {
       case 0:

@@ -1,5 +1,6 @@
 <div class="characterNavigationBar">
     <ng-container *ngFor="let item of taskData.characters; let i = index">
-        <a (click)="changeCharacter(i)" [ngClass]="(taskData.selectedCharacterIndex == i)?'selected':'notSelected'">{{ item.characterName }}</a>
+        <a longPress (onShortPress)="changeCharacter(i)" (onLongPress)="removeCharacter(i)" [ngClass]="(taskData.selectedCharacterIndex == i)?'selected':'notSelected'">{{ item.characterName }}</a>
     </ng-container>
+    <a class="notSelected" *ngIf="editModeActive" (click)="addCharacter()">+</a>
 </div>

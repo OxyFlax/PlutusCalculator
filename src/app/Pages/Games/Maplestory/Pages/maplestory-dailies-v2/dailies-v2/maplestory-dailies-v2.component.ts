@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import DailiesJson from '../../../../../../../assets/Games/Maplestory/Dailies.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
-import { Dailies, Region } from '../../../Models/oldTrackerModels';
+import { Region } from '../../../Models/region';
+
 
 // When upgrading the trackers from v1 to v2 a function to update the saved data was added.
 // Removal done: June 10 2021
@@ -42,6 +43,7 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "index, follow" });
     }
 
+    // enable this if you want to show info to the user about a change to the page
     // this.infoInit();
     this.initialise();
   }
@@ -157,7 +159,9 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
       lastTrackerVisit: Date.now().toString(),
       selectedCharacterIndex: 0,
       mapleRegion: {resetUtcOffset: 0, name: 'GMS'},
-      editModeActive: false
+      editModeActive: false,
+      infoVisible: false,
+      imagePrefix: "DailiesImages"
     };
 
     for (let i = 0; i < 4; i++) {
@@ -220,10 +224,10 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
                 var transferTask: Task = {
                   name: oldDailiesData.characters[i].taskGroups[j].tasks[k].name,
                   image: newDailiesStructure.characters[i].taskGroups[j].tasks[l].image,
-                  completed: oldDailiesData.characters[i].taskGroups[j].tasks[k].completed,
+                  done: oldDailiesData.characters[i].taskGroups[j].tasks[k].done,
                   enabled: oldDailiesData.characters[i].taskGroups[j].tasks[k].enabled,
                   type: newDailiesStructure.characters[i].taskGroups[j].tasks[l].type,
-                  displayCondition: newDailiesStructure.characters[i].taskGroups[j].tasks[l].displayCondition
+                  dispCon: newDailiesStructure.characters[i].taskGroups[j].tasks[l].dispCon
                 };
                 // add this task to the current dailies structure
                 this.dailiesData.characters[i].taskGroups[j].tasks.push(transferTask);
@@ -238,10 +242,10 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
             var transferTask: Task = {
               name: newDailiesStructure.characters[i].taskGroups[j].tasks[k].name,
               image: newDailiesStructure.characters[i].taskGroups[j].tasks[k].image,
-              completed: newDailiesStructure.characters[i].taskGroups[j].tasks[k].completed,
+              done: newDailiesStructure.characters[i].taskGroups[j].tasks[k].done,
               enabled: newDailiesStructure.characters[i].taskGroups[j].tasks[k].enabled,
               type: newDailiesStructure.characters[i].taskGroups[j].tasks[k].type,
-              displayCondition: newDailiesStructure.characters[i].taskGroups[j].tasks[k].displayCondition
+              dispCon: newDailiesStructure.characters[i].taskGroups[j].tasks[k].dispCon
             };
             this.dailiesData.characters[i].taskGroups[j].tasks.push(transferTask);
           }
@@ -314,7 +318,7 @@ export class MaplestoryDailiesV2Component implements OnInit, OnDestroy {
     this.dailiesData.characters.forEach(character => {
       character.taskGroups.forEach(taskgroup => {
         taskgroup.tasks.forEach(task => {
-          task.completed = false;
+          task.done = false;
         });
       });
     });

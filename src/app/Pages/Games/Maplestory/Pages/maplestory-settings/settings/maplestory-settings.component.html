@@ -8,11 +8,6 @@
             Export Settings
         </button>
 
-        <!-- <input type='file' (change)="fileChanged($event)">
-        <button class="buttonStyle" (click)="importSettings()">
-            Import Settings
-        </button> -->
-
         <label for="file-upload" class="buttonStyle">
             Import Settings
         </label>
@@ -20,7 +15,7 @@
     </div>
 
     <p class="title title2">Reset saved data</p>
-    <p class="intro">Experiencing issues with a tracker or calculator? Use this to reset the saved data, if this doesn't fix the issue please contact me so i can look into it.</p>
+    <p class="intro">Experiencing issues with a tracker or calculator? Use this to reset the saved data, if this doesn't fix the issue please contact me on discord so i can look into it (StarLines#0001).</p>
     
     <div class="reset">
         <p class="resetTitle">Calculators</p>
@@ -28,8 +23,8 @@
         <p>Item flame</p><button class="buttonStyle" (click)="resetData('flameData')">Reset</button>
         <p>Weapon flame</p><button class="buttonStyle" (click)="resetData('weaponFlameData')">Reset</button>
         <p class="resetTitle">Trackers</p>
-        <p>Dailies</p><button class="buttonStyle" (click)="resetData('dailiesData')">Reset</button>
-        <p>Weeklies</p><button class="buttonStyle" (click)="resetData('weekliesData')">Reset</button>
+        <p>Dailies</p><button class="buttonStyle" (click)="resetData('dailiesData')" (click)="resetData('dailiesDataV3')">Reset</button>
+        <p>Weeklies</p><button class="buttonStyle" (click)="resetData('weekliesData')" (click)="resetData('weekliesDataV3')">Reset</button>
     </div>
     
 

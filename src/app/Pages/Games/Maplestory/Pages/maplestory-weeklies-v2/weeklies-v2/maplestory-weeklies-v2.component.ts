@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import WeekliesJson from '../../../../../../../assets/Games/Maplestory/Weeklies.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
-import { Region, Weeklies } from '../../../Models/oldTrackerModels';
+import { Region } from '../../../Models/region';
 
 // When upgrading the trackers from v1 to v2 a function to update the saved data was added.
 // Removal done: June 10 2021
@@ -160,7 +160,9 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
       lastTrackerVisit: Date.now().toString(),
       selectedCharacterIndex: 0,
       mapleRegion: {resetUtcOffset: 0, name: 'GMS'},
-      editModeActive: false
+      editModeActive: false,
+      infoVisible: false,
+      imagePrefix: "WeekliesImages"
     };
 
     for (let i = 0; i < 4; i++) {
@@ -252,10 +254,10 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
                 var transferTask: Task = {
                   name: oldWeekliesData.characters[i].taskGroups[j].tasks[k].name ,
                   image: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].image,
-                  completed: oldWeekliesData.characters[i].taskGroups[j].tasks[k].completed,
+                  done: oldWeekliesData.characters[i].taskGroups[j].tasks[k].done,
                   enabled: oldWeekliesData.characters[i].taskGroups[j].tasks[k].enabled,
                   type: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].type,
-                  displayCondition: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].displayCondition
+                  dispCon: newWeekliesStructure.characters[i].taskGroups[j].tasks[l].dispCon
                 };
                 // add this task to the current dailies structure
                 this.weekliesData.characters[i].taskGroups[j].tasks.push(transferTask);
@@ -270,10 +272,10 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
             var transferTask: Task = {
               name: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].name,
               image: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].image,
-              completed: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].completed,
+              done: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].done,
               enabled: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].enabled,
               type: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].type,
-              displayCondition: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].displayCondition
+              dispCon: newWeekliesStructure.characters[i].taskGroups[j].tasks[k].dispCon
             };
             this.weekliesData.characters[i].taskGroups[j].tasks.push(transferTask);
           }
@@ -339,7 +341,7 @@ export class MaplestoryWeekliesV2Component implements OnInit, OnDestroy {
   resetCompletedValues(TaskGroupIndex: number) {
     this.weekliesData.characters.forEach(character => {
       character.taskGroups[TaskGroupIndex].tasks.forEach(task => {
-        task.completed = false;
+        task.done = false;
       });
     });
   }

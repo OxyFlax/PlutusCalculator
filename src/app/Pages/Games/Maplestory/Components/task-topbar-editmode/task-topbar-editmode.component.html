@@ -7,8 +7,10 @@
 <button class="editButton" (click)="exitEditMode()">Exit Edit Mode</button>
 
 <p class="title">{{ topBarTitle }} {{ taskData.characters[taskData.selectedCharacterIndex].characterName }}</p>
-<app-task-character-navigation-bar [taskData]="taskData" (changeEvent)="changeHandler()"></app-task-character-navigation-bar>
-<p class="editModeMessage">Edit mode active, click on the names of dailies to disable them (this will prevent them from showing up outside of the edit mode)<br>Adding custom dailies is possible with the option at the bottom of each list (custom dailies cannot be disabled but are instead removed)</p>
+<app-task-character-navigation-bar [taskData]="taskData" [editModeActive]="true" (changeEvent)="changeHandler()" (addCharacterEvent)="addCharacterEmitter()"></app-task-character-navigation-bar>
+<p class="editModeMessage">Edit mode active, click on the names of dailies to disable them (this will prevent them from showing up outside of the edit mode)<br>
+    Adding custom dailies is possible with the option at the bottom of each list (custom dailies cannot be disabled but are instead removed when trying to do so)<br>
+    More characters can be added by pressing on the '+' at the end of the character list. A long press on a character will ask you if you want to remove it.</p>
 
 <div class="inputWrapper">
     <div class="characterNameInput">

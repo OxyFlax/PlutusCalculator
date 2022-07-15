@@ -32,12 +32,16 @@ export class MaplestorySettingsComponent implements OnInit {
   }
 
   exportSettings() {
-    if(localStorage.getItem("dailiesData")){
-      this.settingsData.dailiesData = localStorage.getItem("dailiesData")
+    if(localStorage.getItem("flameData")) {
+      console.log('wat');
     }
 
-    if(localStorage.getItem("weekliesData")){
-      this.settingsData.weekliesData = localStorage.getItem("weekliesData")
+    if(localStorage.getItem("dailiesDataV3")){
+      this.settingsData.dailiesData = localStorage.getItem("dailiesDataV3")
+    }
+
+    if(localStorage.getItem("weekliesDataV3")){
+      this.settingsData.weekliesData = localStorage.getItem("weekliesDataV3")
     }
 
     if(localStorage.getItem("arcaneSymbolSaveData")){

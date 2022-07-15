@@ -23,10 +23,10 @@ export class TaskAdderComponent {
       var newTask: Task = {
         name: this.customTaskName,
         image: this.customTaskImageUrl,
-        completed: false,
+        done: false,
         enabled: true,
         type: "custom",
-        displayCondition: "true"
+        dispCon: "true"
       }
 
       this.confirmAddingTaskEvent.emit(newTask);

@@ -7,6 +7,8 @@ export interface TaskData {
     selectedCharacterIndex: number;
     mapleRegion: Region;
     editModeActive: boolean;
+    infoVisible: boolean;
+    imagePrefix: string;
 }
 
 export interface CharacterData {
@@ -18,14 +20,13 @@ export interface TaskGroup {
     title: string;
     tasks: Task[];
     allDisabled: boolean;
-    // TODO: potentially add boolean for if the task is enabled or not, this would allow .some taskgroup.enabled
 }
 
 export interface Task {
     name: string;
     image: string;
-    completed: boolean;
+    done: boolean;
     enabled: boolean;
     type: string;
-    displayCondition: string;
+    dispCon: string;
 }

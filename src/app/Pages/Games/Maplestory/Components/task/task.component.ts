@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Task } from '../../Models/task';
+import { Task } from '../../Models/taskModels';
 
 @Component({
   selector: 'app-task',
@@ -11,6 +11,7 @@ export class TaskComponent {
   @Input() editModeActive: boolean;
   @Input() title: string;
   @Input() index: number;
+  @Input() imagePrefix: string;
 
   @Output() disableEvent = new EventEmitter<any>();
   @Output() moveEvent = new EventEmitter<any>();

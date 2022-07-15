@@ -14,6 +14,8 @@ export class TopbarEditmodeComponent implements OnDestroy {
   
   @Output() changeEvent = new EventEmitter<any>();
   @Output() regionChangeEvent = new EventEmitter<any>();
+  @Output() addCharacterEvent = new EventEmitter<any>();
+
 
   ngOnDestroy() {
     // should prevent the page from loading in editmode
@@ -43,5 +45,9 @@ export class TopbarEditmodeComponent implements OnDestroy {
 
   changeHandler() {
     this.changeEvent.emit();
+  }
+
+  addCharacterEmitter() {
+    this.addCharacterEvent.emit();
   }
 }

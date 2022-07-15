@@ -21,20 +21,16 @@ const routes: Routes = [
 
 
     {
-        path: 'games/maplestory/dailies1', 
-        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v1/maplestory-dailies-v1.module').then(m => m.MaplestoryDailiesV1Module)
-    },
-    {
-        path: 'games/maplestory/weeklies1', 
-        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v1/maplestory-weeklies-v1.module').then(m => m.MaplestoryWeekliesV1Module)
-    },
-    {
         path: 'games/maplestory/home', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-home/maplestory-home.module').then(m => m.MaplestoryHomeModule)
     },
     {
         path: 'games/maplestory/arcane-symbols', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-arcane-symbols/maplestory-arcane-symbols.module').then(m => m.MaplestoryArcaneSymbolsModule)
+    },
+    {
+        path: 'games/maplestory/sacred-symbols', 
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-sacred-symbols/maplestory-sacred-symbols.module').then(m => m.MaplestorySacredSymbolsModule)
     },
     {
         path: 'games/maplestory/item-flames', 
@@ -50,11 +46,11 @@ const routes: Routes = [
     },
     {
         path: 'games/maplestory/dailies', 
-        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v2/maplestory-dailies-v2.module').then(m => m.MaplestoryDailiesV2Module)
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-dailies-v3/maplestory-dailies-v3.module').then(m => m.MaplestoryDailiesV3Module)
     },
     {
         path: 'games/maplestory/weeklies', 
-        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v2/maplestory-weeklies-v2.module').then(m => m.MaplestoryWeekliesV2Module)
+        loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v3/maplestory-weeklies-v3.module').then(m => m.MaplestoryWeekliesV3Module)
     },
 
 
@@ -66,21 +62,6 @@ const routes: Routes = [
     {
         path: 'games/overwatch/random-hero-selector', 
         loadChildren: () => import('./Pages/Games/Overwatch/Pages/overwatch-random-hero-selector/overwatch-random-hero-selector.module').then(m => m.OverwatchRandomHeroSelectorModule)
-    },
-
-
-
-    {
-        path: 'games/genshin/home', 
-        loadChildren: () => import('./Pages/Games/GenshinImpact/Pages/genshin-home/genshin-home.module').then(m => m.GenshinHomeModule)
-    },
-    {
-        path: 'games/genshin/dailies', 
-        loadChildren: () => import('./Pages/Games/GenshinImpact/Pages/genshin-dailies/genshin-dailies.module').then(m => m.GenshinDailiesModule)
-    },
-    {
-        path: 'games/genshin/weeklies', 
-        loadChildren: () => import('./Pages/Games/GenshinImpact/Pages/genshin-weeklies/genshin-weeklies.module').then(m => m.GenshinWeekliesModule)
     },
 
 

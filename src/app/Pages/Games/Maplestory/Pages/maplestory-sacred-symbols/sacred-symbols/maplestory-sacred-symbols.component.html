@@ -1,0 +1,67 @@
+<app-maplestory-side-navigation></app-maplestory-side-navigation>
+<div class="editedGamePageContent">
+    <div class="symbolNavigationBar">
+        <a (click)="changeActiveSymbolIndex(0)" [ngClass]="(activeSymbolIndex == 0)?'selected':'notSelected'">
+            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/Cernium.png" alt="cernium"></div>
+        </a>
+        <a (click)="changeActiveSymbolIndex(1)" [ngClass]="(activeSymbolIndex == 1)?'selected':'notSelected'">
+            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/Arcus.png" alt="arcus"></div>
+        </a>
+    </div>
+    <p class="symbolTitle">{{ sacredSymbolNames[activeSymbolIndex] }}</p>
+    <form (ngSubmit)="submit()">
+        <div class="symbolInput">
+            <div class="inputLabelWrapper">
+                <label for="currentLevel">Symbol Level</label>
+                <input class="numberInput" name="currentLevel" id="currentLevel" type="number" [(ngModel)]="currentLevel" (input)="currentLevelInput($event)">
+            </div>
+        </div>
+        <div class="symbolInput">
+            <div class="inputLabelWrapper">
+                <label for="currentXp">Symbol Experience</label>
+                <input class="numberInput" name="currentXp" id="currentXp" type="number" [(ngModel)]="currentXp" (input)="currentExpInput($event)">
+            </div>
+        </div>
+        <p class="symbolDailyTitle">Daily symbols</p>
+        <app-cernium *ngIf="activeSymbolIndex==0" (valueChange)="submit()"></app-cernium>
+        <app-arcus *ngIf="activeSymbolIndex==1" (valueChange)="submit()" (clearOutput)="clearOutputVariables()"></app-arcus>
+    </form>
+    <div class="outputWrapper">
+        <div class="symbolInput">
+            <div class="outputLabelWrapper">
+                <label for="daysLeft">Day(s) to Level 11</label>
+                <input class="textInput" name="daysLeft" id="daysLeft" type="text" value="{{ daysLeft }} Day(s)" disabled>
+            </div>
+        </div>
+        <div class="symbolInput">
+            <div class="outputLabelWrapper">
+                <label for="upgradeCost">Remaining Cost to Level 11</label>
+                <input class="textInput" name="upgradeCost" id="upgradeCost" type="text" value="{{ upgradeCost | number:'0.0-0'}} Mesos" disabled>
+            </div>
+        </div>
+        <div class="symbolInput">
+            <div class="outputLabelWrapper">
+                <label for="sacredForceGain">Remaining Sacred Force to gain</label>
+                <input class="textInput" name="sacredForceGain" id="sacredForceGain" type="text" value="{{ sacredForceGain | number:'0.0-0'}} SF" disabled>
+            </div>
+        </div>
+        <div class="symbolInput">
+            <div class="outputLabelWrapper">
+                <label for="statGain">Remaining Stat to Gain</label>
+                <input class="textInput" name="statGain" id="statGain" type="text" value="{{ statGain | number:'0.0-0'}} Stat" disabled>
+            </div>
+        </div>
+        <div class="symbolInput">
+            <div class="outputLabelWrapper">
+                <label for="xenonStatGain">Remaining All Stat to Gain (Xenon)</label>
+                <input class="textInput" name="xenonStatGain" id="xenonStatGain" type="text" value="{{ xenonStatGain | number:'0.0-0'}} AS" disabled>
+            </div>
+        </div>
+        <div class="symbolInput">
+            <div class="outputLabelWrapper">
+                <label for="demonAvengerHpGain">Remaining HP to Gain (Demon Avenger)</label>
+                <input class="textInput" name="demonAvengerHpGain" id="demonAvengerHpGain" type="text" value="{{ demonAvengerHpGain | number:'0.0-0'}} HP" disabled>
+            </div>
+        </div>
+    </div>
+</div>
