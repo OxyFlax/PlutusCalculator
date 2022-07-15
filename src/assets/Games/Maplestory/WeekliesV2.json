@@ -1,5 +1,5 @@
 {
-    "version": "7.1",
+    "version": "7.0",
     "imagePrefix": "MapleWeeklies/",
     "taskGroups": [
         {
@@ -214,6 +214,22 @@
                 {
                     "name": "Kritias",
                     "image": "Kritias.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Flag Race",
+                    "image": "FlagRace.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Sharenian Culvert",
+                    "image": "SharenianCulvert.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
