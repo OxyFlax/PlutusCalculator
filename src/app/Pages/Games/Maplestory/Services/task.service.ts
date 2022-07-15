@@ -120,7 +120,9 @@ export class TaskService {
         var charNumber = data.characters.length + 1;
         newCharacterData.characterName = "Char" + charNumber;
 
-        return data.characters.push(newCharacterData);
+        // stringify and parse to ensure the data is passed by value not by reference
+        // without this all newly added characters would be a reference of eachother
+        return data.characters.push(JSON.parse(JSON.stringify(newCharacterData)));
     }
 
     resetCompletionAll(data: TaskData) {
