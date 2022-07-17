@@ -1,6 +1,6 @@
 export interface Settings {
-    dailiesData: string;
-    weekliesData: string;
+    dailiesDataV3: string;
+    weekliesDataV3: string;
     arcaneSymbolSaveData: string;
     flameData: string;
     weaponFlameData: string;
