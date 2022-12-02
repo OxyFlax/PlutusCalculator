@@ -79,13 +79,17 @@ export class UrsusTaskComponent implements OnInit, OnDestroy{
     var slotTwoStartTime = 18;
     var slotTwoEndTime = 20;
 
+    // since destiny the end times are now 4hour slots instead of the 2h slots thus the end times are different
+      slotOneEndTime = 5;
+      slotTwoEndTime = 22;
+
     // this used to adjust the endtimes during the Neo event (the timeslot is two hours longer until the 24th of August 2021 11:59PM UTC)
     // if its past this date the times are no longer adjusted
     // this is left for reference for future ursus end time changes during events
-    if (date.getTime() < 1661903999000) {
-      slotOneEndTime = 5;
-      slotTwoEndTime = 22;
-    }
+    // if (date.getTime() < 1661903999000) {
+    //   slotOneEndTime = 5;
+    //   slotTwoEndTime = 22;
+    // }
 
     if (date.getUTCHours() < slotOneStartTime) {
       // count down to ursus slot 1 start which is the current day at 1am
