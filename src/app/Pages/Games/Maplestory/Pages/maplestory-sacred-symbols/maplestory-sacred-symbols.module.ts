@@ -5,12 +5,14 @@ import { MaplestorySacredSymbolsRoutingModule } from './maplestory-sacred-symbol
 import { MaplestorySharedModule } from '../../side-navigation/maplestory-shared.module';
 import { CerniumComponent } from './sacred-symbols/Areas/cernium/cernium.component';
 import { ArcusComponent } from './sacred-symbols/Areas/arcus/arcus.component';
+import { OdiumComponent } from './sacred-symbols/Areas/odium/odium.component';
 
 @NgModule({
     declarations: [
         MaplestorySacredSymbolsComponent,
         CerniumComponent,
-        ArcusComponent
+        ArcusComponent,
+        OdiumComponent
     ],
     imports: [
         CommonModule, 

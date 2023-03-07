@@ -8,12 +8,16 @@ export interface SacredSymbol {
 }
 
 export interface SacredSymbolSaveData {
-    cerniumLevel: number,
-    cerniumExp: number,
-    cerniumDailyQuest: boolean,
-    burningCerniumDailyQuest: boolean,
+    cerniumLevel: number;
+    cerniumExp: number;
+    cerniumDailyQuest: boolean;
+    burningCerniumDailyQuest: boolean;
 
-    arcusLevel: number,
-    arcusExp: number,
-    arcusDailyQuest: boolean,
+    arcusLevel: number;
+    arcusExp: number;
+    arcusDailyQuest: boolean;
+
+    odiumLevel: number;
+    odiumExp: number;
+    odiumDailyQuest: boolean;
 }

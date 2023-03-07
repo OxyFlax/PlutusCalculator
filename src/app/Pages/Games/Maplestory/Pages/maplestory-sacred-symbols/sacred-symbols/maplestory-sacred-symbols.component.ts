@@ -4,6 +4,7 @@ import SacredSymbolCostJson from '../../../../../../../assets/Games/Maplestory/S
 import { SacredSymbol, SacredSymbolSaveData } from '../../../Models/sacredsymbolmodels';
 import { CerniumComponent } from './Areas/cernium/cernium.component';
 import { ArcusComponent } from './Areas/arcus/arcus.component';
+import { OdiumComponent } from './Areas/odium/odium.component';
 import { Meta, Title } from '@angular/platform-browser';
 
 
@@ -15,11 +16,12 @@ import { Meta, Title } from '@angular/platform-browser';
 export class MaplestorySacredSymbolsComponent implements OnInit {
   @ViewChild(CerniumComponent, { static: false }) cerniumChild: CerniumComponent;
   @ViewChild(ArcusComponent) arcusChild: ArcusComponent;
+  @ViewChild(OdiumComponent) odiumChild: OdiumComponent;
 
   sacredSymbolSaveData: SacredSymbolSaveData;
   sacredSymbolStats: SacredSymbol[] = SacredSymbolStatsJson.SacredSymbolsStats;
   sacredSymbolCost: number[] = SacredSymbolCostJson.Cernium;
-  sacredSymbolNames: string[] = ['Cernium', 'Arcus'];
+  sacredSymbolNames: string[] = ['Cernium', 'Arcus', 'Odium'];
   currentLevel: number = 1;
   currentXp: number = 1;
   activeSymbolIndex: number = 0;
@@ -47,8 +49,8 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
   }
 
   initialise() {
-    if (localStorage.getItem("sacredSymbolSaveData")) {
-      this.sacredSymbolSaveData = JSON.parse(localStorage.getItem("sacredSymbolSaveData"));
+    if (localStorage.getItem("sacredSymbolSaveDataV2")) {
+      this.sacredSymbolSaveData = JSON.parse(localStorage.getItem("sacredSymbolSaveDataV2"));
     } else {
       // initiate a dataset
       this.initiateData();
@@ -65,10 +67,13 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
       burningCerniumDailyQuest: false,
       arcusLevel: 1,
       arcusExp: 1,
-      arcusDailyQuest: true
+      arcusDailyQuest: true,
+      odiumLevel: 1,
+      odiumExp: 1,
+      odiumDailyQuest: true
     };
     this.sacredSymbolSaveData = newSacredSymbolSaveData;
-    localStorage.setItem("sacredSymbolSaveData", JSON.stringify(this.sacredSymbolSaveData));
+    localStorage.setItem("sacredSymbolSaveDataV2", JSON.stringify(this.sacredSymbolSaveData));
   }
 
   changeActiveSymbolIndex(value: number) {
@@ -88,6 +93,12 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         this.currentXp = this.sacredSymbolSaveData.arcusExp;
         this.arcusChild.dailyQuest = this.sacredSymbolSaveData.arcusDailyQuest;
         break;
+      case 2:
+        this.sacredSymbolCost = SacredSymbolCostJson.Odium;
+        this.currentLevel = this.sacredSymbolSaveData.odiumLevel;
+        this.currentXp = this.sacredSymbolSaveData.odiumExp;
+        this.odiumChild.dailyQuest = this.sacredSymbolSaveData.odiumDailyQuest;
+        break;
       default: {
         break;
       }
@@ -103,6 +114,9 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         break;
       case 1:
         this.calculateSymbolStats(this.arcusChild.calculateDailySymbols());
+        break;
+      case 2:
+        this.calculateSymbolStats(this.odiumChild.calculateDailySymbols());
         break;
       default: {
         break;
@@ -230,11 +244,16 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         this.sacredSymbolSaveData.arcusExp = this.currentXp;
         this.sacredSymbolSaveData.arcusDailyQuest = this.arcusChild.dailyQuest;
         break;
+      case 2:
+          this.sacredSymbolSaveData.odiumLevel = this.currentLevel;
+          this.sacredSymbolSaveData.odiumExp = this.currentXp;
+          this.sacredSymbolSaveData.odiumDailyQuest = this.odiumChild.dailyQuest;
+          break;
       default: {
         break;
       }
     }
-    localStorage.setItem("sacredSymbolSaveData", JSON.stringify(this.sacredSymbolSaveData));
+    localStorage.setItem("sacredSymbolSaveDataV2", JSON.stringify(this.sacredSymbolSaveData));
   }
 
   calculateSymbolStats(symbolsPerDay: number) {
