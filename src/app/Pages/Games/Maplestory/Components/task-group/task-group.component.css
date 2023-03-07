@@ -1,7 +1,11 @@
 .taskGroupWrapper {
-    display: inline-block;
+    /* display: inline-block; */
     margin: 0px 7px 0px 7px;
     vertical-align: top;
+    /* border: 2px solid red; */
+    float: left;
+    vertical-align: top;
+    margin-top: 0px;
 }
 
 .taskGroupTitle {

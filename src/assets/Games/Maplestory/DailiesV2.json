@@ -1,5 +1,5 @@
 {
-    "version": "7.0",
+    "version": "8.0",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -202,14 +202,6 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
-                },
-                {
-                    "name": "Melody Coin Capping",
-                    "image": "Event/Destiny/MelodyCoin.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "event",
-                    "dispCon": "new Date().getTime() < 1661903999000"
                 }
             ],
             "allDisabled":false
@@ -260,6 +252,52 @@
                 {
                     "name": "Esfera Dailies",
                     "image": "Esfera.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Tenebris Research",
+                    "image": "Tenebris.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                }
+            ],
+            "allDisabled":false
+        },
+        {
+            "title": "Grandis Dailies",
+            "tasks": [
+                {
+                    "name": "Cernium Dailies",
+                    "image": "Cernium.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Burning Cernium Dailies",
+                    "image": "BurningCernium.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Arcus Dailies",
+                    "image": "Arcus.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Odium Dailies",
+                    "image": "Odium.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",

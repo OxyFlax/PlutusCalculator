@@ -58,6 +58,18 @@ export class TaskService {
             // move over the name
             newTaskData.characters[i].characterName = oldTaskData.characters[i].characterName;
 
+            // check if there are more task groups in the new data (aka if a new group is added). As the for loop bases it self on the new taskgroup length it will error out if it does not exist in the old data.
+            if (newTaskData.characters[i].taskGroups.length > oldTaskData.characters[i].taskGroups.length) {
+                // extract all new taskgroups from the newtaskdata list.
+                var newTaskGroups = newTaskData.characters[i].taskGroups.slice(oldTaskData.characters[i].taskGroups.length);
+
+                // add all extra taskgroups to the old taskdata
+                for (let j = 0; j < newTaskGroups.length; j++) {
+                    oldTaskData.characters[i].taskGroups.push(newTaskGroups[j]);
+                    //oldTaskData.characters[i].taskGroups.push(newTaskData.characters[i].taskGroups[oldTaskData.characters[i].taskGroups.length + j]);
+                }
+            }
+
             // loop through all the taskgroups for the character
             for (let j = 0; j < newTaskData.characters[i].taskGroups.length; j++) {
                 // clear the tasks (the old/new data will pushed this array)
@@ -91,7 +103,7 @@ export class TaskService {
                             // add this task to the current dailies structure
                             newTaskData.characters[i].taskGroups[j].tasks.push(transferTask);
 
-                            // remove the new task that was matched with an old existing one
+                            // remove the new task that was matched with an old existing one (slightly improves the speed as the next time the for is called it will have to iterate through one less item)
                             newTaskStructure.characters[i].taskGroups[j].tasks.splice(l, 1);
                         }
                     }
