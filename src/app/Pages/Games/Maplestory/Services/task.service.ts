@@ -66,7 +66,6 @@ export class TaskService {
                 // add all extra taskgroups to the old taskdata
                 for (let j = 0; j < newTaskGroups.length; j++) {
                     oldTaskData.characters[i].taskGroups.push(newTaskGroups[j]);
-                    //oldTaskData.characters[i].taskGroups.push(newTaskData.characters[i].taskGroups[oldTaskData.characters[i].taskGroups.length + j]);
                 }
             }
 
