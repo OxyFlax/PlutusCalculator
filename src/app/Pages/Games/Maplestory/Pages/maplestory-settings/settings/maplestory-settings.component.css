@@ -13,6 +13,7 @@
     min-height: calc(100vh - 72px);
     margin: 0 auto;
     margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .contentPageOverride h2 {

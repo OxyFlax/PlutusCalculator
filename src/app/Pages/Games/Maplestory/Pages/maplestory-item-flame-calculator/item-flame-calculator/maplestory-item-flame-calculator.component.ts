@@ -38,7 +38,7 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   saveConfirmationEnabled: boolean = false;
   equipToSaveTo: string;
 
-  showInfo: boolean;
+  showInfo: boolean = false;
 
   constructor(private titleService: Title, private metaService: Meta) { }
 
@@ -55,9 +55,6 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   }
 
   initialise() {
-    // display condition for issues when Lara was added to the class list
-    this.showInfo = new Date().getTime() < 1642291199000;
-
     if (localStorage.getItem("flameData")) {
       this.flameData = JSON.parse(localStorage.getItem("flameData"));
     } else {
@@ -67,6 +64,66 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
   }
 
   initiateData() {
+    // var newEmptyFlame: Flame = {
+    //   str: null,
+    //   dex: null,
+    //   luk: null,
+    //   int: null,
+    //   hp: null,
+    //   mp: null,
+    //   att: null,
+    //   matt: null,
+    //   allstat: null
+    // }
+
+    // var newSaveDataPreset: FlameSaveData = {
+    //   characterName: "",
+    //   selectedClassIndex: 3,
+    //   hat: newEmptyFlame,
+    //   top: newEmptyFlame,
+    //   belt: newEmptyFlame,
+    //   bottom: newEmptyFlame,
+    //   shoes: newEmptyFlame,
+    //   gloves: newEmptyFlame,
+    //   cape: newEmptyFlame,
+    //   shoulder: newEmptyFlame,
+    //   pocket: newEmptyFlame,
+    //   pendant1: newEmptyFlame,
+    //   pendant2: newEmptyFlame,
+    //   face: newEmptyFlame,
+    //   eye: newEmptyFlame,
+    //   earrings: newEmptyFlame,
+    //   extra1: newEmptyFlame,
+    //   extra2: newEmptyFlame,
+    //   extra3: newEmptyFlame,
+    //   extra4: newEmptyFlame,
+    //   extra5: newEmptyFlame
+    // }
+
+    var emptySaveDataPreset: FlameSaveData = this.getEmptySaveDataPreset();
+    var newSaveDataArray: FlameSaveData[] = [];
+
+    // populate the newSaveDataArray with 4 versions of the newSaveDataPreset
+    for (let i = 0; i < 4; i++) {
+      emptySaveDataPreset.characterName = "char" + (i + 1);
+      newSaveDataArray.push(JSON.parse(JSON.stringify(emptySaveDataPreset)));
+    }
+
+    var newFlameData: FlameData = {
+      mainStatMultiplier: 1,
+      secondaryStatMultiplier: 0.125,
+      hpMpMultiplier: 0.014285,
+      attMattMultiplier: 4,
+      allstatMultiplier: 8.5,
+      xenonAllstatMultiplier: 15,
+      lukDoubleSecondaryAllStatMultiplier: 9,
+      saveData: newSaveDataArray
+    };
+
+    this.flameData = newFlameData;
+  }
+
+  getEmptySaveDataPreset(): FlameSaveData {
     var newEmptyFlame: Flame = {
       str: null,
       dex: null,
@@ -101,28 +158,9 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
       extra3: newEmptyFlame,
       extra4: newEmptyFlame,
       extra5: newEmptyFlame
-    };
-
-    var newSaveDataArray: FlameSaveData[] = [];
-
-    // populate the newSaveDataArray with 4 versions of the newSaveDataPreset
-    for (let i = 0; i < 4; i++) {
-      newSaveDataPreset.characterName = "char" + (i + 1);
-      newSaveDataArray.push(JSON.parse(JSON.stringify(newSaveDataPreset)));
     }
 
-    var newFlameData: FlameData = {
-      mainStatMultiplier: 1,
-      secondaryStatMultiplier: 0.125,
-      hpMpMultiplier: 0.014285,
-      attMattMultiplier: 4,
-      allstatMultiplier: 8.5,
-      xenonAllstatMultiplier: 15,
-      lukDoubleSecondaryAllStatMultiplier: 9,
-      saveData: newSaveDataArray
-    };
-
-    this.flameData = newFlameData;
+    return newSaveDataPreset;
   }
 
   updateSelectedClass(selectedClass: any) {
@@ -314,5 +352,39 @@ export class MaplestoryItemFlameCalculatorComponent implements OnInit {
 
   cancelSaving() {
     this.saveConfirmationEnabled = false;
+  }
+
+  addCharacter() {
+    if (this.flameData.saveData.length < 20) {
+      // create a new saveDataPreset with the correct characterNumber and push it to the saveData list
+      var newSaveData = this.getEmptySaveDataPreset();
+      newSaveData.characterName = "char" + (this.flameData.saveData.length + 1);
+      this.flameData.saveData.push(newSaveData);
+    } else {
+      window.alert("You have reached the limit of 20 characters.\nI really hope you don't actually have this many characters to track...");
+    }
+  }
+
+  removeCharacter(index: number) {
+    // prevent deletion if there is only one character left
+    if (this.flameData.saveData.length > 1) {
+      if (window.confirm("Are sure you want to delete '" + this.flameData.saveData[index].characterName + "'?")) {
+        // adjust the selectedCharacterIndex for the best userexperience and to prevent it from being out of bounds if removing while the last character is selected
+        if (this.characterIndex >= this.flameData.saveData.length - 1) {
+          this.characterIndex = this.characterIndex - 1;
+        } else if (this.characterIndex == 0) {
+          // do nothing
+        } else if (index < this.characterIndex) {
+          this.characterIndex = this.characterIndex - 1;
+        }
+
+        //remove the character from the array and trigger the changeHandler
+        this.flameData.saveData.splice(index, 1);
+
+        localStorage.setItem("flameData", JSON.stringify(this.flameData));
+      }
+    } else {
+      window.alert("Cannot remove this character as the minimum character count is one.");
+    }
   }
 }

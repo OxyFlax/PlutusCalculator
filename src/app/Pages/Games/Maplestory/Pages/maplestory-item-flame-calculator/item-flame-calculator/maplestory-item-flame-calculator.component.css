@@ -60,10 +60,6 @@ li {
     cursor: pointer;
 }
 
-li:hover {
-    background-color: Highlight;
-}
-
 .dropdown-content::-webkit-scrollbar {
     width: 8px;
     height: initial;
@@ -143,6 +139,7 @@ a {
     border: 1px solid var(--game-page-border-color);
     min-height: calc(100vh - 72px);
     margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .scoreSaverWrapper {
@@ -225,6 +222,7 @@ a {
     text-align: center;
     margin: 0 auto;
     margin-bottom: 8px;
+    margin-top: 8px;
     max-width: 350px;
 }
 
@@ -241,6 +239,7 @@ a {
     display:block;
     text-align: center;
     font-size: 15px;
+    cursor: pointer;
 }
 
 .characterNameInput input{
@@ -350,6 +349,16 @@ a {
     margin: 0px;
 }
 
+.addCharacterButton {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.multiCharInfo {
+    margin-top: 3px;
+    margin-bottom: 7px;
+}
+
 @media only screen and (max-width: 1104px) {
     .editedGamePageContent {
         float: left;
@@ -404,33 +413,3 @@ a {
         padding-top: 38px;
     }
 }
-
-
-
-
-
-
-
-
-/* @media only screen and (max-width: 1635px) {
-    .info {
-        float: left;
-        margin: unset;
-        margin-top: 8px;
-        margin-left: 9px;
-    }
-}
-
-@media only screen and (max-width: 1391px) {
-    .info {
-        width: calc(100% - 262px);
-    }
-}
-
-@media only screen and (max-width: 800px) {
-    .info {
-        margin-left: 8px;
-        margin-right: 8px;
-        width: calc(100% - 18px);
-    }
-} */

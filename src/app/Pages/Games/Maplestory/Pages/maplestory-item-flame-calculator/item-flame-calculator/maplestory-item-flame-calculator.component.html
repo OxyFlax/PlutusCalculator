@@ -68,11 +68,11 @@
             <h3>Save your flamescores</h3>
             <p>Click on a slot to save the current flame to it.<br>Clicking on a slot containing a flame will overwrite it.<br>A long press on a saved flame will load its stats back into the input fields above.</p>
             <div class="characterNavigationBar">
-                <a (click)="changeCharacter(0)" [ngClass]="(characterIndex == 0)?'selected':'notSelected'">{{ this.flameData.saveData[0].characterName }}</a>
-                <a (click)="changeCharacter(1)" [ngClass]="(characterIndex == 1)?'selected':'notSelected'">{{ this.flameData.saveData[1].characterName }}</a>
-                <a (click)="changeCharacter(2)" [ngClass]="(characterIndex == 2)?'selected':'notSelected'">{{ this.flameData.saveData[2].characterName }}</a>
-                <a (click)="changeCharacter(3)" [ngClass]="(characterIndex == 3)?'selected':'notSelected'">{{ this.flameData.saveData[3].characterName }}</a>
+            <ng-container *ngFor="let item of this.flameData.saveData; let i = index">
+                <a (click)="changeCharacter(i)" [ngClass]="(characterIndex == i)?'selected':'notSelected'">{{ this.flameData.saveData[i].characterName }}</a>
+            </ng-container>
             </div>
+
             <div class="scoreSaver">
                 <div *ngIf="saveConfirmationEnabled" class="confirmationBoxWrapper">
                     <div class="confirmationBox">
@@ -180,22 +180,15 @@
         <div class="separator"></div>
         <div class="settingsWrapper">
             <h3>Save slot names</h3>
-            <div class="characterNameInput">
-                <label for="character1Name">First save slot name</label>
-                <input class="textInput" type="text" id="character1Name" name="character1Name" maxlength="12" [(ngModel)]="this.flameData.saveData[0].characterName">
-            </div>
-            <div class="characterNameInput">
-                <label for="character2Name">Second save slot name</label>
-                <input class="textInput" type="text" id="character2Name" name="character2Name" maxlength="12" [(ngModel)]="this.flameData.saveData[1].characterName">
-            </div>
-            <div class="characterNameInput">
-                <label for="character3Name">Third save slot name</label>
-                <input class="textInput" type="text" id="character3Name" name="character3Name" maxlength="12" [(ngModel)]="this.flameData.saveData[2].characterName">
-            </div>
-            <div class="characterNameInput">
-                <label for="character4Name">Fourth save slot name</label>
-                <input class="textInput" type="text" id="character4Name" name="character4Name" maxlength="12" [(ngModel)]="this.flameData.saveData[3].characterName">
-            </div>
+            <p class='multiCharInfo'>Additional characters can be added and removed. To remove a character click on the [X]</p>
+            <ng-container *ngFor="let item of this.flameData.saveData; let i = index">
+                <div class="characterNameInput">
+                    <label for="{{ 'character' + i + 'Name' }}" (click)="removeCharacter(i)">Save slot {{ i + 1 }} name &nbsp; [X]</label>
+                    <input class="textInput" type="text" id="{{ 'character' + i + 'Name' }}" name="{{ 'character' + i + 'Name' }}" maxlength="12" [(ngModel)]="this.flameData.saveData[i].characterName">
+                </div>
+            </ng-container>
+            <br>
+            <button class="buttonStyle addCharacterButton" (click)="addCharacter()">Add Character</button>
         </div>
         
     </div>
