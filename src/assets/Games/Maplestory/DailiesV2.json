@@ -1,5 +1,5 @@
 {
-    "version": "8.0",
+    "version": "8.1",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -112,14 +112,6 @@
                 {
                     "name": "Gollux",
                     "image": "Gollux.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "true"
-                },
-                {
-                    "name": "Julieta",
-                    "image": "Julieta.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
