@@ -107,5 +107,8 @@
         }
       }
     }},
-  "defaultProject": "RandomProject"
+  "defaultProject": "RandomProject",
+  "cli": {
+    "analytics": false
+  }
 }

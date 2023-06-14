@@ -1,5 +1,5 @@
 {
-    "version": "7.0",
+    "version": "9.0",
     "imagePrefix": "MapleWeeklies/",
     "taskGroups": [
         {
@@ -230,6 +230,76 @@
                 {
                     "name": "Sharenian Culvert",
                     "image": "SharenianCulvert.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Wongstaurant Boss Coin Capping",
+                    "image": "Event/Savior/BossCoin.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() < 1693353599000" 
+                },
+                {
+                    "name": "Wongstaurant Cheer Up Weekly",
+                    "image": "Event/Savior/Wonky.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1688515200000 && new Date().getTime() < 1689119999000"
+                }
+            ],
+            "allDisabled": false
+        },
+        {
+            "title": "Arcane River Weeklies",
+            "tasks": [
+                {
+                    "name": "Erda Spectrum",
+                    "image": "ErdaSpectrum.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Hungry Muto",
+                    "image": "HungryMuto.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Midnight Chaser",
+                    "image": "MidnightChaser.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Spirit Saviour",
+                    "image": "SpiritSaviour.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Ranheim Defense",
+                    "image": "RanheimDefense.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Esfera Guardian",
+                    "image": "EsferaGuardian.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",

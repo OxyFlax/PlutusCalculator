@@ -1,5 +1,5 @@
 {
-    "version": "8.1",
+    "version": "9.0",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -194,6 +194,46 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
+                },
+                {
+                    "name": "Wongstaurant Coin Capping",
+                    "image": "Event/Savior/Coin.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() < 1693353599000" 
+                },
+                {
+                    "name": "Wongstaurant Greeting week",
+                    "image": "Event/Savior/Wonky.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1686780000000 && new Date().getTime() < 1687305599000"
+                },
+                {
+                    "name": "Wongstaurant Together Week",
+                    "image": "Event/Savior/Spiegelmann.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1687305600000 && new Date().getTime() < 1687910399000"
+                },
+                {
+                    "name": "Wongstaurant Mini-Game Week",
+                    "image": "Event/Savior/Kemdi.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1687910400000 && new Date().getTime() < 1688515199000"
+                },
+                {
+                    "name": "Wongstaurant Cheer Up Week",
+                    "image": "Event/Savior/Wonky.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1688515200000 && new Date().getTime() < 1689119999000"
                 }
             ],
             "allDisabled":false
@@ -202,7 +242,7 @@
             "title": "Arcane River Dailies",
             "tasks": [
                 {
-                    "name": "Vanishing Journey Dailies",
+                    "name": "Vanishing Journey Daily",
                     "image": "VanishingJourney.png",
                     "done": false,
                     "enabled": true,
@@ -210,7 +250,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Chu Chu Dailies",
+                    "name": "Chu Chu Daily",
                     "image": "ChuChu.png",
                     "done": false,
                     "enabled": true,
@@ -218,7 +258,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Lachelein Dailies",
+                    "name": "Lachelein Daily",
                     "image": "Lachelein.png",
                     "done": false,
                     "enabled": true,
@@ -226,7 +266,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Arcana Dailies",
+                    "name": "Arcana Daily",
                     "image": "Arcana.png",
                     "done": false,
                     "enabled": true,
@@ -234,7 +274,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Morass Dailies",
+                    "name": "Morass Daily",
                     "image": "Morass.png",
                     "done": false,
                     "enabled": true,
@@ -242,7 +282,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Esfera Dailies",
+                    "name": "Esfera Daily",
                     "image": "Esfera.png",
                     "done": false,
                     "enabled": true,
@@ -250,7 +290,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Tenebris Research",
+                    "name": "Tenebris  Research",
                     "image": "Tenebris.png",
                     "done": false,
                     "enabled": true,
@@ -264,7 +304,7 @@
             "title": "Grandis Dailies",
             "tasks": [
                 {
-                    "name": "Cernium Dailies",
+                    "name": "Cernium Daily",
                     "image": "Cernium.png",
                     "done": false,
                     "enabled": true,
@@ -272,7 +312,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Burning Cernium Dailies",
+                    "name": "Burning Cernium Daily",
                     "image": "BurningCernium.png",
                     "done": false,
                     "enabled": true,
@@ -280,7 +320,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Arcus Dailies",
+                    "name": "Arcus Daily",
                     "image": "Arcus.png",
                     "done": false,
                     "enabled": true,
@@ -288,7 +328,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Odium Dailies",
+                    "name": "Odium Daily",
                     "image": "Odium.png",
                     "done": false,
                     "enabled": true,
