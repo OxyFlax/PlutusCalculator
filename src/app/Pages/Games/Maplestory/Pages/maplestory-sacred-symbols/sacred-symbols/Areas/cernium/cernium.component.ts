@@ -17,7 +17,7 @@ export class CerniumComponent implements OnInit {
     var dailySymbols: number = 0;
 
     if (this.cerniumDailyQuest) {
-      dailySymbols += 5;
+      dailySymbols += 10;
     }
 
     if (this.burningCerniumDailyQuest) {
