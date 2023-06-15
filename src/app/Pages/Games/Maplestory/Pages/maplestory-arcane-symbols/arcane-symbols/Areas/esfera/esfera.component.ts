@@ -14,17 +14,18 @@ export class EsferaComponent implements OnInit{
   }
 
   public calculateDailySymbols(): number {
-    var symbolsPerDay: number = 0;
+    var dailySymbols: number = 0;
 
     if (this.dailyQuest) {
-      symbolsPerDay += 8;
+      dailySymbols += 8;
     }
 
-    if(this.esferaGuardian) {
-      symbolsPerDay += 6;
+    // this is a weekly so divide the number by seven for daily average
+    if (this.esferaGuardian) {
+      dailySymbols += 45/7;
     }
 
-    return symbolsPerDay;
+    return dailySymbols;
   }
 
   valueChanged() {

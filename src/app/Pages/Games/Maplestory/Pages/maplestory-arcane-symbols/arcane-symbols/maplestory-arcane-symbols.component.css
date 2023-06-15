@@ -61,6 +61,22 @@
     margin-bottom: 8px;
 }
 
+.inputLabelWrapper {
+    width: 250px;
+}
+
+.inputLabelWrapper input {
+    width: 250px;
+}
+
+.symbolDailyTitle {
+    width: 100%;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 18px;
+    margin: 10px 0px 2px 0px;
+}
+
 @media only screen and (max-width: 1104px) {
     .editedGamePageContent {
         float: left;

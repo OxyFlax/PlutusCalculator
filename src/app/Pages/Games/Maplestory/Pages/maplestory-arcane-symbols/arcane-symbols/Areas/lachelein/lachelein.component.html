@@ -1,13 +1,15 @@
 <div class="symbolInput">
     <div class="checkboxWrapper">
         <input name="dailyQuest" id="dailyQuest" type="checkbox" (change)="valueChanged()" [(ngModel)]="dailyQuest" [ngModelOptions]="{standalone: true}" />
-        <label for="dailyQuest">Daily Quest (8)</label>
+        <label for="dailyQuest">Daily Quest (11)</label>
     </div>
 </div>
 
+<p class="symbolDailyTitle">Weekly Symbols</p>
+
 <div class="symbolInput">
-    <div class="inputLabelWrapper">
-        <label for="dreamDefender">Dream Defender</label>
-        <input class="numberInput" name="dreamDefender" id="dreamDefender" type="number" [(ngModel)]="dreamDefender" (input)="dreamDefenderInput($event)">
+    <div class="checkboxWrapper">
+        <input name="midnightChaser" id="midnightChaser" type="checkbox" (change)="valueChanged()" [(ngModel)]="midnightChaser" [ngModelOptions]="{standalone: true}" />
+        <label for="midnightChaser">Midnight Chaser (45)</label>
     </div>
 </div>

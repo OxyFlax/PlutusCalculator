@@ -13,7 +13,7 @@ export class MaplestorySettingsComponent implements OnInit {
   settingsData: Settings = {
     dailiesDataV3: "",
     weekliesDataV3: "",
-    arcaneSymbolSaveData: "",
+    arcaneSymbolSaveDataV2: "",
     flameData: "",
     weaponFlameData: ""
   }
@@ -39,8 +39,8 @@ export class MaplestorySettingsComponent implements OnInit {
       this.settingsData.weekliesDataV3 = localStorage.getItem("weekliesDataV3")
     }
 
-    if (localStorage.getItem("arcaneSymbolSaveData")) {
-      this.settingsData.arcaneSymbolSaveData = localStorage.getItem("arcaneSymbolSaveData")
+    if (localStorage.getItem("arcaneSymbolSaveDataV2")) {
+      this.settingsData.arcaneSymbolSaveDataV2 = localStorage.getItem("arcaneSymbolSaveDataV2")
     }
 
     if (localStorage.getItem("flameData")) {
@@ -74,8 +74,8 @@ export class MaplestorySettingsComponent implements OnInit {
           localStorage.setItem("weekliesDataV3", this.settingsData.weekliesDataV3)
         }
 
-        if (this.settingsData.arcaneSymbolSaveData) {
-          localStorage.setItem("arcaneSymbolSaveData", this.settingsData.arcaneSymbolSaveData)
+        if (this.settingsData.arcaneSymbolSaveDataV2) {
+          localStorage.setItem("arcaneSymbolSaveDataV2", this.settingsData.arcaneSymbolSaveDataV2)
         }
 
         if (this.settingsData.flameData) {
@@ -106,7 +106,7 @@ export class MaplestorySettingsComponent implements OnInit {
     this.settingsData = {
       dailiesDataV3: "",
       weekliesDataV3: "",
-      arcaneSymbolSaveData: "",
+      arcaneSymbolSaveDataV2: "",
       flameData: "",
       weaponFlameData: ""
     }

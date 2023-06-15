@@ -8,8 +8,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class VanishingJourneyComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
   dailyQuest: boolean = true;
-  erdaSpectrum: boolean = true;
   reverseCity: boolean = false;
+  erdaSpectrum: boolean = true;
 
   ngOnInit() {
   }
@@ -18,16 +18,17 @@ export class VanishingJourneyComponent implements OnInit {
     var dailySymbols: number = 0;
 
     if (this.dailyQuest) {
-      dailySymbols += 8;
+      dailySymbols += 9;
     }
 
-    if (this.erdaSpectrum) {
-      dailySymbols += 6;
-    }
-
-    // if reverse city is unlocked add an extra 8 symbols
+    // if reverse city is unlocked add an extra 9 symbols
     if (this.reverseCity) {
-      dailySymbols += 8;
+      dailySymbols += 9;
+    }
+
+    // this is a weekly so divide the number by seven for daily average
+    if (this.erdaSpectrum) {
+      dailySymbols += 45/7;
     }
 
     return dailySymbols;
