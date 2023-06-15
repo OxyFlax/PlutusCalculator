@@ -21,7 +21,7 @@ export class MaplestoryWeekliesV3Component implements OnInit, OnDestroy {
   allGroupsAreDisabled: boolean;
 
   timers: any[] = [];
-  timerStrings: string[] = ["", ""];
+  timerStrings: string[] = ["", "", ""];
 
   regions: Array<Region> = [
     { resetUtcOffset: 0, name: 'GMS' },
@@ -109,6 +109,7 @@ export class MaplestoryWeekliesV3Component implements OnInit, OnDestroy {
 
     if (lastVisit < lastMonday) {
       this.taskService.resetCompletionIndex(this.weekliesData, 1);
+      this.taskService.resetCompletionIndex(this.weekliesData, 2);
     }
 
     this.weekliesData.lastTrackerVisit = Date.now().toString();
@@ -170,6 +171,10 @@ export class MaplestoryWeekliesV3Component implements OnInit, OnDestroy {
   calculateAndOutPutTimes(distance: number, taskGroupIndex: number) {
     if (distance < 0) {
       this.timerStrings[taskGroupIndex] = "RESET!";
+      // Also show the reset text in the arcane river weeklies
+      if(taskGroupIndex == 1) {
+        this.timerStrings[2] = "RESET!";
+      }
       return;
     }
 
@@ -179,6 +184,10 @@ export class MaplestoryWeekliesV3Component implements OnInit, OnDestroy {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     this.timerStrings[taskGroupIndex] = days + "d " + hours + "h " + minutes + "m " + ("00" + seconds).slice(-2) + "s ";
+    // Duplicate the weekly task timer into the arcane river weeklies
+    if(taskGroupIndex == 1) {
+      this.timerStrings[2] = this.timerStrings[taskGroupIndex];
+    }
   }
 
   liveReset(TaskGroupIndex: number) {
