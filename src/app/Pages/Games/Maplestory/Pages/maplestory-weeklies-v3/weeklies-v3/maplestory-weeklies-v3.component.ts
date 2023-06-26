@@ -190,9 +190,13 @@ export class MaplestoryWeekliesV3Component implements OnInit, OnDestroy {
     }
   }
 
-  liveReset(TaskGroupIndex: number) {
-    this.taskService.resetCompletionIndex(this.weekliesData, TaskGroupIndex);
-    this.startTimer(TaskGroupIndex);
+  liveReset(taskGroupIndex: number) {
+    this.taskService.resetCompletionIndex(this.weekliesData, taskGroupIndex);
+    //makes sure that arcane weekly live reset works (as there is no separate time for this)
+    if (taskGroupIndex == 1) {
+      this.taskService.resetCompletionIndex(this.weekliesData, 2);
+    }
+    this.startTimer(taskGroupIndex);
     this.weekliesData.lastTrackerVisit = (parseInt(Date.now().toString()) + 5000).toString();
     this.changeHandler();
   }
