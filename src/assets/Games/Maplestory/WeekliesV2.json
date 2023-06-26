@@ -1,5 +1,5 @@
 {
-    "version": "9.0",
+    "version": "9.1",
     "imagePrefix": "MapleWeeklies/",
     "taskGroups": [
         {
@@ -166,12 +166,12 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Harmony Coin Capping",
-                    "image": "Event/Destiny/HarmonyCoin.png",
+                    "name": "Wongstaurant Boss Coin Capping",
+                    "image": "Event/Savior/BossCoin.png",
                     "done": false,
                     "enabled": true,
-                    "type": "event",
-                    "dispCon": "new Date().getTime() < 1661903999000"
+                    "type": "default",
+                    "dispCon": "new Date().getTime() < 1693353599000" 
                 }
             ],
             "allDisabled": false
@@ -234,14 +234,6 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
-                },
-                {
-                    "name": "Wongstaurant Boss Coin Capping",
-                    "image": "Event/Savior/BossCoin.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() < 1693353599000" 
                 },
                 {
                     "name": "Wongstaurant Cheer Up Weekly",
