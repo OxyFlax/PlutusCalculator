@@ -92,10 +92,14 @@ const routes: Routes = [
     },
 
 
-
+    
     {
         path: 'misc/skribbl', 
         loadChildren: () => import('./Pages/Misc/Pages/misc-skribbl/misc-skribbl.module').then(m => m.MiscSkribblModule)
+    },
+    {
+        path: 'misc/plutusmetal', 
+        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal/misc-plutus-metal.module').then(m => m.MiscPlutusMetalModule)
     },
 
 
