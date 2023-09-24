@@ -5,16 +5,26 @@
     min-height: calc(100vh - 72px);
     margin: 0 auto;
     margin-top: 8px;
+    position: relative;
+}
+
+.currencyButton {
+    background-color: #0722B6;
+    border: none;
+    color: #FFFFFF;
+    padding: 5px 8px 5px 8px;
+    text-align: center;
+    font-size: 16px;
+    margin: 8px 8px 0px 0px;
+    outline:none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
 }
 
 .title {
     padding-bottom: 20px;
-}
-
-h3 {
-    text-align: center;
-    padding-top: 20px;
-    margin-bottom: 15px;
 }
 
 .inputLabelWrapper {
@@ -50,10 +60,6 @@ table {
     margin: 0 auto;
     margin-top: 30px;
   }
-
-.totalTable {
-    margin-top: 0px;
-}
   
 td, th {
     border: 1px solid #dddddd;

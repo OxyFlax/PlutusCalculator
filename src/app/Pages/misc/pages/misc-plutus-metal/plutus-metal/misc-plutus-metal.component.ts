@@ -7,6 +7,10 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrls: ['./misc-plutus-metal.component.css']
 })
 export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
+  totalPerkCount: number = 0;
+
+  currencySymbol: string = "€";
+
   subscriptionTierSelectedIndex: number = 0;
   subscriptionTiers: string[] = [
     "Starter",
@@ -25,27 +29,18 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
     "Legend",
     "Goat"
   ]
-  totalPerkCount: number = 0;
 
-  tableHeader: string[] = [
-    "",
-    "Champion",
-    "Master",
-    "Grandmaster"
+  metalCosts: number[] = [
+    249,
+    649,
+    1249
   ]
 
-  metalCosts: string [] = [
-    "Cost Of The Card",
-    "-249 €/£",
-    "-649 €/£",
-    "-1249 €/£"
-  ]
-
-  superChargedPerksValue: string[] = ["Super Charged Perks", "0 €/£", "0 €/£", "0 €/£"];
-  superChargedPerksActualValue: string[] = ["Super Charged Perks Minus Default Value", "0 €/£", "0 €/£", "0 €/£"];
-  goldenTicketReferralsValue: string[] = ["Golden Ticket Referral", "0 €/£", "0 €/£", "0 €/£"];
-  goldenTicketReferralsActualValue: string[] = ["Golden Ticket Referral Minus Default Value", "0 €/£", "0 €/£", "0 €/£"];
-  doubleRewardsVoucherValue: string[] = ["x2 Rewards Voucher", "0 €/£", "0 €/£", "0 €/£"];
+  superChargedPerksValue: number[] = [0, 0, 0];
+  superChargedPerksActualValue: number[] = [0, 0, 0];
+  goldenTicketReferralsValue: number[] = [0, 0, 0];
+  goldenTicketReferralsActualValue: number[] = [0, 0, 0];
+  doubleRewardsVoucherValue: number[] = [0, 0, 0];
 
   superChargedPerksTotalCalc: boolean = true;
   superChargedPerksActualTotalCalc: boolean = false;
@@ -53,9 +48,8 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
   goldenTicketReferralsActualTotalCalc: boolean = false;
   doubleRewardsVoucherTotalCalc: boolean = true;
 
-  totalValue: string[] = ["Total Value", "0 €/£", "0 €/£", "0 €/£"];
-  totalValueMinusCost: string[] = ["Total Value Minus Cost", "0 €/£", "0 €/£", "0 €/£"];
-
+  totalValue: number[] = [0, 0, 0];
+  totalValueMinusCost: number[] = [0, 0, 0];
 
   constructor(private titleService: Title, private metaService: Meta) {
   }
@@ -88,7 +82,7 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
 
   calculate() {
     this.calculatePerkCount();
-    this.calculateSuperChargedPerksValue();
+    this.calculateSuperChargedPerks();
     this.calculateDoubleRewardsVoucher();
     this.calculateGoldenTicketReferrals();
 
@@ -142,85 +136,74 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
     this.totalPerkCount = perkCount;
   }
 
-  calculateSuperChargedPerksValue() {
-    this.superChargedPerksValue = [];
-    this.superChargedPerksValue.push("Super Charged Perks");
-    this.superChargedPerksValue.push((this.totalPerkCount * 20 * 3).toString() + " €/£");
-    this.superChargedPerksValue.push((this.totalPerkCount * 30 * 6).toString() + " €/£");
-    this.superChargedPerksValue.push((this.totalPerkCount * 50 * 12).toString() + " €/£");
+  calculateSuperChargedPerks() {
+    // amount of perks times their value times the amount of months
+    this.superChargedPerksValue[0] = this.totalPerkCount * 20 * 3;
+    this.superChargedPerksValue[1] = this.totalPerkCount * 30 * 6;
+    this.superChargedPerksValue[2] = this.totalPerkCount * 50 * 12;
+
     
-    this.superChargedPerksActualValue = [];
-    this.superChargedPerksActualValue.push("Super Charged Perks Minus Original Value");
-    this.superChargedPerksActualValue.push((this.totalPerkCount * 10 * 3).toString() + " €/£");
-    this.superChargedPerksActualValue.push((this.totalPerkCount * 20 * 6).toString() + " €/£");
-    this.superChargedPerksActualValue.push((this.totalPerkCount * 40 * 12).toString() + " €/£");
+    // the same but with the original perk value subtracted
+    this.superChargedPerksActualValue[0] = this.totalPerkCount * 10 * 3;
+    this.superChargedPerksActualValue[1] = this.totalPerkCount * 20 * 6;
+    this.superChargedPerksActualValue[2] = this.totalPerkCount * 40 * 12;
   }
 
   calculateGoldenTicketReferrals() {
-    this.goldenTicketReferralsValue = [];
-    this.goldenTicketReferralsValue.push("Golden Ticket Referral");
-    this.goldenTicketReferralsValue.push((50 * 3).toString() + " €/£");
-    this.goldenTicketReferralsValue.push((50 * 6).toString() + " €/£");
-    this.goldenTicketReferralsValue.push((50 * 12).toString() + " €/£");
-    
-    this.goldenTicketReferralsActualValue = [];
-    this.goldenTicketReferralsActualValue.push("Golden Ticket Referral Minus Default Value");
-    this.goldenTicketReferralsActualValue.push((40 * 3).toString() + " €/£");
-    this.goldenTicketReferralsActualValue.push((40 * 6).toString() + " €/£");
-    this.goldenTicketReferralsActualValue.push((40 * 12).toString() + " €/£");
+    // value times amount of tickets
+    this.goldenTicketReferralsValue[0] = 50 * 3;
+    this.goldenTicketReferralsValue[1] = 50 * 6;
+    this.goldenTicketReferralsValue[2] = 50 * 12;
+
+    // value times amount of tickets minus original referral bonus
+    this.goldenTicketReferralsActualValue[0] = 40 * 3;
+    this.goldenTicketReferralsActualValue[1] = 40 * 6;
+    this.goldenTicketReferralsActualValue[2] = 40 * 12;
   }
 
   calculateDoubleRewardsVoucher() {
-    this.doubleRewardsVoucherValue = [];
-    this.doubleRewardsVoucherValue.push("x2 Rewards Voucher");
-    this.doubleRewardsVoucherValue.push((100 * 3).toString() + " €/£");
-    this.doubleRewardsVoucherValue.push((100 * 6).toString() + " €/£");
-    this.doubleRewardsVoucherValue.push((100 * 12).toString() + " €/£");
+    // 100 times the amount of double reward vouchers
+    this.doubleRewardsVoucherValue[0] = 100 * 3;
+    this.doubleRewardsVoucherValue[1] = 100 * 6;
+    this.doubleRewardsVoucherValue[2] = 100 * 12;
   }
 
   calculateTotal() {
-    var championValue = 0;
-    var masterValue = 0;
-    var grandmasterValue = 0;
+    this.totalValue = [0, 0, 0];
 
-    // yes I know this is reusing the calculations for the display which is awful but I had to do this in a super short time frame
     if (this.superChargedPerksTotalCalc) {
-      championValue += this.totalPerkCount * 20 * 3;
-      masterValue += this.totalPerkCount * 30 * 6;
-      grandmasterValue += this.totalPerkCount * 50 * 12;
+      this.totalValue[0] += this.superChargedPerksValue[0];
+      this.totalValue[1] += this.superChargedPerksValue[1];
+      this.totalValue[2] += this.superChargedPerksValue[2];
     }
 
     if (this.superChargedPerksActualTotalCalc) {
-      championValue += this.totalPerkCount * 10 * 3;
-      masterValue += this.totalPerkCount * 20 * 6;
-      grandmasterValue += this.totalPerkCount * 40 * 12;
+      this.totalValue[0] += this.superChargedPerksActualValue[0];
+      this.totalValue[1] += this.superChargedPerksActualValue[1];
+      this.totalValue[2] += this.superChargedPerksActualValue[2];
     }
 
     if (this.goldenTicketReferralsTotalCalc) {
-      championValue += 50 * 3;
-      masterValue += 50 * 6;
-      grandmasterValue += 50 * 12;
+      this.totalValue[0] += this.goldenTicketReferralsValue[0];
+      this.totalValue[1] += this.goldenTicketReferralsValue[1];
+      this.totalValue[2] += this.goldenTicketReferralsValue[2];
     }
 
     if (this.goldenTicketReferralsActualTotalCalc) {
-      championValue += 40 * 3;
-      masterValue += 40 * 6;
-      grandmasterValue += 40 * 12;
+      this.totalValue[0] += this.goldenTicketReferralsActualValue[0];
+      this.totalValue[1] += this.goldenTicketReferralsActualValue[1];
+      this.totalValue[2] += this.goldenTicketReferralsActualValue[2];
     }
 
     if (this.doubleRewardsVoucherTotalCalc) {
-      championValue += 100 * 3;
-      masterValue += 100 * 6;
-      grandmasterValue += 100 * 12;
+      this.totalValue[0] += this.doubleRewardsVoucherValue[0];
+      this.totalValue[1] += this.doubleRewardsVoucherValue[1];
+      this.totalValue[2] += this.doubleRewardsVoucherValue[2];
     }
 
-    this.totalValue[1] = championValue + " €/£";
-    this.totalValue[2] = masterValue + " €/£";
-    this.totalValue[3] = grandmasterValue + " €/£";
-
-    this.totalValueMinusCost[1] = (championValue - 249) + " €/£";
-    this.totalValueMinusCost[2] = (masterValue - 649) + " €/£";
-    this.totalValueMinusCost[3] = (grandmasterValue - 1249) + " €/£";
+    this.totalValueMinusCost[0] = this.totalValue[0] - this.metalCosts[0];
+    this.totalValueMinusCost[1] = this.totalValue[1] - this.metalCosts[1];
+    this.totalValueMinusCost[2] = this.totalValue[2] - this.metalCosts[2];
   }
 
   superChargedChanged() {
@@ -253,6 +236,14 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
 
   doubleRewardsChanged() {
     this.calculate();
+  }
+
+  changeCurrency() {
+    if (this.currencySymbol === "€") {
+      this.currencySymbol = "£";
+    } else {
+      this.currencySymbol = "€";
+    }
   }
 }
 
