@@ -35,14 +35,14 @@
             <td class="checkBoxCell"></td>
         </tr>
         <tr>
-            <td>Super Charged Perks</td>
+            <td>Super Charged Perks ({{ totalPerkCount }})</td>
             <td *ngFor="let r of superChargedPerksValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="superChargedPerksTotalCalc" id="superChargedPerksTotalCalc" type="checkbox" (change)="superChargedChanged()" [(ngModel)]="superChargedPerksTotalCalc"/>
             </td>
         </tr>
         <tr>
-            <td>Super Charged Perks Minus Original Value</td>
+            <td>Super Charged Perks ({{ totalPerkCount }}) <br> Minus Default Value</td>
             <td *ngFor="let r of superChargedPerksActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="superChargedPerksActualTotalCalc" id="superChargedPerksActualTotalCalc" type="checkbox" (change)="superChargedActualChanged()" [(ngModel)]="superChargedPerksActualTotalCalc"/>
@@ -56,7 +56,7 @@
             </td>
         </tr>
         <tr>
-            <td>Golden Ticket Referral Minus Default Value</td>
+            <td>Golden Ticket Referral <br> Minus Default Value</td>
             <td *ngFor="let r of goldenTicketReferralsActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="goldenTicketReferralsActualTotalCalc" id="goldenTicketReferralsActualTotalCalc" type="checkbox" (change)="goldenTicketActualChanged()" [(ngModel)]="goldenTicketReferralsActualTotalCalc"/>
