@@ -1,0 +1,77 @@
+{
+  "subscriptionTiers": [
+    {
+      "name": "Starter",
+      "spendingLimit": 100,
+      "perkCount": 0
+    },
+    {
+      "name": "Everyday",
+      "spendingLimit": 500,
+      "perkCount": 2
+    },
+    {
+      "name": "Premium",
+      "spendingLimit": 1000,
+      "perkCount": 3
+    }
+  ],
+  "stackingTiers": [
+    {
+      "name": "Researcher",
+      "cashbackPercentage": 3,
+      "spendingLimit": 250,
+      "perkCount": 0
+    },
+    {
+      "name": "Explorer",
+      "cashbackPercentage": 3,
+      "spendingLimit": 500,
+      "perkCount": 0
+    },
+    {
+      "name": "Adventurer",
+      "cashbackPercentage": 3,
+      "spendingLimit": 1000,
+      "perkCount": 1
+    },
+    {
+      "name": "Hero",
+      "cashbackPercentage": 4,
+      "spendingLimit": 2000,
+      "perkCount": 4
+    },
+    {
+      "name": "Veteran",
+      "cashbackPercentage": 5,
+      "spendingLimit": 4000,
+      "perkCount": 5
+    },
+    {
+      "name": "Legend",
+      "cashbackPercentage": 6,
+      "spendingLimit": 6000,
+      "perkCount": 6
+    },
+    {
+      "name": "Goat",
+      "cashbackPercentage": 8,
+      "spendingLimit": 8000,
+      "perkCount": 8
+    }
+  ],
+  "metalTiers": [
+    {
+      "name": "Champion",
+      "cost": 249
+    },
+    {
+      "name": "Master",
+      "cost": 649
+    },
+    {
+      "name": "Grandmaster",
+      "cost": 1249
+    }
+  ]
+}

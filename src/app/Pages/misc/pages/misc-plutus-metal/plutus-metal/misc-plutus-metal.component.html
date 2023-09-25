@@ -4,45 +4,35 @@
     <div class="inputLabelWrapper">
         <label for="subscriptionTier">Subscription tier</label>
         <select class="select" name="subscriptionTier" id="subscriptionTier" (change)="subscriptionTierChange($event)">
-            <option *ngFor="let r of subscriptionTiers" value="r">{{ r }}</option>
+            <option *ngFor="let r of subscriptionTiers" value="r">{{ r.name }}</option>
         </select>
     </div>
     <div class="inputLabelWrapper">
         <label for="stackingTier">Stacking tier</label>
         <select class="select" name="stackingTier" id="stackingTier" (change)="stackingTierChange($event)">
-            <option *ngFor="let r of stackingTiers" value="r">{{ r }}</option>
+            <option *ngFor="let r of stackingTiers" value="r">{{ r.name }}</option>
         </select>
     </div>
 
     <table>
         <tr>
             <th></th><!-- Empty cell for spacing -->
-            <th>
-                Champion
+            <th *ngFor="let r of metalTiers">
+                {{ r.name }}
                 <br>
-                {{ currencySymbol }}249
-            </th>
-            <th>
-                Master
-                <br>
-                {{ currencySymbol }}649
-            </th>
-            <th>
-                Grandmaster
-                <br>
-                {{ currencySymbol }}1249
+                {{ currencySymbol }}{{ r.cost }}
             </th>
             <td class="checkBoxCell"></td>
         </tr>
         <tr>
-            <td>Super Charged Perks ({{ totalPerkCount }})</td>
+            <td>Super Charged Perks ({{ perkCount }})</td>
             <td *ngFor="let r of superChargedPerksValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="superChargedPerksTotalCalc" id="superChargedPerksTotalCalc" type="checkbox" (change)="superChargedChanged()" [(ngModel)]="superChargedPerksTotalCalc"/>
             </td>
         </tr>
         <tr>
-            <td>Super Charged Perks ({{ totalPerkCount }}) <br> Minus Default Value</td>
+            <td>Super Charged Perks ({{ perkCount }})<br>Minus Default Value</td>
             <td *ngFor="let r of superChargedPerksActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="superChargedPerksActualTotalCalc" id="superChargedPerksActualTotalCalc" type="checkbox" (change)="superChargedActualChanged()" [(ngModel)]="superChargedPerksActualTotalCalc"/>
@@ -56,7 +46,7 @@
             </td>
         </tr>
         <tr>
-            <td>Golden Ticket Referral <br> Minus Default Value</td>
+            <td>Golden Ticket Referral<br>Minus Default Value</td>
             <td *ngFor="let r of goldenTicketReferralsActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="goldenTicketReferralsActualTotalCalc" id="goldenTicketReferralsActualTotalCalc" type="checkbox" (change)="goldenTicketActualChanged()" [(ngModel)]="goldenTicketReferralsActualTotalCalc"/>
@@ -67,6 +57,13 @@
             <td *ngFor="let r of doubleRewardsVoucherValue; let i = index">{{ currencySymbol }}{{ r }}</td>
             <td class="checkBoxCell">
                 <input name="doubleRewardsVoucherTotalCalc" id="doubleRewardsVoucherTotalCalc" type="checkbox" (change)="doubleRewardsChanged()" [(ngModel)]="doubleRewardsVoucherTotalCalc"/>
+            </td>
+        </tr>
+        <tr>
+            <td>x2 Rewards Voucher<br>Minus Default Value</td>
+            <td *ngFor="let r of doubleRewardsVoucherActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
+            <td class="checkBoxCell">
+                <input name="doubleRewardsVoucherActualTotalCalc" id="doubleRewardsVoucherActualTotalCalc" type="checkbox" (change)="doubleRewardsActualChanged()" [(ngModel)]="doubleRewardsVoucherActualTotalCalc"/>
             </td>
         </tr>
         <!-- Empty row for spacing -->

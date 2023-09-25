@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
+import PlutusJson from '../../../../../../assets/Misc/PlutusTiers.json';
 import { Meta, Title } from '@angular/platform-browser';
+import { PlutusMetalTier, PlutusStackingTier, PlutusSubscriptionTier } from '../../Models/PlutusTiers';
 
 @Component({
   selector: 'app-misc-plutus-metal',
@@ -7,28 +9,18 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrls: ['./misc-plutus-metal.component.css']
 })
 export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
-  totalPerkCount: number = 0;
+  subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
+  stackingTiers: PlutusStackingTier[] = PlutusJson.stackingTiers;
+  metalTiers: PlutusMetalTier[] = PlutusJson.metalTiers;
+
+  perkCount: number = 0;
+  eligibleSpend: number = 0;
 
   currencySymbol: string = "€";
 
   subscriptionTierSelectedIndex: number = 0;
-  subscriptionTiers: string[] = [
-    "Starter",
-    "Everyday",
-    "Premium"
-  ]
 
   stackingTierSelectedIndex: number = 0;
-  stackingTiers: string[] = [
-    "No Stack",
-    "Researcher",
-    "Explorer",
-    "Adventurer",
-    "Hero",
-    "Veteran",
-    "Legend",
-    "Goat"
-  ]
 
   metalCosts: number[] = [
     249,
@@ -41,12 +33,14 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
   goldenTicketReferralsValue: number[] = [0, 0, 0];
   goldenTicketReferralsActualValue: number[] = [0, 0, 0];
   doubleRewardsVoucherValue: number[] = [0, 0, 0];
+  doubleRewardsVoucherActualValue: number[] = [0, 0, 0];
 
   superChargedPerksTotalCalc: boolean = true;
   superChargedPerksActualTotalCalc: boolean = false;
   goldenTicketReferralsTotalCalc: boolean = true;
   goldenTicketReferralsActualTotalCalc: boolean = false;
   doubleRewardsVoucherTotalCalc: boolean = true;
+  doubleRewardsVoucherActualTotalCalc: boolean = false;
 
   totalValue: number[] = [0, 0, 0];
   totalValueMinusCost: number[] = [0, 0, 0];
@@ -81,7 +75,7 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
   }
 
   calculate() {
-    this.calculatePerkCount();
+    this.calculatePerkCountAndEligibleSpend();
     this.calculateSuperChargedPerks();
     this.calculateDoubleRewardsVoucher();
     this.calculateGoldenTicketReferrals();
@@ -89,64 +83,24 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
     this.calculateTotal();
   }
 
-  calculatePerkCount() {
-    var perkCount = 0;
-
-    switch (this.subscriptionTierSelectedIndex) {
-      case 1: {
-        // everyday has 2 perks
-        perkCount += 2;
-        break;
-      }
-      case 2: {
-        // premium has 3 perks
-        perkCount += 3;
-        break;
-      }
-    }
-
-    switch (this.stackingTierSelectedIndex) {
-      case 3: {
-        // adventurer has 1 extra perk
-        perkCount += 1;
-        break;
-      }
-      case 4: {
-        // hero has 4 extra perks
-        perkCount += 4;
-        break;
-      }
-      case 5: {
-        // veteran has 5 extra perks
-        perkCount += 5;
-        break;
-      }
-      case 6: {
-        // legend has 6 extra perks
-        perkCount += 6;
-        break;
-      }
-      case 7: {
-        // goat has 8 extra perks
-        perkCount += 8;
-        break;
-      }
-    }
-
-    this.totalPerkCount = perkCount;
+  calculatePerkCountAndEligibleSpend() {
+    this.perkCount = this.subscriptionTiers[this.subscriptionTierSelectedIndex].perkCount 
+    + this.stackingTiers[this.stackingTierSelectedIndex].perkCount;
+    this.eligibleSpend = this.subscriptionTiers[this.subscriptionTierSelectedIndex].spendingLimit 
+    + this.stackingTiers[this.stackingTierSelectedIndex].spendingLimit;
   }
 
   calculateSuperChargedPerks() {
     // amount of perks times their value times the amount of months
-    this.superChargedPerksValue[0] = this.totalPerkCount * 20 * 3;
-    this.superChargedPerksValue[1] = this.totalPerkCount * 30 * 6;
-    this.superChargedPerksValue[2] = this.totalPerkCount * 50 * 12;
+    this.superChargedPerksValue[0] = this.perkCount * 20 * 3;
+    this.superChargedPerksValue[1] = this.perkCount * 30 * 6;
+    this.superChargedPerksValue[2] = this.perkCount * 50 * 12;
 
     
     // the same but with the original perk value subtracted
-    this.superChargedPerksActualValue[0] = this.totalPerkCount * 10 * 3;
-    this.superChargedPerksActualValue[1] = this.totalPerkCount * 20 * 6;
-    this.superChargedPerksActualValue[2] = this.totalPerkCount * 40 * 12;
+    this.superChargedPerksActualValue[0] = this.perkCount * 10 * 3;
+    this.superChargedPerksActualValue[1] = this.perkCount * 20 * 6;
+    this.superChargedPerksActualValue[2] = this.perkCount * 40 * 12;
   }
 
   calculateGoldenTicketReferrals() {
@@ -163,9 +117,23 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
 
   calculateDoubleRewardsVoucher() {
     // 100 times the amount of double reward vouchers
-    this.doubleRewardsVoucherValue[0] = 100 * 3;
-    this.doubleRewardsVoucherValue[1] = 100 * 6;
-    this.doubleRewardsVoucherValue[2] = 100 * 12;
+    // 50 times the amount for actual value
+    var maxSingleTransactionCashback = this.eligibleSpend * (this.stackingTiers[this.stackingTierSelectedIndex].cashbackPercentage / 100);
+    if (maxSingleTransactionCashback > 50) {
+      this.doubleRewardsVoucherValue[0] = 100 * 3;
+      this.doubleRewardsVoucherValue[1] = 100 * 6;
+      this.doubleRewardsVoucherValue[2] = 100 * 12;
+      this.doubleRewardsVoucherActualValue[0] = 50 * 3;
+      this.doubleRewardsVoucherActualValue[1] = 50 * 6;
+      this.doubleRewardsVoucherActualValue[2] = 50 * 12;
+    } else {
+      this.doubleRewardsVoucherValue[0] = maxSingleTransactionCashback * 2 * 3;
+      this.doubleRewardsVoucherValue[1] = maxSingleTransactionCashback * 2 * 6;
+      this.doubleRewardsVoucherValue[2] = maxSingleTransactionCashback * 2 * 12
+      this.doubleRewardsVoucherActualValue[0] = maxSingleTransactionCashback * 3;
+      this.doubleRewardsVoucherActualValue[1] = maxSingleTransactionCashback * 6;
+      this.doubleRewardsVoucherActualValue[2] = maxSingleTransactionCashback * 12
+    }
   }
 
   calculateTotal() {
@@ -201,9 +169,15 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
       this.totalValue[2] += this.doubleRewardsVoucherValue[2];
     }
 
-    this.totalValueMinusCost[0] = this.totalValue[0] - this.metalCosts[0];
-    this.totalValueMinusCost[1] = this.totalValue[1] - this.metalCosts[1];
-    this.totalValueMinusCost[2] = this.totalValue[2] - this.metalCosts[2];
+    if (this.doubleRewardsVoucherActualTotalCalc) {
+      this.totalValue[0] += this.doubleRewardsVoucherActualValue[0];
+      this.totalValue[1] += this.doubleRewardsVoucherActualValue[1];
+      this.totalValue[2] += this.doubleRewardsVoucherActualValue[2];
+    }
+
+    this.totalValueMinusCost[0] = this.totalValue[0] - this.metalTiers[0].cost;
+    this.totalValueMinusCost[1] = this.totalValue[1] - this.metalTiers[1].cost;
+    this.totalValueMinusCost[2] = this.totalValue[2] - this.metalTiers[2].cost;
   }
 
   superChargedChanged() {
@@ -235,6 +209,16 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
   }
 
   doubleRewardsChanged() {
+    if(this.doubleRewardsVoucherTotalCalc) {
+      this.doubleRewardsVoucherActualTotalCalc = false;
+    }
+    this.calculate();
+  }
+
+  doubleRewardsActualChanged() {
+    if(this.doubleRewardsVoucherActualTotalCalc) {
+      this.doubleRewardsVoucherTotalCalc = false;
+    }
     this.calculate();
   }
 
