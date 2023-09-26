@@ -1,0 +1,142 @@
+.contentPageOverride {
+    width: 800px;
+    background-color: var(--content-page-background-color);
+    border: 1px solid var(--content-page-border-color);
+    min-height: calc(100vh - 16px);
+    margin: 0 auto;
+    margin-top: 8px;
+    position: relative;
+}
+
+.currencyButton {
+    background-color: #0722B6;
+    border: none;
+    color: #FFFFFF;
+    padding: 5px 8px 5px 8px;
+    text-align: center;
+    font-size: 16px;
+    margin: 8px 8px 0px 0px;
+    outline:none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.title {
+    padding-bottom: 0px;
+}
+
+.inputWrapper {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.inputLabelWrapper {
+    display: grid;
+    place-items: center;
+    margin-bottom: 8px;
+}
+
+.inputLabelWrapper label {
+    margin: auto;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.inputLabelWrapper select {
+    margin: auto;
+    display: block;
+}
+
+.contentPageOverride .title {
+    margin: 0px;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 0px;
+  }
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    
+  }
+
+.tdSmaller, .thSmaller {
+    width: 22.3%;
+}
+
+tr:nth-child(even) {
+    background-color: #222222;
+}
+
+th:nth-child(1) {
+    border-top: 0px solid #ffffff;
+    border-left: 0px solid #ffffff;
+    width: 33%;
+}
+
+td:nth-child(1) {
+    width: 33%;
+}
+
+.checkBoxCell:first-of-type {
+    border-top: 0px solid red;
+    border-right: 0px solid red;
+}
+
+.emptyCell {
+    border: 0px solid red;
+    background-color: #181818;
+}
+
+.infoTextTop {
+    width: 550px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.infoTextMiddle {
+    width: 550px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+  
+@media only screen and (max-width: 818px) {
+    .contentPageOverride {
+        width: calc(100% - 18px);
+    }
+}
+
+@media only screen and (max-width: 444px) {
+    .inputWrapper {
+        margin-top: 5px;
+    }
+
+    .textAreaWrapper {
+        width: calc(100% - 8px);
+    }
+
+    .controlsWrapper {
+        margin-left: 4px;
+    }
+    
+    .countWrapper {
+        margin-left: 4px;
+    }
+}

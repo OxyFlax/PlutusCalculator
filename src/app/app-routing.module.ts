@@ -105,11 +105,14 @@ const routes: Routes = [
 
 
     {
+        path        : 'plutusmetal',
+        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal-adjusted/misc-plutus-metal-adjusted.module').then(m => m.MiscPlutusMetalAdjustedModule)
+    },
+    {
         path        : '**',
         redirectTo  : '404',
         pathMatch   : 'full'
-    }
-    ,
+    },
     {
         path        : '404',
         component   : NotFoundComponent

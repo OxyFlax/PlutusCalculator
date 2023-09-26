@@ -4,11 +4,11 @@ import { Meta, Title } from '@angular/platform-browser';
 import { PlutusMetalTier, PlutusStackingTier, PlutusSubscriptionTier } from '../../../Models/PlutusTiers';
 
 @Component({
-  selector: 'app-misc-plutus-metal',
-  templateUrl: './misc-plutus-metal.component.html',
-  styleUrls: ['./misc-plutus-metal.component.css']
+  selector: 'app-misc-plutus-metal-adjusted',
+  templateUrl: './misc-plutus-metal-adjusted.component.html',
+  styleUrls: ['./misc-plutus-metal-adjusted.component.css']
 })
-export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
+export class MiscPlutusMetalAdjustedComponent implements OnInit, OnDestroy {
   subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
   stackingTiers: PlutusStackingTier[] = PlutusJson.stackingTiers;
   metalTiers: PlutusMetalTier[] = PlutusJson.metalTiers;
@@ -22,18 +22,13 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
 
   stackingTierSelectedIndex: number = 0;
 
-  metalCosts: number[] = [
-    249,
-    649,
-    1249
-  ]
-
   superChargedPerksValue: number[] = [0, 0, 0];
   superChargedPerksActualValue: number[] = [0, 0, 0];
   goldenTicketReferralsValue: number[] = [0, 0, 0];
   goldenTicketReferralsActualValue: number[] = [0, 0, 0];
   doubleRewardsVoucherValue: number[] = [0, 0, 0];
   doubleRewardsVoucherActualValue: number[] = [0, 0, 0];
+  originalBenefitsValue: number[] = [0, 0, 0];
 
   superChargedPerksTotalCalc: boolean = true;
   superChargedPerksActualTotalCalc: boolean = false;
@@ -43,13 +38,15 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
   doubleRewardsVoucherActualTotalCalc: boolean = false;
 
   totalValue: number[] = [0, 0, 0];
+  totalActualValue: number[] = [0, 0, 0];
   totalValueMinusCost: number[] = [0, 0, 0];
+  totalOriginalBenefits: number[] = [0, 0, 0];
 
   constructor(private titleService: Title, private metaService: Meta) {
   }
 
   ngOnInit() {
-    this.titleService.setTitle("Misc Plutus Metal | Random Stuff");
+    this.titleService.setTitle("Plutus Metal Calculator");
     this.metaService.updateTag({ name: "description", content: "Custom Plutus Metal Benefit Calculator" });
     if (!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "noindex, follow" });
@@ -80,7 +77,8 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
     this.calculateDoubleRewardsVoucher();
     this.calculateGoldenTicketReferrals();
 
-    this.calculateTotal();
+    this.calculateTotals();
+    this.calculateOriginalBenefitValue();
   }
 
   calculatePerkCountAndEligibleSpend() {
@@ -137,49 +135,106 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculateTotal() {
+  calculateTotals() {
+    // calculate total value
     this.totalValue = [0, 0, 0];
 
-    if (this.superChargedPerksTotalCalc) {
-      this.totalValue[0] += this.superChargedPerksValue[0];
-      this.totalValue[1] += this.superChargedPerksValue[1];
-      this.totalValue[2] += this.superChargedPerksValue[2];
-    }
+    this.totalValue[0] += this.superChargedPerksValue[0];
+    this.totalValue[1] += this.superChargedPerksValue[1];
+    this.totalValue[2] += this.superChargedPerksValue[2];
 
-    if (this.superChargedPerksActualTotalCalc) {
-      this.totalValue[0] += this.superChargedPerksActualValue[0];
-      this.totalValue[1] += this.superChargedPerksActualValue[1];
-      this.totalValue[2] += this.superChargedPerksActualValue[2];
-    }
+    this.totalValue[0] += this.goldenTicketReferralsValue[0];
+    this.totalValue[1] += this.goldenTicketReferralsValue[1];
+    this.totalValue[2] += this.goldenTicketReferralsValue[2];
 
-    if (this.goldenTicketReferralsTotalCalc) {
-      this.totalValue[0] += this.goldenTicketReferralsValue[0];
-      this.totalValue[1] += this.goldenTicketReferralsValue[1];
-      this.totalValue[2] += this.goldenTicketReferralsValue[2];
-    }
+    this.totalValue[0] += this.doubleRewardsVoucherValue[0];
+    this.totalValue[1] += this.doubleRewardsVoucherValue[1];
+    this.totalValue[2] += this.doubleRewardsVoucherValue[2];
 
-    if (this.goldenTicketReferralsActualTotalCalc) {
-      this.totalValue[0] += this.goldenTicketReferralsActualValue[0];
-      this.totalValue[1] += this.goldenTicketReferralsActualValue[1];
-      this.totalValue[2] += this.goldenTicketReferralsActualValue[2];
-    }
-
-    if (this.doubleRewardsVoucherTotalCalc) {
-      this.totalValue[0] += this.doubleRewardsVoucherValue[0];
-      this.totalValue[1] += this.doubleRewardsVoucherValue[1];
-      this.totalValue[2] += this.doubleRewardsVoucherValue[2];
-    }
-
-    if (this.doubleRewardsVoucherActualTotalCalc) {
-      this.totalValue[0] += this.doubleRewardsVoucherActualValue[0];
-      this.totalValue[1] += this.doubleRewardsVoucherActualValue[1];
-      this.totalValue[2] += this.doubleRewardsVoucherActualValue[2];
-    }
-
+    // calculate total value minus metal card cost
     this.totalValueMinusCost[0] = this.totalValue[0] - this.metalTiers[0].cost;
     this.totalValueMinusCost[1] = this.totalValue[1] - this.metalTiers[1].cost;
     this.totalValueMinusCost[2] = this.totalValue[2] - this.metalTiers[2].cost;
+
+    // calculate the actual total value
+    this.totalActualValue = [0, 0, 0];
+
+    this.totalActualValue[0] += this.superChargedPerksActualValue[0];
+    this.totalActualValue[1] += this.superChargedPerksActualValue[1];
+    this.totalActualValue[2] += this.superChargedPerksActualValue[2];
+
+    this.totalActualValue[0] += this.goldenTicketReferralsActualValue[0];
+    this.totalActualValue[1] += this.goldenTicketReferralsActualValue[1];
+    this.totalActualValue[2] += this.goldenTicketReferralsActualValue[2];
+
+    this.totalActualValue[0] += this.doubleRewardsVoucherActualValue[0];
+    this.totalActualValue[1] += this.doubleRewardsVoucherActualValue[1];
+    this.totalActualValue[2] += this.doubleRewardsVoucherActualValue[2];
+
+    // calculate original benefits
+    this.totalOriginalBenefits[0] = this.totalValue[0] - this.totalActualValue[0]
+    this.totalOriginalBenefits[1] = this.totalValue[1] - this.totalActualValue[1]
+    this.totalOriginalBenefits[2] = this.totalValue[2] - this.totalActualValue[2]
+    
   }
+
+  calculateOriginalBenefitValue() {
+      //     this.totalValue[0] += this.superChargedPerksActualValue[0];
+  //     this.totalValue[1] += this.superChargedPerksActualValue[1];
+  //     this.totalValue[2] += this.superChargedPerksActualValue[2];
+
+    //     this.totalValue[0] += this.goldenTicketReferralsActualValue[0];
+  //     this.totalValue[1] += this.goldenTicketReferralsActualValue[1];
+  //     this.totalValue[2] += this.goldenTicketReferralsActualValue[2];
+
+    //     this.totalValue[0] += this.doubleRewardsVoucherActualValue[0];
+  //     this.totalValue[1] += this.doubleRewardsVoucherActualValue[1];
+  //     this.totalValue[2] += this.doubleRewardsVoucherActualValue[2];
+  }
+
+  // calculateTotal() {
+  //   this.totalValue = [0, 0, 0];
+
+  //   if (this.superChargedPerksTotalCalc) {
+  //     this.totalValue[0] += this.superChargedPerksValue[0];
+  //     this.totalValue[1] += this.superChargedPerksValue[1];
+  //     this.totalValue[2] += this.superChargedPerksValue[2];
+  //   }
+
+  //   if (this.superChargedPerksActualTotalCalc) {
+  //     this.totalValue[0] += this.superChargedPerksActualValue[0];
+  //     this.totalValue[1] += this.superChargedPerksActualValue[1];
+  //     this.totalValue[2] += this.superChargedPerksActualValue[2];
+  //   }
+
+  //   if (this.goldenTicketReferralsTotalCalc) {
+  //     this.totalValue[0] += this.goldenTicketReferralsValue[0];
+  //     this.totalValue[1] += this.goldenTicketReferralsValue[1];
+  //     this.totalValue[2] += this.goldenTicketReferralsValue[2];
+  //   }
+
+  //   if (this.goldenTicketReferralsActualTotalCalc) {
+  //     this.totalValue[0] += this.goldenTicketReferralsActualValue[0];
+  //     this.totalValue[1] += this.goldenTicketReferralsActualValue[1];
+  //     this.totalValue[2] += this.goldenTicketReferralsActualValue[2];
+  //   }
+
+  //   if (this.doubleRewardsVoucherTotalCalc) {
+  //     this.totalValue[0] += this.doubleRewardsVoucherValue[0];
+  //     this.totalValue[1] += this.doubleRewardsVoucherValue[1];
+  //     this.totalValue[2] += this.doubleRewardsVoucherValue[2];
+  //   }
+
+  //   if (this.doubleRewardsVoucherActualTotalCalc) {
+  //     this.totalValue[0] += this.doubleRewardsVoucherActualValue[0];
+  //     this.totalValue[1] += this.doubleRewardsVoucherActualValue[1];
+  //     this.totalValue[2] += this.doubleRewardsVoucherActualValue[2];
+  //   }
+
+  //   this.totalValueMinusCost[0] = this.totalValue[0] - this.metalTiers[0].cost;
+  //   this.totalValueMinusCost[1] = this.totalValue[1] - this.metalTiers[1].cost;
+  //   this.totalValueMinusCost[2] = this.totalValue[2] - this.metalTiers[2].cost;
+  // }
 
   superChargedChanged() {
     if(this.superChargedPerksTotalCalc) {
