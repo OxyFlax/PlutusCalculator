@@ -101,6 +101,10 @@ const routes: Routes = [
         path: 'misc/plutusmetal', 
         loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal/misc-plutus-metal.module').then(m => m.MiscPlutusMetalModule)
     },
+    {
+        path: 'misc/plutusq4', 
+        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-q4/misc-plutus-q4.module').then(m => m.MiscPlutusQ4Module)
+    },
 
 
 
