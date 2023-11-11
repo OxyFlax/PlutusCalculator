@@ -1,0 +1,218 @@
+
+.contentPageOverride {
+    width: 100%;
+    background-color: rgb(36, 38 ,39);
+    min-height: calc(100vh);
+    position: relative;
+}
+
+.currencyButton {
+    background-color: #0722B6;
+    border: none;
+    color: #FFFFFF;
+    padding: 5px 8px 5px 8px;
+    text-align: center;
+    font-size: 16px;
+    margin: 8px 8px 0px 0px;
+    outline:none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.title {
+    padding-top: 30px;
+    padding-bottom: 0px;
+    margin: 0px;
+    text-align: center;
+    font-size: 25px;
+    text-decoration: underline;
+    margin-bottom: 6px;
+}
+
+.infoTextTop {
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size: 12.5px;
+    max-width: 440px;
+}
+
+
+.overview {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(25, 27, 28); 
+    width: 500px;
+    height: 115px;
+    margin: 0 auto;
+    margin-bottom: 28px;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.overviewItem {
+    display: inline-block;
+    width: 105px;
+    height: 45;
+}
+
+.overviewItem h4 {
+    margin:0;
+    font-weight: normal;
+}
+
+.overviewItem h3 {
+    margin: 0;
+    margin-top: 5px;
+    padding: 3px 5px 3px 5px;
+    display:inline-block; 
+    background-color: #0722B6;
+    border-radius: 6px;
+}
+
+.inputWrapper {
+    width: 250px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+select {
+    border: 0px;
+    background-color: rgb(28, 30, 33);
+    height: 40px;
+    font-family: monospace;
+    font-size: 14px;
+    width: 250px;
+}
+
+.outputWrapper {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+}
+
+.header {
+    background-color: #0722B6;
+    border-radius: 10px;
+    z-index: 2;
+    transform: translateX(10px);
+    width: 260px;
+}
+
+.header p {
+    font-size: 17px;
+    margin: 0;
+    padding: 12px 10px 12px 10px;
+    width: 240px;
+}
+
+.header hr {
+    border: 1px solid transparent;
+}
+
+.values {
+    background-color: rgb(25, 27, 28);
+    border-radius: 10px;
+    z-index: 1;
+    transform: translateX(-10px);
+    width: 260px;
+}
+
+.values p {
+    font-size: 17px;
+    margin: 0;
+    padding: 12px 0px 12px 20px;
+    width: 240px;
+}
+
+.values hr {
+    border: 1px solid rgb(36, 38 ,39);
+}
+
+hr {
+    margin: 0px;
+}
+
+.values p:last-child { border-bottom: none; }
+
+.referralStuff {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 12.5px;
+}
+
+.referralStuff a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 720px) {
+    .title {
+        padding-top: 42px;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .overview {
+        width: 400px;
+    }
+
+    .outputWrapper {
+        width: 400px;
+    }
+
+    .header {
+        width: 210px;
+    }
+    
+    .header p {
+        width: 190px;
+    }
+    
+    .values {
+        width: 210px;
+    }
+    
+    .values p {
+        width: 190px;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    .overview {
+        width: 310px;
+        padding-right: 10px;
+    }
+
+    .outputWrapper {
+        width: 320px;
+    }
+
+    .header {
+        width: 170px;
+    }
+    
+    .header p {
+        width: 170px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    
+    .values {
+        width: 170px;
+    }
+    
+    .values p {
+        width: 150px;
+        padding-right: 0px;
+    }
+}

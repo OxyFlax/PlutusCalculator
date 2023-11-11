@@ -11,6 +11,7 @@ import { AboutComponent } from './Pages/about/about.component';
 import { NotFoundComponent } from './Pages/not-found/not-found.component';
 
 import { SharedModule } from './Shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SharedModule } from './Shared/shared.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

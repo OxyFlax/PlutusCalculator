@@ -19,3 +19,18 @@ export interface EligibleSpendTier {
   cost: number;
   eligibleSpend: number;
 }
+
+export interface CurrentPrices {
+  eurPrice: number
+  gbpPrice: number;
+}
+
+
+
+export interface Coin {
+  pluton: Pluton;
+}
+export interface Pluton {
+  eur: number;
+  gbp: number;
+}
