@@ -25,7 +25,7 @@
 
 .title {
     padding-top: 5x;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
 }
 
 .inputLabelWrapper {
@@ -46,12 +46,12 @@
     display: block;
 }
 
-.contentPageOverride .title {
+.title {
     margin: 0px;
     text-align: center;
     font-size: 25px;
     text-decoration: underline;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 8px;
 }
 
@@ -93,7 +93,7 @@ input {
     padding-right: 10px;
     padding-left: 10px;
     font-size: 12.5px;
-    width: 440px;
+    max-width: 440px;
 }
 
 .referralStuff {
@@ -102,9 +102,20 @@ input {
     font-size: 12.5px;
 }
 
+.inputWrapper {
+    width: 200px;
+    margin: 0 auto;
+}
+
 @media only screen and (max-width: 818px) {
     .contentPageOverride {
         width: calc(100% - 18px);
+    }
+}
+
+@media only screen and (max-width: 720px) {
+    .title {
+        padding-top: 29px;
     }
 }
 

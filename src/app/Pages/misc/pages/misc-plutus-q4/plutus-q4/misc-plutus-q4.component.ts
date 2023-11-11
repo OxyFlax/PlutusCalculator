@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import PlutusJson from '../../../../../../assets/Misc/PlutusTiers2.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier } from '../../../Models/PlutusTiers2';
+import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, CurrentPrices, Coin, Pluton } from '../../../Models/PlutusTiers2';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-misc-plutus-q4',
@@ -9,9 +11,16 @@ import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier } from '.
   styleUrls: ['./misc-plutus-q4.component.css']
 })
 export class MiscPlutusQ4Component implements OnInit, OnDestroy {
+  url: string = 'https://api.coingecko.com/api/v3/simple/price?ids=pluton&vs_currencies=eur%2Cgbp';
+  pluPrice: Pluton = {
+    eur: 0,
+    gbp: 0
+  };
+
   subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
   stackingTiers: PlutusStackingTier[] = PlutusJson.stackingTiers;
   eligibleSpendTiers: EligibleSpendTier[] = PlutusJson.eligibleSpendTiers;
+  currentPrices: CurrentPrices = {eurPrice: 0, gbpPrice: 0};
 
   currencySymbol: string = "€";
 
@@ -29,6 +38,8 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
   totalMonthlyValue: number = 0;
   totalYearlyValue: number = 0;
   actualTotalYearlyValue: number = 0;
+
+  redeemCost: number = 0;
 
 
   superChargedPerksValue: number[] = [0, 0, 0];
@@ -51,7 +62,8 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
   totalValueMinusCost: number[] = [0, 0, 0];
   totalOriginalBenefits: number[] = [0, 0, 0];
 
-  constructor(private titleService: Title, private metaService: Meta) {
+
+  constructor(private titleService: Title, private metaService: Meta, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -63,11 +75,32 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
     }
 
+    // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
+    this.fetchPluPrice();
     this.calculate();
   }
 
   ngOnDestroy() {
     this.titleService.setTitle("Random Stuff");
+  }
+
+  fetchPluPrice() {
+    const apiUrl = this.url; // Replace with your API URL
+  
+    this.http.get<Coin>(apiUrl).subscribe(data => {
+      // The JSON response is now converted into a coin object 
+      const plutonData: Coin = data;
+      
+      // console.log(plutonData.pluton.eur);
+      // console.log(plutonData.pluton.gbp);
+
+      // add the values into the pluPrice object
+      this.pluPrice = plutonData.pluton;
+    });
+  }
+
+  getPrices(): Observable<Pluton> {
+    return this.http.get<Pluton>(this.url);
   }
 
   stackingTierChange(event: any) {
@@ -96,6 +129,8 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
     this.calculateTotalMonthlyValue();
     this.calculateTotalYearlyValue();
     this.calculateActualTotalYearlyValue();
+
+    this.calculateRedeemCost();
   }
 
   calculateCashbackRate() {
@@ -129,6 +164,7 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
   }
 
   calculateMonthlyCashback() {
+    if (this.subscriptionTierSelectedIndex == 0) { return; } //no cashback if user is on standard subscription
     this.monthlyCashbackValue = this.eligibleSpend * (this.cashbackRate / 100);
   }
 
@@ -137,6 +173,7 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
   }
 
   calculateMonthlyPerkValue() {
+    if (this.subscriptionTierSelectedIndex == 0) { return; } //no cashback if user is on standard subscription
     this.monthlyPerkValue = this.perkCount * 10;
   }
   
@@ -152,12 +189,22 @@ export class MiscPlutusQ4Component implements OnInit, OnDestroy {
     this.actualTotalYearlyValue = this.totalYearlyValue - (this.subscriptionTiers[this.subscriptionTierSelectedIndex].cost * 12);
   }
 
+  calculateRedeemCost() {
+    if (this.currencySymbol === "€") {
+      this.redeemCost = this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].cost * this.pluPrice.eur;
+    } else {
+      this.redeemCost = this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].cost * this.pluPrice.gbp;
+    }
+    console.log(this.redeemCost);
+  }
+
   changeCurrency() {
     if (this.currencySymbol === "€") {
       this.currencySymbol = "£";
     } else {
       this.currencySymbol = "€";
     }
+    this.calculateRedeemCost();
   }
 }
 

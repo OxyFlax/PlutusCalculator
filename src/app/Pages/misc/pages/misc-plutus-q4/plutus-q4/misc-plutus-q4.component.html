@@ -1,12 +1,12 @@
 <div class="contentPageOverride">
     <button class="currencyButton" (click)="changeCurrency()">Switch £/€</button>
-    <p class="title">Plutus Q4 Tiers</p>
+    <p class="title">Plutus New Subscriptions & Reward Levels</p>
     <p class="infoTextTop">
         This is a community-created calculator based on information released by Plutus regarding their upcoming changes to the subscription and stacking tiers.
     </p>
     <div class="inputWrapper">
         <div class="inputLabelWrapper">
-            <label for="subscriptionTier">Subscription Tier</label>
+            <label for="subscriptionTier">Subscription Plan</label>
             <select class="select" name="subscriptionTier" id="subscriptionTier" (change)="subscriptionTierChange($event)">
                 <option *ngFor="let r of subscriptionTiers" value="r">{{ r.name.padEnd(12, '&nbsp;') }} {{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</option>
             </select>
@@ -18,7 +18,7 @@
             </select>
         </div> -->
         <div class="inputLabelWrapper">
-            <label for="stackingTier">Stacking Tier</label>
+            <label for="stackingTier">Reward Level</label>
             <select class="select" name="stackingTier" id="stackingTier" (change)="stackingTierChange($event)">
                 <ng-container *ngFor="let r of stackingTiers">
                     <option *ngIf="r.pluRequired != 0;else other_content" value="r">{{ r.name.padEnd(12, '&nbsp;') }} {{ r.pluRequired }} PLU</option>
@@ -35,7 +35,7 @@
             </select>
         </div> -->
         <div class="inputLabelWrapper">
-            <label for="eligibleSpendTier">Additional Eligible Spend</label>
+            <label for="eligibleSpendTier">Redeem Feature</label>
             <select class="select" name="eligibleSpendTier" id="eligibleSpendTier" (change)="eligibleSpendTierChange($event)">
                 <ng-container *ngFor="let r of eligibleSpendTiers">
                     <option *ngIf="r.cost != 0;else other_content" value="r">{{ currencySymbol }}{{ r.eligibleSpend.toString().padEnd(10, '&nbsp;') }} {{ r.cost }} PLU/y</option>
@@ -56,14 +56,14 @@
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
-                <label for="eligibleSpend">Eligible Spend</label>
-                <input class="textInput" name="eligibleSpend" id="eligibleSpend" type="text" value="{{ currencySymbol }}{{ eligibleSpend }}" disabled>
+                <label for="eligibleSpend">Monthly Eligible Spend</label>
+                <input class="textInput" name="eligibleSpend" id="eligibleSpend" type="text" value="{{ currencySymbol }}{{ eligibleSpend | number : '1.2-2' }}" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="monthlyCashbackValue">Monthly Cashback Value</label>
-                <input class="textInput" name="monthlyCashbackValue" id="monthlyCashbackValue" type="text" value="{{ currencySymbol }}{{ monthlyCashbackValue }}" disabled>
+                <input class="textInput" name="monthlyCashbackValue" id="monthlyCashbackValue" type="text" value="{{ currencySymbol }}{{ monthlyCashbackValue | number : '1.2-2'}}" disabled>
             </div>
         </div>
         <p class="subTitle">Perks Cashback</p>
@@ -76,26 +76,26 @@
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="monthlyPerkValue">Monthly Perk Value</label>
-                <input class="textInput" name="monthlyPerkValue" id="monthlyPerkValue" type="text" value="{{ currencySymbol }}{{ monthlyPerkValue }}" disabled>
+                <input class="textInput" name="monthlyPerkValue" id="monthlyPerkValue" type="text" value="{{ currencySymbol }}{{ monthlyPerkValue | number : '1.2-2' }}" disabled>
             </div>
         </div>
         <p class="subTitle">Combined Value</p>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="totalMonthlyValue">Monthly Value</label>
-                <input class="textInput" name="totalMonthlyValue" id="totalMonthlyValue" type="text" value="{{ currencySymbol }}{{ totalMonthlyValue }}" disabled>
+                <input class="textInput" name="totalMonthlyValue" id="totalMonthlyValue" type="text" value="{{ currencySymbol }}{{ totalMonthlyValue | number : '1.2-2' }}" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="totalYearlyValue">Yearly Value</label>
-                <input class="textInput" name="totalYearlyValue" id="totalYearlyValue" type="text" value="{{ currencySymbol }}{{ totalYearlyValue }}" disabled>
+                <input class="textInput" name="totalYearlyValue" id="totalYearlyValue" type="text" value="{{ currencySymbol }}{{ totalYearlyValue | number : '1.2-2' }}" disabled>
             </div>
         </div>
         <div class="symbolInput">
             <div class="outputLabelWrapper">
                 <label for="actualTotalYearlyValue">Yearly Value Minus Sub Cost</label>
-                <input class="textInput" name="actualTotalYearlyValue" id="actualTotalYearlyValue" type="text" value="{{ currencySymbol }}{{ actualTotalYearlyValue }}" disabled>
+                <input class="textInput" name="actualTotalYearlyValue" id="actualTotalYearlyValue" type="text" value="{{ currencySymbol }}{{ actualTotalYearlyValue | number : '1.2-2' }}" disabled>
             </div>
         </div>
     </div>
