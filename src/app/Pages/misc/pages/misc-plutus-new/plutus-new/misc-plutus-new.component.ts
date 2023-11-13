@@ -77,11 +77,19 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
     // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
     //this.fetchPluPrice();
-    this.calculate();
+    this.initialise();
   }
 
   ngOnDestroy() {
     this.titleService.setTitle("Random Stuff");
+  }
+
+  initialise() {
+    if (localStorage.getItem("pluCurrencySymbol")) {
+      this.currencySymbol = localStorage.getItem("pluCurrencySymbol");
+    }
+
+    this.calculate();
   }
 
   fetchPluPrice() {
@@ -149,16 +157,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateEligibleSpend() {
-    // INFO: no longer valid as they will stack
-    // if there is no higher eligible spend selected it will default to the subscription eligible spend
-    // else it will pick the higher eligible spend limit
-    // if(this.eligibleSpendTierSelectedIndex == 0) {
-    //   this.eligibleSpend = this.subscriptionTiers[this.subscriptionTierSelectedIndex].eligibleSpend;
-    // } else {
-    //   this.eligibleSpend = this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].eligibleSpend;
-    // }
-
-  
     // if eligible spend stacks
     this.eligibleSpend = this.subscriptionTiers[this.subscriptionTierSelectedIndex].eligibleSpend + this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].eligibleSpend;
   }
@@ -204,6 +202,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     } else {
       this.currencySymbol = "€";
     }
+    localStorage.setItem("pluCurrencySymbol", this.currencySymbol);
     this.calculateRedeemCost();
   }
 }
