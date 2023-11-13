@@ -26,9 +26,9 @@
     padding-bottom: 0px;
     margin: 0px;
     text-align: center;
-    font-size: 25px;
-    text-decoration: underline;
-    margin-bottom: 6px;
+    font-size: 30px;
+    /* text-decoration: underline; */
+    margin-bottom: 4px;
 }
 
 .infoTextTop {
@@ -37,7 +37,7 @@
     margin-bottom: 20px;
     padding-right: 10px;
     padding-left: 10px;
-    font-size: 12.5px;
+    font-size: 12px;
     max-width: 440px;
 }
 
