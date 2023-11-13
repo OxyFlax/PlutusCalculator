@@ -67,8 +67,8 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.titleService.setTitle("Plutus Q4 Calculator");
-    this.metaService.updateTag({ name: "description", content: "Custom Plutus Q4 Benefit Calculator" });
+    this.titleService.setTitle("Plutus Subscriptions & Reward Levels");
+    this.metaService.updateTag({ name: "description", content: "Community calculator for Plutus Subscriptions & Reward Levels" });
     if (!this.metaService.getTag("name='robots'")) {
       this.metaService.addTag({ name: "robots", content: "noindex, follow" });
     } else {
