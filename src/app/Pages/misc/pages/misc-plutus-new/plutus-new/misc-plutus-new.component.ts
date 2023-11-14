@@ -36,10 +36,15 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   monthlyPerkValue: number = 0;
 
   totalMonthlyValue: number = 0;
+
+  subscriptionCost: number = 0;
+  redeemCost: number = 0;
+
+
   totalYearlyValue: number = 0;
+
   actualTotalYearlyValue: number = 0;
 
-  redeemCost: number = 0;
 
 
   superChargedPerksValue: number[] = [0, 0, 0];
@@ -76,7 +81,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     }
 
     // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
-    //this.fetchPluPrice();
+    this.fetchPluPrice();
     this.initialise();
   }
 
@@ -105,6 +110,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       // add the values into the pluPrice object
       this.pluPrice = plutonData.pluton;
     });
+    this.calculateRedeemCost();
   }
 
   getPrices(): Observable<Pluton> {
@@ -136,9 +142,12 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
     this.calculateTotalMonthlyValue();
     this.calculateTotalYearlyValue();
+
+    this.calculateSubscriptionCost();
+    this.calculateRedeemCost();
+
     this.calculateActualTotalYearlyValue();
 
-    this.calculateRedeemCost();
   }
 
   calculateCashbackRate() {
@@ -162,7 +171,12 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateMonthlyCashback() {
-    if (this.subscriptionTierSelectedIndex == 0) { return; } //no cashback if user is on standard subscription
+    //no cashback if user is on standard subscription
+    if (this.subscriptionTierSelectedIndex == 0) { 
+      this.monthlyCashbackValue = 0; 
+      return; 
+    }
+
     this.monthlyCashbackValue = this.eligibleSpend * (this.cashbackRate / 100);
   }
 
@@ -171,7 +185,11 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateMonthlyPerkValue() {
-    if (this.subscriptionTierSelectedIndex == 0) { return; } //no cashback if user is on standard subscription
+    //no cashback if user is on standard subscription
+    if (this.subscriptionTierSelectedIndex == 0) { 
+      this.monthlyPerkValue = 0;
+      return; 
+    } 
     this.monthlyPerkValue = this.perkCount * 10;
   }
   
@@ -183,8 +201,8 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     this.totalYearlyValue = this.totalMonthlyValue * 12;
   }
 
-  calculateActualTotalYearlyValue() {
-    this.actualTotalYearlyValue = this.totalYearlyValue - (this.subscriptionTiers[this.subscriptionTierSelectedIndex].cost * 12);
+  calculateSubscriptionCost() {
+    this.subscriptionCost = this.subscriptionTiers[this.subscriptionTierSelectedIndex].cost * 12;
   }
 
   calculateRedeemCost() {
@@ -193,7 +211,10 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     } else {
       this.redeemCost = this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].cost * this.pluPrice.gbp;
     }
-    console.log(this.redeemCost);
+  }
+
+  calculateActualTotalYearlyValue() {
+    this.actualTotalYearlyValue = this.totalYearlyValue - this.subscriptionCost - this.redeemCost;
   }
 
   changeCurrency() {
