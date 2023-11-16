@@ -1,12 +1,12 @@
 .contentPageOverride {
     width: 100%;
-    background-color: rgb(36, 38 ,39);
-    min-height: calc(100vh);
+    background-color: white;
+    min-height: 560px;
     position: relative;
 }
 
 .currencyButton {
-    background-color: #0722B6;
+    background-color: rgb(38, 73, 236);
     border: none;
     color: #FFFFFF;
     padding: 5px 8px 5px 8px;
@@ -21,13 +21,12 @@
 }
 
 .title {
-    padding-top: 30px;
-    padding-bottom: 0px;
+    padding-top: 60px;
+    padding-bottom: 30px;
     margin: 0px;
     text-align: center;
-    font-size: 30px;
-    /* text-decoration: underline; */
-    margin-bottom: 4px;
+    font-size: 38px;
+    color: rgb(38, 73, 236);
 }
 
 .infoTextTop {
@@ -36,8 +35,9 @@
     margin-bottom: 20px;
     padding-right: 10px;
     padding-left: 10px;
-    font-size: 12px;
-    max-width: 440px;
+    font-size: 14px;
+    max-width: 400px;
+    color: rgb(132, 141, 156);
 }
 
 
@@ -75,21 +75,46 @@
 }
 
 .inputWrapper {
-    width: 250px;
+    width: 820px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 70px;
     margin-bottom: 20px;
 }
 
+.inputLabelWrapper {
+    float: left;
+}
 
+.inputWrapper label {
+    color: rgb(38, 73, 236);
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 12px;
+}
 
 select {
-    border: 0px;
-    background-color: rgb(28, 30, 33);
+    border: 1px solid #0921B4;
+    background-color: white;
+    color: #172A46;
     height: 40px;
     font-family: monospace;
     font-size: 14px;
-    width: 270px;
+    font-weight: bold;
+    width: 230px;
+    border-radius: 30px;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+select:focus {
+    border-color: #0921B4;
+    outline: none !important;
+}
+
+option span {
+
+    color: red;
+    font-size: 8px;
 }
 
 option {

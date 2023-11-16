@@ -1,15 +1,17 @@
 <div class="contentPageOverride">
     <button class="currencyButton" (click)="changeCurrency()">Switch £/€</button>
-    <p class="title">Plutus New Subscriptions & Reward Levels</p>
+    <p class="title">Pluton Rewards Calculator</p>
     <p class="infoTextTop">
-        This is a community-created calculator based on information released by Plutus regarding their upcoming changes to the subscription and stacking tiers.
+        This is a community-created calculator based on information
+        released by Plutus regarding their upcoming updates to the
+        subscription plans and Reward Levels.
     </p>
 
     <div class="inputWrapper">
         <div class="inputLabelWrapper">
             <label for="subscriptionTier">Subscription Plan</label>
             <select class="select" name="subscriptionTier" id="subscriptionTier" (change)="subscriptionTierChange($event)">
-                <option *ngFor="let r of subscriptionTiers" value="r">&nbsp;{{ r.name.padEnd(19, '&nbsp;') }} {{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</option>
+                <option *ngFor="let r of subscriptionTiers" value="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span>{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</span></option>
             </select>
         </div>
 
@@ -17,7 +19,7 @@
             <label for="stackingTier">Reward Levels</label>
             <select class="select" name="stackingTier" id="stackingTier" (change)="stackingTierChange($event)">
                 <ng-container *ngFor="let r of stackingTiers">
-                    <option *ngIf="r.pluRequired != 0;else other_content" value="r">&nbsp;{{ r.name.padEnd(19, '&nbsp;') }} {{ r.pluRequired }} PLU</option>
+                    <option *ngIf="r.pluRequired != 0;else other_content" value="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} {{ r.pluRequired }} PLU</option>
                     <ng-template #other_content>
                         <option value="r">&nbsp;{{ r.name }}</option>
                     </ng-template>
