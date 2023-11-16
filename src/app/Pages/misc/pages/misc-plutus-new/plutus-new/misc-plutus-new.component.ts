@@ -5,6 +5,7 @@ import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, CurrentP
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Component({
   selector: 'app-misc-plutus-new',
   templateUrl: './misc-plutus-new.component.html',
@@ -22,11 +23,11 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   eligibleSpendTiers: EligibleSpendTier[] = PlutusJson.eligibleSpendTiers;
   currentPrices: CurrentPrices = {eurPrice: 0, gbpPrice: 0};
 
-  currencySymbol: string = "€";
+  selectedSubscriptionTier = this.subscriptionTiers[0];
+  selectedStackingTier = this.stackingTiers[0];
+  selectedEligibleSpendTier = this.eligibleSpendTiers[0];
 
-  subscriptionTierSelectedIndex: number = 0;
-  stackingTierSelectedIndex: number = 0;
-  eligibleSpendTierSelectedIndex: number = 0;
+  currencySymbol: string = "€";
 
   cashbackRate: number = 0;
   eligibleSpend: number = 0;
@@ -94,7 +95,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       this.currencySymbol = localStorage.getItem("pluCurrencySymbol");
     }
 
-    this.calculate();
+    // this.calculate();
   }
 
   fetchPluPrice() {
@@ -117,27 +118,24 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     return this.http.get<Pluton>(this.url);
   }
 
-  stackingTierChange(event: any) {
-    this.stackingTierSelectedIndex = event.target.selectedIndex;
+  subscriptionTierChange(event: any) {
     this.calculate();
   }
 
-  subscriptionTierChange(event: any) {
-    this.subscriptionTierSelectedIndex = event.target.selectedIndex;
+  stackingTierChange(event: any) {
     this.calculate();
   }
 
   eligibleSpendTierChange(event: any) {
-    this.eligibleSpendTierSelectedIndex = event.target.selectedIndex;
     this.calculate();
   }
 
   calculate() {
     this.calculateCashbackRate();
-    this.calculateEligibleSpend();
-    this.calculateMonthlyCashback();
-
     this.calculatePerkCount();
+    this.calculateEligibleSpend();
+
+    this.calculateMonthlyCashback();
     this.calculateMonthlyPerkValue();
 
     this.calculateTotalMonthlyValue();
@@ -151,28 +149,29 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateCashbackRate() {
-    // if user has no stack and no subscription the cashback is 0
-    if(this.subscriptionTierSelectedIndex == 0 && this.stackingTierSelectedIndex == 0) {
-      this.cashbackRate = 0;
+    if (this.selectedStackingTier.name !== "None") {
+      this.cashbackRate = this.selectedStackingTier.cashbackPercentage;
       return;
-    } 
+    }
 
-    // if user is on a stacking tier this will be their cashback %
-    if (this.stackingTierSelectedIndex != 0) {
-      this.cashbackRate = this.stackingTiers[this.stackingTierSelectedIndex].cashbackPercentage;
+    if (this.selectedSubscriptionTier.name === "Standard") {
+      this.cashbackRate = 0;
     } else {
-      this.cashbackRate = this.subscriptionTiers[this.subscriptionTierSelectedIndex].cashbackPercentage;
+      this.cashbackRate = this.selectedSubscriptionTier.cashbackPercentage
     }
   }
 
+  calculatePerkCount() {
+    this.perkCount = this.selectedSubscriptionTier.perkCount + this.selectedStackingTier.perkCount;  
+  }
+
   calculateEligibleSpend() {
-    // if eligible spend stacks
-    this.eligibleSpend = this.subscriptionTiers[this.subscriptionTierSelectedIndex].eligibleSpend + this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].eligibleSpend;
+    this.eligibleSpend = this.selectedSubscriptionTier.eligibleSpend + this.selectedEligibleSpendTier.eligibleSpend;
   }
 
   calculateMonthlyCashback() {
     //no cashback if user is on standard subscription
-    if (this.subscriptionTierSelectedIndex == 0) { 
+    if (this.selectedSubscriptionTier.name === "Standard") { 
       this.monthlyCashbackValue = 0; 
       return; 
     }
@@ -180,13 +179,9 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     this.monthlyCashbackValue = this.eligibleSpend * (this.cashbackRate / 100);
   }
 
-  calculatePerkCount() {
-    this.perkCount = this.subscriptionTiers[this.subscriptionTierSelectedIndex].perkCount + this.stackingTiers[this.stackingTierSelectedIndex].perkCount;
-  }
-
   calculateMonthlyPerkValue() {
     //no cashback if user is on standard subscription
-    if (this.subscriptionTierSelectedIndex == 0) { 
+    if (this.selectedSubscriptionTier.name === "Standard") { 
       this.monthlyPerkValue = 0;
       return; 
     } 
@@ -202,14 +197,14 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateSubscriptionCost() {
-    this.subscriptionCost = this.subscriptionTiers[this.subscriptionTierSelectedIndex].cost * 12;
+    this.subscriptionCost = this.selectedSubscriptionTier.cost * 12;
   }
 
   calculateRedeemCost() {
     if (this.currencySymbol === "€") {
-      this.redeemCost = this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].cost * this.pluPrice.eur;
+      this.redeemCost = this.selectedEligibleSpendTier.cost * this.pluPrice.eur;
     } else {
-      this.redeemCost = this.eligibleSpendTiers[this.eligibleSpendTierSelectedIndex].cost * this.pluPrice.gbp;
+      this.redeemCost = this.selectedEligibleSpendTier.cost * this.pluPrice.gbp;
     }
   }
 

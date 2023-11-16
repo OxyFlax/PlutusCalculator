@@ -6,54 +6,44 @@
         released by Plutus regarding their upcoming updates to the
         subscription plans and Reward Levels.
     </p>
-
     <div class="inputWrapper">
         <div class="inputLabelWrapper">
             <label for="subscriptionTier">Subscription Plan</label>
-            <select class="select" name="subscriptionTier" id="subscriptionTier" (change)="subscriptionTierChange($event)">
-                <option *ngFor="let r of subscriptionTiers" value="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span>{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</span></option>
-            </select>
+            <ng-select name="subscriptionTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedSubscriptionTier" (change)="subscriptionTierChange($event)">
+                <ng-option *ngFor="let r of subscriptionTiers" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span class="optionSmallText">{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</span></ng-option>
+             </ng-select>
         </div>
 
         <div class="inputLabelWrapper">
             <label for="stackingTier">Reward Levels</label>
-            <select class="select" name="stackingTier" id="stackingTier" (change)="stackingTierChange($event)">
-                <ng-container *ngFor="let r of stackingTiers">
-                    <option *ngIf="r.pluRequired != 0;else other_content" value="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} {{ r.pluRequired }} PLU</option>
-                    <ng-template #other_content>
-                        <option value="r">&nbsp;{{ r.name }}</option>
-                    </ng-template>
-                </ng-container>
-            </select>
+            <ng-select name="stackingTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedStackingTier" (change)="stackingTierChange($event)">
+                <ng-option *ngFor="let r of stackingTiers" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span *ngIf="r.pluRequired != 0" class="optionSmallText">{{ r.pluRequired }} PLU</span></ng-option>
+             </ng-select>
         </div>
 
         <div class="inputLabelWrapper">
             <label for="eligibleSpendTier">Rewards Cap</label>
-            <select class="select" name="eligibleSpendTier" id="eligibleSpendTier" (change)="eligibleSpendTierChange($event)">
-                <ng-container *ngFor="let r of eligibleSpendTiers">
-                    <!-- <option *ngIf="r.cost != 0;else other_content" value="r">&nbsp;{{ currencySymbol }}{{ r.eligibleSpend.toString().padEnd(16, '&nbsp;') }} {{ r.cost }} PLU/y</option> -->
-                    <option *ngIf="r.cost != 0;else other_content" value="r">&nbsp;Redeem {{ r.cost.toString().padEnd(3, '&nbsp;') }} PLU/yr = +{{ currencySymbol }}{{ r.eligibleSpend  | number : '1.0-0' }}</option>
-                    <!-- {{ currencySymbol }}{{ redeemCost }}/y -->
-                    <ng-template #other_content>
-                        <option value="r">&nbsp;No Higher Cap</option>
-                    </ng-template>
-                </ng-container>
-            </select>
+            <ng-select name="eligibleSpendTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedEligibleSpendTier" (change)="eligibleSpendTierChange($event)">
+                <ng-option *ngFor="let r of eligibleSpendTiers" [value]="r">
+                    <span *ngIf="r.cost == 0">&nbsp;{{ r.name }}</span>
+                    <span *ngIf="r.cost != 0">&nbsp;{{ currencySymbol }}{{ r.eligibleSpend  | number : '1.0-0' }}/m &nbsp;&nbsp;&nbsp;<span *ngIf="r.cost != 500">&nbsp;</span><span class="optionSmallText">{{ r.cost }} PLU/yr</span></span>
+                </ng-option>
+             </ng-select>
         </div>
     </div>
 
     <div class="overview">
         <div class="overviewItem">
-            <h4>Rewards</h4>
-            <h3>{{ cashbackRate }}%</h3>
+            <h1>{{ cashbackRate }}%</h1>
+            <h5>REWARDS</h5>
         </div>
         <div class="overviewItem">
-            <h4>Perks</h4>
-            <h3>{{ perkCount }}</h3>
+            <h1>{{ perkCount }}</h1>
+            <h5>PERKS</h5>
         </div>
         <div class="overviewItem">
-            <h4>Rewards Cap</h4>
-            <h3>{{ currencySymbol }}{{ eligibleSpend | number : '1.0-0' }}/m</h3>
+            <h1>{{ currencySymbol }}{{ eligibleSpend | number : '1.0-0' }}/m</h1>
+            <h5>REWARDS CAP</h5>
         </div>
     </div>
 

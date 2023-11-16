@@ -1,7 +1,7 @@
 .contentPageOverride {
     width: 100%;
     background-color: white;
-    min-height: 560px;
+    min-height: 300px;
     position: relative;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .title {
-    padding-top: 60px;
+    padding-top: 70px;
     padding-bottom: 30px;
     margin: 0px;
     text-align: center;
@@ -44,41 +44,49 @@
 .overview {
     display: flex;
     align-items: center;
-    border-radius: 10px;
-    background-color: rgb(25, 27, 28); 
-    width: 500px;
-    height: 115px;
+    width: 738px;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 180px;
     margin: 0 auto;
     margin-bottom: 28px;
     justify-content: space-around;
     text-align: center;
+    transform: translateY(50%);
 }
 
 .overviewItem {
-    display: inline-block;
-    width: 105px;
-    height: 45;
+    background-color: #001271;
+    border-radius: 20px;
+    width: 236px;
+    height: 170px;
 }
 
-.overviewItem h4 {
+.overviewItem:nth-child(-n+2) {
+    margin-right: 15px;
+}
+
+.overviewItem h5 {
     margin:0;
+    margin-top: 30px;
     font-weight: normal;
 }
-
-.overviewItem h3 {
+.overviewItem h1 {
     margin: 0;
-    margin-top: 5px;
-    padding: 3px 5px 3px 5px;
+    margin-top: 45px;
+    padding: 3px 12px 3px 12px;
     display:inline-block; 
-    background-color: #0722B6;
+    background-color: #0923B5;
     border-radius: 6px;
+    font-weight: lighter;
 }
 
 .inputWrapper {
-    width: 820px;
+    width: 762px;
     margin: 0 auto;
     margin-top: 70px;
     margin-bottom: 20px;
+    height:auto;
 }
 
 .inputLabelWrapper {
@@ -92,7 +100,36 @@
     margin-left: 12px;
 }
 
-select {
+.ng-select {
+    border:0px;
+    min-height: 0px;
+    border-radius: 0;
+    width: 230px;
+    height: 40px;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+::ng-deep.ng-select-container {
+    border: 1px solid #0921B4 !important;
+    border-radius: 30px !important;
+    height: 40px !important;
+}
+
+::ng-deep.ng-placeholder {
+    color:#172A46 !important;
+}
+
+.optionSmallText {
+    font-size: 14px;
+    color: #848D9C;
+}
+
+
+/* .ng-select-container, .ng-select  {            
     border: 1px solid #0921B4;
     background-color: white;
     color: #172A46;
@@ -104,12 +141,7 @@ select {
     border-radius: 30px;
     margin-left: 12px;
     margin-right: 12px;
-}
-
-select:focus {
-    border-color: #0921B4;
-    outline: none !important;
-}
+} */
 
 option span {
 
@@ -129,6 +161,8 @@ option {
     justify-content: center;
     text-align: center;
     margin-bottom: 10px;
+
+    margin-top: 150px;
 }
 
 .header {
