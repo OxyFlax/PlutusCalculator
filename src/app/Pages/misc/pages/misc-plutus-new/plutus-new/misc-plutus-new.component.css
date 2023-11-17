@@ -1,8 +1,17 @@
 .contentPageOverride {
     width: 100%;
     background-color: white;
-    min-height: 300px;
     position: relative;
+}
+
+.contentpageSecondaryColor {
+    background-color: #F5F9FF;
+    z-index: -1;
+}
+
+.contentpageTertiaryColor {
+    background-color: #2649EC;
+    z-index: 2;
 }
 
 .currencyButton {
@@ -49,7 +58,6 @@
     padding-right: 12px;
     height: 180px;
     margin: 0 auto;
-    margin-bottom: 28px;
     justify-content: space-around;
     text-align: center;
     transform: translateY(50%);
@@ -66,19 +74,21 @@
     margin-right: 15px;
 }
 
-.overviewItem h5 {
-    margin:0;
-    margin-top: 30px;
-    font-weight: normal;
-}
 .overviewItem h1 {
     margin: 0;
     margin-top: 45px;
-    padding: 3px 12px 3px 12px;
+    padding: 9px 12px 7px 12px;
     display:inline-block; 
     background-color: #0923B5;
     border-radius: 6px;
     font-weight: lighter;
+    min-width: 80px;
+}
+
+.overviewItem h5 {
+    margin:0;
+    margin-top: 30px;
+    font-weight: bold;
 }
 
 .inputWrapper {
@@ -98,6 +108,7 @@
     font-weight: bold;
     font-size: 20px;
     margin-left: 12px;
+    margin-bottom: 10px;
 }
 
 .ng-select {
@@ -128,184 +139,315 @@
     color: #848D9C;
 }
 
-
-/* .ng-select-container, .ng-select  {            
-    border: 1px solid #0921B4;
-    background-color: white;
-    color: #172A46;
-    height: 40px;
-    font-family: monospace;
-    font-size: 14px;
-    font-weight: bold;
-    width: 230px;
-    border-radius: 30px;
-    margin-left: 12px;
-    margin-right: 12px;
-} */
-
-option span {
-
-    color: red;
-    font-size: 8px;
-}
-
-option {
-    appearance: none;
-}
-
 .outputWrapper {
     display: flex;
     align-items: center;
-    width: 500px;
+    width: 762px;
     margin: 0 auto;
     justify-content: center;
     text-align: center;
-    margin-bottom: 10px;
+    padding-top: 150px;
+    padding-bottom: 100px;
+}
 
-    margin-top: 150px;
+.headerBackDrop {
+    background: linear-gradient(to right, #F5F9FF 50%, white 50%)
 }
 
 .header {
-    background-color: #0722B6;
-    border-radius: 10px;
-    z-index: 2;
-    transform: translateX(10px);
-    width: 260px;
+    background-color: #2649EA;
+    border-radius: 20px;
+    width: 375px;
+    margin-left: 12px;
+    -moz-box-shadow: 0px 7px 26px 4px rgba(38,73,234,0.33);
+    -webkit-box-shadow: 0px 7px 26px 4px rgba(38,73,234,0.33);
+    box-shadow: 0px 7px 26px 4px rgba(38,73,234,0.33);
+    z-index:999;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .header p {
-    font-size: 17px;
+    font-size: 19px;
     margin: 0;
-    padding: 12px 10px 12px 10px;
-    width: 240px;
+    padding: 18px 10px 12px 34px;
+    text-align: left;
+    font-weight: lighter;
+}
+
+.header span {
+    display: inline-block;
+    font-size: 12px;
+    color: #F3F4F5;
+    transform: translateY(-1px);
+    padding-left: 20px;
 }
 
 .header hr {
     border: 1px solid transparent;
 }
 
+.header p {
+    border-bottom: 1px solid transparent;
+}
+
 .values {
-    background-color: rgb(25, 27, 28);
-    border-radius: 10px;
-    z-index: 1;
-    transform: translateX(-10px);
-    width: 260px;
+    background-color: white;
+    border-radius: 0 20px 20px 0;
+    z-index: -1;
+    width: 375px;
+    margin-right: 12px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .values p {
-    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    font-size: 19px;
     margin: 0;
-    padding: 12px 0px 12px 20px;
-    width: 240px;
+    padding: 18px 10px 12px 34px;
+    color: #172A46;
 }
 
-.values hr {
-    border: 1px solid rgb(36, 38 ,39);
+.values p {
+    border-bottom: 1px solid #EEEEEE;
 }
 
 hr {
     margin: 0px;
 }
 
-.values p:last-child { border-bottom: none; }
+.values p:last-child, .header p:last-child { border-bottom: none; }
 
 .explainer {
-    max-width: 500px;
+    padding-top: 97px;
+    padding-bottom: 120px;
+    width: 738px;
     margin: 0 auto;
-    padding: 8px;
-    font-size: 12px;
+    min-height: 300px;
 }
 
-.explainer span{
+.explainerTitle {
+    color: #2649EC;
     font-weight: bold;
+    width: 300px;
+    margin-left: 30px;
+    float: left;
+    font-size: 19px;
+    height: 90px;
+}
+
+.explainerText {
+    color: #848D9C;
+    width: 378px;
+    float: left;
+    margin-right: 30px;
+    font-size: 14px;
+    height: 90px;
 }
 
 .importantNotes {
-    max-width: 500px;
+    width: 738px;
+    height: 200px;
+    background-color: white;
+    border-radius: 20px;
     margin: 0 auto;
-    padding: 8px;
     padding-top: 0px;
     font-size: 12px;
+    transform: translateY(-50%);
+
+    box-shadow: -1px 0px 25px -18px rgba(0,0,0,0.42);
+    -webkit-box-shadow: -1px 0px 25px -18px rgba(0,0,0,0.42);
+    -moz-box-shadow: -1px 0px 25px -18px rgba(0,0,0,0.42);
 }
 
-.importantNotes span{
+.notesTitle {
+    color: #2649EC;
     font-weight: bold;
-}
-
-.importantNotes ul {
-    padding-left: 15px;
-    margin-top: 0px;
-}
-
-.referralStuff {
-    margin-top: 50px;
+    font-size: 19px;
     text-align: center;
-    font-size: 12.5px;
+    width: 100%;
+    margin: 0px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
-.referralStuff a {
-    color: inherit;
-    text-decoration: underline;
+.noteItem {
+    color: #848D9C;
+    float: left;
+    width: 50%;
 }
 
-@media only screen and (max-width: 750px) {
-    .title {
-        padding-top: 42px;
+.noteCheckmarkWrapper {
+    width: 18%;
+    float: left;
+    text-align: center;
+}
+
+.noteCheckMark {
+    display: inline-block;
+    font-weight: bold;
+    background-color: #2649EC;
+    color: white;
+    font-family: monospace;
+    border-radius: 50%;
+    padding: 2px 6px 2px 6px;
+    margin-left: 15px;
+    transform: translateY(-3px);
+}
+
+.noteText {
+    width: 75%;
+    float: left;
+    font-size: 14px;
+}
+
+
+@media only screen and (max-width: 761px) {
+    .inputWrapper {
+        margin-top: 30px;
+        width: 254px;
+        text-align: center;
     }
-}
 
-@media only screen and (max-width: 510px) {
+    .inputLabelWrapper {
+        padding-top: 10px;
+    }
+
+    .inputWrapper label {
+        margin-bottom: 5px;
+    }
+
     .overview {
-        width: 400px;
+        display: inline-block;
+        width: 100%;
+        height: auto;
+        transform: none;
+        padding: 0px;
+        padding-top: 5px;
+        padding-bottom: 25px;
+    }
+
+    .overviewItem {
+        margin: 0 auto;
+        margin-top: 20px;
+        height: 105px;
+    }
+
+    .overviewItem:nth-child(-n+2) {
+        margin-right: auto;
+    }
+
+    .overviewItem h1 {
+        margin-top: 15px;
+    }
+
+    .overviewItem h5 {
+        margin-top: 10px;
     }
 
     .outputWrapper {
-        width: 400px;
+        width: 100%;
+        padding-top: 25px;
+        padding-bottom: 25px;
     }
 
     .header {
-        width: 210px;
+        width: 230px;
     }
-    
-    .header p {
-        width: 190px;
-    }
-    
+
     .values {
-        width: 210px;
+        width: 200px;
     }
-    
+
     .values p {
-        width: 190px;
+        padding: 18px 0px 12px 0px;
+    }
+
+    .values p:last-child {
+        padding-bottom: 34px;
+    }
+
+    .explainer {
+        min-height: 300px;
+        width: 300px;
+        padding-top: 35px;
+        margin: 0 auto;
+    }
+
+    .explainerTitle {
+        width: 200px;
+        float: none;
+        height: auto;
+        margin-left: 0px;
+        padding-bottom: 5px;
+    }
+
+    .explainerText {
+        width: 290px;
+        float: none;
+        margin-right: 0px;
+        padding-left: 10px;
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    .importantNotes {
+        width: 430px;
+        height: 225px;
+    }
+
+    .notesTitle {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .noteCheckmarkWrapper {
+        width: 30px;
+        margin-right: 10px;
+    }
+
+    .noteCheckMark {
+        margin-left: 0px;
+    }
+
+    .noteText {
+        width: 300px;
+    }
+
+    .noteItem {
+        width: 340px;
+        margin: 0 auto;
+        float: none;
+        height: 48px;
+        padding-bottom: 25px;
     }
 }
 
-@media only screen and (max-width: 410px) {
-    .overview {
-        width: 310px;
-        padding-right: 10px;
+@media only screen and (max-width: 453px) {
+    .importantNotes {
+        width: calc(100% - 24px);
     }
 
-    .outputWrapper {
-        width: 320px;
+    .noteItem {
+        width: -webkit-calc(100% - 24px);
+        width:    -moz-calc(100% - 24px);
+        width:         calc(100% - 24px);
+        margin: 0 auto;
+        float: none;
+        height: 48px;
+        padding-bottom: 25px;
     }
 
-    .header {
-        width: 170px;
+    .noteText {
+        width: -webkit-calc(100% - 40px);
+        width:    -moz-calc(100% - 40px);
+        width:         calc(100% - 40px);
     }
-    
-    .header p {
-        width: 170px;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-    
-    .values {
-        width: 170px;
-    }
-    
-    .values p {
-        width: 150px;
-        padding-right: 0px;
+}
+
+@media only screen and (max-width: 353px) {
+    .importantNotes {
+        height: 240px;
     }
 }

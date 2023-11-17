@@ -46,51 +46,59 @@
             <h5>REWARDS CAP</h5>
         </div>
     </div>
-
+</div>
+<div class="contentPageOverride contentpageSecondaryColor">
     <div class="outputWrapper">
-        <div class="header">
-            <p>Monthly Rewards</p>
-            <hr>
-            <p>Monthly Perks</p>
-            <hr>
-            <p>Total Monthly Value</p>
-            <hr>
-            <p>Subscription Cost</p>
-            <hr>
-            <p>Redeem Cost</p>
-            <hr>
-            <p>Earn Yearly Value (minus costs)</p>
+        <div class="headerBackDrop">
+            <div class="header">
+                <p>Monthly Rewards</p>
+                <p>Monthly Perks</p>
+                <p>Total Monthly Value</p>
+                <p>Subscription Cost</p>
+                <p>Redeem Cost</p>
+                <p>Earn Yearly Value <span>(Costs Subtracted)</span></p>
+            </div>
         </div>
         <div class="values">
             <p>{{ currencySymbol }}{{ monthlyCashbackValue | number : '1.2-2'}}</p>
-            <hr>
             <p>{{ currencySymbol }}{{ monthlyPerkValue | number : '1.2-2' }}</p>
-            <hr>
             <p>{{ currencySymbol }}{{ totalMonthlyValue | number : '1.2-2' }}</p>
-            <hr>
             <p>{{ currencySymbol }}{{ subscriptionCost | number : '1.2-2' }}</p>
-            <hr>
             <p>{{ currencySymbol }}{{ redeemCost | number : '1.2-2' }}</p>
-            <hr>
             <p>{{ currencySymbol }}{{ actualTotalYearlyValue | number : '1.2-2' }}</p>
         </div>
     </div>
-
+</div>
+<div class="contentPageOverride">
     <div class="explainer">
-        <p><span>Subscription Plan:</span> Signing up to a monthly subscription plan is a compulsory requirement to earn rewards and perks.</p>
-        <p><span>Reward Levels:</span> A reward level can be unlocked by stacking earned PLU. Unlocking a reward level will give you a higher rewards rate and perks.</p>
-        <p><span>Rewards Cap:</span> You can increase the monthly spending amount eligible for earning rewards by redeeming PLU you have earned.</p>
+        <div class="explainerTitle">Subscription Plan</div>
+        <div class="explainerText">To earn rewards and perks, you must sign up for a monthly subscription plan.</div>
+        <div class="explainerTitle">Reward Levels</div>
+        <div class="explainerText">Stack your earned PLU to unlock higher reward rates and additional perks as you progress through Reward Levels.</div>
+        <div class="explainerTitle">Rewards Cap</div>
+        <div class="explainerText">Increase your monthly spending eligible for rewards by redeeming earned PLU. Redeemed PLU goes back to the Rewards Pool for sustainability.</div>
     </div>
-
+</div>
+<div class="contentPageOverride contentpageTertiaryColor">
     <div class="importantNotes">
-        <span>Important Notes:</span>
-        <ul>
-            <li>Redeeming PLU is sent back to the Rewards Pool to increase sustainability.</li>
-            <li>The redemption cost for boosted rewards cap is dynamically determined by the value set by customers on third-party platforms, both those who earn PLU and those who use it to unlock features.</li>
-            <li>The PLU required for Reward Levels is not accounted for as a cost since customers retain both their stack and the rewards in personal wallets available to swap at any time.</li>
-        </ul>
+        <p class="notesTitle">Important Notes</p>
+        <div class="noteItem">
+            <div class="noteCheckmarkWrapper">
+                <span class="noteCheckMark">&#10003;</span>
+            </div>
+            <div class="noteText">
+                The redemption cost for boosting rewards cap is determined by customer-set values on third-party platforms.
+            </div>
+        </div>
+        <div class="noteItem">
+            <div class="noteCheckmarkWrapper">
+                <span class="noteCheckMark">&#10003;</span>
+            </div>
+            <div class="noteText">
+                The PLU needed for Reward Levels is not considered a cost, as customers keep both their stack and rewards in personal wallets, available for swapping at any time.
+            </div>
+        </div>
     </div>
-
     <!-- <p class="referralStuff">
         My Plutus referral link:
         <br>
