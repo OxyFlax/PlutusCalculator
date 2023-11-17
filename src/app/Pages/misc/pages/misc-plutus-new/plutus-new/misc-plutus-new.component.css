@@ -49,8 +49,51 @@
     color: rgb(132, 141, 156);
 }
 
+.inputWrapper {
+    width: 762px;
+    margin: 0 auto;
+    margin-top: 70px;
+    margin-bottom: 20px;
+    height: auto;
+}
+
+.inputLabelWrapper {
+    float: left;
+}
+
+.inputWrapper label {
+    color: rgb(38, 73, 236);
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 12px;
+    margin-bottom: 10px;
+}
+
+.ng-select {
+    border:0px;
+    min-height: 0px;
+    border-radius: 0;
+    width: 230px;
+    height: 40px;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+::ng-deep.ng-select-container {
+    border: 1px solid #0921B4 !important;
+    border-radius: 30px !important;
+    height: 40px !important;
+}
+
+::ng-deep.ng-placeholder {
+    color:#172A46 !important;
+}
 
 .overview {
+    clear: both;
     display: flex;
     align-items: center;
     width: 738px;
@@ -89,49 +132,6 @@
     margin:0;
     margin-top: 30px;
     font-weight: bold;
-}
-
-.inputWrapper {
-    width: 762px;
-    margin: 0 auto;
-    margin-top: 70px;
-    margin-bottom: 20px;
-    height:auto;
-}
-
-.inputLabelWrapper {
-    float: left;
-}
-
-.inputWrapper label {
-    color: rgb(38, 73, 236);
-    font-weight: bold;
-    font-size: 20px;
-    margin-left: 12px;
-    margin-bottom: 10px;
-}
-
-.ng-select {
-    border:0px;
-    min-height: 0px;
-    border-radius: 0;
-    width: 230px;
-    height: 40px;
-    font-family: monospace;
-    font-size: 14px;
-    font-weight: bold;
-    margin-left: 12px;
-    margin-right: 12px;
-}
-
-::ng-deep.ng-select-container {
-    border: 1px solid #0921B4 !important;
-    border-radius: 30px !important;
-    height: 40px !important;
-}
-
-::ng-deep.ng-placeholder {
-    color:#172A46 !important;
 }
 
 .optionSmallText {
