@@ -30,20 +30,16 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   currencySymbol: string = "€";
 
   cashbackRate: number = 0;
-  eligibleSpend: number = 0;
-  monthlyCashbackValue: number = 0;
-
   perkCount: number = 0;
+  eligibleSpend: number = 0;
+
+  monthlyCashbackValue: number = 0;
   monthlyPerkValue: number = 0;
-
   totalMonthlyValue: number = 0;
-
   subscriptionCost: number = 0;
   redeemCost: number = 0;
-
-
+  
   totalYearlyValue: number = 0;
-
   actualTotalYearlyValue: number = 0;
 
 
@@ -219,7 +215,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       this.currencySymbol = "€";
     }
     localStorage.setItem("pluCurrencySymbol", this.currencySymbol);
-    this.calculateRedeemCost();
+    this.calculate();
   }
 }
 
