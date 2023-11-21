@@ -101,9 +101,14 @@ const routes: Routes = [
         path: 'misc/plutusmetal', 
         loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal/misc-plutus-metal.module').then(m => m.MiscPlutusMetalModule)
     },
+
     {
         path: 'misc/plutusq4', 
-        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-q4/misc-plutus-q4.module').then(m => m.MiscPlutusQ4Module)
+        redirectTo: 'plutus-calculator'
+    },
+    {
+        path: 'plutusnew', 
+        redirectTo: 'plutus-calculator'
     },
 
 
@@ -113,7 +118,7 @@ const routes: Routes = [
         loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal-adjusted/misc-plutus-metal-adjusted.module').then(m => m.MiscPlutusMetalAdjustedModule)
     },
     {
-        path        : 'plutusnew',
+        path        : 'plutus-calculator',
         loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-new/misc-plutus-new.module').then(m => m.MiscPlutusNewModule)
     },
     {
