@@ -18,12 +18,12 @@ export class VanishingJourneyComponent implements OnInit {
     var dailySymbols: number = 0;
 
     if (this.dailyQuest) {
-      dailySymbols += 9;
+      dailySymbols += 10;
     }
 
     // if reverse city is unlocked add an extra 9 symbols
     if (this.reverseCity) {
-      dailySymbols += 9;
+      dailySymbols += 10;
     }
 
     // this is a weekly so divide the number by seven for daily average

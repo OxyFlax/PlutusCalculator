@@ -11,7 +11,6 @@ export interface SacredSymbolSaveData {
     cerniumLevel: number;
     cerniumExp: number;
     cerniumDailyQuest: boolean;
-    burningCerniumDailyQuest: boolean;
 
     arcusLevel: number;
     arcusExp: number;

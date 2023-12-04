@@ -19,12 +19,12 @@ export class ChuChuComponent implements OnInit {
     var dailySymbols: number = 0;
 
     if (this.dailyQuest) {
-      dailySymbols += 8;
+      dailySymbols += 10;
     }
 
     // if yum yum island is unlocked add an extra 8 symbols
     if (this.yumYumIsland) {
-      dailySymbols += 8;
+      dailySymbols += 10;
     }
 
     // this is a weekly so divide the number by seven for daily average

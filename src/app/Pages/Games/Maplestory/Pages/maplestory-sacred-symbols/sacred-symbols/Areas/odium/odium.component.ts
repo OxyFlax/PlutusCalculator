@@ -17,7 +17,7 @@ export class OdiumComponent implements OnInit {
     var symbolsPerDay: number = 0;
 
     if (this.dailyQuest) {
-      symbolsPerDay += 5;
+      symbolsPerDay += 10;
     }
 
     return symbolsPerDay;

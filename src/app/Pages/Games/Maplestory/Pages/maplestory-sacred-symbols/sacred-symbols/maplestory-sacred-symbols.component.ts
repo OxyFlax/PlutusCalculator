@@ -64,7 +64,6 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
       cerniumLevel: 1,
       cerniumExp: 1,
       cerniumDailyQuest: true,
-      burningCerniumDailyQuest: false,
       arcusLevel: 1,
       arcusExp: 1,
       arcusDailyQuest: true,
@@ -85,7 +84,6 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         this.currentLevel = this.sacredSymbolSaveData.cerniumLevel;
         this.currentXp = this.sacredSymbolSaveData.cerniumExp;
         this.cerniumChild.cerniumDailyQuest = this.sacredSymbolSaveData.cerniumDailyQuest;
-        this.cerniumChild.burningCerniumDailyQuest = this.sacredSymbolSaveData.burningCerniumDailyQuest;
         break;
       case 1:
         this.sacredSymbolCost = SacredSymbolCostJson.Arcus;
@@ -237,7 +235,6 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         this.sacredSymbolSaveData.cerniumLevel = this.currentLevel;
         this.sacredSymbolSaveData.cerniumExp = this.currentXp;
         this.sacredSymbolSaveData.cerniumDailyQuest = this.cerniumChild.cerniumDailyQuest;
-        this.sacredSymbolSaveData.burningCerniumDailyQuest = this.cerniumChild.burningCerniumDailyQuest;
         break;
       case 1:
         this.sacredSymbolSaveData.arcusLevel = this.currentLevel;

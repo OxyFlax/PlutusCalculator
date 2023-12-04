@@ -1,5 +1,5 @@
 {
-    "version": "9.1",
+    "version": "9.2",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -194,54 +194,6 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
-                },
-                {
-                    "name": "Wongstaurant Coin Capping",
-                    "image": "Event/Savior/Coin.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() < 1693353599000" 
-                },
-                {
-                    "name": "Wongstaurant Secret Week",
-                    "image": "Event/Savior/Mushroom.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() > 1689811200000 && new Date().getTime() < 1690329599000"
-                },
-                {
-                    "name": "Wongstaurant Special Delivery",
-                    "image": "Event/Savior/Yeti.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() > 1690329600000 && new Date().getTime() < 1690934399000"
-                },
-                {
-                    "name": "Wongstaurant Healing Spa",
-                    "image": "Event/Savior/Slime.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() > 1690934400000 && new Date().getTime() < 1691539199000"
-                },
-                {
-                    "name": "Wongstaurant Challenge Week",
-                    "image": "Event/Savior/Wave.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() > 1691539200000 && new Date().getTime() < 1692143999000"
-                },
-                {
-                    "name": "Wongstaurant Last Order",
-                    "image": "Event/Savior/Wonky.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() > 1692144000000 && new Date().getTime() < 1693353599000"
                 }
             ],
             "allDisabled":false
@@ -314,14 +266,6 @@
                 {
                     "name": "Cernium Daily",
                     "image": "Cernium.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "true"
-                },
-                {
-                    "name": "Burning Cernium Daily",
-                    "image": "BurningCernium.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",

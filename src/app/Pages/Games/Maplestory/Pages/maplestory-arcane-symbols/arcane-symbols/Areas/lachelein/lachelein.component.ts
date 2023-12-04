@@ -18,7 +18,7 @@ export class LacheleinComponent implements OnInit{
     var dailySymbols: number = 0;
 
     if (this.dailyQuest) {
-      dailySymbols += 11;
+      dailySymbols += 20;
     }
 
     // this is a weekly so divide the number by seven for daily average
