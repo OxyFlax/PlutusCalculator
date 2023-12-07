@@ -16,6 +16,7 @@ import { TaskService } from '../../../Services/task.service';
 })
 export class MaplestoryDailiesV3Component implements OnInit, OnDestroy {
   initialisationComplete: boolean = false;
+  showInfo: boolean = false;
 
   characterIndex: number = 0;
   dailiesData: TaskData;
