@@ -12,7 +12,7 @@ import { TaskService } from '../../../Services/task.service';
 })
 export class MaplestoryWeekliesV3Component implements OnInit, OnDestroy {
   initialisationComplete: boolean = false;
-  showInfo: boolean = true;
+  showInfo: boolean = false;
 
   characterIndex: number = 0;
   weekliesData: TaskData;
