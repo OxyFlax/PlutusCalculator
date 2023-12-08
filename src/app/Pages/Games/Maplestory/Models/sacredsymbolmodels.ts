@@ -19,4 +19,16 @@ export interface SacredSymbolSaveData {
     odiumLevel: number;
     odiumExp: number;
     odiumDailyQuest: boolean;
+    
+    shangrilaLevel: number;
+    shangrilaExp: number;
+    shangrilaDailyQuest: boolean;
+    
+    arteriaLevel: number;
+    arteriaExp: number;
+    arteriaDailyQuest: boolean;
+    
+    carcionLevel: number;
+    carcionExp: number;
+    carcionDailyQuest: boolean;
 }

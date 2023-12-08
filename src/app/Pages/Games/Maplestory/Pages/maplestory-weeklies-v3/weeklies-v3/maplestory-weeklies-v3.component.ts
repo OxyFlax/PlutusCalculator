@@ -5,9 +5,6 @@ import { TaskData, CharacterData, Task } from '../../../Models/taskModels';
 import { Region } from '../../../Models/region';
 import { TaskService } from '../../../Services/task.service';
 
-// When upgrading the trackers from v2 to v3 a function to update the saved data was added.
-// Removal can be done after: January 1 2023
-
 @Component({
   selector: 'app-maplestory-weeklies-v3',
   templateUrl: './maplestory-weeklies-v3.component.html',

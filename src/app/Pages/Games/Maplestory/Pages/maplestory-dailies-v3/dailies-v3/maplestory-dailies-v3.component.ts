@@ -5,8 +5,6 @@ import { TaskData } from '../../../Models/taskModels';
 import { Region } from '../../../Models/region';
 import { TaskService } from '../../../Services/task.service';
 
-// When upgrading the trackers from v2 to v3 a function to update the saved data was added.
-// Removal can be done after: January 1 2023
 // TODO: look into seeing if its possible to also show the info thing when loading the data fails
 
 @Component({

@@ -1,5 +1,5 @@
 {
-    "version": "9.3",
+    "version": "9.4",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -286,6 +286,30 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
+                },
+                {
+                    "name": "Shangri-La Daily",
+                    "image": "ShangriLa.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Arteria Daily",
+                    "image": "Arteria.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1702483200000"  
+                },
+                {
+                    "name": "Carcion Daily",
+                    "image": "Carcion.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "new Date().getTime() > 1704816000000"  
                 },
                 {
                     "name": "Erda's Request",

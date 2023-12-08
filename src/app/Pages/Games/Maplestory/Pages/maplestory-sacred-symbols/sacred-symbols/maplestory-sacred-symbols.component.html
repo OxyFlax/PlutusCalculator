@@ -10,6 +10,15 @@
         <a (click)="changeActiveSymbolIndex(2)" [ngClass]="(activeSymbolIndex == 2)?'selected':'notSelected'">
             <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/Odium.png" alt="odium"></div>
         </a>
+        <a (click)="changeActiveSymbolIndex(3)" [ngClass]="(activeSymbolIndex == 3)?'selected':'notSelected'">
+            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/Shangri-La.png" alt="shangrila"></div>
+        </a>
+        <a (click)="changeActiveSymbolIndex(4)" [ngClass]="(activeSymbolIndex == 4)?'selected':'notSelected'">
+            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/Arteria.png" alt="arteria"></div>
+        </a>
+        <a (click)="changeActiveSymbolIndex(5)" [ngClass]="(activeSymbolIndex == 5)?'selected':'notSelected'">
+            <div class="imgWrapper"><img src="assets/Games/Maplestory/SymbolImages/Carcion.png" alt="carcion"></div>
+        </a>
     </div>
     <p class="symbolTitle">{{ sacredSymbolNames[activeSymbolIndex] }}</p>
     <form (ngSubmit)="submit()">
@@ -29,6 +38,9 @@
         <app-cernium *ngIf="activeSymbolIndex==0" (valueChange)="submit()"></app-cernium>
         <app-arcus *ngIf="activeSymbolIndex==1" (valueChange)="submit()" (clearOutput)="clearOutputVariables()"></app-arcus>
         <app-odium *ngIf="activeSymbolIndex==2" (valueChange)="submit()" (clearOutput)="clearOutputVariables()"></app-odium>
+        <app-shangri-la *ngIf="activeSymbolIndex==3" (valueChange)="submit()" (clearOutput)="clearOutputVariables()"></app-shangri-la>
+        <app-arteria *ngIf="activeSymbolIndex==4" (valueChange)="submit()" (clearOutput)="clearOutputVariables()"></app-arteria>
+        <app-carcion *ngIf="activeSymbolIndex==5" (valueChange)="submit()" (clearOutput)="clearOutputVariables()"></app-carcion>
     </form>
     <div class="outputWrapper">
         <div class="symbolInput">

@@ -6,6 +6,9 @@ import { CerniumComponent } from './Areas/cernium/cernium.component';
 import { ArcusComponent } from './Areas/arcus/arcus.component';
 import { OdiumComponent } from './Areas/odium/odium.component';
 import { Meta, Title } from '@angular/platform-browser';
+import { ShangriLaComponent } from './Areas/shangri-la/shangri-la.component';
+import { ArteriaComponent } from './Areas/arteria/arteria.component';
+import { CarcionComponent } from './Areas/carcion/carcion.component';
 
 
 @Component({
@@ -17,11 +20,14 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
   @ViewChild(CerniumComponent, { static: false }) cerniumChild: CerniumComponent;
   @ViewChild(ArcusComponent) arcusChild: ArcusComponent;
   @ViewChild(OdiumComponent) odiumChild: OdiumComponent;
+  @ViewChild(ShangriLaComponent) shangriLaChild: ShangriLaComponent;
+  @ViewChild(ArteriaComponent) arteriaChild: ArteriaComponent;
+  @ViewChild(CarcionComponent) carcionChild: CarcionComponent;
 
   sacredSymbolSaveData: SacredSymbolSaveData;
   sacredSymbolStats: SacredSymbol[] = SacredSymbolStatsJson.SacredSymbolsStats;
   sacredSymbolCost: number[] = SacredSymbolCostJson.Cernium;
-  sacredSymbolNames: string[] = ['Cernium', 'Arcus', 'Odium'];
+  sacredSymbolNames: string[] = ['Cernium', 'Arcus', 'Odium', 'Shangri-La', 'Arteria', 'Carcion'];
   currentLevel: number = 1;
   currentXp: number = 1;
   activeSymbolIndex: number = 0;
@@ -49,8 +55,8 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
   }
 
   initialise() {
-    if (localStorage.getItem("sacredSymbolSaveDataV2")) {
-      this.sacredSymbolSaveData = JSON.parse(localStorage.getItem("sacredSymbolSaveDataV2"));
+    if (localStorage.getItem("sacredSymbolSaveDataV3")) {
+      this.sacredSymbolSaveData = JSON.parse(localStorage.getItem("sacredSymbolSaveDataV3"));
     } else {
       // initiate a dataset
       this.initiateData();
@@ -69,10 +75,19 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
       arcusDailyQuest: true,
       odiumLevel: 1,
       odiumExp: 1,
-      odiumDailyQuest: true
+      odiumDailyQuest: true,
+      shangrilaLevel: 1,
+      shangrilaExp: 1,
+      shangrilaDailyQuest: true,
+      arteriaLevel: 1,
+      arteriaExp: 1,
+      arteriaDailyQuest: true,
+      carcionLevel: 1,
+      carcionExp: 1,
+      carcionDailyQuest: true
     };
     this.sacredSymbolSaveData = newSacredSymbolSaveData;
-    localStorage.setItem("sacredSymbolSaveDataV2", JSON.stringify(this.sacredSymbolSaveData));
+    localStorage.setItem("sacredSymbolSaveDataV3", JSON.stringify(this.sacredSymbolSaveData));
   }
 
   changeActiveSymbolIndex(value: number) {
@@ -97,6 +112,24 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         this.currentXp = this.sacredSymbolSaveData.odiumExp;
         this.odiumChild.dailyQuest = this.sacredSymbolSaveData.odiumDailyQuest;
         break;
+      case 3:
+        this.sacredSymbolCost = SacredSymbolCostJson.ShangriLa;
+        this.currentLevel = this.sacredSymbolSaveData.shangrilaLevel;
+        this.currentXp = this.sacredSymbolSaveData.shangrilaExp;
+        this.shangriLaChild.dailyQuest = this.sacredSymbolSaveData.shangrilaDailyQuest;
+        break;
+      case 4:
+        this.sacredSymbolCost = SacredSymbolCostJson.Arteria;
+        this.currentLevel = this.sacredSymbolSaveData.arteriaLevel;
+        this.currentXp = this.sacredSymbolSaveData.arteriaExp;
+        this.arteriaChild.dailyQuest = this.sacredSymbolSaveData.arteriaDailyQuest;
+        break;
+      case 5:
+          this.sacredSymbolCost = SacredSymbolCostJson.Carcion;
+          this.currentLevel = this.sacredSymbolSaveData.carcionLevel;
+          this.currentXp = this.sacredSymbolSaveData.carcionExp;
+          this.carcionChild.dailyQuest = this.sacredSymbolSaveData.carcionDailyQuest;
+          break;
       default: {
         break;
       }
@@ -115,6 +148,15 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         break;
       case 2:
         this.calculateSymbolStats(this.odiumChild.calculateDailySymbols());
+        break;
+      case 3:
+        this.calculateSymbolStats(this.shangriLaChild.calculateDailySymbols());
+        break;
+      case 4:
+        this.calculateSymbolStats(this.arteriaChild.calculateDailySymbols());
+        break;
+      case 5:
+        this.calculateSymbolStats(this.carcionChild.calculateDailySymbols());
         break;
       default: {
         break;
@@ -242,15 +284,30 @@ export class MaplestorySacredSymbolsComponent implements OnInit {
         this.sacredSymbolSaveData.arcusDailyQuest = this.arcusChild.dailyQuest;
         break;
       case 2:
-          this.sacredSymbolSaveData.odiumLevel = this.currentLevel;
-          this.sacredSymbolSaveData.odiumExp = this.currentXp;
-          this.sacredSymbolSaveData.odiumDailyQuest = this.odiumChild.dailyQuest;
-          break;
+        this.sacredSymbolSaveData.odiumLevel = this.currentLevel;
+        this.sacredSymbolSaveData.odiumExp = this.currentXp;
+        this.sacredSymbolSaveData.odiumDailyQuest = this.odiumChild.dailyQuest;
+        break;
+      case 3:
+        this.sacredSymbolSaveData.shangrilaLevel = this.currentLevel;
+        this.sacredSymbolSaveData.shangrilaExp = this.currentXp;
+        this.sacredSymbolSaveData.shangrilaDailyQuest = this.shangriLaChild.dailyQuest;
+        break;
+      case 4:
+        this.sacredSymbolSaveData.arteriaLevel = this.currentLevel;
+        this.sacredSymbolSaveData.arcusExp = this.currentXp;
+        this.sacredSymbolSaveData.arteriaDailyQuest = this.arteriaChild.dailyQuest;
+        break;
+      case 5:
+        this.sacredSymbolSaveData.carcionLevel = this.currentLevel;
+        this.sacredSymbolSaveData.carcionExp = this.currentXp;
+        this.sacredSymbolSaveData.carcionDailyQuest = this.carcionChild.dailyQuest;
+        break;
       default: {
         break;
       }
     }
-    localStorage.setItem("sacredSymbolSaveDataV2", JSON.stringify(this.sacredSymbolSaveData));
+    localStorage.setItem("sacredSymbolSaveDataV3", JSON.stringify(this.sacredSymbolSaveData));
   }
 
   calculateSymbolStats(symbolsPerDay: number) {

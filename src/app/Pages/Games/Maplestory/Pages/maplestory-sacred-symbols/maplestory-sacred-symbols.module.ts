@@ -6,13 +6,19 @@ import { MaplestorySharedModule } from '../../side-navigation/maplestory-shared.
 import { CerniumComponent } from './sacred-symbols/Areas/cernium/cernium.component';
 import { ArcusComponent } from './sacred-symbols/Areas/arcus/arcus.component';
 import { OdiumComponent } from './sacred-symbols/Areas/odium/odium.component';
+import { ShangriLaComponent } from './sacred-symbols/Areas/shangri-la/shangri-la.component';
+import { ArteriaComponent } from './sacred-symbols/Areas/arteria/arteria.component';
+import { CarcionComponent } from './sacred-symbols/Areas/carcion/carcion.component';
 
 @NgModule({
     declarations: [
         MaplestorySacredSymbolsComponent,
         CerniumComponent,
         ArcusComponent,
-        OdiumComponent
+        OdiumComponent,
+        ShangriLaComponent,
+        ArteriaComponent,
+        CarcionComponent
     ],
     imports: [
         CommonModule, 
