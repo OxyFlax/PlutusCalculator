@@ -55,7 +55,7 @@
     margin: 0 auto;
     margin-top: 70px;
     margin-bottom: 20px;
-    height: auto;
+    height: 100px;
 }
 
 .inputLabelWrapper {
@@ -106,6 +106,123 @@
 ::ng-deep.ng-option:last-child {
     border-bottom-left-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
+}
+
+.secondaryInputWrapper {
+    width: 762px;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.promoButton {
+    width: 230px;
+    background-color: transparent;
+    border: 1px solid #0921B4;
+    border-radius: 30px;
+    height: 40px;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.promoSelectionScreen {
+    margin: 30px auto 0 auto;
+    width: 762px;
+    padding-bottom: 16px;
+    background-color: #FBFBFB;
+    border-radius: 8px;
+    color: black;
+
+    z-index: 1001;
+    text-align: center;
+}
+
+.promoHeader {
+    margin: 0px;
+    padding: 15px 10px 0px 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(38, 73, 236);
+}
+
+.promoItem {
+    display: inline-block;
+    vertical-align: top;
+    width: 351px;
+    height: 180px;
+    margin: 20px 10px 0px 10px;
+    background-color: white;
+
+    border-radius: 8px;
+    box-shadow: -1px 0px 25px -18px rgba(0,0,0,0.42);
+    -webkit-box-shadow: -1px 0px 25px -18px rgba(0,0,0,0.42);
+    -moz-box-shadow: -1px 0px 25px -18px rgba(0,0,0,0.42);
+}
+
+.promoTitle {
+    float: left;
+    width: 300px;
+    margin: 20px 0px 0px 20px;
+
+    text-align: left;
+    font-size: 18px;
+
+}
+
+/* .promoSubtitle {
+    float: left;
+    width: 250px;
+    margin: 2px 0px 0px 10px;
+
+    text-align: left;
+    font-size: 16px;
+} */
+
+.promoDate {
+    float: left;
+    width: 250px;
+    margin: 2px 0px 0px 28px;
+
+    text-align: left;
+    font-size: 13px;
+}
+
+.promoInfo {
+    float: left;
+    width: 310px;
+    margin: 5px 0px 0px 20px;
+
+    text-align: left;
+    color: #848D9C;
+}
+
+.selected {
+    border: 2px solid #0921B4;
+}
+
+.notSelected {
+    border: 2px solid white;
+}
+
+.arrow-up {
+    display: inline-block;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #999999;
+    transform: translateY(-1px);
+}
+
+.arrow-down {
+    display: inline-block;
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #999999;
+    transform: translateY(-1px);
 }
 
 .overview {
@@ -324,6 +441,7 @@ hr {
         margin-top: 30px;
         width: 254px;
         text-align: center;
+        height: 250px;
     }
 
     .inputLabelWrapper {
@@ -332,6 +450,21 @@ hr {
 
     .inputWrapper label {
         margin-bottom: 5px;
+    }
+
+    .secondaryInputWrapper {
+        width: 254px;
+        margin-top: 24px;
+        margin-bottom: 10px;
+    }
+
+    .promoButton {
+        width: 230px;
+    }
+
+    .promoSelectionScreen {
+        width: 430px;
+        padding-bottom: 38px;
     }
 
     .overview {
@@ -441,6 +574,16 @@ hr {
 }
 
 @media only screen and (max-width: 453px) {
+    .promoSelectionScreen {
+        width: 100%;
+    }
+
+    .promoItem, .promoInfo {
+        width: -webkit-calc(100% - 24px);
+        width:    -moz-calc(100% - 24px);
+        width:         calc(100% - 24px);
+    }
+
     .importantNotes {
         width: calc(100% - 24px);
     }

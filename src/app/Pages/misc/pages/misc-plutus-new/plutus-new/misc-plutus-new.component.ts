@@ -64,6 +64,10 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   totalValueMinusCost: number[] = [0, 0, 0];
   totalOriginalBenefits: number[] = [0, 0, 0];
 
+  showPromotions: boolean = true;
+  selected: boolean = true;
+  notSelected: boolean = true;
+
 
   constructor(private titleService: Title, private metaService: Meta, private http: HttpClient) {
   }
@@ -124,6 +128,10 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
   eligibleSpendTierChange(event: any) {
     this.calculate();
+  }
+
+  selectPromotionsClicked() {
+    this.showPromotions = !this.showPromotions;
   }
 
   calculate() {

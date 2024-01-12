@@ -32,6 +32,52 @@
         </div>
     </div>
 
+    <div class="secondaryInputWrapper">
+        <button class="promoButton" (click)="selectPromotionsClicked()">Show Promotions <div [ngClass]="(showPromotions) ? 'arrow-up' : 'arrow-down'"></div></button>
+    </div>
+
+    <div class="promoSelectionScreen" *ngIf="showPromotions">
+        <p class="promoHeader">
+            Click on a promotion to enable the benefits
+        </p>
+        <div class="promoItem" [ngClass]="(selected) ? 'selected' : 'notSelected'">
+            <span class="promoTitle">+5k Rewards Cap</span>
+            <!-- <span class="promoSubtitle">(Metal Card holders)</span> -->
+            <span class="promoDate">(Metal Card holders)</span>
+            <p class="promoInfo">All metal card holders will receive the £/€5k redemption pass (worth 200PLU) for free starting in January 2024 and will remain active for 12months after the metal cards have been delivered.</p>
+        </div>
+        <div class="promoItem" [ngClass]="(!selected) ? 'selected' : 'notSelected'">
+            <span class="promoTitle">+2k Rewards Cap worth 50 PLU</span>
+            <!-- <span class="promoSubtitle">(Unlock Reward Level)</span> -->
+            <span class="promoDate">10th January 2024 onwards</span>
+            <p class="promoInfo">Everyone that upgrades their stacking tier from the above mentioned date onwards will receive the £/€2k redemption pass (worth 50PLU) for free on the 1st of the month following their upgrade and will last for 12months.</p>
+        </div>
+        <div class="promoItem" [ngClass]="(!selected) ? 'selected' : 'notSelected'">
+            <span class="promoTitle">+10k Rewards Cap</span>
+            <!-- <span class="promoSubtitle">(Unlock Myth/HoneyBadger)</span> -->
+            <span class="promoDate">28th December 2023 - 15th January 2024</span>
+            <p class="promoInfo">Everyone that upgraded their stacking tier to either Myth or HoneyBadger between the above mentioned dates will receive the £/€10k redemption pas for free for the entirety of 2024.</p>
+        </div>
+        <div class="promoItem" [ngClass]="(!selected) ? 'selected' : 'notSelected'">
+            <span class="promoTitle">+10k Rewards Cap</span>
+            <!-- <span class="promoSubtitle">(Unlock Reward Level)</span> -->
+            <span class="promoDate">25th October 2023 - 29th November 2023</span>
+            <p class="promoInfo">Everyone that upgraded their stacking tier between the above mentioned dates will receive the £/€10k redemption pas for free for the entirety of 2024.</p>
+        </div>
+        <div class="promoItem" [ngClass]="(selected) ? 'selected' : 'notSelected'"> 
+            <span class="promoTitle">+1k Rewards Cap</span>
+            <!-- <span class="promoSubtitle">(Reward Level Users)</span> -->
+            <span class="promoDate">before 25th of October 2023</span>
+            <p class="promoInfo">Everyone that has been on a stacking tier before the above mentioned date will receive the £/€1k redemption pas for free for the entirety of 2024.</p>
+        </div>
+        <div class="promoItem" [ngClass]="(selected) ? 'selected' : 'notSelected'">
+            <span class="promoTitle">50% Rewards Cap Discount</span>
+            <!-- <span class="promoSubtitle">(Reward Level Users)</span> -->
+            <span class="promoDate">before 25th of October 2023</span>
+            <p class="promoInfo">Everyone that has been on a stacking tier before the above mentioned date will get a 50% discount on redemption passes.</p>
+        </div>
+    </div>
+
     <div class="overview">
         <div class="overviewItem">
             <h1>{{ cashbackRate }}%</h1>
