@@ -1,0 +1,52 @@
+{
+  "promos": [
+    {
+      "id": 0,
+      "name": "+5k Rewards Cap",
+      "date": "(Metal Card holders)",
+      "description": "All metal card holders will receive the #5k redemption pass (worth 200PLU) for free starting in January 2024 and will remain active for 12months after the metal cards have been delivered.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/13239308075293-Plutus-Metal-Supercharged-Rewards#:~:text=Added%20benefit%20(10th%20January)",
+      "enabled": false
+    },
+    {
+      "id": 1,
+      "name": "+2k Rewards Cap worth 50 PLU",
+      "date": "10th January 2024 onwards",
+      "description": "Everyone that upgrades their stacking tier from the above mentioned date onwards will receive the #2k redemption pass (worth 50PLU) for free on the 1st of the month following their upgrade and will last for 12months.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HKTB21J9GPEPYJE478883RZA",
+      "enabled": false
+    },
+    {
+      "id": 2,
+      "name": "+10k Rewards Cap",
+      "date": "28th December 2023 - 15th January 2024",
+      "description": "Everyone that upgraded their stacking tier to either Myth or HoneyBadger between the above mentioned dates will receive the #10k redemption pas for free for the entirety of 2024.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HJRDF7XWEJVET38KB1XSD6DF",
+      "enabled": false
+    },
+    {
+      "id": 3,
+      "name": "+10k Rewards Cap",
+      "date": "25th October 2023 - 29th November 2023",
+      "description": "Everyone that upgraded their stacking tier between the above mentioned dates will receive the #10k redemption pas for free for the entirety of 2024.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY4GB804AWT3KWX3DVF",
+      "enabled": false
+    },
+    {
+      "id": 4,
+      "name": "+1k Rewards Cap",
+      "date": "before 25th of October 202",
+      "description": "Everyone that has been on a stacking tier before the above mentioned date will receive the #1k redemption pas for free for the entirety of 2024.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY4WH6KAE4FFN4YWYGJ",
+      "enabled": false
+    },
+    {
+      "id": 5,
+      "name": "50% Rewards Cap Discount",
+      "date": "before 25th of October 2023",
+      "description": "Everyone that has been on a stacking tier before the above mentioned date will get a 50% discount on redemption passes.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY46ZAE8C7DTAR5XAHZ",
+      "enabled": false
+    }
+  ]
+}

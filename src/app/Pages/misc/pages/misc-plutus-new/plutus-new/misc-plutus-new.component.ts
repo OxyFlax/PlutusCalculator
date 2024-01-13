@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import PlutusJson from '../../../../../../assets/Misc/PlutusTiers2.json';
+import PlutusPromosJson from '../../../../../../assets/Misc/PlutusPromos.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, CurrentPrices, Coin, Pluton } from '../../../Models/PlutusTiers2';
+import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, CurrentPrices, Coin, Pluton, Promos } from '../../../Models/PlutusTiers2';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { findIndex } from 'rxjs/operators';
 
 
 @Component({
@@ -21,13 +23,17 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
   stackingTiers: PlutusStackingTier[] = PlutusJson.stackingTiers;
   eligibleSpendTiers: EligibleSpendTier[] = PlutusJson.eligibleSpendTiers;
+  eligibleSpendTiersDefault: EligibleSpendTier[] = JSON.parse(JSON.stringify(PlutusJson.eligibleSpendTiers)); // for resetting promo changes
+  promos: Promos[] = PlutusPromosJson.promos;
   currentPrices: CurrentPrices = {eurPrice: 0, gbpPrice: 0};
 
   selectedSubscriptionTier = this.subscriptionTiers[0];
   selectedStackingTier = this.stackingTiers[0];
   selectedEligibleSpendTier = this.eligibleSpendTiers[0];
 
+  averageMonthlySpend: number;
   currencySymbol: string = "€";
+  showPromotions: boolean = false;
 
   cashbackRate: number = 0;
   perkCount: number = 0;
@@ -63,11 +69,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   totalActualValue: number[] = [0, 0, 0];
   totalValueMinusCost: number[] = [0, 0, 0];
   totalOriginalBenefits: number[] = [0, 0, 0];
-
-  showPromotions: boolean = true;
-  selected: boolean = true;
-  notSelected: boolean = true;
-
 
   constructor(private titleService: Title, private metaService: Meta, private http: HttpClient) {
   }
@@ -130,9 +131,80 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     this.calculate();
   }
 
-  selectPromotionsClicked() {
+  averageSpendChange($event: any) {
+    if(this.averageMonthlySpend < 0) {
+      this.averageMonthlySpend = undefined;
+    }
+
+    //always run calculate incase the field is cleared
+    this.calculate();
+  }
+
+  togglePromoVisiblity() {
     this.showPromotions = !this.showPromotions;
   }
+
+  togglePromo(index: number) {
+    this.promos[index].enabled = !this.promos[index].enabled;
+
+    this.applyPromos();
+  }
+
+  applyPromos() {
+    //reset the eligiblespendtier data as this is constantly being manipulated as a hardcoded promo list requires too many variations.
+    //for some reason rereading the JSON file does not work, and resetting to a by value instead of reference breaks the code.
+    //instead iterating over a second unmodified array to copy the default values
+    for (let i = 0; i < this.eligibleSpendTiers.length; i++) {
+      this.eligibleSpendTiers[i].cost = this.eligibleSpendTiersDefault[i].cost;
+    }
+
+    // This is not the cleanest and reusable way of working but it's the easiest as not all promos have the same logic to apply.
+    // 5k metal promo
+    if(this.promos[0].enabled) {
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "5000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "5000")].cost = 0;
+      }
+    }
+
+    // 2k promo for new stack upgrades
+    if(this.promos[1].enabled) {
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "2000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "2000")].cost = 0;
+      }
+    }
+    
+    // 10k promo 2
+    if(this.promos[2].enabled) {
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "10000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "10000")].cost = 0;
+      }
+    }
+
+    // 10k promo 1
+    if(this.promos[3].enabled) {
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "10000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "10000")].cost = 0;
+      }
+    }
+
+    // 1k promo
+    if(this.promos[4].enabled) {
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "1000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "1000")].cost = 0;
+      }
+    }
+
+    // 50% discount promo
+    if(this.promos[5].enabled) {
+      for (let i = 0; i < this.eligibleSpendTiers.length; i++) {
+        if (this.eligibleSpendTiers[i].cost != 0) {
+          this.eligibleSpendTiers[i].cost = this.eligibleSpendTiers[i].cost / 2;
+        }  
+      }
+    }
+    this.calculate();
+  }
+  
 
   calculate() {
     this.calculateCashbackRate();
@@ -180,7 +252,13 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       return; 
     }
 
-    this.monthlyCashbackValue = this.eligibleSpend * (this.cashbackRate / 100);
+    //if the average monthly spend is zero or higher than the max eligible spend, then calculate using the max eligible spend
+    if(this.averageMonthlySpend > this.eligibleSpend || this.averageMonthlySpend == null || this.averageMonthlySpend == 0) {
+      this.monthlyCashbackValue = this.eligibleSpend * (this.cashbackRate / 100);
+    } else {
+        this.monthlyCashbackValue = this.averageMonthlySpend * (this.cashbackRate / 100);
+    }
+
   }
 
   calculateMonthlyPerkValue() {

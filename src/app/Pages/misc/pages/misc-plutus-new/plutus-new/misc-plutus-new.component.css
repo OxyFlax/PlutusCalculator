@@ -115,6 +115,19 @@
     text-align: center;
 }
 
+.averageSpendInput {
+    width: 208px;
+    border: 1px solid #0921B4;
+    border-radius: 30px;
+    height: 36px;
+    padding-left: 18px;
+    margin-right: 24px;
+}
+
+.averageSpendInput:focus {
+    outline: none;
+}
+
 .promoButton {
     width: 230px;
     background-color: transparent;
@@ -169,15 +182,6 @@
     font-size: 18px;
 
 }
-
-/* .promoSubtitle {
-    float: left;
-    width: 250px;
-    margin: 2px 0px 0px 10px;
-
-    text-align: left;
-    font-size: 16px;
-} */
 
 .promoDate {
     float: left;

@@ -25,6 +25,15 @@ export interface CurrentPrices {
   gbpPrice: number;
 }
 
+export interface Promos {
+  id: number;
+  name: string;
+  date: string;
+  description: string;
+  termsLink: string;
+  enabled: boolean;
+}
+
 
 
 export interface Coin {
