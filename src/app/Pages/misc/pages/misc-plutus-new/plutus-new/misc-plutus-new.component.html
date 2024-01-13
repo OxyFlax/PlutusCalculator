@@ -47,6 +47,8 @@
                 <span class="promoTitle">{{ r.name }}</span>
                 <span class="promoDate">{{ r.date }}</span>
                 <p class="promoInfo">{{ r.description.replace("#", currencySymbol) }}</p>
+                <a class="promoTerms" href="{{ r.termsLink }}" target="_blank">Full terms</a>
+                <!-- <span class="promoTerms">Full terms</span> -->
             </div>
         </ng-container>
     </div>
