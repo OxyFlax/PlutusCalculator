@@ -33,7 +33,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
   averageMonthlySpend: number;
   currencySymbol: string = "€";
-  showPromotions: boolean = false;
+  showPromotions: boolean = true;
 
   cashbackRate: number = 0;
   perkCount: number = 0;
