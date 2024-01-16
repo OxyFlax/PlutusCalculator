@@ -484,6 +484,12 @@ hr {
         margin-bottom: 10px;
     }
 
+    .averageSpendInput {
+        margin: 0px;
+        margin-bottom: 31px;
+    }
+    
+
     .promoButton {
         width: 230px;
     }
