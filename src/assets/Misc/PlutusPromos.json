@@ -43,10 +43,10 @@
     {
       "id": 5,
       "name": "50% Rewards Cap Discount",
-      "date": "before 25th of October 2023",
+      "date": "(everyone)",
       "description": "Everyone that has been on a stacking tier before the above mentioned date will get a 50% discount on all redemption caps.",
       "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY46ZAE8C7DTAR5XAHZ",
-      "enabled": false
+      "enabled": true
     }
   ]
 }
