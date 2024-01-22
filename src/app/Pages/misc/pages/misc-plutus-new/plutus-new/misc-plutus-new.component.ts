@@ -85,7 +85,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
     this.fetchPluPrice();
     this.initialise();
-    console.log(this.selectedSubscriptionTier);
   }
 
   ngOnDestroy() {
