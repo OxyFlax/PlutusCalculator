@@ -85,6 +85,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
     this.fetchPluPrice();
     this.initialise();
+    console.log(this.selectedSubscriptionTier);
   }
 
   ngOnDestroy() {
@@ -96,7 +97,8 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       this.currencySymbol = localStorage.getItem("pluCurrencySymbol");
     }
 
-    // this.calculate();
+    //this also calls the calculate function
+    this.applyPromos();;
   }
 
   fetchPluPrice() {
@@ -143,9 +145,20 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   togglePromoVisiblity() {
     this.showPromotions = !this.showPromotions;
   }
-
+  
   togglePromo(index: number) {
     this.promos[index].enabled = !this.promos[index].enabled;
+
+    // else if list to automatically apply the best rewardscap based on the selected promos
+    if(this.promos[2].enabled || this.promos[3].enabled) {
+      this.selectedEligibleSpendTier = this.eligibleSpendTiers[4];
+    } else if (this.promos[0].enabled) {
+      this.selectedEligibleSpendTier = this.eligibleSpendTiers[3];
+      } else if (this.promos[1].enabled) {
+        this.selectedEligibleSpendTier = this.eligibleSpendTiers[2];
+        } else if (this.promos[4].enabled) {
+          this.selectedEligibleSpendTier = this.eligibleSpendTiers[1];
+          }
 
     this.applyPromos();
   }

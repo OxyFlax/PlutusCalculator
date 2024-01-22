@@ -149,6 +149,15 @@ input[type=number] {
     font-weight: bold;
 }
 
+.requiredSubInfo {
+    width: 100%;
+    margin: 10px auto 0px auto;
+    font-size: 14px;
+    max-width: 400px;
+    color: rgb(132, 141, 156);
+    text-align: center;
+}
+
 .promoSelectionScreen {
     margin: 30px auto 0 auto;
     width: 762px;

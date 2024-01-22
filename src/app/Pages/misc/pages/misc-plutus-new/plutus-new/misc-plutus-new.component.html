@@ -2,7 +2,8 @@
     <button class="currencyButton" (click)="changeCurrency()">Switch £/€</button>
     <p class="title">Pluton Rewards Calculator</p>
     <p class="infoTextTop">
-        This is a community-created calculator based on information
+        This is a community-created calculator based on
+        the subscriptions and reward levels of Plutus
         released by Plutus regarding their upcoming updates to the
         subscription plans and Reward Levels.
     </p>
@@ -36,6 +37,13 @@
         <input class="averageSpendInput" type="number" min="0" max="20000" placeholder="Enter Average Monthly Spend" [(ngModel)]="averageMonthlySpend" (input)="averageSpendChange($event)"/>
         <button class="promoButton" (click)="togglePromoVisiblity()"><span *ngIf="!showPromotions">Show Promotions </span><span *ngIf="showPromotions">Hide Promotions </span><div [ngClass]="(showPromotions) ? 'arrow-up' : 'arrow-down'"></div></button>
     </div>
+
+    <!-- shows info text if users has a stack or redeem without having a sub -->
+    <p *ngIf="selectedSubscriptionTier == subscriptionTiers[0] && (selectedStackingTier != stackingTiers[0] || selectedEligibleSpendTier != eligibleSpendTiers[0])" class="requiredSubInfo">
+        With the standard subscription, you will not earn any rewards.
+        <br>
+        Please select one of the three paid subscriptions to get rewards on your spending.
+    </p>
 
     <div class="promoSelectionScreen" *ngIf="showPromotions">
         <p class="promoHeader">
