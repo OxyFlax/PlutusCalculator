@@ -51,12 +51,7 @@ export class MiscPlutusMetalAdjustedComponent implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
     }
 
-    // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
-    // fetching tether price as it's the easiest way to get the currency conversion
-    this.fetchTetherPrice();
-
-    // is technically ran inside the fetch function but if it fails this will default it to the base values which are the fx rates on 25/01/2024
-    this.calculate();
+    this.initialise();
   }
 
   ngOnDestroy() {
@@ -67,6 +62,13 @@ export class MiscPlutusMetalAdjustedComponent implements OnInit, OnDestroy {
     if (localStorage.getItem("pluCurrencySymbol")) {
       this.currencySymbol = localStorage.getItem("pluCurrencySymbol");
     }
+
+    // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
+    // fetching tether price as it's the easiest way to get the currency conversion
+    this.fetchTetherPrice();
+    
+    // is technically ran inside the fetch function but if it fails this will default it to the base values which are the fx rates on 25/01/2024
+    this.calculate();
   }
 
   fetchTetherPrice() {

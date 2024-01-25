@@ -80,8 +80,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       this.metaService.updateTag({ name: "robots", content: "noindex, follow" });
     }
 
-    // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
-    this.fetchPluPrice();
     this.initialise();
   }
 
@@ -94,8 +92,11 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       this.currencySymbol = localStorage.getItem("pluCurrencySymbol");
     }
 
+    // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
+    this.fetchPluPrice();
+
     //this also calls the calculate function
-    this.applyPromos();;
+    this.applyPromos();
   }
 
   fetchPluPrice() {
