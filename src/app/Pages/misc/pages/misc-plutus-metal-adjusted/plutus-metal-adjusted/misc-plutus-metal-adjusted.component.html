@@ -7,88 +7,105 @@
         Rewards, which are an in-game token within the Plutus platform. The value of each of these
         native tokens is determined by Plutus customers outside of the platform.
     </p>
+
     <div class="inputWrapper">
         <div class="inputLabelWrapper">
-            <label for="subscriptionTier">Subscription tier</label>
-            <select class="select" name="subscriptionTier" id="subscriptionTier" (change)="subscriptionTierChange($event)">
-                <option *ngFor="let r of subscriptionTiers" value="r">{{ r.name }}</option>
-            </select>
+            <label for="subscriptionTier">Subscription Plan</label>
+            <ng-select name="subscriptionTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedSubscriptionTier" (change)="subscriptionTierChange($event)">
+                <ng-option *ngFor="let r of subscriptionTiers" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span class="optionSmallText">{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</span></ng-option>
+             </ng-select>
         </div>
         <div class="inputLabelWrapper">
-            <label for="stackingTier">Stacking tier</label>
-            <select class="select" name="stackingTier" id="stackingTier" (change)="stackingTierChange($event)">
-                <option *ngFor="let r of stackingTiers" value="r">{{ r.name }}</option>
-            </select>
+            <label for="stackingTier">Reward Levels</label>
+            <ng-select name="stackingTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedStackingTier" (change)="stackingTierChange($event)">
+                <ng-option *ngFor="let r of stackingTiers" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span class="optionSmallText">{{ r.pluRequired }} PLU</span></ng-option>
+             </ng-select>
+        </div>
+        <div class="inputLabelWrapper">
+            <label for="metalTier">Metal Tiers</label>
+            <ng-select name="metalTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedMetalTier" (change)="metalTierChange($event)">
+                <ng-option *ngFor="let r of metalTiers" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span class="optionSmallText">{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}</span></ng-option>
+             </ng-select>
         </div>
     </div>
-    <table>
-        <tr>
-            <th></th><!-- Empty cell for spacing -->
-            <th  class="thSmaller" *ngFor="let r of metalTiers">
-                {{ r.name }}
-                <br>
-                {{ currencySymbol }}{{ r.cost }}
-            </th>
-            <!-- <td class="checkBoxCell"></td> -->
-        </tr>
-        <tr>
-            <td>Super Charged Perks ({{ perkCount }})</td>
-            <td class="tdSmaller" *ngFor="let r of superChargedPerksValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="checkBoxCell">
-                <input name="superChargedPerksTotalCalc" id="superChargedPerksTotalCalc" type="checkbox" (change)="superChargedChanged()" [(ngModel)]="superChargedPerksTotalCalc"/>
-            </td> -->
-        </tr>
-        <!-- <tr>
-            <td>Super Charged Perks ({{ perkCount }})<br>Minus Default Value</td>
-            <td *ngFor="let r of superChargedPerksActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <td class="checkBoxCell">
-                <input name="superChargedPerksActualTotalCalc" id="superChargedPerksActualTotalCalc" type="checkbox" (change)="superChargedActualChanged()" [(ngModel)]="superChargedPerksActualTotalCalc"/>
-            </td>
-        </tr> -->
-        <tr>
-            <td>Golden Ticket Referral</td>
-            <td class="tdSmaller" *ngFor="let r of goldenTicketReferralsValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="checkBoxCell">
-                <input name="goldenTicketReferralsTotalCalc" id="goldenTicketReferralsTotalCalc" type="checkbox" (change)="goldenTicketChanged()" [(ngModel)]="goldenTicketReferralsTotalCalc"/>
-            </td> -->
-        </tr>
-        <!-- <tr>
-            <td>Golden Ticket Referral<br>Minus Default Value</td>
-            <td *ngFor="let r of goldenTicketReferralsActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <td class="checkBoxCell">
-                <input name="goldenTicketReferralsActualTotalCalc" id="goldenTicketReferralsActualTotalCalc" type="checkbox" (change)="goldenTicketActualChanged()" [(ngModel)]="goldenTicketReferralsActualTotalCalc"/>
-            </td>
-        </tr> -->
-        <tr>
-            <td>x2 Rewards Voucher</td>
-            <td class="tdSmaller" *ngFor="let r of doubleRewardsVoucherValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="checkBoxCell">
-                <input name="doubleRewardsVoucherTotalCalc" id="doubleRewardsVoucherTotalCalc" type="checkbox" (change)="doubleRewardsChanged()" [(ngModel)]="doubleRewardsVoucherTotalCalc"/>
-            </td> -->
-        </tr>
-        <!-- <tr>
-            <td>x2 Rewards Voucher<br>Minus Default Value</td>
-            <td *ngFor="let r of doubleRewardsVoucherActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <td class="checkBoxCell">
-                <input name="doubleRewardsVoucherActualTotalCalc" id="doubleRewardsVoucherActualTotalCalc" type="checkbox" (change)="doubleRewardsActualChanged()" [(ngModel)]="doubleRewardsVoucherActualTotalCalc"/>
-            </td>
-        </tr> -->
-        <!-- Empty row for spacing -->
-    </table>
-    <p></p>
-    <table>
-        <!-- <tr>
-            <td colspan="4" class="emptyCell">Select the columns above you want to take into the total value calculation</td>
-        </tr> -->
+
+    <div class="overview">
+        <div class="overviewItem">
+            <h1>{{ currencySymbol }}{{ selectedMetalTier.perkValue }}</h1>
+            <h5>PER PERK</h5>
+        </div>
+        <div class="overviewItem">
+            <h1>$50</h1>
+            <h5>PER REFERRAL</h5>
+        </div>
+        <div class="overviewItem">
+            <h1>{{ selectedMetalTier.duration }}</h1>
+            <h5>x2 REWARDS VOUCHERS</h5>
+        </div>
+    </div>
+</div>
+<div class="contentPageOverride contentpageSecondaryColor">
+    <div class="outputWrapper">
+        <div class="headerBackDrop">
+            <div class="header">
+                <p>Super Charged Perks ({{ perkCount }})</p>
+                <p>Golden Ticket Referral ({{ selectedMetalTier.duration }})</p>
+                <p>x2 Rewards Voucher ({{ selectedMetalTier.duration }})</p>
+                <p>Combined Value</p>
+                <p>Gained Value <span>(Minus Base Perk/Referral Value)</span></p>
+                <p>Total Value <span>(Gained Minus Card Cost)</span></p>
+            </div>
+        </div>
+        <div class="values">
+            <p>{{ currencySymbol }}{{ superChargedPerksValue | number : '1.2-2'}}</p>
+            <p>{{ currencySymbol }}{{ goldenTicketReferralsValue | number : '1.2-2' }}</p>
+            <p>{{ currencySymbol }}{{ doubleRewardsVoucherValue | number : '1.2-2' }}</p>
+            <p>{{ currencySymbol }}{{ combinedValue | number : '1.2-2' }}</p>
+            <p>{{ currencySymbol }}{{ gainedValue | number : '1.2-2' }}</p>
+            <p>{{ currencySymbol }}{{ totalValue | number : '1.2-2' }}</p>
+        </div>
+    </div>
+
+    <div class="contentPageOverride">
+        <div class="explainer">
+            <div class="explainerTitle">Supercharged Perks</div>
+            <div class="explainerText">Earn up to £/€50 in PLU Rewards per perk for up to 12 months.</div>
+            <div class="explainerTitle">Double Reward Vouchers</div>
+            <div class="explainerText">Choose transactions once per month to earn double rewards on, with a potential value of up to £/€100.</div>
+            <div class="explainerTitle">Golden Tickets</div>
+            <div class="explainerText">Invite friends and family via a Golden Ticket, and both of you will enjoy a $50 referral bonus.</div>
+        </div>
+    </div>
+    <div class="contentPageOverride contentpageTertiaryColor">
+        <div class="importantNotes">
+            <p class="notesTitle">Important Notes</p>
+            <div class="noteItem">
+                <div class="noteCheckmarkWrapper">
+                    <span class="noteCheckMark">&#10003;</span>
+                </div>
+                <div class="noteText">
+                    There are two versions of the metal cards, Plutus Metal & GOAT Metal. The latter only being awarded to those on the GOAT or Honey Badger reward level.
+                </div>
+            </div>
+            <div class="noteItem">
+                <div class="noteCheckmarkWrapper">
+                    <span class="noteCheckMark">&#10003;</span>
+                </div>
+                <div class="noteText">
+                    The PLU needed for Reward Levels is not considered a cost, as customers keep both their stack and rewards in personal wallets, available for swapping at any time.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <table>
         <tr>
             <td>Total Value</td>
             <td class="tdSmaller" *ngFor="let r of totalValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="emptyCell"></td> -->
         </tr>
         <tr>
             <td>Total Value Minus Card Cost</td>
             <td class="tdSmaller" *ngFor="let r of totalValueMinusCost; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="emptyCell"></td> -->
         </tr>
     </table>
     <p class="infoTextMiddle">
@@ -102,23 +119,17 @@
         <tr>
             <td>Total</td>
             <td class="tdSmaller" *ngFor="let r of totalValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="checkBoxCell">
-                <input name="superChargedPerksActualTotalCalc" id="superChargedPerksActualTotalCalc" type="checkbox" (change)="superChargedActualChanged()" [(ngModel)]="superChargedPerksActualTotalCalc"/>
-            </td> -->
+
         </tr>
         <tr>
             <td>Original Benefits</td>
             <td class="tdSmaller" *ngFor="let r of totalOriginalBenefits; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="checkBoxCell">
-                <input name="goldenTicketReferralsActualTotalCalc" id="goldenTicketReferralsActualTotalCalc" type="checkbox" (change)="goldenTicketActualChanged()" [(ngModel)]="goldenTicketReferralsActualTotalCalc"/>
-            </td> -->
+
         </tr>
         <tr>
             <td>Total Minus Original Benefits</td>
             <td class="tdSmaller" *ngFor="let r of totalActualValue; let i = index">{{ currencySymbol }}{{ r }}</td>
-            <!-- <td class="checkBoxCell">
-                <input name="doubleRewardsVoucherActualTotalCalc" id="doubleRewardsVoucherActualTotalCalc" type="checkbox" (change)="doubleRewardsActualChanged()" [(ngModel)]="doubleRewardsVoucherActualTotalCalc"/>
-            </td> -->
+
         </tr>
-    </table>
+    </table> -->
 </div>

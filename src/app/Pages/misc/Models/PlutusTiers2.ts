@@ -20,9 +20,11 @@ export interface EligibleSpendTier {
   eligibleSpend: number;
 }
 
-export interface CurrentPrices {
-  eurPrice: number
-  gbpPrice: number;
+export interface PlutusMetalTier {
+  name: string;
+  cost: number;
+  duration: number;
+  perkValue: number;
 }
 
 export interface Promos {
@@ -35,11 +37,20 @@ export interface Promos {
 }
 
 
-
 export interface Coin {
   pluton: Pluton;
 }
+
 export interface Pluton {
+  eur: number;
+  gbp: number;
+}
+
+export interface Fiat {
+  tether: Tether;
+}
+
+export interface Tether {
   eur: number;
   gbp: number;
 }

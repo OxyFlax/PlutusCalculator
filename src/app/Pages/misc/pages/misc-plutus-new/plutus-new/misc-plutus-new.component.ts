@@ -2,10 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import PlutusJson from '../../../../../../assets/Misc/PlutusTiers2.json';
 import PlutusPromosJson from '../../../../../../assets/Misc/PlutusPromos.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, CurrentPrices, Coin, Pluton, Promos } from '../../../Models/PlutusTiers2';
+import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, Coin, Pluton, Promos } from '../../../Models/PlutusTiers2';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { findIndex } from 'rxjs/operators';
 
 
 @Component({
@@ -25,7 +24,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   eligibleSpendTiers: EligibleSpendTier[] = PlutusJson.eligibleSpendTiers;
   eligibleSpendTiersDefault: EligibleSpendTier[] = JSON.parse(JSON.stringify(PlutusJson.eligibleSpendTiers)); // for resetting promo changes
   promos: Promos[] = PlutusPromosJson.promos;
-  currentPrices: CurrentPrices = {eurPrice: 0, gbpPrice: 0};
 
   selectedSubscriptionTier = this.subscriptionTiers[0];
   selectedStackingTier = this.stackingTiers[0];
