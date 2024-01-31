@@ -117,11 +117,17 @@ export class MiscPlutusMetalAdjustedComponent implements OnInit, OnDestroy {
   }
 
   calculateSuperChargedPerks() {
-    // amount of perks times their value times the amount of months
-    this.superChargedPerksValue = this.perkCount * this.selectedMetalTier.perkValue * this.selectedMetalTier.duration;
+    // no rewards on the free subscription
+    if (this.selectedSubscriptionTier != this.subscriptionTiers[0]) {
+      // amount of perks times their value times the amount of months
+      this.superChargedPerksValue = this.perkCount * this.selectedMetalTier.perkValue * this.selectedMetalTier.duration;
     
-    // the same but with the original perk value subtracted
-    this.superChargedPerksActualValue = this.perkCount * (this.selectedMetalTier.perkValue - 10) * this.selectedMetalTier.duration;
+      // the same but with the original perk value subtracted
+      this.superChargedPerksActualValue = this.perkCount * (this.selectedMetalTier.perkValue - 10) * this.selectedMetalTier.duration;
+    } else {
+      this.superChargedPerksValue = 0;
+      this.superChargedPerksActualValue = 0;
+    }
   }
 
   calculateGoldenTicketReferrals() {
@@ -135,7 +141,12 @@ export class MiscPlutusMetalAdjustedComponent implements OnInit, OnDestroy {
   }
 
   calculateDoubleRewardsVoucher() {
-    this.doubleRewardsVoucherValue = this.selectedMetalTier.duration * 50;
+    // no rewards on the free subscription
+    if (this.selectedSubscriptionTier != this.subscriptionTiers[0]) {
+      this.doubleRewardsVoucherValue = this.selectedMetalTier.duration * 50;
+    } else {
+      this.doubleRewardsVoucherValue = 0;
+    }
   }
 
   calculateTotals() {

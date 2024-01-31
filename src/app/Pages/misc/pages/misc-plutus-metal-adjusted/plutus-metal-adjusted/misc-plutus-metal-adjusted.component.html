@@ -6,6 +6,8 @@
         regarding their upcoming Metal Cards. Please note that the values provided below are in PLU
         Rewards, which are an in-game token within the Plutus platform. The value of each of these
         native tokens is determined by Plutus customers outside of the platform.
+        <br>
+        <a class="fullTerms" href="https://medium.com/plutus/plutus-metal-supercharged-rewards-e7fdbebd2ffa" target="_blank">Full article</a>
     </p>
 
     <div class="inputWrapper">
@@ -28,6 +30,13 @@
              </ng-select>
         </div>
     </div>
+
+    <!-- shows info text if users has a stack or redeem without having a sub -->
+    <p *ngIf="selectedSubscriptionTier == subscriptionTiers[0] && (selectedStackingTier != stackingTiers[0])" class="requiredSubInfo">
+        With the standard subscription, you will not earn any rewards.
+        <br>
+        Please select one of the three paid subscriptions to get rewards on your spending.
+    </p>
 
     <div class="overview">
         <div class="overviewItem">

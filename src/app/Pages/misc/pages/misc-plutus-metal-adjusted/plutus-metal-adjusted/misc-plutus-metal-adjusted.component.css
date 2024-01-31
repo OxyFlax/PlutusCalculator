@@ -50,11 +50,18 @@
     color: rgb(132, 141, 156);
 }
 
+
+.fullTerms {
+    font-size: 12px;
+    margin: 0px 10px 5px 0px;
+    color: #C2C6CE;
+    text-decoration: underline;
+}
+
 .inputWrapper {
     width: 762px;
     margin: 0 auto;
     margin-top: 70px;
-    margin-bottom: 20px;
     height: 100px;
 }
 
@@ -106,6 +113,20 @@
 ::ng-deep.ng-option:last-child {
     border-bottom-left-radius: 10px !important;
     border-bottom-right-radius: 10px !important;
+}
+
+.requiredSubInfo {
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    transform: translateY(10px);
+    text-align: center;
+
+    font-size: 14px;
+    color: rgb(132, 141, 156);
 }
 
 .overview {
@@ -322,13 +343,6 @@ hr {
 
 
 
-
-
-
-
-
-
-
 @media only screen and (max-width: 761px) {
     .inputWrapper {
         margin-top: 30px;
@@ -349,6 +363,11 @@ hr {
         width: 254px;
         margin-top: 24px;
         margin-bottom: 10px;
+    }
+
+    .requiredSubInfo {
+        position: relative;
+        transform: translateY(7px);
     }
 
     .overview {
