@@ -43,10 +43,10 @@
     {
       "id": 5,
       "name": "50% Rewards Cap Discount",
-      "date": "(everyone)",
+      "date": "(everyone) ended 4th February",
       "description": "Everyone 50% discount on all redemption caps. There is currently no known end date so it will remain until further notice.",
       "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY46ZAE8C7DTAR5XAHZ",
-      "enabled": true
+      "enabled": false
     }
   ]
 }
