@@ -81,17 +81,17 @@
     },
     {
       "name": "1000",
-      "cost": 20,
+      "cost": 50,
       "eligibleSpend": 1000
     },
     {
       "name": "2000",
-      "cost": 50,
+      "cost": 100,
       "eligibleSpend": 2000
     },
     {
       "name": "5000",
-      "cost": 200,
+      "cost": 300,
       "eligibleSpend": 5000
     },
     {
