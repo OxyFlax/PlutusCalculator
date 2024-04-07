@@ -249,6 +249,11 @@
           "name": "Zero",
           "flameStats": ["str", "dex", "att", "allstat"],
           "flameType": "str"
+        },
+        {
+          "name": "Khali",
+          "flameStats": ["luk", "dex", "att", "allstat"],
+          "flameType": "luk"
         }
   ]
 }
