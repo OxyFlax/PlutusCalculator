@@ -1,5 +1,5 @@
 {
-    "version": "9.2",
+    "version": "9.3",
     "imagePrefix": "MapleWeeklies/",
     "taskGroups": [
         {
@@ -166,12 +166,20 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Wongstaurant Boss Coin Capping",
-                    "image": "Event/Savior/BossCoin.png",
+                    "name": "Seren",
+                    "image": "Seren.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
-                    "dispCon": "new Date().getTime() < 1693353599000" 
+                    "dispCon": "true"
+                },
+                {
+                    "name": "Kaling",
+                    "image": "Kaling.png",
+                    "done": false,
+                    "enabled": true,
+                    "type": "default",
+                    "dispCon": "true"
                 }
             ],
             "allDisabled": false
@@ -234,14 +242,6 @@
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
-                },
-                {
-                    "name": "Wongstaurant Cheer Up Weekly",
-                    "image": "Event/Savior/Wonky.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "new Date().getTime() > 1688515200000 && new Date().getTime() < 1689119999000"
                 }
             ],
             "allDisabled": false

@@ -1,5 +1,5 @@
 {
-    "version": "9.4",
+    "version": "9.5",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -301,7 +301,7 @@
                     "done": false,
                     "enabled": true,
                     "type": "default",
-                    "dispCon": "new Date().getTime() > 1702483200000"  
+                    "dispCon": "true"  
                 },
                 {
                     "name": "Carcion Daily",
@@ -309,7 +309,7 @@
                     "done": false,
                     "enabled": true,
                     "type": "default",
-                    "dispCon": "new Date().getTime() > 1704816000000"  
+                    "dispCon": "true"  
                 },
                 {
                     "name": "Erda's Request",
