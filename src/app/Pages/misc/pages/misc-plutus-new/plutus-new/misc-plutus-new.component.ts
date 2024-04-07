@@ -180,7 +180,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     if(this.promos[0].enabled) {
       for (let i = 0; i < this.subscriptionTiers.length; i++) {
         if (this.subscriptionTiers[i].cost != 0) {
-          this.subscriptionTiers[i].cost = this.subscriptionTiers[i].cost * 0.833;
+          this.subscriptionTiers[i].cost = this.subscriptionTiers[i].cost * 0.83333;
         }  
       }
     }
