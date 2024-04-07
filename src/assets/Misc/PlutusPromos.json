@@ -2,10 +2,10 @@
   "promos": [
     {
       "id": 0,
-      "name": "+5k Rewards Cap",
-      "date": "(Metal Card holders)",
-      "description": "All metal card holders will receive the #5k redemption cap (worth 200 PLU) for free starting in January 2024 and will remain active for 12months after the metal cards have been delivered.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/13239308075293-Plutus-Metal-Supercharged-Rewards#:~:text=Added%20benefit%20(10th%20January)",
+      "name": "Yearly Subscription Payments",
+      "date": "Permanent Feature",
+      "description": "Pay your subscription on a yearly basis and get 2 months of your subscription for free.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/17246363406877-FAQ-Annual-Subscriptions",
       "enabled": false
     },
     {
@@ -18,6 +18,14 @@
     },
     {
       "id": 2,
+      "name": "+5k Rewards Cap",
+      "date": "(Metal Card holders)",
+      "description": "All metal card holders will receive the #5k redemption cap (worth 200 PLU) for free starting in January 2024 and will remain active for 12months after the metal cards have been delivered.",
+      "termsLink": "https://support.plutus.it/hc/en-us/articles/13239308075293-Plutus-Metal-Supercharged-Rewards#:~:text=Added%20benefit%20(10th%20January)",
+      "enabled": false
+    },
+    {
+      "id": 3,
       "name": "+10k Rewards Cap",
       "date": "28th December 2023 - 15th January 2024",
       "description": "Everyone that upgraded their stacking tier to either Myth or HoneyBadger between the above mentioned dates will receive the #10k redemption cap (worth 500 PLU) for free for the entirety of 2024.",
@@ -25,7 +33,7 @@
       "enabled": false
     },
     {
-      "id": 3,
+      "id": 4,
       "name": "+10k Rewards Cap",
       "date": "25th October 2023 - 29th November 2023",
       "description": "Everyone that upgraded their stacking tier between the above mentioned dates will receive the #10k redemption cap (worth 500 PLU) for free for the entirety of 2024.",
@@ -33,7 +41,7 @@
       "enabled": false
     },
     {
-      "id": 4,
+      "id": 5,
       "name": "+1k Rewards Cap",
       "date": "before 25th of October 2023",
       "description": "Everyone that has been on a stacking tier before the above mentioned date will receive the #1k redemption cap (worth 20 PLU) for free for the entirety of 2024.",
@@ -41,7 +49,7 @@
       "enabled": false
     },
     {
-      "id": 5,
+      "id": 6,
       "name": "50% Rewards Cap Discount",
       "date": "(everyone) ended 4th February",
       "description": "Everyone 50% discount on all redemption caps. There is currently no known end date so it will remain until further notice.",

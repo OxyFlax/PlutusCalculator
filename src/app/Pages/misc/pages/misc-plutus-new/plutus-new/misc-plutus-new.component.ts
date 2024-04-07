@@ -20,6 +20,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   };
 
   subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
+  subscriptionTiersDefault: EligibleSpendTier[] = JSON.parse(JSON.stringify(PlutusJson.subscriptionTiers)); // for resetting annual payment changes
   stackingTiers: PlutusStackingTier[] = PlutusJson.stackingTiers;
   eligibleSpendTiers: EligibleSpendTier[] = PlutusJson.eligibleSpendTiers;
   eligibleSpendTiersDefault: EligibleSpendTier[] = JSON.parse(JSON.stringify(PlutusJson.eligibleSpendTiers)); // for resetting promo changes
@@ -31,6 +32,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
   averageMonthlySpend: number;
   currencySymbol: string = "€";
+  showSubRequiredMessage: boolean = false;
   showPromotions: boolean = false;
 
   cashbackRate: number = 0;
@@ -148,13 +150,13 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     this.promos[index].enabled = !this.promos[index].enabled;
 
     // else if list to automatically apply the best rewardscap based on the selected promos
-    if(this.promos[2].enabled || this.promos[3].enabled) {
+    if(this.promos[3].enabled || this.promos[4].enabled) {
       this.selectedEligibleSpendTier = this.eligibleSpendTiers[4];
-    } else if (this.promos[0].enabled) {
+    } else if (this.promos[2].enabled) {
       this.selectedEligibleSpendTier = this.eligibleSpendTiers[3];
       } else if (this.promos[1].enabled) {
         this.selectedEligibleSpendTier = this.eligibleSpendTiers[2];
-        } else if (this.promos[4].enabled) {
+        } else if (this.promos[5].enabled) {
           this.selectedEligibleSpendTier = this.eligibleSpendTiers[1];
           }
 
@@ -168,12 +170,18 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.eligibleSpendTiers.length; i++) {
       this.eligibleSpendTiers[i].cost = this.eligibleSpendTiersDefault[i].cost;
     }
+    //reset subscriptiontier costs as they are also manipulated since the yearly susbcription payments became a thing.
+    for (let i = 0; i < this.subscriptionTiers.length; i++) {
+      this.subscriptionTiers[i].cost = this.subscriptionTiersDefault[i].cost;
+    }
 
     // This is not the cleanest and reusable way of working but it's the easiest as not all promos have the same logic to apply.
-    // 5k metal promo
+    // yearly subscription payments
     if(this.promos[0].enabled) {
-      if(this.eligibleSpendTiers.findIndex(el => el.name == "5000") > 0) {
-        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "5000")].cost = 0;
+      for (let i = 0; i < this.subscriptionTiers.length; i++) {
+        if (this.subscriptionTiers[i].cost != 0) {
+          this.subscriptionTiers[i].cost = this.subscriptionTiers[i].cost * 0.833;
+        }  
       }
     }
 
@@ -184,35 +192,43 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       }
     }
     
-    // 10k promo 2
+    // 5k metal promo
     if(this.promos[2].enabled) {
-      if(this.eligibleSpendTiers.findIndex(el => el.name == "10000") > 0) {
-        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "10000")].cost = 0;
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "5000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "5000")].cost = 0;
       }
     }
-
-    // 10k promo 1
+    
+    // 10k promo 2
     if(this.promos[3].enabled) {
       if(this.eligibleSpendTiers.findIndex(el => el.name == "10000") > 0) {
         this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "10000")].cost = 0;
       }
     }
 
-    // 1k promo
+    // 10k promo 1
     if(this.promos[4].enabled) {
+      if(this.eligibleSpendTiers.findIndex(el => el.name == "10000") > 0) {
+        this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "10000")].cost = 0;
+      }
+    }
+
+    // 1k promo
+    if(this.promos[5].enabled) {
       if(this.eligibleSpendTiers.findIndex(el => el.name == "1000") > 0) {
         this.eligibleSpendTiers[this.eligibleSpendTiers.findIndex(el => el.name == "1000")].cost = 0;
       }
     }
 
     // 50% discount promo
-    if(this.promos[5].enabled) {
+    if(this.promos[6].enabled) {
       for (let i = 0; i < this.eligibleSpendTiers.length; i++) {
         if (this.eligibleSpendTiers[i].cost != 0) {
           this.eligibleSpendTiers[i].cost = this.eligibleSpendTiers[i].cost / 2;
         }  
       }
     }
+
     this.calculate();
   }
   
@@ -232,7 +248,13 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     this.calculateRedeemCost();
 
     this.calculateActualTotalYearlyValue();
-
+ 
+    // check if the warning about needing to be on standard sub needs to be displayed;
+    if (this.selectedSubscriptionTier == this.subscriptionTiers[0] && (this.selectedStackingTier != this.stackingTiers[0] || this.selectedEligibleSpendTier != this.eligibleSpendTiers[0])) {
+      this.showSubRequiredMessage = true;
+    } else {
+      this.showSubRequiredMessage = false;
+    }
   }
 
   calculateCashbackRate() {

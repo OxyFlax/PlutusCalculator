@@ -39,13 +39,13 @@
     </div>
 
     <!-- shows info text if users has a stack or redeem without having a sub -->
-    <p *ngIf="selectedSubscriptionTier == subscriptionTiers[0] && (selectedStackingTier != stackingTiers[0] || selectedEligibleSpendTier != eligibleSpendTiers[0])" class="requiredSubInfo">
+    <p *ngIf="showSubRequiredMessage" class="requiredSubInfo">
         With the standard subscription, you will not earn any rewards.
         <br>
         Please select one of the three paid subscriptions to get rewards on your spending.
     </p>
 
-    <div class="promoSelectionScreen" *ngIf="showPromotions">
+    <div class="promoSelectionScreen" *ngIf="showPromotions" [ngClass]="{'promoRequiredSubOffset': showSubRequiredMessage}">
         <p class="promoHeader">
             Click on a promotion to enable the benefits
         </p>

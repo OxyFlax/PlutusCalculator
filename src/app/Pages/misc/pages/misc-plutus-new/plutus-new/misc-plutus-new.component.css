@@ -158,7 +158,6 @@ input[type=number] {
     margin: 0 auto;
     transform: translateY(23px);
     text-align: center;
-
     font-size: 14px;
     color: rgb(132, 141, 156);
 }
@@ -170,9 +169,12 @@ input[type=number] {
     background-color: #FBFBFB;
     border-radius: 8px;
     color: black;
-
     z-index: 1001;
     text-align: center;
+}
+
+.promoRequiredSubOffset {
+    margin-top: 90px;
 }
 
 .promoHeader {
