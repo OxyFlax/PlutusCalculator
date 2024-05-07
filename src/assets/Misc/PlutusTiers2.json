@@ -1,7 +1,7 @@
 {
   "subscriptionTiers": [
     {
-      "name": "Standard",
+      "name": "Standard Account",
       "cost": 0,
       "eligibleSpend": 0,
       "cashbackPercentage": 0,

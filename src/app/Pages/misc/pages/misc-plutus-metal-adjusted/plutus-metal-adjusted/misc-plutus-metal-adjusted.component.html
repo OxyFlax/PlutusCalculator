@@ -14,7 +14,10 @@
         <div class="inputLabelWrapper">
             <label for="subscriptionTier">Subscription Plan</label>
             <ng-select name="subscriptionTier" [searchable]="false" [clearable]="false" [(ngModel)]="selectedSubscriptionTier" (change)="subscriptionTierChange($event)">
-                <ng-option *ngFor="let r of subscriptionTiers" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span class="optionSmallText">{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</span></ng-option>
+                <ng-container *ngFor="let r of subscriptionTiers">
+                    <ng-option *ngIf="r.cost == 0" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }}</ng-option>
+                    <ng-option *ngIf="r.cost != 0" [value]="r">&nbsp;{{ r.name.padEnd(14, '&nbsp;') }} <span class="optionSmallText">{{ currencySymbol }}{{ r.cost | number : '1.2-2'}}/m</span></ng-option>
+                </ng-container>
              </ng-select>
         </div>
         <div class="inputLabelWrapper">
@@ -33,9 +36,9 @@
 
     <!-- shows info text if users has a stack or redeem without having a sub -->
     <p *ngIf="selectedSubscriptionTier == subscriptionTiers[0] && (selectedStackingTier != stackingTiers[0])" class="requiredSubInfo">
-        With the standard subscription, you will not earn any rewards.
+        With the standard account, you will not earn any rewards.
         <br>
-        Please select one of the three paid subscriptions to get rewards on your spending.
+        Please select one of the three subscriptions to get rewards on your spending.
     </p>
 
     <div class="overview">
