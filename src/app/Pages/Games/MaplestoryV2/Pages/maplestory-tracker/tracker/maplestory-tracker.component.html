@@ -1,0 +1,104 @@
+<app-maplestory-navigation></app-maplestory-navigation>
+<div class="background"></div>
+<div class="titlebar">
+    <div class="title">Trackers</div>
+    <div class="buttons">
+        <button class="classSelector">Unhe (Ark) <span class="fa fa-caret-down"></span></button>
+        <button class="settings"><span class="fa fa-cog fa-lg"></span></button>
+    </div>
+</div>
+<div class="trackerSwitcher">
+    <button class="dailyTracker">Daily Tracker</button>
+    <button class="weeklyTracker">Weekly Tracker</button>
+</div>
+<div class="timerWrapper">
+    <div class="timer"><span>Daily reset in 3 hours, 32 minutes and 52 seconds</span></div>
+</div>
+
+<div class="taskWrapper">
+    <div class="taskGroup">
+        <div class="taskGroupHeader">
+            <img class="taskGroupImage" [src]="'assets/Games/MaplestoryV2/Daily/ranmaru.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+            <div class="taskGroupTitle">Bosses</div>
+        </div>
+
+        <div class="progress" data-label="Progress: 15/15">
+            <span class="value" style="width:100%;"></span>
+        </div>
+
+        <div class="task" [ngClass]="{'tChecked': true}">
+            <div class="checkbox" [ngClass]="(true)?'cbChecked':'cbUnchecked'"><span *ngIf="true" class="fa fa-check"></span></div>
+            <div class="taskName">Zakum</div>
+            <img [src]="'assets/Games/MaplestoryV2/Daily/Zakum.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+        </div>
+        <div class="task" [ngClass]="{'tChecked': false}">
+            <div class="checkbox" [ngClass]="(false)?'cbChecked':'cbUnchecked'"><span *ngIf="false" class="fa fa-check"></span></div>
+            <div class="taskName">Magnus</div>
+            <img [src]="'assets/Games/MaplestoryV2/Daily/Magnus.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+        </div>
+    </div>
+    <div class="taskGroup">
+        <div class="taskGroupHeader">
+            <img class="taskGroupImage" [src]="'assets/Games/MaplestoryV2/Daily/MPE.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+            <div class="taskGroupTitle">Tasks</div>
+        </div>
+        <div class="progress" data-label="Progress: 0/11">
+            <span class="value" style="width:1%;"></span>
+        </div>
+
+        <div class="task" [ngClass]="{'tChecked': true}">
+            <div *ngIf="false" class="checkbox" [ngClass]="(false)?'cbChecked':'cbUnchecked'"><span *ngIf="false" class="fa fa-check"></span></div>
+            <div *ngIf="editMode" class="updown">
+                <span class="fa fa-caret-up"></span>
+                <span class="fa fa-caret-down"></span>
+            </div>
+            <div class="taskName">Magnus</div>
+            <img [src]="'assets/Games/MaplestoryV2/Daily/Magnus.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+            <div *ngIf="editMode" class="toggle" [ngClass]="(true)?'emEnabled':'emDisabled'">
+                <span *ngIf="true" class="fa fa-plus"></span>
+                <span *ngIf="false" class="fa fa-minus"></span>
+            </div>
+        </div>
+        <div class="task" [ngClass]="{'tChecked': false}">
+            <div *ngIf="false" class="checkbox" [ngClass]="(false)?'cbChecked':'cbUnchecked'"><span *ngIf="false" class="fa fa-check"></span></div>
+            <div *ngIf="editMode" class="updown">
+                <span class="fa fa-caret-up"></span>
+                <span class="fa fa-caret-down"></span>
+            </div>
+            <div class="taskName">Magnus</div>
+            <img [src]="'assets/Games/MaplestoryV2/Daily/Magnus.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+            <div *ngIf="editMode" class="toggle" [ngClass]="(false)?'emEnabled':'emDisabled'">
+                <span *ngIf="false" class="fa fa-plus"></span>
+                <span *ngIf="true" class="fa fa-minus"></span>
+            </div>
+        </div>
+        <div class="task" [ngClass]="{'tChecked': false}">
+            <div *ngIf="false" class="checkbox" [ngClass]="(false)?'cbChecked':'cbUnchecked'"><span *ngIf="false" class="fa fa-check"></span></div>
+            <div *ngIf="editMode" class="updown">
+                <span class="fa fa-caret-up"></span>
+                <span class="fa fa-caret-down"></span>
+            </div>
+            <div class="taskName">Magnus</div>
+            <img [src]="'assets/Games/MaplestoryV2/Daily/Magnus.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+            <div *ngIf="editMode" class="toggle" [ngClass]="(false)?'emEnabled':'emDisabled'">
+                <span *ngIf="false" class="fa fa-plus"></span>
+                <span *ngIf="false" class="fa fa-minus"></span>
+                <span *ngIf="true" class="fa fa-trash"></span>
+            </div>
+        </div>
+    </div>
+    <div class="taskGroup">
+        <div class="taskGroupHeader">
+            <img class="taskGroupImage" [src]="'assets/Games/MaplestoryV2/Daily/VJ.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+            <div class="taskGroupTitle">Dailies</div>
+        </div>
+        <div class="progress" data-label="Progress: 7/14">
+            <span class="value" style="width:50%;"></span>
+        </div>
+
+        <div class="addTask">
+            <span class="fa fa-plus"></span>
+            <span>Custom tracker</span>
+        </div>
+    </div>
+</div>

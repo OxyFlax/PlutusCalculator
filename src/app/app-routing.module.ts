@@ -52,6 +52,10 @@ const routes: Routes = [
         path: 'games/maplestory/weeklies', 
         loadChildren: () => import('./Pages/Games/Maplestory/Pages/maplestory-weeklies-v3/maplestory-weeklies-v3.module').then(m => m.MaplestoryWeekliesV3Module)
     },
+    {
+        path: 'games/maplestory/tracker', 
+        loadChildren: () => import('./Pages/Games/MaplestoryV2/Pages/maplestory-tracker/maplestory-tracker.module').then(m => m.MaplestoryTrackerModule)
+    },
 
 
 

@@ -1,4 +1,19 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "@fontsource/gothic-a1/300.css";
+@import "@fontsource/gothic-a1/400.css";
+@import "@fontsource/gothic-a1/900.css";
+
+@font-face {
+    font-family: "Lemon Milk";
+    src: url('src\assets\fonts\LEMONMILK-Light.otf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Lemon Milk";
+    src: url('src\assets\fonts\LEMONMILK-Medium.otf');
+    font-weight: 500;
+}
 
 :root {
     --font-color: #FFFFFF;
