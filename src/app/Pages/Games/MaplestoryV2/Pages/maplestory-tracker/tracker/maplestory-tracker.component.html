@@ -3,7 +3,40 @@
 <div class="titlebar">
     <div class="title">Trackers</div>
     <div class="buttons">
-        <button class="classSelector">Unhe (Ark) <span class="fa fa-caret-down"></span></button>
+        <div class="characterSelector">
+            <button class="characterSelectorButton">Unhe (Ark) <span class="fa fa-caret-down"></span></button>
+            <div class="characterSelectorMenu">
+                <div class="characterItem character">
+                    <span class="name">Character 1</span>
+                    <span class="fa fa-edit"></span>
+                    <span class="fa fa-trash"></span>
+                </div>
+                <div class="characterItem character">
+                    <span class="name">Character 2</span>
+                    <span class="fa fa-edit"></span>
+                    <span class="fa fa-trash"></span>
+                </div>
+                <div class="characterItem deleteCharacter">
+                    <span class="name">Delete "Character 3"?</span>
+                    <span class="fa fa-check"></span>
+                    <span class="fa fa-close"></span>
+                </div>
+                <div class="characterItem editCharacter">
+                    <input name="editChar" id="editChar" type="text" placeholder="character name">
+                    <span class="fa fa-check"></span>
+                    <span class="fa fa-close"></span>
+                </div>
+                <div class="separator"></div>
+                <div class="characterItem">
+                    <span class="plusIcon">+</span><span class="name">new character</span>
+                </div>
+                <div class="characterItem addCharacter">
+                    <input name="addChar" id="addChar" type="text" placeholder="enter name">
+                    <span class="fa fa-check"></span>
+                    <span class="fa fa-close"></span>
+                </div>
+            </div>
+        </div>
         <button class="settings"><span class="fa fa-cog fa-lg"></span></button>
     </div>
 </div>
