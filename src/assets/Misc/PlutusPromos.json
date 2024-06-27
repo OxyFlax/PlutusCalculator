@@ -5,15 +5,15 @@
       "name": "Yearly Subscription Payments",
       "date": "Permanent Feature",
       "description": "Pay your subscription on a yearly basis and get 2 months of your subscription for free.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/17246363406877-FAQ-Annual-Subscriptions",
+      "termsLink": "https://www.plutus.it/help/annualsubscriptions",
       "enabled": false
     },
     {
       "id": 1,
       "name": "+2k Rewards Cap worth 100 PLU",
-      "date": "10th January 2024 onwards",
+      "date": "10th January 2024 - 30th May 2024",
       "description": "Everyone that upgrades their stacking tier from the above mentioned date onwards will receive the #2k redemption cap (worth 100 PLU) for free on the 1st of the month following their upgrade and will last for 12months.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HKTB21J9GPEPYJE478883RZA",
+      "termsLink": "https://www.plutus.it/help/2k-rewards-cap-unlock-reward-level",
       "enabled": false
     },
     {
@@ -29,7 +29,7 @@
       "name": "+10k Rewards Cap",
       "date": "28th December 2023 - 15th January 2024",
       "description": "Everyone that upgraded their stacking tier to either Myth or HoneyBadger between the above mentioned dates will receive the #10k redemption cap (worth 500 PLU) for free for the entirety of 2024.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HJRDF7XWEJVET38KB1XSD6DF",
+      "termsLink": "https://www.plutus.it/help/promoended",
       "enabled": false
     },
     {
@@ -37,7 +37,7 @@
       "name": "+10k Rewards Cap",
       "date": "25th October 2023 - 29th November 2023",
       "description": "Everyone that upgraded their stacking tier between the above mentioned dates will receive the #10k redemption cap (worth 500 PLU) for free for the entirety of 2024.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY4GB804AWT3KWX3DVF",
+      "termsLink": "https://www.plutus.it/help/promoended",
       "enabled": false
     },
     {
@@ -45,7 +45,7 @@
       "name": "+1k Rewards Cap",
       "date": "before 25th of October 2023",
       "description": "Everyone that has been on a stacking tier before the above mentioned date will receive the #1k redemption cap (worth 50 PLU) for free for the entirety of 2024.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY4WH6KAE4FFN4YWYGJ",
+      "termsLink": "https://www.plutus.it/help/promoended",
       "enabled": false
     },
     {
@@ -53,7 +53,7 @@
       "name": "50% Rewards Cap Discount",
       "date": "(everyone) ended 4th February",
       "description": "Everyone 50% discount on all redemption caps. There is currently no known end date so it will remain until further notice.",
-      "termsLink": "https://support.plutus.it/hc/en-us/articles/5132685790877-Promotions-events-and-bonuses-Live-tracker#h_01HEB3NPY46ZAE8C7DTAR5XAHZ",
+      "termsLink": "https://www.plutus.it/help/promoended",
       "enabled": false
     }
   ]
