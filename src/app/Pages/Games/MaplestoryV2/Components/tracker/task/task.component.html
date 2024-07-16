@@ -1,0 +1,14 @@
+<div class="task" [ngClass]="{'tChecked': false}">
+    <div *ngIf="true" class="checkbox" [ngClass]="(false)?'cbChecked':'cbUnchecked'"><span *ngIf="false" class="fa fa-check"></span></div>
+    <div *ngIf="editMode" class="updown">
+        <span class="fa fa-caret-up"></span>
+        <span class="fa fa-caret-down"></span>
+    </div>
+    <div class="taskName">{{ task.name }}</div>
+    <img [src]="task.type != 'custom' ? 'assets/Games/MaplestoryV2/Daily/' + task.image : task.image" onerror="this.onerror=null; this.src='assets/TrackerImages/error.png'" alt="{{task.name}}">
+    <div *ngIf="editMode" class="toggle" [ngClass]="(false)?'emEnabled':'emDisabled'">
+        <span *ngIf="false" class="fa fa-plus"></span>
+        <span *ngIf="false" class="fa fa-minus"></span>
+        <span *ngIf="true" class="fa fa-trash"></span>
+    </div>
+</div>

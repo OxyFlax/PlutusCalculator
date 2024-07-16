@@ -10,7 +10,7 @@ export interface CharacterInfo {
 export interface CharacterData {
     dailyTaskGroups: TaskGroup[];
     weeklyTaskGroups: TaskGroup[];
-    arcaneSymbolData: ArcaneSymbolData;
-    sacredSymbolData: SacredSymbolData;
+    //arcaneSymbolData: ArcaneSymbolData;
+    //sacredSymbolData: SacredSymbolData;
     flameData: FlameData;
 }

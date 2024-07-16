@@ -57,87 +57,97 @@ export class GeneralDataService {
         return data;
     }
 
+    addCharacterWithExistingReference(storageReference: string) {
+        var newCharacterData = this.createCharacterSaveData();
+
+        // create the new character data object in local storage
+        localStorage.setItem(storageReference, JSON.stringify(newCharacterData));
+
+        // return it so the calling function does not need to redo the initialisation.
+        return newCharacterData;
+    }
+
     createCharacterSaveData() {
         var newCharacterData: CharacterData = {
             dailyTaskGroups: DailiesJson.taskGroups,
             weeklyTaskGroups: WeekliesJson.taskGroups,
-            arcaneSymbolData: this.generateArcaneSymbolData(),
-            sacredSymbolData: this.generateSacredSymbolData(),
+            //arcaneSymbolData: this.generateArcaneSymbolData(),
+            //sacredSymbolData: this.generateSacredSymbolData(),
             flameData: this.generateFlameData()
         };
 
         return newCharacterData;
     }
 
-    generateArcaneSymbolData() {
-        var newArcaneSymbolData: ArcaneSymbolData = {
-            vjLevel: 1,
-            vjExp: 1,
-            vjDailyQuest: true,
-            vjReverseCity: false,
-            vjErdaSpectrum: true,
-            chuchuLevel: 1,
-            chuchuExp: 1,
-            chuchuDailyQuest: true,
-            chuchuYumYumIsland: false,
-            chuchuHungryMuto: true,
-            lachLevel: 1,
-            lachExp: 1,
-            lachDailyQuest: true,
-            lachMidnightChaser: true,
-            arcanaLevel: 1,
-            arcanaExp: 1,
-            arcanaDailyQuest: true,
-            arcanaSpiritSaviour: true,
-            morassLevel: 1,
-            morassExp: 1,
-            morassDailyQuest: true,
-            moreassRanheimDefense: true,
-            esferaLevel: 1,
-            esferaExp: 1,
-            esferaDailyQuest: true,
-            esferaGuardian: true
-        };
+    // generateArcaneSymbolData() {
+    //     var newArcaneSymbolData: ArcaneSymbolData = {
+    //         vjLevel: 1,
+    //         vjExp: 1,
+    //         vjDailyQuest: true,
+    //         vjReverseCity: false,
+    //         vjErdaSpectrum: true,
+    //         chuchuLevel: 1,
+    //         chuchuExp: 1,
+    //         chuchuDailyQuest: true,
+    //         chuchuYumYumIsland: false,
+    //         chuchuHungryMuto: true,
+    //         lachLevel: 1,
+    //         lachExp: 1,
+    //         lachDailyQuest: true,
+    //         lachMidnightChaser: true,
+    //         arcanaLevel: 1,
+    //         arcanaExp: 1,
+    //         arcanaDailyQuest: true,
+    //         arcanaSpiritSaviour: true,
+    //         morassLevel: 1,
+    //         morassExp: 1,
+    //         morassDailyQuest: true,
+    //         moreassRanheimDefense: true,
+    //         esferaLevel: 1,
+    //         esferaExp: 1,
+    //         esferaDailyQuest: true,
+    //         esferaGuardian: true
+    //     };
 
-        return newArcaneSymbolData;
-    }
+    //     return newArcaneSymbolData;
+    // }
 
-    generateSacredSymbolData() {
-        var newSacredSymbolData: SacredSymbolData = {
-            cerniumLevel: 1,
-            cerniumExp: 1,
-            cerniumDailyQuest: true,
-            arcusLevel: 1,
-            arcusExp: 1,
-            arcusDailyQuest: true,
-            odiumLevel: 1,
-            odiumExp: 1,
-            odiumDailyQuest: true,
-            shangrilaLevel: 1,
-            shangrilaExp: 1,
-            shangrilaDailyQuest: true,
-            arteriaLevel: 1,
-            arteriaExp: 1,
-            arteriaDailyQuest: true,
-            carcionLevel: 1,
-            carcionExp: 1,
-            carcionDailyQuest: true
-        };
+    // generateSacredSymbolData() {
+    //     var newSacredSymbolData: SacredSymbolData = {
+    //         cerniumLevel: 1,
+    //         cerniumExp: 1,
+    //         cerniumDailyQuest: true,
+    //         arcusLevel: 1,
+    //         arcusExp: 1,
+    //         arcusDailyQuest: true,
+    //         odiumLevel: 1,
+    //         odiumExp: 1,
+    //         odiumDailyQuest: true,
+    //         shangrilaLevel: 1,
+    //         shangrilaExp: 1,
+    //         shangrilaDailyQuest: true,
+    //         arteriaLevel: 1,
+    //         arteriaExp: 1,
+    //         arteriaDailyQuest: true,
+    //         carcionLevel: 1,
+    //         carcionExp: 1,
+    //         carcionDailyQuest: true
+    //     };
 
-        return newSacredSymbolData;
-    }
+    //     return newSacredSymbolData;
+    // }
 
     generateFlameData() {
         var newFlame: Flame = {
-            str: null,
-            dex: null,
-            luk: null,
-            int: null,
-            hp: null,
-            mp: null,
-            att: null,
-            matt: null,
-            allstat: null
+            str: 0,
+            dex: 0,
+            luk: 0,
+            int: 0,
+            hp: 0,
+            mp: 0,
+            att: 0,
+            matt: 0,
+            allstat: 0
         };
 
         var newFlameValues: FlameValues = {

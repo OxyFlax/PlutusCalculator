@@ -11,15 +11,15 @@
                     <span class="fa fa-edit"></span>
                     <span class="fa fa-trash"></span>
                 </div>
-                <div class="characterItem character">
-                    <span class="name">Character 2</span>
-                    <span class="fa fa-edit"></span>
-                    <span class="fa fa-trash"></span>
-                </div>
                 <div class="characterItem deleteCharacter">
-                    <span class="name">Delete "Character 3"?</span>
+                    <span class="name">Delete "Character 2"?</span>
                     <span class="fa fa-check"></span>
                     <span class="fa fa-close"></span>
+                </div>
+                <div class="characterItem character">
+                    <span class="name">Character 3</span>
+                    <span class="fa fa-edit"></span>
+                    <span class="fa fa-trash"></span>
                 </div>
                 <div class="characterItem editCharacter">
                     <input name="editChar" id="editChar" type="text" placeholder="character name">
@@ -49,7 +49,11 @@
 </div>
 
 <div class="taskWrapper">
-    <div class="taskGroup">
+    <ng-container *ngFor="let item of selectedCharacter.dailyTaskGroups; let i = index">
+        <app-task-group class="test" [taskGroup]="item" (changeEvent)="changeHandler()"></app-task-group>
+    </ng-container>
+
+    <!-- <div class="taskGroup">
         <div class="taskGroupHeader">
             <img class="taskGroupImage" [src]="'assets/Games/MaplestoryV2/Daily/ranmaru.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
             <div class="taskGroupTitle">Bosses</div>
@@ -133,5 +137,5 @@
             <span class="fa fa-plus"></span>
             <span>Custom tracker</span>
         </div>
-    </div>
+    </div> -->
 </div>

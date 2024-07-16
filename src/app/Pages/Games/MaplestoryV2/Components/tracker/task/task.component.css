@@ -1,0 +1,113 @@
+.task {
+    width: 385px;
+    height: 70px;
+    background-color: #EBEBEB;
+    margin: 0 auto 10px auto;
+    border-radius: 3px;
+    display: flex;
+    position: relative;
+}
+
+.tChecked {
+    background-color: #A6E197;
+}
+
+.task .checkbox {
+    width: 20px;
+    height: 20px;
+    margin: 25px 18px 25px 20px;
+    border-radius: 5px;
+    color: #A6E197;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    text-align: center;
+    display:table;
+}
+
+.task .checkbox span {
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.cbUnchecked {
+    border: 3px solid #393939;
+}
+
+.cbChecked {
+    background-color: #393939;
+}
+
+.updown {
+    width: 20px;
+    height: 20px;
+    margin: 25px 18px 25px 20px;
+    border-radius: 5px;
+    color: #393939;
+    text-align: center;
+    position: relative;
+}
+
+.updown span {
+    width: 100%;
+    font-size: 18px;
+}
+
+.fa-caret-up {
+    position: absolute;
+    top: -4px;
+    left: 0px;
+}
+
+.fa-caret-down {
+    position: absolute;
+    bottom: -4px;
+    left: 0px;
+}
+
+.taskName {
+    max-width: 160px;
+    font-family: "Lemon Milk", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color:#393939; 
+    display: flex;
+    align-items: center;
+}
+
+.task img {
+    width: 220px;
+    height: 70px;
+    -webkit-clip-path: polygon(43% 0, 100% 0, 100% 100%, 0% 100%);
+    clip-path: polygon(43% 0, 100% 0, 100% 100%, 0% 100%);
+    border-bottom-left-radius: 0px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.task .toggle {
+    position: absolute;
+    width: 38px;
+    height: 100%;
+    right: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.emEnabled {
+    background-color: #A6E197;
+}
+
+.emDisabled {
+    background-color: #B45757;
+}
+
+.toggle span {
+    margin: 0 auto;
+    font-size: 18px;
+}

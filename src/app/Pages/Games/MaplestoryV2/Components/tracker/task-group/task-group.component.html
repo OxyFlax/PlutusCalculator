@@ -1,0 +1,21 @@
+<div class="taskGroup">
+    <div class="taskGroupHeader">
+        <img class="taskGroupImage" [src]="'assets/Games/MaplestoryV2/Daily/ranmaru.png'" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'">
+        <div class="taskGroupTitle">Bosses</div>
+    </div>
+
+    <div class="progress" data-label="Progress: 15/15">
+        <span class="value" style="width:100%;"></span>
+    </div>
+
+    <ng-container *ngFor="let task of taskGroup.tasks; let i = index">
+        <app-task [task]="task" [index]="i" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-task>
+        <!-- <app-ursus-task *ngIf="task.name == 'Ursus'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" [imagePrefix]="taskData.imagePrefix" [resetUtcOffset]="taskData.mapleRegion.resetUtcOffset" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-ursus-task> -->
+        <!-- <app-yu-garden-task *ngIf="task.name == 'Yu Garden'" [task]="task" [editModeActive]="taskData.editModeActive" [title]="title" [index]="i" [imagePrefix]="taskData.imagePrefix" [resetUtcOffset]="taskData.mapleRegion.resetUtcOffset" (disableEvent)="disableTask($event)" (moveEvent)="moveTask($event)" (changeEvent)="changeHandler()"></app-yu-garden-task> -->
+    </ng-container>
+
+    <div class="addTask">
+        <span class="fa fa-plus"></span>
+        <span>Custom tracker</span>
+    </div>
+</div>

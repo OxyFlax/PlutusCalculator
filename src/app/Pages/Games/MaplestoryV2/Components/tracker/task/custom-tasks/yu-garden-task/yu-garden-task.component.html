@@ -1,0 +1,14 @@
+<div class="taskWrapper" [ngClass]="{'enabledTask': task.enabled, 'disabledTask': !task.enabled}" *ngIf="(task.enabled || editModeActive)">
+    <div class="imgWrapper">
+         <img [src]="task.type != 'custom' ? 'assets/TrackerImages/' + imagePrefix + task.image : task.image" onerror="this.onerror=null; this.src='assets/TrackerImages/Custom.png'" alt="{{task.name}}">
+    </div>
+    <label for="{{ title }}{{ index }}" (click)="disableTask()">{{ task.name }}</label>
+    <span *ngIf="resetUtcOffset == 0" class="yuGardenCountdown" style="pointer-events:none">{{ yuGardenTimerPrefix }} {{ yuGardenTimerString }}</span>
+    <div class="inputWrapper">
+        <input *ngIf="!editModeActive" name="{{ title }}{{ index }}" id="{{ title }}{{ index }}" type="checkbox" [(ngModel)]="task.done" (change)="changeHandler()" />
+        <div *ngIf="editModeActive" class="orderChanger">
+            <i class="fa fa-caret-up fa-2x" (click)="moveTask('up')"></i>
+            <i class="fa fa-caret-down fa-2x" (click)="moveTask('down')"></i>
+        </div>
+    </div>
+</div>
