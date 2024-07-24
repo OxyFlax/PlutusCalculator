@@ -115,10 +115,14 @@ const routes: Routes = [
 
     {
         path        : 'plutusmetal',
-        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal-adjusted/misc-plutus-metal-adjusted.module').then(m => m.MiscPlutusMetalAdjustedModule)
+        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-metal/misc-plutus-metal.module').then(m => m.MiscPlutusMetalModule)
     },
     {
         path        : 'plutus-calculator',
+        loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-calculator/misc-plutus-calculator.module').then(m => m.MiscPlutusCalculatorModule)
+    },
+    {
+        path        : 'plutus-calculator-wp',
         loadChildren: () => import('./Pages/Misc/Pages/misc-plutus-new/misc-plutus-new.module').then(m => m.MiscPlutusNewModule)
     },
     {

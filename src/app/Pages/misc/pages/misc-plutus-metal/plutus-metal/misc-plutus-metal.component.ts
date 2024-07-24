@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import PlutusJson from '../../../../../../assets/Misc/PlutusTiers2.json';
+import PlutusJson from '../../../../../../assets/Misc/PlutusTiers.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { PlutusSubscriptionTier, PlutusStackingTier, PlutusMetalTier, Fiat, Tether } from '../../../Models/PlutusTiers2';
+import { PlutusSubscriptionTier, PlutusStackingTier, PlutusMetalTier, Fiat, Tether } from '../../../Models/PlutusTiers';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-misc-plutus-metal-adjusted',
-  templateUrl: './misc-plutus-metal-adjusted.component.html',
-  styleUrls: ['./misc-plutus-metal-adjusted.component.css']
+  selector: 'app-misc-plutus-metal',
+  templateUrl: './misc-plutus-metal.component.html',
+  styleUrls: ['./misc-plutus-metal.component.css']
 })
-export class MiscPlutusMetalAdjustedComponent implements OnInit, OnDestroy {
+export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
   url: string = 'https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=eur%2Cgbp';
   tetherPrice: Tether = {
     eur: 0.921792,

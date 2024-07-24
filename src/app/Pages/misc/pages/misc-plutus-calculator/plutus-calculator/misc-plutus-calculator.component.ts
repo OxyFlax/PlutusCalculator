@@ -1,19 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import PlutusJson from '../../../../../../assets/Misc/PlutusTiers.json';
-import PlutusWpJson from '../../../../../../assets/Misc/PlutusTiersWP.json';
-import PlutusPromos from '../../../../../../assets/Misc/PlutusPromos.json';
+import PlutusPromosJson from '../../../../../../assets/Misc/PlutusPromos.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { PlutusSubscriptionTier, PlutusStackingTierNew, EligibleSpendTier, Coin, Pluton, Promos } from '../../../Models/PlutusTiers';
+import { PlutusSubscriptionTier, PlutusStackingTier, EligibleSpendTier, Coin, Pluton, Promos } from '../../../Models/PlutusTiers';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
 @Component({
-  selector: 'app-misc-plutus-new',
-  templateUrl: './misc-plutus-new.component.html',
-  styleUrls: ['./misc-plutus-new.component.css']
+  selector: 'app-misc-plutus-calculator',
+  templateUrl: './misc-plutus-calculator.component.html',
+  styleUrls: ['./misc-plutus-calculator.component.css']
 })
-export class MiscPlutusNewComponent implements OnInit, OnDestroy {
+export class MiscPlutusCalculatorComponent implements OnInit, OnDestroy {
   url: string = 'https://api.coingecko.com/api/v3/simple/price?ids=pluton&vs_currencies=eur%2Cgbp';
   pluPrice: Pluton = {
     eur: 0,
@@ -22,17 +21,15 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
   subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
   subscriptionTiersDefault: EligibleSpendTier[] = JSON.parse(JSON.stringify(PlutusJson.subscriptionTiers)); // for resetting annual payment changes
-  stackingTiers: PlutusStackingTierNew[] = PlutusWpJson.stackingTiers;
+  stackingTiers: PlutusStackingTier[] = PlutusJson.stackingTiers;
   eligibleSpendTiers: EligibleSpendTier[] = PlutusJson.eligibleSpendTiers;
   eligibleSpendTiersDefault: EligibleSpendTier[] = JSON.parse(JSON.stringify(PlutusJson.eligibleSpendTiers)); // for resetting promo changes
-  promos: Promos[] = PlutusPromos.promos;
+  promos: Promos[] = PlutusPromosJson.promos;
 
   selectedSubscriptionTier = this.subscriptionTiers[0];
   selectedStackingTier = this.stackingTiers[0];
   selectedEligibleSpendTier = this.eligibleSpendTiers[0];
-  selectedStackingTierIndex = 0;
 
-  heldPluCount: number;
   averageMonthlySpend: number;
   currencySymbol: string = "€";
   showSubRequiredMessage: boolean = false;
@@ -44,7 +41,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
   monthlyCashbackValue: number = 0;
   monthlyPerkValue: number = 0;
-  monthlyCryValue: number = 0;
   totalMonthlyValue: number = 0;
   subscriptionCost: number = 0;
   redeemCost: number = 0;
@@ -52,9 +48,22 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   totalYearlyValue: number = 0;
   actualTotalYearlyValue: number = 0;
 
-  doubleRewardsVoucherValue: number = 0;
-  goldenTicketReferralsValue: number = 0;
-  freePayoutValue: number = 0;
+
+
+  superChargedPerksValue: number[] = [0, 0, 0];
+  superChargedPerksActualValue: number[] = [0, 0, 0];
+  goldenTicketReferralsValue: number[] = [0, 0, 0];
+  goldenTicketReferralsActualValue: number[] = [0, 0, 0];
+  doubleRewardsVoucherValue: number[] = [0, 0, 0];
+  doubleRewardsVoucherActualValue: number[] = [0, 0, 0];
+  originalBenefitsValue: number[] = [0, 0, 0];
+
+  superChargedPerksTotalCalc: boolean = true;
+  superChargedPerksActualTotalCalc: boolean = false;
+  goldenTicketReferralsTotalCalc: boolean = true;
+  goldenTicketReferralsActualTotalCalc: boolean = false;
+  doubleRewardsVoucherTotalCalc: boolean = true;
+  doubleRewardsVoucherActualTotalCalc: boolean = false;
 
   totalValue: number[] = [0, 0, 0];
   totalActualValue: number[] = [0, 0, 0];
@@ -98,6 +107,9 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     this.http.get<Coin>(apiUrl).subscribe(data => {
       // The JSON response is now converted into a coin object 
       const plutonData: Coin = data;
+      
+      // console.log(plutonData.pluton.eur);
+      // console.log(plutonData.pluton.gbp);
 
       // add the values into the pluPrice object
       this.pluPrice = plutonData.pluton;
@@ -118,14 +130,6 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   eligibleSpendTierChange(event: any) {
-    this.calculate();
-  }
-
-  heldPluChange($event: any) {
-    if(this.heldPluCount < 0) {
-      this.heldPluCount = undefined;
-    }
-
     this.calculate();
   }
 
@@ -230,17 +234,12 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   
 
   calculate() {
-    this.calculateTier();
     this.calculateCashbackRate();
     this.calculatePerkCount();
     this.calculateEligibleSpend();
 
-    this.calculateMonthlyCashback(); //TODO funky noob stuffs
+    this.calculateMonthlyCashback();
     this.calculateMonthlyPerkValue();
-    this.calculateDoubleRewardsVoucher();
-    this.calculateGoldenTicketValue();
-    this.calculateMonthlyCryValue();
-    this.calculateFreePayoutValue();
 
     this.calculateTotalMonthlyValue();
     this.calculateTotalYearlyValue();
@@ -258,40 +257,16 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     }
   }
 
-  calculateTier() {
-    if (this.heldPluCount == null) {
-      this.selectedStackingTier = this.stackingTiers[0];
-    } else if (this.heldPluCount >= 50000) {
-      this.selectedStackingTier = this.stackingTiers[this.stackingTiers.length - 1];
-      this.selectedStackingTierIndex = this.stackingTiers.length - 1;
-    } else {
-        for (let i = 0; i < this.stackingTiers.length; i++) {
-          if (this.stackingTiers[i].pluRequired > this.heldPluCount) {
-            this.selectedStackingTier = this.stackingTiers[i - 1];
-            this.selectedStackingTierIndex = i - 1;
-            break;
-          }
-        }
-    }
-  }
-
   calculateCashbackRate() {
     if (this.selectedStackingTier.name !== "None") {
-      if (this.selectedStackingTier.cashbackPercentage === this.stackingTiers[this.stackingTiers.length - 1].cashbackPercentage || this.stackingTiers[this.selectedStackingTierIndex + 1].cashbackPercentage < 4) {
-        this.cashbackRate = this.selectedStackingTier.cashbackPercentage;
-      } else {
-        var pluToNextTier = this.stackingTiers[this.selectedStackingTierIndex + 1].pluRequired - this.stackingTiers[this.selectedStackingTierIndex].pluRequired;
-        var extraPlu = this.heldPluCount - this.selectedStackingTier.pluRequired;
-        var incrementalPercentage = Math.floor(extraPlu / pluToNextTier * 10) / 10
-        this.cashbackRate = this.selectedStackingTier.cashbackPercentage + incrementalPercentage;
-      }
+      this.cashbackRate = this.selectedStackingTier.cashbackPercentage;
       return;
     }
 
     if (this.selectedSubscriptionTier.name === "Standard Account") {
       this.cashbackRate = 0;
     } else {
-      this.cashbackRate = this.selectedSubscriptionTier.cashbackPercentage;
+      this.cashbackRate = this.selectedSubscriptionTier.cashbackPercentage
     }
   }
 
@@ -300,11 +275,7 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateEligibleSpend() {
-    if (this.heldPluCount === null || isNaN(this.heldPluCount)) {
-      this.eligibleSpend = this.selectedSubscriptionTier.eligibleSpend + this.selectedEligibleSpendTier.eligibleSpend;
-    } else {
-      this.eligibleSpend = this.selectedSubscriptionTier.eligibleSpend + this.selectedEligibleSpendTier.eligibleSpend + this.heldPluCount;
-    }
+    this.eligibleSpend = this.selectedSubscriptionTier.eligibleSpend + this.selectedEligibleSpendTier.eligibleSpend;
   }
 
   calculateMonthlyCashback() {
@@ -331,49 +302,13 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     } 
     this.monthlyPerkValue = this.perkCount * 10;
   }
-
-  calculateDoubleRewardsVoucher() {
-    // no cashback if user is on standard subscription
-    if (this.selectedSubscriptionTier.name === "Standard Account") { 
-      this.doubleRewardsVoucherValue = 0; 
-      return; 
-    }
-
-    if(this.monthlyCashbackValue > (this.selectedStackingTier.doubleRewards * 20)) {
-      this.doubleRewardsVoucherValue = this.selectedStackingTier.doubleRewards * 20;
-    } else {
-      this.doubleRewardsVoucherValue = this.monthlyCashbackValue;
-    }
-  }
-
-  calculateGoldenTicketValue() {
-    this.goldenTicketReferralsValue = this.selectedStackingTier.goldenTickets * 20;
-  }
-
-  calculateFreePayoutValue() {
-    if (this.selectedStackingTier.freePayouts >= 1 && this.selectedSubscriptionTier.name !== "Standard Account") {
-      this.freePayoutValue = 15;
-    } else {
-      this.freePayoutValue = 0;
-    }
-  }
-
-  calculateMonthlyCryValue() {
-    // to prevent it from calculating NaN check if heldPluCount is not null
-    var intermediateMonthlyValue = this.monthlyCashbackValue + this.monthlyPerkValue + this.doubleRewardsVoucherValue + this.goldenTicketReferralsValue;
-    if(this.heldPluCount != null) {
-      this.monthlyCryValue = ((this.heldPluCount / 12) + intermediateMonthlyValue) * (this.cashbackRate / 100) * 2;
-    } else {
-      this.monthlyCryValue = intermediateMonthlyValue * (this.cashbackRate / 100) * 2;
-    }
-   }
   
   calculateTotalMonthlyValue() {
-    this.totalMonthlyValue = this.monthlyCashbackValue + this.monthlyPerkValue + this.doubleRewardsVoucherValue + this.goldenTicketReferralsValue + this.freePayoutValue + this.monthlyCryValue;
+    this.totalMonthlyValue = this.monthlyCashbackValue + this.monthlyPerkValue;
   }
 
   calculateTotalYearlyValue() {
-    this.totalYearlyValue = (this.totalMonthlyValue * 12);
+    this.totalYearlyValue = this.totalMonthlyValue * 12;
   }
 
   calculateSubscriptionCost() {

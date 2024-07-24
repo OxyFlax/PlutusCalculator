@@ -280,15 +280,6 @@ input[type=number] {
     transform: translateY(50%);
 }
 
-.stackingTitle {
-    padding-top: 20px;
-    margin: 0px;
-    text-align: center;
-    font-size: 30px;
-    color: rgb(38, 73, 236);
-    transform: translateY(75px);
-}
-
 .overviewItem {
     background-color: #001271;
     border-radius: 20px;
@@ -634,14 +625,6 @@ hr {
         height: 48px;
         padding-bottom: 25px;
     }
-}
-
-.visible {
-    visibility: visible;
-}
-
-.hidden {
-    visibility: hidden;
 }
 
 @media only screen and (max-width: 453px) {
