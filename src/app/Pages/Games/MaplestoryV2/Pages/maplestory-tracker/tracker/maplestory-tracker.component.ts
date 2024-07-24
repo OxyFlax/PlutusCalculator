@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import DailiesJsonV2 from '../../../../../../../assets/Games/Maplestory/DailiesV2.json';
+import DailiesJsonV3 from '../../../../../../../assets/Games/Maplestory/DailiesV3.json';
 import { Meta, Title } from '@angular/platform-browser';
 import { GeneralData } from '../../../Models/generalData';
 import { CharacterData } from '../../../Models/characterData';

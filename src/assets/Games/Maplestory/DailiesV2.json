@@ -1,5 +1,5 @@
 {
-    "version": "9.5",
+    "version": "9.6",
     "imagePrefix": "MapleDailies/",
     "taskGroups": [
         {
@@ -95,7 +95,7 @@
                 },
                 {
                     "name": "Mori Ranmaru",
-                    "image": "Ranmaru.png",
+                    "image": "MoriRanmaru.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
@@ -132,16 +132,8 @@
             "title": "Daily Tasks",
             "tasks": [
                 {
-                    "name": "Monster Park Regular",
+                    "name": "Monster Park",
                     "image": "MonsterPark.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "true"
-                },
-                {
-                    "name": "Monster Park Extreme",
-                    "image": "MPE.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
@@ -210,15 +202,15 @@
             "title": "Arcane River Dailies",
             "tasks": [
                 {
-                    "name": "Vanishing Journey",
-                    "image": "VJ.png",
+                    "name": "Vanishing Journey Daily",
+                    "image": "VanishingJourney.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
                     "dispCon": "true"
                 },
                 {
-                    "name": "Chu Chu",
+                    "name": "Chu Chu Daily",
                     "image": "ChuChu.png",
                     "done": false,
                     "enabled": true,
@@ -226,7 +218,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Lachelein",
+                    "name": "Lachelein Daily",
                     "image": "Lachelein.png",
                     "done": false,
                     "enabled": true,
@@ -234,7 +226,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Arcana",
+                    "name": "Arcana Daily",
                     "image": "Arcana.png",
                     "done": false,
                     "enabled": true,
@@ -242,7 +234,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Morass",
+                    "name": "Morass Daily",
                     "image": "Morass.png",
                     "done": false,
                     "enabled": true,
@@ -250,7 +242,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Esfera",
+                    "name": "Esfera Daily",
                     "image": "Esfera.png",
                     "done": false,
                     "enabled": true,
@@ -258,24 +250,8 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Moonbridge",
-                    "image": "Moonbridge.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "true"
-                },
-                {
-                    "name": "Labyrinth of Suffering",
-                    "image": "LoS.png",
-                    "done": false,
-                    "enabled": true,
-                    "type": "default",
-                    "dispCon": "true"
-                },
-                {
-                    "name": "Limina",
-                    "image": "Limina.png",
+                    "name": "Tenebris  Research",
+                    "image": "Tenebris.png",
                     "done": false,
                     "enabled": true,
                     "type": "default",
@@ -288,7 +264,7 @@
             "title": "Grandis Dailies",
             "tasks": [
                 {
-                    "name": "Cernium",
+                    "name": "Cernium Daily",
                     "image": "Cernium.png",
                     "done": false,
                     "enabled": true,
@@ -296,7 +272,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Arcus",
+                    "name": "Arcus Daily",
                     "image": "Arcus.png",
                     "done": false,
                     "enabled": true,
@@ -304,7 +280,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Odium",
+                    "name": "Odium Daily",
                     "image": "Odium.png",
                     "done": false,
                     "enabled": true,
@@ -312,7 +288,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Shangri-La",
+                    "name": "Shangri-La Daily",
                     "image": "ShangriLa.png",
                     "done": false,
                     "enabled": true,
@@ -320,7 +296,7 @@
                     "dispCon": "true"
                 },
                 {
-                    "name": "Arteria",
+                    "name": "Arteria Daily",
                     "image": "Arteria.png",
                     "done": false,
                     "enabled": true,
@@ -328,7 +304,7 @@
                     "dispCon": "true"  
                 },
                 {
-                    "name": "Carcion",
+                    "name": "Carcion Daily",
                     "image": "Carcion.png",
                     "done": false,
                     "enabled": true,

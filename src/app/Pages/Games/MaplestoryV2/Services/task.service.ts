@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import DailiesJsonV2 from '../../../../../assets/Games/Maplestory/DailiesV2.json';
+import DailiesJsonV3 from '../../../../../assets/Games/Maplestory/DailiesV3.json';
 import WeekliesJsonV2 from '../../../../../assets/Games/Maplestory/WeekliesV2.json';
 import { TaskGroup, Task } from "../Models/trackerData";
 import { GeneralData } from '../Models/generalData';
@@ -12,10 +12,10 @@ import { CharacterData } from '../Models/characterData';
 export class TaskService {
 
     dailyUpdateChecker(generalData: GeneralData) {
-        if (DailiesJsonV2.version !== generalData.trackerInfo.dailyVersion) {
+        if (DailiesJsonV3.version !== generalData.trackerInfo.dailyVersion) {
             this.updateDailyTaskStructure(generalData);
             console.log("did updating");
-            generalData.trackerInfo.dailyVersion = DailiesJsonV2.version;
+            generalData.trackerInfo.dailyVersion = DailiesJsonV3.version;
             localStorage.setItem("generalData", JSON.stringify(generalData));
         }
     }
@@ -24,7 +24,7 @@ export class TaskService {
         for (let i = 0; i < generalData.characters.length; i++) {
             var characterData: CharacterData = JSON.parse(localStorage.getItem(generalData.characters[i].characterStorageReference));
             // make a copy as this has data being removed from it so it needs refreshing
-            var newTaskGroups: TaskGroup [] = DailiesJsonV2.taskGroups;
+            var newTaskGroups: TaskGroup [] = DailiesJsonV3.taskGroups;
 
             // TODO: in future if a new taskgroup is added make sure this is done
             // check if there are more task groups in the new data (aka if a new group is added). As the for loop bases it self on the new taskgroup length it will error out if it does not exist in the old data.
