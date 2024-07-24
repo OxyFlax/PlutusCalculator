@@ -1,7 +1,4 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
-@import "@fontsource/gothic-a1/300.css";
-@import "@fontsource/gothic-a1/400.css";
-@import "@fontsource/gothic-a1/900.css";
 
 @font-face {
     font-family: "Lemon Milk";
@@ -13,6 +10,24 @@
     font-family: "Lemon Milk";
     src: url('src\assets\fonts\LEMONMILK-Medium.otf');
     font-weight: 500;
+}
+
+@font-face {
+    font-family: "Gothic A1";
+    src: url('src\assets\fonts\GothicA1-Light.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: "Gothic A1";
+    src: url('src\assets\fonts\GothicA1-Regular.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Gothic A1";
+    src: url('src\assets\fonts\GothicA1-Black.ttf');
+    font-weight: 900;
 }
 
 :root {
