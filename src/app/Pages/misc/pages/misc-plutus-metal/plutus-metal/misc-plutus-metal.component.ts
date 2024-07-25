@@ -78,9 +78,6 @@ export class MiscPlutusMetalComponent implements OnInit, OnDestroy {
       // The JSON response is now converted into a coin object 
       const usdData: Fiat = data;
       
-      console.log(usdData.tether.eur);
-      console.log(usdData.tether.gbp);
-
       // add the values into the pluPrice object
       this.tetherPrice = usdData.tether;
 

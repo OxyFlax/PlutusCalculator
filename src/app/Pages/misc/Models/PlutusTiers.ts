@@ -18,6 +18,7 @@ export interface PlutusStackingTierNew {
   name: string;
   pluRequired: number;
   cashbackPercentage: number;
+  cryRate: number;
   perkCount: number;
   stackablePerkCount: number;
   freePayouts: number;

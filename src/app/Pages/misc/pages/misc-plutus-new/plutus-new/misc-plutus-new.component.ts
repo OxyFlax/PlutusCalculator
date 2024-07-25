@@ -3,7 +3,7 @@ import PlutusJson from '../../../../../../assets/Misc/PlutusTiers.json';
 import PlutusWpJson from '../../../../../../assets/Misc/PlutusTiersWP.json';
 import PlutusPromos from '../../../../../../assets/Misc/PlutusPromos.json';
 import { Meta, Title } from '@angular/platform-browser';
-import { PlutusSubscriptionTier, PlutusStackingTierNew, EligibleSpendTier, Coin, Pluton, Promos } from '../../../Models/PlutusTiers';
+import { PlutusSubscriptionTier, PlutusStackingTierNew, EligibleSpendTier, Coin, Pluton, Promos, Tether, Fiat } from '../../../Models/PlutusTiers';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -15,9 +15,15 @@ import { Observable } from 'rxjs';
 })
 export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   url: string = 'https://api.coingecko.com/api/v3/simple/price?ids=pluton&vs_currencies=eur%2Cgbp';
+  url2: string = 'https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=eur%2Cgbp';
   pluPrice: Pluton = {
     eur: 0,
     gbp: 0
+  };
+
+  tetherPrice: Tether = {
+    eur: 0.921946,
+    gbp: 0.776655
   };
 
   subscriptionTiers: PlutusSubscriptionTier[] = PlutusJson.subscriptionTiers;
@@ -86,10 +92,26 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     }
 
     // warning this fetch is not waited on, so if used for calculations, run the calculation again in this function.
+    this.fetchTetherPrice();
     this.fetchPluPrice();
 
     //this also calls the calculate function
     this.applyPromos();
+  }
+
+  fetchTetherPrice() {
+    const apiUrl = this.url2; // Replace with your API URL
+  
+    this.http.get<Fiat>(apiUrl).subscribe(data => {
+      // The JSON response is now converted into a coin object 
+      const usdData: Fiat = data;
+
+      // add the values into the pluPrice object
+      this.tetherPrice = usdData.tether;
+
+      // run the calculate in here to refresh the golden ticket price and totals
+      this.calculate();
+    });
   }
 
   fetchPluPrice() {
@@ -347,7 +369,11 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   }
 
   calculateGoldenTicketValue() {
-    this.goldenTicketReferralsValue = this.selectedStackingTier.goldenTickets * 20;
+    if (this.currencySymbol === "€") {
+      this.goldenTicketReferralsValue = this.selectedStackingTier.goldenTickets * 20 * this.tetherPrice.eur;
+    } else {
+      this.goldenTicketReferralsValue = this.selectedStackingTier.goldenTickets * 20 * this.tetherPrice.gbp;
+    }
   }
 
   calculateFreePayoutValue() {
@@ -361,10 +387,17 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
   calculateMonthlyCryValue() {
     // to prevent it from calculating NaN check if heldPluCount is not null
     var intermediateMonthlyValue = this.monthlyCashbackValue + this.monthlyPerkValue + this.doubleRewardsVoucherValue + this.goldenTicketReferralsValue;
-    if(this.heldPluCount != null) {
-      this.monthlyCryValue = ((this.heldPluCount / 12) + intermediateMonthlyValue) * (this.cashbackRate / 100) * 2;
+    var cryRate = 0;
+    if (this.cashbackRate == 3) {
+      cryRate = this.selectedStackingTier.cryRate / 100;
     } else {
-      this.monthlyCryValue = intermediateMonthlyValue * (this.cashbackRate / 100) * 2;
+      cryRate = this.cashbackRate / 100;
+    }
+
+    if(this.heldPluCount != null) {
+      this.monthlyCryValue = ((this.heldPluCount / 12) + intermediateMonthlyValue) * cryRate * 2;
+    } else {
+      this.monthlyCryValue = intermediateMonthlyValue * cryRate * 2;
     }
    }
   
