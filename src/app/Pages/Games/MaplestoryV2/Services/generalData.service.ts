@@ -3,7 +3,7 @@ import { GeneralData } from '../Models/generalData';
 import { CharacterInfo, CharacterData } from '../Models/characterData';
 import { FlameData, FlameValues , Flame } from '../Models/flameData';
 import { ArcaneSymbolData, SacredSymbolData } from '../Models/symbolData';
-import DailiesJson from '../../../../../assets/Games/Maplestory/DailiesV2.json';
+import DailiesJson from '../../../../../assets/Games/Maplestory/DailiesV3.json';
 import WeekliesJson from '../../../../../assets/Games/Maplestory/WeekliesV2.json';
 
 @Injectable({

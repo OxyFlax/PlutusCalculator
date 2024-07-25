@@ -115,16 +115,17 @@
     text-align: center;
 }
 
-.averageSpendInput {
+.averageSpendInput, .pluHeldInput {
     width: 208px;
     border: 1px solid #0921B4;
     border-radius: 30px;
     height: 36px;
     padding-left: 18px;
-    margin-right: 24px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
-.averageSpendInput:focus {
+.averageSpendInput:focus, .pluHeldInput:focus {
     outline: none;
 }
 
@@ -147,6 +148,8 @@ input[type=number] {
     font-family: monospace;
     font-size: 14px;
     font-weight: bold;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .requiredSubInfo {
@@ -556,6 +559,10 @@ hr {
         margin-top: 10px;
     }
 
+    .stackingTitle {
+        transform: none;
+    }
+
     .outputWrapper {
         width: 100%;
         padding-top: 25px;
@@ -566,6 +573,10 @@ hr {
         width: 230px;
     }
 
+    .header p {
+        height: 40px;
+    }
+
     .values {
         width: 200px;
         padding-top: 9px;
@@ -574,6 +585,8 @@ hr {
 
     .values p {
         padding: 18px 0px 12px 0px;
+        height: 40px;
+        line-height: 2;
     }
 
     .values p:last-child {
