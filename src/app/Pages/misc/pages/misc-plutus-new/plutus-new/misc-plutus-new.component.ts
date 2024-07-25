@@ -40,6 +40,8 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
   heldPluCount: number;
   averageMonthlySpend: number;
+  selectedGoldenTicketsAmount: number = 0;
+  eligibleTicketsPerYear: number[] = [0];
   currencySymbol: string = "€";
   showSubRequiredMessage: boolean = false;
   showPromotions: boolean = false;
@@ -158,6 +160,10 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
 
     //always run calculate incase the field is cleared
     this.calculate();
+  }
+
+  goldenTicketsAmountChange() {
+    this.calculateGoldenTicketValue();
   }
 
   togglePromoVisiblity() {
@@ -287,13 +293,9 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
       this.selectedStackingTier = this.stackingTiers[this.stackingTiers.length - 1];
       this.selectedStackingTierIndex = this.stackingTiers.length - 1;
     } else {
-        for (let i = 0; i < this.stackingTiers.length; i++) {
-          if (this.stackingTiers[i].pluRequired > this.heldPluCount) {
-            this.selectedStackingTier = this.stackingTiers[i - 1];
-            this.selectedStackingTierIndex = i - 1;
-            break;
-          }
-        }
+      this.selectedStackingTierIndex = this.stackingTiers.findIndex(stackingTier => stackingTier.pluRequired > this.heldPluCount);
+      this.selectedStackingTier = this.stackingTiers[this.selectedStackingTierIndex];
+      this.updateGoldenTicketToggle();
     }
   }
 
@@ -368,12 +370,14 @@ export class MiscPlutusNewComponent implements OnInit, OnDestroy {
     }
   }
 
+  updateGoldenTicketToggle() {
+    this.eligibleTicketsPerYear = Array.from({length: (this.selectedStackingTier.goldenTickets) * 12 + 1}, (x, i) => i);
+    this.selectedGoldenTicketsAmount = this.selectedStackingTier.goldenTickets * 12;
+    this.calculateGoldenTicketValue();
+  }
+
   calculateGoldenTicketValue() {
-    if (this.currencySymbol === "€") {
-      this.goldenTicketReferralsValue = this.selectedStackingTier.goldenTickets * 20 * this.tetherPrice.eur;
-    } else {
-      this.goldenTicketReferralsValue = this.selectedStackingTier.goldenTickets * 20 * this.tetherPrice.gbp;
-    }
+    this.goldenTicketReferralsValue = this.selectedGoldenTicketsAmount * 20 / 12;
   }
 
   calculateFreePayoutValue() {

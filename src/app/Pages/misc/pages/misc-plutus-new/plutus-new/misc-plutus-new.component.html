@@ -35,6 +35,14 @@
     <div class="secondaryInputWrapper">
         <input class="averageSpendInput" type="number" min="0" max="20000" placeholder="Enter Average Monthly Spend" [(ngModel)]="averageMonthlySpend" (input)="averageSpendChange($event)"/>
         <button class="promoButton" (click)="togglePromoVisiblity()"><span *ngIf="!showPromotions">Show Promotions </span><span *ngIf="showPromotions">Hide Promotions </span><div [ngClass]="(showPromotions) ? 'arrow-up' : 'arrow-down'"></div></button>
+        <div class="inputLabelWrapper goldenTicketWrapper">
+            <label for="goldenTicketsUsed">Golden tickets (yearly)</label>
+            <ng-select name="goldenTicketsUsed" [searchable]="false" [clearable]="false" [(ngModel)]="selectedGoldenTicketsAmount" (change)="goldenTicketsAmountChange()">
+                <ng-option *ngFor="let r of eligibleTicketsPerYear" [value]="r">
+                    <span>&nbsp;{{ r }}</span>
+                </ng-option>
+             </ng-select>
+        </div>
     </div>
 
     <!-- shows info text if users has a stack or redeem without having a sub -->
@@ -84,7 +92,7 @@
                 <p>Cashback Rewards</p>
                 <p>Perk Rewards</p>
                 <p>x2 Rewards Vouchers ({{selectedStackingTier.doubleRewards}})</p>
-                <p>Golden Tickets ({{selectedStackingTier.goldenTickets}})</p>
+                <p>Golden Tickets (avg {{selectedGoldenTicketsAmount / 12 | number : '1.0-2'}} / max {{selectedStackingTier.goldenTickets}})</p>
                 <p>Monthly CRY</p>
                 <p>Free Payouts ({{selectedStackingTier.freePayouts}})</p>
                 <p>Monthly Value</p>

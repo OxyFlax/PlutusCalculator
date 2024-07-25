@@ -62,7 +62,11 @@
     float: left;
 }
 
-.inputWrapper label {
+.goldenTicketWrapper {
+    float: unset;
+}
+
+.inputWrapper label, .secondaryInputWrapper label {
     color: rgb(38, 73, 236);
     font-weight: bold;
     font-size: 20px;
@@ -125,6 +129,10 @@
     margin-right: 12px;
 }
 
+.averageSpendInput {
+    margin-top: 32.5px;
+}
+
 .averageSpendInput:focus, .pluHeldInput:focus {
     outline: none;
 }
@@ -150,6 +158,7 @@ input[type=number] {
     font-weight: bold;
     margin-left: 12px;
     margin-right: 12px;
+    margin-top: 32.5px;
 }
 
 .requiredSubInfo {
@@ -524,6 +533,7 @@ hr {
 
     .promoButton {
         width: 230px;
+        margin-top: 0;
     }
 
     .promoSelectionScreen {
